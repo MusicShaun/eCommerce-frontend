@@ -16,8 +16,17 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/components/*": ["components/*"],
+      "@/app/*": ["app/*"],
+      "@/pages/*": ["pages/*"],
+      "@/users/*": ["users/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/styles/*": ["styles/*"],
+      "@/config/*": ["config/*"],
+      "@/images/*": ["images/*"],
+      
+    } ,
+
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

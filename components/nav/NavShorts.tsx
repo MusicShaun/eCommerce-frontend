@@ -14,8 +14,8 @@ export default function NavShorts({ setNavShorts }: IProps) {
 
   const threeNavPics = [shoe, shoe, shoe]
   
-  const clothes: Clothes | undefined = useAppSelector(selectClothesData)
-  const clothesInfo: object = clothes?.data.shorts ? clothes.data.shorts : {}
+  const clothes = useAppSelector(selectClothesData)
+  const clothesInfo: object = clothes?.shorts ? clothes.shorts : {}
 
   let shortName: string[] = Object.values(clothesInfo).map((i: ClotheType) => { return i.name})
 

@@ -1,4 +1,4 @@
-import MyAccountLayout from './Layout'
+import MyAccountLayout from '../../components/Layout'
 import React from 'react'
 import UserLanding from './UserLanding'
 

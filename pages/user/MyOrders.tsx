@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Empty from './Empty'
-import MyAccountLayout from './Layout'
+import MyAccountLayout from '../../components/Layout'
 
 export default function MyOrders() {
 

@@ -1,25 +1,23 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
-import Men from './men/Men'
 import styled from 'styled-components'
 import Banner from '@/components/Banner'
-import { extendedClothesSlice, selectClothesData, useGetAllClothesQuery , Clothes} from 'lib/clothesSlice'
-import { store } from 'lib/store'
+import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheType} from 'lib/clothesSlice'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
-store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
-
+extendedClothesSlice.endpoints.getAllClothes.initiate()
 
 export default function Home() {
 
-  const Clothes: Clothes | undefined = useAppSelector(selectClothesData)
-  let randomClothes: any[]
-  
+  const selectAll = useAppSelector(selectAllClothes)
+  let randomClothes: ClotheType[] = []
+
+
+
   const {
     isLoading,
     isSuccess,
@@ -27,17 +25,18 @@ export default function Home() {
     error
   } = useGetAllClothesQuery()
 
+
   if (isLoading) {
     console.log('LOADING')
   } else if (isSuccess) {
-    randomClothes = [...Object.values(Clothes!.data.shirts),
-      ...Object.values(Clothes!.data.shorts),
-      ...Object.values(Clothes!.data.shoes)
-      ].sort(() => Math.random() - 0.5)
     console.log('SUCCESS')
+    randomClothes = [...selectAll].sort(() => Math.random() - 0.5)
   } else if (isError) {
     console.log(JSON.stringify(error))
   }
+
+
+
 
   const firstBanner = {
     banner: '#95f7e5',

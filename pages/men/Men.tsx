@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Banner from '@/components/Banner'
 import styled from 'styled-components'
 import React, { useEffect } from 'react'
-import { ClotheType, Clothes, extendedClothesSlice, selectClothesData, useGetAllClothesQuery } from 'lib/clothesSlice'
+import { ClotheType, selectAllClothes, useGetAllClothesQuery } from 'lib/clothesSlice'
 import { store } from 'lib/store'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
@@ -10,8 +10,8 @@ import { useAppSelector } from 'lib/hooks/hooks'
 
 export default function Men() {
 
-  const Clothes = useAppSelector(selectClothesData)
-  
+  const selectAll = useAppSelector(selectAllClothes)
+
   const {
     isLoading,
     isSuccess,
@@ -19,12 +19,9 @@ export default function Men() {
     error
   } = useGetAllClothesQuery()
 
-  let randomClothes: any[] = []
+  let randomClothes: ClotheType[] = []
   if (isSuccess) {
-    randomClothes = [...Object.values(Clothes!.data.shirts),
-    ...Object.values(Clothes!.data.shorts),
-    ...Object.values(Clothes!.data.shoes)
-    ].sort(() => Math.random() - 0.5)
+    randomClothes = [...selectAll].sort(() => Math.random() - 0.5)
   }
 
   const info = {

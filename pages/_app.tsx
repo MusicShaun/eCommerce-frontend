@@ -10,7 +10,7 @@ import { store } from 'lib/store'
 import { extendedClothesSlice } from 'lib/clothesSlice'
 
 
-store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
+// store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
 
 
 export default function App({ Component, pageProps }: AppProps) {

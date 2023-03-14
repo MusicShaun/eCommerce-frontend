@@ -1,11 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
 import Empty from './Empty'
-import MyAccountLayout from './Layout'
+import MyAccountLayout from '../../components/Layout'
+import { removeWishList, selectWishList } from 'lib/userSlice'
+import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
+import ClothesCard from '@/components/ClothesCard'
+import { ClotheType } from 'lib/clothesSlice'
+
+
 
 
 export default function WishList() {
 
+  const dispatch = useAppDispatch()
+  const wishlist = useAppSelector(selectWishList)  
+
+  function handleRemoveItemFromWishList(_id: string) {
+    let helper: ClotheType[]
+    if (wishlist) {
+      helper = wishlist.filter((l: any) => l._id !== _id)
+      if (helper) {
+        dispatch(removeWishList(helper))
+      }
+    }
+  }
+  
   const EmptyWishList = {
     title: `You currently have no Wishlist items.`,
     body: `Best get shopping`,
@@ -13,8 +32,18 @@ export default function WishList() {
   }
   let content 
 
-  if (false) {
-
+  if (wishlist.length > 0) {
+    content = 
+      <WishContainer>
+        <div>
+          {wishlist.map((item: any, index: number) => {
+            return <ClothesCard info={item} key={index}
+              handleAddClotheItemToWishList={handleRemoveItemFromWishList} 
+            />
+            })}
+        </div>
+      </WishContainer>
+      
   } else {
     content =
       <Container>
@@ -44,4 +73,26 @@ const First = styled.div`
   align-items: center;
   padding: 20px;
   margin-bottom: 20px;
+`
+const WishContainer = styled.div`
+  max-width: 1300px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    width: 100%;
+    height: auto;
+    
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 270px));
+    grid-template-rows: auto;
+    justify-content: center;
+
+    padding: 20px;
+    margin: auto 0px;
+    gap: 20px;
+  }
 `

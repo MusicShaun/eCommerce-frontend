@@ -76,12 +76,13 @@ const  Box = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   width: 500px;
+  height: 100%;
 `
 const Tab = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
-  width: 60px;
+  width: 100%;
   border: none;
 
   & span {

@@ -12,10 +12,10 @@ interface IProps {
 }
 export default function Nav4Panel({ setNavShoes }:IProps) {
   
-  const clothes: Clothes | undefined  = useAppSelector(selectClothesData)
+  const clothes = useAppSelector(selectClothesData)
   const threeNavPics = [shoe, shoe, shoe]
 
-  let clothesInfo: ClotheType | object = clothes?.data.shirts ? clothes.data!.shirts : {}
+  let clothesInfo: ClotheType | object = clothes?.shirts ? clothes!.shirts : {}
 
   let shoesBrand: string[] = (Object.values(clothesInfo)).map((l: ClotheType) => {return l.brand})
   let shoesName: string[] = (Object.values(clothesInfo)).map((l: ClotheType) => {return l.name})

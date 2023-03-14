@@ -2,11 +2,17 @@ import Link from 'next/link'
 import router from 'next/router'
 import React from 'react'
 import styled from 'styled-components'
+import { useAppDispatch } from 'lib/hooks/hooks'
+import { apiSlice } from 'lib/apiSlice'
+
 
 export default function NavUserDropdown() {
 
+  const dispatch = useAppDispatch()
+
   function handleLogout() {
-    localStorage.removeItem('userInfo')
+    localStorage.removeItem('key')
+    dispatch(apiSlice.util.resetApiState())
     router.push('/login/LoginWrapper', '/login', {shallow: true})
   }
 

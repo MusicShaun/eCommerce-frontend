@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Banner from '@/components/Banner'
 import styled from 'styled-components'
 import React, { useEffect } from 'react'
-import { ClotheType, Clothes, extendedClothesSlice, selectClothesData, useGetAllClothesQuery } from 'lib/clothesSlice'
+import { ClotheType, Clothes, extendedClothesSlice, selectAllClothes, selectClothesData, useGetAllClothesQuery } from 'lib/clothesSlice'
 import { store } from 'lib/store'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
@@ -12,9 +12,10 @@ import { useAppSelector } from 'lib/hooks/hooks'
 
 export default function Women() {
 
-  const Clothes: Clothes | undefined = useAppSelector(selectClothesData)
-  
-  
+  const selectAll = useAppSelector(selectAllClothes)
+  let randomClothes: ClotheType[] = []
+
+
   const {
     isLoading,
     isSuccess,
@@ -22,13 +23,16 @@ export default function Women() {
     error
   } = useGetAllClothesQuery()
 
-  let randomClothes: any[] = []
-  if (isSuccess) {
-    randomClothes = [...Object.values(Clothes!.data.shirts),
-    ...Object.values(Clothes!.data.shorts),
-    ...Object.values(Clothes!.data.shoes)
-    ].sort(() => Math.random() - 0.5)
+
+  if (isLoading) {
+    console.log('LOADING')
+  } else if (isSuccess) {
+    console.log('SUCCESS')
+    randomClothes = [...selectAll].sort(() => Math.random() - 0.5)
+  } else if (isError) {
+    console.log(JSON.stringify(error))
   }
+
 
   const firstBanner = {
     banner: '#ff82bc',

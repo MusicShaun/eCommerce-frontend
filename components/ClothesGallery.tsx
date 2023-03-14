@@ -1,41 +1,53 @@
-
 import styled from "styled-components"
 import ClothesCard from "./ClothesCard"
 import { useState, useEffect } from 'react'
 import { ClotheType } from "lib/clothesSlice"
+import { useAppSelector } from "lib/hooks/hooks"
+import { selectCurrentUser, useAddWishListItemMutation } from "lib/userSlice"
+import { useHandleWishlistProcessing } from "lib/hooks/useHandleWishlistProcessing"
 
 interface IProps { 
-  info: unknown[]
+  info: ClotheType[]
 }
 
 export default function ClothesGallery({ info }: IProps) {
-  
+
   const [theWidth, setTheWidth] = useState<number>(33)
+  const [addWistListItem, { isLoading, isSuccess, data, isError, error }] = useAddWishListItemMutation()
+  const currentUser = useAppSelector(selectCurrentUser)
+  const handleWishlistProcessing = useHandleWishlistProcessing()
 
- //* ADJUST SIZE OF TILES PER PAGE WIDTH
-  // useEffect(() => {
-  //   if (onlyWidth > 1080) {
-  //     setTheWidth(25)
-  //   } else if (onlyWidth > 810) {
-  //     setTheWidth(33)
-  //   } else if (onlyWidth > 570) {
-  //     setTheWidth(40)
-  //   } else  {
-  //     setTheWidth(51)
-  //   }
-  // }, [onlyWidth])
+  useEffect(() => {
+    localStorage.setItem('key', JSON.stringify(currentUser))
+  }, [currentUser])
 
- 
+
+  async function handleAddClotheItemToWishList(_id: string) {
+    const spreadWishList = handleWishlistProcessing(_id)
+    try {
+      const res = await addWistListItem({
+        ...spreadWishList,
+      }).unwrap()
+      localStorage.setItem('key', JSON.stringify(res))
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   let content
   if (info) {
     content =
       <Box >
-      {
-        info.map((item: any, index: number) =>
-          <ClothesCard info={item} key={index} containerWidth={theWidth} />)
-      }
+        {
+          info.map((item: any, index: number) =>
+            <ClothesCard
+              info={item} key={index} containerWidth={theWidth}
+              handleAddClotheItemToWishList={handleAddClotheItemToWishList}
+            />)
+        }
       </Box>
+  } else if (!info) {
+    content = null
   }
 
   return (
@@ -77,6 +89,4 @@ const Box = styled.div`
   padding: 20px;
   margin: auto 0px;
   gap: 20px;
-
-
 `

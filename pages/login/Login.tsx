@@ -1,23 +1,48 @@
-import React, { SyntheticEvent } from 'react'
+import React, { SyntheticEvent, useEffect } from 'react'
 import styled from 'styled-components'
 import InfoCenter from './InfoCenter'
-import { useLoginUserMutation } from 'lib/userSlice'
 import router from 'next/router'
+import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
+import { useLoginMutation } from 'lib/userSlice'
+import { selectCurrentUser } from 'lib/authSlice'
 
 export default function login() {
 
-  const [loginUser, { isLoading }] = useLoginUserMutation()
+  const dispatch = useAppDispatch()
 
+  // Check if token in localStorage has expired. If not, redirect to home
+  // useEffect(() => {
+  //   const cached = localStorage.getItem('key')
+  //   if (cached) {
+  //     const { expires_at } = JSON.parse(cached)
+  // CHECK IF THE TOKEN IS EMPOTY FIRST
+  //     if (Date.now() < expires_at) {
+  //       router.push('/')
+  //     }
+  //   }
+  // }, [])
+
+
+  const [login, { isLoading, isSuccess, isError, error, data }] = useLoginMutation()
+
+  const user = useAppSelector(selectCurrentUser)
+
+  // Submit login form // Set localStorage // push user to state 
   async function handleSubmit(e: any) {
     e.preventDefault()
     const data = new FormData(e.target)
 
     try {
-      await loginUser({
-        email: data.get('email') as string,
-        password: data.get('password') as string
+      const data = await login({
+        email: 'kkk@kkk.com',
+        password: '12345678'
       }).unwrap()
+        // email: data.get('email') as string,
+        // password: data.get('password') as string
+      localStorage.setItem('key', JSON.stringify(data))
+      console.log('USER LOGIN COMPLETE')
       router.push('/')
+      
     } catch (err) {
       console.log(err)
     }
@@ -32,11 +57,11 @@ export default function login() {
           <FieldSetBox>
             <Field>
               <label htmlFor='email'>EMAIL ADDRESS</label>
-              <input name='email'  type='email' id='email' autoComplete='email username'/>
+              <input name='email'  type='email' id='email' autoComplete='email username' value='kkk@kkk.com' />
             </Field>
             <Field>
               <label htmlFor='password'>PASSWORD</label>
-              <input name='password' type='text' id='password' autoComplete='password'/>
+              <input name='password' type='text' id='password' autoComplete='password' value='12345678'/>
             </Field>
           </FieldSetBox>
           <FieldSetBox>

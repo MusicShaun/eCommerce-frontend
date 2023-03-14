@@ -3,7 +3,7 @@ import shoe from '@/images/shoeExample.webp'
 import NavMenuList from '@/components/nav/NavMenu_List'
 import NavMenuLargeImageTiles from '@/components/nav/NavMenu_LargeImageTiles'
 import { Dispatch, SetStateAction } from 'react'
-import { ClotheType, Clothes, selectClothesData } from 'lib/clothesSlice'
+import { ClotheType, Clothes, selectClothesData, selectShirts } from 'lib/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 
 interface IProps {
@@ -14,11 +14,15 @@ export default function Nav4Panel({ setNavShirts }: IProps) {
 
   const product_type = ['sneaker', 'hitop', 'loafer', 'joggers', 'cancer']
   const threeNavPics = [shoe, shoe , shoe]
-
-  const clothes: Clothes | undefined = useAppSelector(selectClothesData)
-  let clothesInfo: object = clothes?.data.shirts ? clothes.data!.shirts : {}
+  const shirtsOnly = useAppSelector(selectShirts)
+  const clothes = useAppSelector(selectClothesData)
+  let clothesInfo: object = clothes?.shirts ? clothes!.shirts : {}
   
   let shirtsName: string[] = Object.values(clothesInfo).map((i: ClotheType) => { return i.name})
+
+  console.log(clothes)
+  console.log(shirtsOnly)
+
 
   return (
     <BoxContainer

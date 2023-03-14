@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React from 'react'
-import Sidebar from './Sidebar'
+import Sidebar from '../pages/user/Sidebar'
 
 
 
@@ -26,7 +26,7 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
 
 const Wrapper = styled.main`
   position: relative; 
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
   margin-top: 60px;
   width: 100%;
   display: flex;

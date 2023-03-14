@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import MyAccountLayout from './Layout'
+import MyAccountLayout from '../../components/Layout'
 
 import React, { useEffect, useRef, useState } from 'react'
 

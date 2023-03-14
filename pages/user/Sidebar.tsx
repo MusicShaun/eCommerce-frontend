@@ -1,13 +1,29 @@
 import styled from "styled-components"
-import { userData } from '../../userData'
 import Link from "next/link"
 import router from "next/router"
+import { apiSlice } from "lib/apiSlice"
+import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
+import WishList from "./WishList"
+import { selectCurrentUser } from "lib/userSlice"
 
 export default function Sidebar() {
   
+  const dispatch = useAppDispatch()
+  const user = useAppSelector(selectCurrentUser)
+  // const wishlist = useAppSelector(selectWishList)
+
   function handleSignout() {
-    localStorage.removeItem('userInfo')
-    router.push('/', '/', {shallow: true})
+    localStorage.removeItem('key')
+    dispatch(apiSlice.util.resetApiState())
+    router.push('/login/LoginWrapper', '/login', {shallow: true})
+  }
+
+
+  function userIsNotNull(check: string | null | undefined): string {
+    if (typeof check === 'string') {
+      return check
+    } 
+    return ''
   }
 
   return (
@@ -18,13 +34,16 @@ export default function Sidebar() {
         }}>
         <Circle>
           <h1>
-          {userData.firstName.charAt(0)}
-          {userData.lastName.charAt(0)}
+          {userIsNotNull(user?.profile.given_name).charAt(0)}
+          {userIsNotNull(user?.profile.surname).charAt(0)}
           </h1>
         </Circle>
         <Badge>
           <p>Hi, </p>
-          <h3>{userData.firstName} {userData.lastName}</h3>
+          <h3>
+            {userIsNotNull(user?.profile.given_name)}
+            {userIsNotNull(user?.profile.surname)}
+          </h3>
         </Badge>
       </Stack>
 
@@ -50,7 +69,9 @@ export default function Sidebar() {
 
         <Tab>
           <Icon />
-          <Link href='/user/WishList' ><div>WishList</div></Link>
+          <Link href='/user/WishList' ><div>WishList
+            {/* ({wishlist.length}) */}
+          </div></Link>
         </Tab>
 
         <Tab>
@@ -71,6 +92,7 @@ export default function Sidebar() {
 
 const Container = styled.div`
   width: 100%;
+  height: fit-content;
   max-width: 280px; 
   display: flex;
   flex-direction: column;
@@ -126,3 +148,7 @@ const Icon = styled.div`
   background-color: blue;
   margin-right:   20px;
 `
+function dispatch(arg0: { payload: undefined; type: string }) {
+  throw new Error("Function not implemented.")
+}
+

@@ -48,7 +48,7 @@ const TopHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  z-index: 1001;
   background-color: ${({theme}) => theme.headerTop }
 `
 const BottomHeader = styled.div`
@@ -58,7 +58,8 @@ const BottomHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({theme}) => theme.headerMiddle }
+  background-color: ${({ theme }) => theme.headerMiddle };
+  z-index: 1000;
 `
 const Container = styled.div`
   position: relative;

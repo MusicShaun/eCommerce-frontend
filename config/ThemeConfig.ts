@@ -24,6 +24,8 @@ export const light = {
   black: colors.BLACK,
   background: colors.WHITE,
 
+
+
 } as const
 // background: {
 //   primary: colors.WHITE,

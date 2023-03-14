@@ -5,10 +5,14 @@ import Heart from '@/images/heart.png'
 import Bag from '@/images/bag.png'
 import NavUserDropdown from "../nav/NavUserDropdown"
 import { useState } from "react"
+// import { selectWishList } from "lib/userSlice"
+import { useAppSelector } from "lib/hooks/hooks"
+import Link from "next/link"
 
 export default function HeaderRight() {
 
   const [showDropdown, setShowDropdown ] = useState(false)
+  // const wishlist = useAppSelector(selectWishList)  
 
   return (
     <ButtonContainer>
@@ -16,8 +20,8 @@ export default function HeaderRight() {
       >
         <Image
           src={User}
-          width='25'
-          height='25'
+          width='30'
+          height='30'
           style={{ filter: 'invert(1)' }}
           alt=''
         />
@@ -28,20 +32,23 @@ export default function HeaderRight() {
       </Button>
 
       <Button>
-      <Image
-          src={Heart}
-          width='25'
-          height='25'
-          style={{ filter: 'invert(1)' }}
-          alt=''
-        /> 
+        <Link href='/user/WishList' as='wishlist'>
+          <Image
+            src={Heart}
+            width='30'
+            height='30'
+            style={{ filter: 'invert(1)' }}
+            alt=''
+          /> 
+            {/* <HeartNumber>{wishlist.length}</HeartNumber> */}
+        </Link>
       </Button>
 
       <Button>
         <Image
           src={Bag}
-          width='25'
-          height='25'
+          width='30'
+          height='30'
           style={{ filter: 'invert(1)' }}
           alt=''
         />
@@ -54,6 +61,7 @@ const ButtonContainer = styled.div`
   width: 12%;
   height: 100%;
   display: flex;
+
 `
 const Button = styled.div`
   position: relative;
@@ -80,5 +88,17 @@ const DropdownContainer = styled.div`
   height: 0px;
   overflow: hidden;
   transition:  height 0.5s cubic-bezier(0.31, 0.71, 0.56, 0.98) 0.4s; // in
+  z-index: 3000;
+`
+const HeartNumber = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: white;
 
 `

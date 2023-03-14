@@ -1,40 +1,75 @@
 import shoe from '../images/shoe.jpeg'
 import styled from "styled-components"
 import Image from 'next/image'
-import { ClotheType } from 'lib/clothesSlice'
+import { ClotheType, selectClothesData } from 'lib/clothesSlice'
 import heart from '../images/hearty.png'
+import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { selectCurrentUser, selectWishlist } from 'lib/userSlice'
 
 interface IProps {
   info: ClotheType
-  containerWidth: number
+  containerWidth?: number
+  handleAddClotheItemToWishList: (_id: string) => void
 }
 
-export default function Product_Tile({ info, containerWidth }: IProps) {
+export const getStaticProps = async () => {
+  const res = await fetch('http://localhost:5000/api/asos/getshirts')
+  const data = await res.json()
 
-  //! The heart needs to be a state that can stay selected from localstate
+  return {
+    props: { products: data },
+    
+  }
+}
+
+export default function Product_Tile({ info, containerWidth, handleAddClotheItemToWishList }: IProps) {
+
+  const dispatch = useAppDispatch()
+  const [hearted, setHearted] = useState(false)
+  const wishlist = useAppSelector(selectWishlist)  
+  const router = useRouter()
+  
+  useEffect(() => {
+    let listed = wishlist?.find((l: any) => l._id === info._id)
+    if (listed && !hearted) {
+      setHearted(true)
+    } else if (!listed && hearted) {
+      setHearted(false)
+    }
+  }, [wishlist])
+  
+  let url = info.heading.replaceAll(' ', '-')
 
   return (
     <Tile>
-      <PicturePlacement>
-        <Image src={info.image} alt='' fill sizes="(width: 100%, height: 100%)"/> 
-      </PicturePlacement>
+      <Link href={`/products/${url}`} style={{height: '100%', color: 'inherit', textDecoration: 'none'}}>
+        
+        <PicturePlacement>
+          <Image src={info.image} alt='' fill sizes="(width: 100%, height: 100%)"/> 
+        </PicturePlacement>
 
-      <Header>
-        <h3>{info.heading}</h3>
-      </Header>
+        <Header>
+          <h3>{info.heading}</h3>
+        </Header>
 
-      <BottomP>
-        {info.price} 
-        <span> {info.price} </span>
-      </BottomP>
+        <BottomP>
+          {info.price} 
+          <span> {info.price} </span>
+        </BottomP>
+      </Link>
+      
+      <AddToWishList onClick={() => handleAddClotheItemToWishList(info._id)}
+          style={{ filter: hearted ? 'invert(1)' : ''}}  
+        >
+          <Image
+            src={heart}
+            alt=''
 
-      <AddToWishList>
-        <Image
-          src={heart}
-          alt=''
-
-        />
-      </AddToWishList>
+          />
+        </AddToWishList>
     </Tile>
     )
 }
@@ -54,7 +89,9 @@ const Tile = styled.div`
   text-decoration: none;
   color: black; 
 
+
 `
+
 const PicturePlacement = styled.div`
   position: relative;
   width: 100%;
@@ -79,6 +116,8 @@ const BottomP = styled.div`
     color: red;
     font-weight: bold;
   }
+
+
 `
 
 const AddToWishList = styled.div`
@@ -92,7 +131,7 @@ const AddToWishList = styled.div`
   border-radius: 50%;
 
   &:hover {
-    filter: invert(1)
+    filter: invert(0.1)
   }
 `
 

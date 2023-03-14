@@ -1,26 +1,41 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import InfoCenter from './InfoCenter'
-import { useAddUserMutation } from 'lib/userSlice'
 import router from 'next/router'
+import { useRegisterMutation } from 'lib/userSlice'
 
 export default function login() {
 
-  const [addUser, { isLoading }] = useAddUserMutation()
+  const [register, { isLoading }] = useRegisterMutation()
 
+    // Check if token in localStorage has expired. If not, redirect to home
+  // useEffect(() => {
+  //   const cached = localStorage.getItem('key')
+  //   if (cached) {
+  //     const { expires_at } = JSON.parse(cached)
+
+  //     if (Date.now() < expires_at) {
+  //       router.push('/')    
+  //     }
+  //   }
+  // }, [])
+  
   async function handleSubmit(e:any ) {
     e.preventDefault()
     const data = new FormData(e.target)
+
     try {
-      await addUser({
-        firstName: data.get('firstName') as string,
-        lastName: data.get('lastName') as string,
+      const res = await register({
+        given_name: data.get('first') as string,
+        surname: data.get('last') as string,
         email: data.get('email') as string,
         password: data.get('password') as string,
-        dob: data.get('birthday') as string,
-        interest: handleInterestCheck(e),
+        dob: data.get('date') as string,
+        gender: handleInterestCheck(e),
       }).unwrap()
+      localStorage.setItem('key', JSON.stringify(res))
       router.push('/')
+      
     } catch (err) {
       console.log(err)
     }
@@ -47,23 +62,23 @@ export default function login() {
           <FieldSetBox>
             <Field>
               <label>EMAIL ADDRESS</label>
-              <input name='email' autoComplete='email'/>
+              <input name='email' autoComplete='email' required/>
             </Field>
             <Field>
               <label>FIRST NAME</label>
-              <input name='first' autoComplete='name'/>
+              <input name='first' autoComplete='name' required/>
             </Field>
             <Field>
               <label>LAST NAME</label>
-              <input name='last' autoComplete='surname'/>
+              <input name='last' autoComplete='surname' required/>
             </Field>
             <Field>
               <label>PASSWORD</label>
-              <input name='password' autoComplete='new-password'/>
+              <input name='password' autoComplete='new-password' required/>
             </Field>
             <Field>
               <label>DATE OF BIRTH</label>
-              <input type="date" id="birthday" name="birthday" />
+              <input type="date" id="birthday" name="birthday" required/>
             </Field>
             <Field>
               <label>Mostly interested in</label>

@@ -1,6 +1,7 @@
-import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
+import { createSelector, createEntityAdapter, EntityState, CombinedState } from "@reduxjs/toolkit";
 import { apiSlice } from "lib/apiSlice";
-import { RootState } from "./store";
+import { RootState, store } from "./store";
+import { useAppSelector } from "./hooks/hooks";
 
 export type ClotheType = {
   name: string
@@ -9,31 +10,42 @@ export type ClotheType = {
   sizes: string[]
   brand: string
   color: string
-  id: string
+  _id: string
   image: string
+  item: string
 }
 export type Clothes = {
   data: {
-    shirts: ClotheType,
-    shorts: ClotheType,
-    shoes: ClotheType,
+    shirts: ClotheType[],
+    shorts: ClotheType[],
+    shoes: ClotheType[],
   }
   result?: number
   status?: string
   |
   typeof initialState
 }
+export interface TransformedClothes {
+  shirts: ClotheType[],
+  shorts: ClotheType[],
+  shoes: ClotheType[],
+}
 
-const clothesAdapter = createEntityAdapter({}) //can do some functionality here if wanted
-
+const clothesAdapter = createEntityAdapter({
+  selectId: (cloth: ClotheType) => cloth._id 
+}) 
 const initialState = clothesAdapter.getInitialState()
 
 export const extendedClothesSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
 
-    getAllClothes: builder.query<Clothes, void>({
+    getAllClothes: builder.query<TransformedClothes, void>({
       query: () => '/getallclothes',
-
+      structuralSharing: false,
+      transformResponse: (rawResult: Clothes, meta): any => {
+        const combined = [...rawResult.data.shirts, ...rawResult.data.shorts, ...rawResult.data.shoes]
+        return clothesAdapter.setAll(initialState, combined)
+      },
       providesTags: ['Clothes']
     }),
 
@@ -41,18 +53,13 @@ export const extendedClothesSlice = apiSlice.injectEndpoints({
   })
 })
 
-
-
 export const {
   useGetAllClothesQuery,
   
 } = extendedClothesSlice
 
-
 // returns the query result object
 export const selectClothesResult = extendedClothesSlice.endpoints.getAllClothes.select()
-
-
 
 // creates memoized selector 
 export const selectClothesData = createSelector(
@@ -62,9 +69,15 @@ export const selectClothesData = createSelector(
 
 
 
-  
-export const localizedClothesSelectors = clothesAdapter.getSelectors()
+export const {
+  selectAll: selectAllClothes,
+  selectById: selectClothesById,
+} = clothesAdapter.getSelectors(
+// @ts-ignore
+(state: any) => selectClothesData(state) ?? initialState)
 
 
-
-
+export const selectShirts = createSelector(
+  selectClothesData,
+  data => data && data.shirts
+)

@@ -78,6 +78,16 @@ export const {
 
 
 export const selectShirts = createSelector(
-  selectClothesData,
-  data => data && data.shirts
+  selectAllClothes,
+  (clothes) => clothes.filter((cloth: ClotheType) => cloth.item === 'shirts')
+)
+
+export const selectShoes = createSelector(
+  selectAllClothes,
+  (clothes) => clothes.filter((cloth: ClotheType) => cloth.item === 'shoes')
+)
+
+export const selectShorts = createSelector(
+  selectAllClothes,
+  (clothes) => clothes.filter((cloth: ClotheType) => cloth.item === 'shorts')
 )

@@ -1,48 +1,39 @@
 import styled from 'styled-components'
-import shoe from '../../images/shoeExample.webp'
 import NavMenuThreeImageTiles from '@/components/nav/NavMenu_ThreeImagesTiles'
 import NavMenuListWithIcons from '@/components/nav/NavMenu_ListWithIcons'
 import NavMenuList from '@/components/nav/NavMenu_List'
 import { Dispatch, SetStateAction, useState } from 'react'
 import { useAppSelector } from 'lib/hooks/hooks'
-import { ClotheType, Clothes, selectClothesData } from 'lib/clothesSlice'
+import { selectShoes } from 'lib/clothesSlice'
 
 interface IProps {
   setNavShoes: Dispatch<SetStateAction<boolean>>
 }
 export default function Nav4Panel({ setNavShoes }:IProps) {
   
-  const clothes = useAppSelector(selectClothesData)
-  const threeNavPics = [shoe, shoe, shoe]
+  const shoesOnly = useAppSelector(selectShoes)
 
-  let clothesInfo: ClotheType | object = clothes?.shirts ? clothes!.shirts : {}
-
-  let shoesBrand: string[] = (Object.values(clothesInfo)).map((l: ClotheType) => {return l.brand})
-  let shoesName: string[] = (Object.values(clothesInfo)).map((l: ClotheType) => {return l.name})
-  let shoesHeading: string[] = (Object.values(clothesInfo)).map((l: ClotheType) => { return l.heading })
-
-  
   return (
     <BoxContainer
     onMouseEnter={() => setNavShoes(true)}
     onMouseLeave={() => setNavShoes(false)}>
     <Box>
       <Title>Product</Title>
-      <NavMenuList info={shoesName} />
+      <NavMenuList info={shoesOnly} />
     </Box>
       
     <Box>
     <Title>Brand</Title>
-      <NavMenuListWithIcons info={shoesBrand} />
+      <NavMenuListWithIcons info={shoesOnly} />
     </Box>
       
     <Box>
       <Title>Product</Title>
-      <NavMenuList info={shoesHeading} />
+      <NavMenuList info={shoesOnly} />
     </Box>
       
     <Box style={{justifyContent: 'space-around'}}>
-        <NavMenuThreeImageTiles info={threeNavPics}  />
+        <NavMenuThreeImageTiles info={shoesOnly}  />
     </Box>
   </BoxContainer>)
 }
@@ -55,7 +46,7 @@ const BoxContainer = styled.div`
   display: flex;
   height: 340px;
   width: 100%;
-  background-color: white;
+  background-color: ${({theme}) => theme.backgroundSecondary};
 `
 const Box = styled.div`
   display: flex;
@@ -63,7 +54,7 @@ const Box = styled.div`
   flex-grow: 1;
   height: 100%;
   width: 15%;
-  padding: 0px 40px;
+  padding: 0px 20px;
 
   border-right: 1px solid grey;
 
@@ -72,7 +63,8 @@ const Box = styled.div`
   }
 `
 const Title = styled.h3`
-  
+  text-decoration: underline;
+  padding-bottom: 10px;
 `
 
 

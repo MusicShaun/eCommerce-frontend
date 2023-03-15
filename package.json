@@ -36,6 +36,7 @@
     "morgan": "^1.10.0",
     "next": "13.1.6",
     "next-redux-wrapper": "^8.1.0",
+    "node-modules": "^1.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-query": "^3.39.3",

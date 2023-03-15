@@ -1,18 +1,19 @@
 import styled from 'styled-components'
 import Image from 'next/image'
+import { ClotheType } from 'lib/clothesSlice'
 
 interface IProps {
-  info: any[]
+  info: ClotheType[]
 }
 
 export default function NavMenu_LargeImageTiles({ info }: IProps) {
 
-  let content
-  content = info.map((item: string, index: number) =>
 
+  let content
+  content = info.map((l: ClotheType, index: number) =>
     <TheImage key={index}>
       <Image
-        src={item}
+        src={l.image}
         fill
         alt=''
       />
@@ -37,7 +38,7 @@ const Container = styled.div`
 `
 const Box = styled.div  `
   width: 100%;
-  height: 75%;
+  height: 94%;
   border-radius: 3px;
   display: flex;
   gap: 22px;

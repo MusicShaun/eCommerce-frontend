@@ -36,7 +36,7 @@ const BoxContainer = styled.div`
   display: flex;
   height: 340px;
   width: 100%;
-  background-color: #f0f0f0;
+  background-color: #e2e2da;
 `
 const Box = styled.div`
   display: flex;

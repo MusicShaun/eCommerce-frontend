@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import shoe from '@/images/shoeExample.webp'
 import NavMenuList from '@/components/nav/NavMenu_List'
 import NavMenuLargeImageTiles from '@/components/nav/NavMenu_LargeImageTiles'
 import { Dispatch, SetStateAction } from 'react'
-import { ClotheType, Clothes, selectClothesData } from 'lib/clothesSlice'
+import {  selectShorts } from 'lib/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 
 interface IProps {
@@ -12,12 +11,7 @@ interface IProps {
 
 export default function NavShorts({ setNavShorts }: IProps) {
 
-  const threeNavPics = [shoe, shoe, shoe]
-  
-  const clothes = useAppSelector(selectClothesData)
-  const clothesInfo: object = clothes?.shorts ? clothes.shorts : {}
-
-  let shortName: string[] = Object.values(clothesInfo).map((i: ClotheType) => { return i.name})
+  const shortsOnly = useAppSelector(selectShorts)
 
   return (
     <BoxContainer
@@ -26,12 +20,12 @@ export default function NavShorts({ setNavShorts }: IProps) {
     >
     <Box>
       <Title>Product</Title>
-      <NavMenuList info={shortName} />
+      <NavMenuList info={shortsOnly} />
     </Box>
       
     <Box style={{width: '75%'}}>
     <Title>Brand</Title>
-        <NavMenuLargeImageTiles info={threeNavPics} />
+        <NavMenuLargeImageTiles info={shortsOnly} />
     </Box>
       
   </BoxContainer>)
@@ -46,7 +40,8 @@ const BoxContainer = styled.div`
   display: flex;
   height: 340px;
   width: 100%;
-  background-color: white;
+  background-color: ${({theme}) => theme.backgroundSecondary};
+
 `
 const Box = styled.div`
   display: flex;
@@ -54,7 +49,7 @@ const Box = styled.div`
   flex-grow: 1;
   height: 100%;
   width: 25%;
-  padding: 0px 40px;
+  padding: 0px 20px;
 
   border-right: 1px solid lightgrey;
 
@@ -63,7 +58,8 @@ const Box = styled.div`
   }
 `
 const Title = styled.h3`
-  
+  text-decoration: underline;
+  padding-bottom: 10px;
 `
 
 

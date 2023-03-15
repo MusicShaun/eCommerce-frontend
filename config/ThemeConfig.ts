@@ -10,6 +10,7 @@ const colors = {
   GREY: '#2d2d2d',
   LIGHT_GREY: '#525050',
   RED: '#d01345',
+  TINTED_WHITE: '#fbfbf9',
 }
 
 
@@ -23,9 +24,13 @@ export const light = {
   white: colors.WHITE,
   black: colors.BLACK,
   background: colors.WHITE,
+  backgroundSecondary: colors.DULL_WHITE,
 
-
-
+  fontXL: '32px',
+  fontL: '24px',
+  fontM: '14px',
+  fontS: '8px',
+  fontXS: '6px'
 } as const
 // background: {
 //   primary: colors.WHITE,

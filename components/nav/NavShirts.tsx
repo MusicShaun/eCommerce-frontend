@@ -1,9 +1,8 @@
 import styled from 'styled-components'
-import shoe from '@/images/shoeExample.webp'
 import NavMenuList from '@/components/nav/NavMenu_List'
 import NavMenuLargeImageTiles from '@/components/nav/NavMenu_LargeImageTiles'
 import { Dispatch, SetStateAction } from 'react'
-import { ClotheType, Clothes, selectClothesData, selectShirts } from 'lib/clothesSlice'
+import { selectShirts } from 'lib/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 
 interface IProps {
@@ -12,16 +11,7 @@ interface IProps {
 
 export default function Nav4Panel({ setNavShirts }: IProps) {
 
-  const product_type = ['sneaker', 'hitop', 'loafer', 'joggers', 'cancer']
-  const threeNavPics = [shoe, shoe , shoe]
   const shirtsOnly = useAppSelector(selectShirts)
-  const clothes = useAppSelector(selectClothesData)
-  let clothesInfo: object = clothes?.shirts ? clothes!.shirts : {}
-  
-  let shirtsName: string[] = Object.values(clothesInfo).map((i: ClotheType) => { return i.name})
-
-  console.log(clothes)
-  console.log(shirtsOnly)
 
 
   return (
@@ -31,12 +21,12 @@ export default function Nav4Panel({ setNavShirts }: IProps) {
     >
     <Box>
       <Title>Product</Title>
-        <NavMenuList info={shirtsName} />
+        <NavMenuList info={shirtsOnly} />
     </Box>
       
     <Box style={{width: '75%'}}>
     <Title>Brand</Title>
-        <NavMenuLargeImageTiles info={threeNavPics} />
+        <NavMenuLargeImageTiles info={shirtsOnly} />
     </Box>
       
   </BoxContainer>)
@@ -51,7 +41,8 @@ const BoxContainer = styled.div`
   display: flex;
   height: 340px;
   width: 100%;
-  background-color: white;
+  background-color: ${({theme}) => theme.backgroundSecondary};
+
 `
 const Box = styled.div`
   display: flex;
@@ -59,7 +50,7 @@ const Box = styled.div`
   flex-grow: 1;
   height: 100%;
   width: 25%;
-  padding: 0px 40px;
+  padding: 0px 20px;
 
   border-right: 1px solid lightgrey;
 
@@ -68,7 +59,8 @@ const Box = styled.div`
   }
 `
 const Title = styled.h3`
-  
+  text-decoration: underline;
+  padding-bottom: 10px;
 `
 
 

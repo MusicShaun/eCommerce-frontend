@@ -1,16 +1,18 @@
 import styled from "styled-components"
 import Image from "next/image"
+import { ClotheType } from "lib/clothesSlice"
 
 interface IProps {
-  info: any
+  info: ClotheType[]
 }
 export default function NavMenu_ThreeImageTiles({info}: IProps) {
 
-  let content = info.map((item: any, index: number) => 
+  let content =
+    info.map((l: ClotheType, index: number) => 
     <Box key={index}  >
       <TheImage >
         <Image
-          src={item}
+          src={l.image}
           fill
           alt=''
           />

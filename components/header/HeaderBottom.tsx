@@ -12,11 +12,14 @@ export default function HeaderBottom() {
   const [ navshorts, setNavShorts ] = useState(false)
   const [emptyHover, setEmptyHover] = useState(false)
   
+  let darkenBackground = navShoes || navShirts || navshorts || emptyHover
+  
 
   return (
     <ButtonContainer>
-
-<Box>
+      {darkenBackground && <DarkenBackground />}
+      
+      <Box>
 
       <Tab
         onMouseEnter={() => setNavShirts(true)}
@@ -70,7 +73,19 @@ const ButtonContainer = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  z-index: 2;
 `
+const DarkenBackground = styled.div`
+  position: fixed;
+  top: 110px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #00000089;
+  z-index: 0;
+
+`
+
 const  Box = styled.div`
   display: flex;
   align-items: flex-start;
@@ -87,6 +102,10 @@ const Tab = styled.div`
 
   & span {
     color: white;
-    font-weight: 500;
+    font-size: ${({theme}) => theme.fontM}
+  }
+
+  & + div {
+    font-size: ${({theme}) => theme.fontM}
   }
 `

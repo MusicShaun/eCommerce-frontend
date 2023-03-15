@@ -1,17 +1,24 @@
 import styled from 'styled-components'
-import shoe from '../images/shoe.jpeg'
-
+import { ClotheType } from 'lib/clothesSlice'
+import Image from 'next/image'
 interface IProps {
-  info: object 
+  info: ClotheType[] 
 }
 
 export default function NavMenu_ListWithIcons({ info }: IProps) {
 
-  let clothesInfo = Object.values(info)
-  let content = clothesInfo.map((item: string, index: number) =>
+  let content =
+    info.map((l: ClotheType, index: number) =>
     <LIWithImage key={index}>
-      <DropdownIcons /> {/* put images heree */}
-      <a href='/'>{item}</a>  
+        <DropdownIcons>
+          <Image
+            src={l.image}
+            fill
+            alt=''
+          />
+        </DropdownIcons>  
+        <a href='/'>{l.heading}</a>  
+        {/* Turn ^^ into a Link */}
     </LIWithImage>)
   
 
@@ -52,9 +59,11 @@ const LIWithImage = styled.li`
 }
 `
 const DropdownIcons = styled.div`
-  width: 40px;
-  height: 40px;
+  position: relative;
+  min-width: 40px;
+  min-height: 40px;
   display: flex;
   background-size: contain;
   border-radius: 50%;
+  overflow: hidden;
 `

@@ -51,7 +51,7 @@ export default function HeaderRight() {
         onMouseLeave={() => setShowDropdown(false)}
         
       >
-        <Link href='/user/MyAccount' >
+       
         <Image
           src={User}
           width='30'
@@ -60,7 +60,7 @@ export default function HeaderRight() {
           alt=''
           ref={triangleRef}
         />
-        </Link>
+        
         <DropdownContainer>
           <NavUserDropdown /> 
         </DropdownContainer>

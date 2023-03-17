@@ -1,17 +1,21 @@
+import { useCallback } from "react";
 import { ClotheType } from "lib/clothesSlice";
 import { selectAllClothes } from "lib/clothesSlice";
+import { selectCurrentUser } from "lib/userSlice";
 import { useAppSelector } from "./hooks";
 import { LocalUser } from "lib/authSlice";
 
-type ProcessGuestFunction = (_id: string, user: any, size: string) => LocalUser
+type ProcessCartFunction = (_id: string, user: LocalUser, size: string) => LocalUser
 
-export const useHandleGuestProcessing = (): ProcessGuestFunction => {
+export const useUpdateGuestProcessing = (): ProcessCartFunction => {
   const allClothes = useAppSelector(selectAllClothes);
+  
+
 
   const createCartArray = 
-    (obj: any, user: any) => {
+    (obj: any, user: LocalUser) => {
       let t
-      t = [...(user.cart || [])]
+      t = [...(user!.profile.cart || [])]
       t.push(obj)
       return t.flat()
     }
@@ -33,16 +37,22 @@ export const useHandleGuestProcessing = (): ProcessGuestFunction => {
   }
 
 
-  function handleGuestProcessing(_id: string, user: any, size: string): any {
+  function handleUpdateGuestProcessing(_id: string, user: LocalUser, size: string): LocalUser {
     let tempValue: any[] = []
+    if (user && (user as { accessToken: string }).accessToken) {
+        
+      const getclothingItemToPush = filterArray(allClothes, _id, "+", size)
+      tempValue = createCartArray(getclothingItemToPush, user)
       
-    const getclothingItemToPush = filterArray(allClothes, _id, "+", size)
-    tempValue = createCartArray(getclothingItemToPush, user)
-    
-    return {
-        ...tempValue,
-          cart: tempValue.flat(),
+      return {
+          ...user!,
+          profile: {
+            ...(user!.profile || {}),
+            cart: tempValue.flat(),
+        },
+      }
     }
+    return user
   }
-  return handleGuestProcessing
+  return handleUpdateGuestProcessing
 }

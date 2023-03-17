@@ -65,6 +65,7 @@ const Box = styled.div`
 const Title = styled.h3`
   text-decoration: underline;
   padding-bottom: 10px;
+  color: ${({ theme }) => theme.lightgrey}
 `
 
 

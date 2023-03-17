@@ -9,6 +9,8 @@ import { useHandleWishlistProcessing } from "lib/hooks/useHandleWishlistProcessi
 import { useHandleCartProcessing } from "lib/hooks/useHandleCartProcessing"
 import { AuthState, Profile } from "lib/authSlice"
 import { useHandleGuestProcessing } from "lib/hooks/useCreateguestUser"
+import useLocalStorage from "lib/hooks/useGetLocalStorage"
+import { useUpdateGuestProcessing } from "lib/hooks/useUpdateGuestProcessing"
 
 export default function Sidebar({productItem}: {productItem: ClotheType}) {
 
@@ -23,7 +25,11 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
   const handleWishlistProcessing = useHandleWishlistProcessing()
   const handleCartProcessing = useHandleCartProcessing()
   const handleGuestProcessing = useHandleGuestProcessing()
+  const handleUpdateGuestProcessing = useUpdateGuestProcessing()
 
+  const localStorageKey = useLocalStorage('key', (currentUser ? currentUser : {}))
+  console.log(localStorageKey)
+  console.log(Object.keys(localStorageKey).length > 0)
   // Write a useEffect that will focus on the useRef
   useEffect(() => {
     if (selectOptionsRef.current) {
@@ -81,6 +87,7 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
     } else {
 
       if (doesUserExist()) { // Yes they do
+        console.log('UPDATING USER ACCOUNT')
         const spreadCart = handleCartProcessing(_id, selectOptionsRef.current!.value)
         try {
           const res = await addCartListItem({
@@ -91,7 +98,25 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
         } catch (err) {
           console.log(err)
         }
-      } else { // create temp empty user object
+        // guest account 
+      } else if (localStorageKey && (localStorageKey as { accessToken: string }).accessToken) {
+        console.log('UPDATING GUEST ACCOUNT')
+        const spreadGuestCart = handleUpdateGuestProcessing(
+          //@ts-ignore
+          _id, localStorageKey, selectOptionsRef.current!.value
+        )
+        try {
+          const res = await addCartListItem({
+            ...spreadGuestCart
+          }).unwrap()
+          localStorage.setItem('key', JSON.stringify(res))
+
+        } catch (err) {
+          console.log(err)
+        }
+
+      } else { // neither guest nor user account
+        console.log('CREATING GUEST ACCOUNT')
         const tempUser: Partial<Profile> = {
           given_name: '',
           surname: '',

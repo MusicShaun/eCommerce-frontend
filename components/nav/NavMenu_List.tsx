@@ -1,4 +1,5 @@
 import { ClotheType, Clothes } from 'lib/clothesSlice'
+import Link from 'next/link'
 import styled from 'styled-components'
 
 interface IProps {
@@ -7,17 +8,24 @@ interface IProps {
 
 export default function NavMenu_List({ info }: IProps) {
   
+  
+
+
   let content
-  content = info.map((i: ClotheType, index: number) =>
+  content = info.map((i: ClotheType, index: number) => 
     <LISmallList key={index}>
-      <a href='/'>{i.name}</a>
-    </LISmallList>)
+      <Link href={`/products/${i.heading.replaceAll(' ', '-')}`} style={{ height: '100%', color: 'inherit', textDecoration: 'none' }}>
+        {i.name}
+      </Link>
+    </LISmallList >
+    )
   
 
   return (
     <ULSmallList>
       {content}
-    </ULSmallList>
+      </ULSmallList>
+     
   )
 }
 const ULSmallList = styled.ul`

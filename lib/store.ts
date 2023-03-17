@@ -3,10 +3,12 @@ import { apiSlice } from "./apiSlice";
 import logger from 'redux-logger'
 import { Context, createWrapper } from "next-redux-wrapper";
 import userReducer from "./authSlice";
+import searchBarReducer from "./searchBarSlice";
 
 const reducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
   user: userReducer,
+  searchBar: searchBarReducer,
 })
 
 export const store = configureStore({

@@ -2,26 +2,30 @@ import React from 'react'
 import styled from 'styled-components'
 import Empty from './Empty'
 import MyAccountLayout from '../../components/Layout'
-import { removeWishList, selectWishList } from 'lib/userSlice'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import ClothesCard from '@/components/ClothesCard'
 import { ClotheType } from 'lib/clothesSlice'
+import { selectWishlist, useAddWishListItemMutation } from 'lib/userSlice'
+import { useHandleWishlistProcessing } from 'lib/hooks/useHandleCartProcessing'
 
 
 
 
 export default function WishList() {
 
-  const dispatch = useAppDispatch()
-  const wishlist = useAppSelector(selectWishList)  
+  const wishlist = useAppSelector(selectWishlist)  
+  const [addWistListItem, { isLoading, isSuccess, data, isError, error }] = useAddWishListItemMutation()
+  const handleWishlistProcessing = useHandleWishlistProcessing()
 
-  function handleRemoveItemFromWishList(_id: string) {
-    let helper: ClotheType[]
-    if (wishlist) {
-      helper = wishlist.filter((l: any) => l._id !== _id)
-      if (helper) {
-        dispatch(removeWishList(helper))
-      }
+  async function handleRemoveItemFromWishList(_id: string) {
+    const spreadWishList = handleWishlistProcessing(_id)
+    try {
+      const res = await addWistListItem({
+        ...spreadWishList,
+      }).unwrap()
+      localStorage.setItem('key', JSON.stringify(res))
+    } catch (err) {
+      console.log(err)
     }
   }
   

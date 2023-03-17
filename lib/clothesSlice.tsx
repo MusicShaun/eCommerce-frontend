@@ -67,8 +67,6 @@ export const selectClothesData = createSelector(
   clothesResult => clothesResult.data // outputs normalezd state object with ids and entities 
 )
 
-
-
 export const {
   selectAll: selectAllClothes,
   selectById: selectClothesById,
@@ -76,17 +74,14 @@ export const {
 // @ts-ignore
 (state: any) => selectClothesData(state) ?? initialState)
 
-
 export const selectShirts = createSelector(
   selectAllClothes,
   (clothes) => clothes.filter((cloth: ClotheType) => cloth.item === 'shirt')
 )
-
 export const selectShoes = createSelector(
   selectAllClothes,
   (clothes) => clothes.filter((cloth: ClotheType) => cloth.item === 'shoe')
 )
-
 export const selectShorts = createSelector(
   selectAllClothes,
   (clothes) => clothes.filter((cloth: ClotheType) => cloth.item === 'shorts')

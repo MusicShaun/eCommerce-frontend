@@ -31,7 +31,24 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Auth'],
     }),
+    guest: builder.mutation<any, any>({
+      query: (body) => ({
+        url: '/users/guest',
+        method: 'POST',
+        body,
+      }),
+      // invalidatesTags: ['Auth'],
+    }),
     addWishListItem: builder.mutation<LocalUser, LocalUser>({
+      query: (body) => ({
+        url: `/users/${body.profile._id}`,
+        method: 'PUT',
+        body: body,
+      }),
+      
+      invalidatesTags: ['Auth'],
+    }),
+    addCartItem: builder.mutation<LocalUser, LocalUser>({
       query: (body) => ({
         url: `/users/${body.profile._id}`,
         method: 'PUT',
@@ -46,9 +63,11 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
 export const { useLoginMutation,
   useRegisterMutation,
   useAddWishListItemMutation,
-
+  useAddCartItemMutation,
+  useGuestMutation,
 } = extendedUserSlice
 
 
 export const selectCurrentUser = (state: RootState) => state.user.key
 export const selectWishlist = (state: RootState): ClotheType[] => state.user.key?.profile.wishlist ?? []
+export const selectCart = (state: RootState): ClotheType[] => state.user.key?.profile.cart ?? []

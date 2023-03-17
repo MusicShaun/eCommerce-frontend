@@ -1,16 +1,13 @@
-import { createGlobalStyle, DefaultTheme } from "styled-components"
-
-
-
 
 const colors = {
   BLACK: '#000',
-  WHITE: '#ddd',
+  WHITE: '#ffffff',
   DULL_WHITE: '#f8f8f8',
-  GREY: '#2d2d2d',
-  LIGHT_GREY: '#525050',
+  DARK_GREY: '#2d2d2d',
+  MEDIUM_GREY: '#525050',
+  LIGHT_GREY: '#cdcdcd',
   RED: '#d01345',
-  TINTED_WHITE: '#fbfbf9',
+  BLUE: '#1e90ff',
 }
 
 
@@ -18,11 +15,18 @@ export const light = {
   text: colors.BLACK,
   textInvert: colors.WHITE,
   error: colors.RED,
-  headerTop: colors.GREY,
-  headerMiddle: colors.LIGHT_GREY,
+
+  headerTop: colors.DARK_GREY,
+  headerMiddle: colors.MEDIUM_GREY,
   headerBottom: colors.BLACK,
+
   white: colors.WHITE,
   black: colors.BLACK,
+  blue: colors.BLUE,
+  lightGrey: colors.LIGHT_GREY,
+  mediumGrey: colors.MEDIUM_GREY,
+  darkGrey: colors.DARK_GREY,
+
   background: colors.WHITE,
   backgroundSecondary: colors.DULL_WHITE,
 
@@ -32,25 +36,18 @@ export const light = {
   fontS: '8px',
   fontXS: '6px'
 } as const
-// background: {
-//   primary: colors.WHITE,
-//   secondary: colors.DULL_WHITE,
-// },
-// header: {
-//   top: colors.GREY,
-//   bottom: colors.LIGHT_GREY,
-// },
+
 
 export const dark = { 
   text: colors.WHITE,
-  textInvert: colors.GREY,
+  textInvert: colors.DARK_GREY,
   error: colors.RED,
 
   backgroundPrimary: colors.WHITE,
   backgroundSecondary: colors.DULL_WHITE,
 
-  headerTop: colors.GREY,
-  headerBottom: colors.LIGHT_GREY,
+  headerTop: colors.DARK_GREY,
+  headerBottom: colors.MEDIUM_GREY,
 
 }
 

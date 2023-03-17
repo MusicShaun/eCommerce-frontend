@@ -1,9 +1,6 @@
-import { createSlice, createEntityAdapter, createSelector, EntityState, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { apiSlice } from "./apiSlice";
+import { createSlice } from "@reduxjs/toolkit";
 import { RootState, store } from "./store";
-import { FetchBaseQueryMeta } from "@reduxjs/toolkit/dist/query";
 import { ClotheType } from "./clothesSlice";
-import axios from "axios";
 import { extendedUserSlice } from "./userSlice";
 
 export interface Profile {
@@ -11,7 +8,7 @@ export interface Profile {
   surname: string 
   gender: string 
   wishlist: ClotheType[]
-  cart: []
+  cart: ClotheType[]
   _id: string
   email?: string
   dob?: string 
@@ -24,14 +21,17 @@ export interface LocalUser { //* localStorage
     countryCode: string
 }
 
-type AuthState = {
+export type AuthState = {
   key: LocalUser | null
+}
+const initialState: AuthState = {
+  key: null,
 }
 
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: { key: null} as AuthState,
+  initialState,
   reducers: {} ,
   extraReducers: builder => {
 
@@ -49,6 +49,12 @@ const userSlice = createSlice({
     ),
     builder.addMatcher(
       extendedUserSlice.endpoints.addWishListItem.matchFulfilled,
+      (state, { payload }) => {
+        state.key = payload
+      }
+    ),
+    builder.addMatcher(
+      extendedUserSlice.endpoints.addCartItem.matchFulfilled,
       (state, { payload }) => {
         state.key = payload
       }

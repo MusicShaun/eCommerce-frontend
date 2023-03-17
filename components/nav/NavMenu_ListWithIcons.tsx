@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { ClotheType } from 'lib/clothesSlice'
 import Image from 'next/image'
+import Link from 'next/link'
 interface IProps {
   info: ClotheType[] 
 }
@@ -17,8 +18,9 @@ export default function NavMenu_ListWithIcons({ info }: IProps) {
             alt=''
           />
         </DropdownIcons>  
-        <a href='/'>{l.heading}</a>  
-        {/* Turn ^^ into a Link */}
+        <Link href={`/products/${l.heading.replaceAll(' ', '-')}`} style={{ height: '100%', color: 'inherit', textDecoration: 'none' }}>
+          {l.heading}
+          </Link>
     </LIWithImage>)
   
 

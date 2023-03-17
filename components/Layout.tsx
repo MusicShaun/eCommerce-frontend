@@ -33,8 +33,8 @@ const Wrapper = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center; 
-  background-color: ${({theme}) => theme.background };
-  z-index: 200;
+  background-color: ${({theme}) => theme.backgroundSecondary };
+  z-index: 100;
 `
 const Container = styled.div`
   width: 960px; 

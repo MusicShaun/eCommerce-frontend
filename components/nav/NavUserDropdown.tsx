@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import router from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAppDispatch } from 'lib/hooks/hooks'
 import { apiSlice } from 'lib/apiSlice'
@@ -9,6 +9,14 @@ import { apiSlice } from 'lib/apiSlice'
 export default function NavUserDropdown() {
 
   const dispatch = useAppDispatch()
+  const [loggedIn, setLoggedIn ] = useState(false)
+
+  useEffect(() => {
+    const key = localStorage.getItem('key')
+    if (key != null) {
+      setLoggedIn(true)
+    }
+  }, [])
 
   function handleLogout() {
     localStorage.removeItem('key')
@@ -18,12 +26,31 @@ export default function NavUserDropdown() {
 
 
   return (
-    <Container>
+    <Container >
       <HeadContainer>
-        <div>
-          <Link href='/login/LoginWrapper' as='/login'><HeadButtons style={{borderRight: ' 1px solid black'}}>Sign in</HeadButtons></Link>
-          <Link href='/login/LoginWrapper' as='/login'><HeadButtons>Join</HeadButtons></Link>
-        </div>
+        {!loggedIn &&
+          <div>
+            <Link href='/login/LoginWrapper' as='/login'>
+              <HeadButtons style={{ borderRight: ' 1px solid black' }}>
+                Sign in
+              </HeadButtons>
+            </Link>
+            <Link href='/login/LoginWrapper' as='/login'>
+              <HeadButtons>
+                Join
+              </HeadButtons>
+            </Link>
+          </div>
+        }
+        {loggedIn &&
+          <div>
+            <Link href='/login/LoginWrapper' as='/login'>
+              <HeadButtons onClick={handleLogout}>
+                Log out
+              </HeadButtons>
+            </Link>
+          </div>
+        }
         <XContainer>X</XContainer>
       </HeadContainer>
 
@@ -48,12 +75,14 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.background};
   z-index: 1;
   transform: translateY(-400px);
-  transition: transform 0.5s cubic-bezier(0.75, 0.06, 0.58, 0.79); //out
+  transition: transform 0.8s cubic-bezier(0.57, 0.16, 0.55, 0.82); //out
 `
+
+
 const HeadContainer = styled.div`
   width: 100%;
   height: 50px;
-  background-color: ${({ theme }) => theme.white};
+  background-color: ${({ theme }) => theme.lightGrey};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -82,6 +111,7 @@ const BodyContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100% - 50px);
+  background-color: ${({ theme }) => theme.white};
   
   & a, div, button {
     display: flex;
@@ -89,6 +119,10 @@ const BodyContainer = styled.div`
     flex: 1;
     text-decoration: none;
     color: inherit;
+
+    &:hover {
+      color: ${({ theme }) => theme.blue};
+    }
   }
   & div, button {
     padding-left: 20px;

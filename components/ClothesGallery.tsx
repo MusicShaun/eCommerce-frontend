@@ -34,6 +34,7 @@ export default function ClothesGallery({ info }: IProps) {
     }
   }
 
+
   let content
   if (info) {
     content =

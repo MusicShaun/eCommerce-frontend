@@ -67,7 +67,7 @@ export default function Product_Tile({ info, containerWidth, handleAddClotheItem
           <Image
             src={heart}
             alt=''
-
+            fill
           />
         </AddToWishList>
     </Tile>

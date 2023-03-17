@@ -13,6 +13,7 @@ export default function NavShorts({ setNavShorts }: IProps) {
 
   const shortsOnly = useAppSelector(selectShorts)
 
+
   return (
     <BoxContainer
     onMouseEnter={() => setNavShorts(true)}

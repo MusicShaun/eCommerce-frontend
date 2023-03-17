@@ -38,8 +38,8 @@ export default function HeaderBottom() {
       {navShoes && <NavSneakers setNavShoes={setNavShoes} />}
 
       <Tab
-        onMouseEnter={() => setNavShirts(true)}
-        onMouseLeave={() => setNavShirts(false)}
+        onMouseEnter={() => setNavShorts(true)}
+        onMouseLeave={() => setNavShorts(false)}
       >
           <span>Shorts </span>    
       </Tab>
@@ -92,16 +92,24 @@ const  Box = styled.div`
   justify-content: space-between;
   width: 500px;
   height: 100%;
+
 `
 const Tab = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 100%;
   width: 100%;
   border: none;
+  color: white;
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.backgroundSecondary};
+    color: ${({ theme }) => theme.text};
+  }
 
   & span {
-    color: white;
     font-size: ${({theme}) => theme.fontM}
   }
 

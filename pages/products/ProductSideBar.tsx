@@ -3,19 +3,26 @@ import Image from "next/image"
 import  Heart  from '@/images/heart.png'
 import { ClotheType, selectAllClothes } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
-import { selectCurrentUser, selectWishlist, useAddWishListItemMutation } from "lib/userSlice"
+import { selectCurrentUser, selectWishlist, useAddCartItemMutation, useAddWishListItemMutation, useGuestMutation } from "lib/userSlice"
 import { useEffect, useRef, useState } from "react"
 import { useHandleWishlistProcessing } from "lib/hooks/useHandleWishlistProcessing"
+import { useHandleCartProcessing } from "lib/hooks/useHandleCartProcessing"
+import { AuthState, Profile } from "lib/authSlice"
+import { useHandleGuestProcessing } from "lib/hooks/useCreateguestUser"
 
 export default function Sidebar({productItem}: {productItem: ClotheType}) {
 
   const wishlist = useAppSelector(selectWishlist)  
   const currentUser = useAppSelector(selectCurrentUser)
   const [hearted, setHearted] = useState(false)
-  const allClothes = useAppSelector(selectAllClothes)
-  const [addWistListItem, { isLoading, isSuccess, data, isError, error }] = useAddWishListItemMutation()
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
+
+  const [addWistListItem] = useAddWishListItemMutation()
+  const [addCartListItem] = useAddCartItemMutation()
+  const [guest] = useGuestMutation()
   const handleWishlistProcessing = useHandleWishlistProcessing()
+  const handleCartProcessing = useHandleCartProcessing()
+  const handleGuestProcessing = useHandleGuestProcessing()
 
   // Write a useEffect that will focus on the useRef
   useEffect(() => {
@@ -33,16 +40,12 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
     localStorage.setItem('key', JSON.stringify(currentUser))
   }, [currentUser])
   
-  // Checks if product is in the wishlist, then applies to heart below 
   useEffect(() => {
-    let listed
-    if (wishlist && wishlist.length > 0){
-      listed = wishlist.find(l => l._id === productItem._id)
-      if (listed && !hearted) {
-        setHearted(true)
-      } else if (!listed && hearted) {
-        setHearted(false)
-      }
+    let listed = wishlist?.find((l: any) => l._id === productItem._id)
+    if (listed && !hearted) {
+      setHearted(true)
+    } else if (!listed && hearted) {
+      setHearted(false)
     }
   }, [wishlist])
 
@@ -62,6 +65,54 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
     }
   }
 
+  function doesUserExist() {
+    if (currentUser) {
+      return true
+    } else {
+      return false
+    }
+  }
+  // create async function to handle adding item to cart 
+  // uses a hook to handle the processing of the data
+  // uses the addCartListItem mutation to add item to rtk
+  async function handleAddClotheItemToCart(_id: string) {
+    if (selectOptionsRef.current?.value === 'Choose size') {
+      return alert('Please choose a size')
+    } else {
+
+      if (doesUserExist()) { // Yes they do
+        const spreadCart = handleCartProcessing(_id, selectOptionsRef.current!.value)
+        try {
+          const res = await addCartListItem({
+            ...spreadCart
+          }).unwrap()
+          localStorage.setItem('key', JSON.stringify(res))
+
+        } catch (err) {
+          console.log(err)
+        }
+      } else { // create temp empty user object
+        const tempUser: Partial<Profile> = {
+          given_name: '',
+          surname: '',
+          gender: '',
+          wishlist: [],
+          cart: [],
+        }
+        const spreadGuest = handleGuestProcessing(_id, tempUser, selectOptionsRef.current!.value)
+        try {
+          const res = await guest({
+            ...spreadGuest
+          }).unwrap()
+          localStorage.setItem('key', JSON.stringify(res))
+
+        } catch (err) {
+          console.log(err)
+        }
+      }
+    }
+  }
+
   return (
     <Container>
       <Box>
@@ -73,14 +124,15 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
 
         <SmallDarkText>SIZE:</SmallDarkText> 
         <label htmlFor="selectSize"></label>
-        <Select ref={selectOptionsRef}  name='selectSize' id='selectSize' required defaultValue='Please select' placeholder="Please select">
+        <Select ref={selectOptionsRef} name='selectSize' id='selectSize' required>
+          <option selected hidden>Choose size</option>
           {options}
         </Select>
 
         <SmallDarkText>BRAND: <span>{productItem.brand}</span></SmallDarkText>
 
         <ShoppingControls>
-          <AddToBag>ADD TO BAG</AddToBag>
+          <AddToBag onClick={() => handleAddClotheItemToCart(productItem._id)}>ADD TO BAG</AddToBag>
           <HeartContainer onClick={() => handleAddClotheItemToWishList(productItem._id)}
             style={{
             backgroundColor: hearted ? 'black' : 'lightgrey'

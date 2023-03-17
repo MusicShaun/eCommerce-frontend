@@ -36,6 +36,7 @@ export default function Men() {
     <Wrapper>
       <Banner info={info} />
       {isSuccess && <ClothesGallery info={randomClothes!} />}
+      <Banner info={info} />
     </Wrapper>
   )
 }

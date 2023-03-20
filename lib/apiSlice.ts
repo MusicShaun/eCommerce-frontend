@@ -15,7 +15,7 @@ export interface LoginRequest {
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://shauns-ecommerce.herokuapp.com/',
+    baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).user.key?.accessToken
       if (token) {

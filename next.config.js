@@ -16,7 +16,17 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/:path*',
+        source: '/Men/men*',
+        destination: '/men',
+        permanent: true,
+      },
+      {
+        source: '/women/women*',
+        destination: '/women',
+        permanent: true,
+      },
+      {
+        source: '/*',
         destination: '/',
         permanent: true,
       },

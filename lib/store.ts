@@ -1,7 +1,6 @@
 import { Action, ThunkAction, combineReducers, configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
 import logger from 'redux-logger'
-import { Context, createWrapper } from "next-redux-wrapper";
 import userReducer from "./authSlice";
 import searchBarReducer from "./searchBarSlice";
 

@@ -11,10 +11,7 @@ export default function Men() {
   const selectAll = useAppSelector(selectAllClothes)
 
   const {
-    isLoading,
     isSuccess,
-    isError,
-    error
   } = useGetAllClothesQuery()
 
   let randomClothes: ClotheType[] = []

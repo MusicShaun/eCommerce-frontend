@@ -16,20 +16,16 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/Men/men*',
+        source: '/Men/men',
         destination: '/men',
         permanent: true,
       },
       {
-        source: '/women/women*',
+        source: '/women/women',
         destination: '/women',
         permanent: true,
       },
-      {
-        source: '/*',
-        destination: '/',
-        permanent: true,
-      },
+
     ]
   },
 };

@@ -1,37 +1,18 @@
 import styled from "styled-components"
 import ClothesCard from "./ClothesCard"
-import { useState, useEffect } from 'react'
 import { ClotheType } from "lib/clothesSlice"
-import { useAppSelector } from "lib/hooks/hooks"
-import { selectCurrentUser, useAddWishListItemMutation } from "lib/userSlice"
-import { useHandleWishlistProcessing } from "lib/hooks/useHandleWishlistProcessing"
 
+import useAddClothingItem  from "lib/hooks/useAddClothingItem"
 interface IProps { 
   info: ClotheType[]
 }
 
 export default function ClothesGallery({ info }: IProps) {
 
-  const [theWidth, setTheWidth] = useState<number>(33)
-  const [addWistListItem, { isLoading, isSuccess, data, isError, error }] = useAddWishListItemMutation()
-  const currentUser = useAppSelector(selectCurrentUser)
-  const handleWishlistProcessing = useHandleWishlistProcessing()
+  const handleAddItem = useAddClothingItem()
 
-  useEffect(() => {
-    localStorage.setItem('key', JSON.stringify(currentUser))
-  }, [currentUser])
-
-
-  async function handleAddClotheItemToWishList(_id: string) {
-    const spreadWishList = handleWishlistProcessing(_id)
-    try {
-      const res = await addWistListItem({
-        ...spreadWishList,
-      }).unwrap()
-      localStorage.setItem('key', JSON.stringify(res))
-    } catch (err) {
-      console.log(err)
-    }
+  function handleAddClotheItemToWishList(_id: string) {
+    handleAddItem(_id, 'wishlist')
   }
 
 
@@ -42,7 +23,7 @@ export default function ClothesGallery({ info }: IProps) {
         {
           info.map((item: any, index: number) =>
             <ClothesCard
-              info={item} key={index} containerWidth={theWidth}
+              info={item} key={index} 
               handleAddClotheItemToWishList={handleAddClotheItemToWishList}
             />)
         }

@@ -27,7 +27,11 @@ const ButtonContainer = styled.div`
   & span {
     font-weight: 500;
     font-size: ${({theme}) => theme.fontL};
-    color: ${({theme}) => theme.white};
+    color: ${({ theme }) => theme.white};
+    
+    &:hover {
+      color: ${({ theme }) => theme.headerTop};
+    }
   }
   
 `
@@ -46,7 +50,6 @@ const Button = styled.button`
   }
   &:hover {
     background-color: ${({ theme }) => theme.backgroundSecondary};  
-    color: ${({ theme }) => theme.text};
   }
   
 `

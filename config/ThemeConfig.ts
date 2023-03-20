@@ -8,6 +8,7 @@ const colors = {
   LIGHT_GREY: '#cdcdcd',
   RED: '#d01345',
   BLUE: '#1e90ff',
+  GREEN: '#1aff0f'
 }
 
 
@@ -15,6 +16,7 @@ export const light = {
   text: colors.BLACK,
   textInvert: colors.WHITE,
   error: colors.RED,
+  success: colors.GREEN,
 
   headerTop: colors.DARK_GREY,
   headerMiddle: colors.MEDIUM_GREY,
@@ -32,6 +34,7 @@ export const light = {
 
   fontXL: '32px',
   fontL: '24px',
+  fontML: '18px',
   fontM: '14px',
   fontS: '8px',
   fontXS: '6px'

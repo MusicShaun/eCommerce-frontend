@@ -1,17 +1,14 @@
-import shoe from '../images/shoe.jpeg'
 import styled from "styled-components"
 import Image from 'next/image'
-import { ClotheType, selectClothesData } from 'lib/clothesSlice'
+import { ClotheType } from 'lib/clothesSlice'
 import heart from '../images/hearty.png'
-import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
+import { useAppSelector } from 'lib/hooks/hooks'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { selectCurrentUser, selectWishlist } from 'lib/userSlice'
+import { selectWishlist } from 'lib/userSlice'
 
 interface IProps {
   info: ClotheType
-  containerWidth?: number
   handleAddClotheItemToWishList: (_id: string) => void
 }
 
@@ -25,12 +22,10 @@ export const getStaticProps = async () => {
   }
 }
 
-export default function Product_Tile({ info, containerWidth, handleAddClotheItemToWishList }: IProps) {
+export default function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
 
-  const dispatch = useAppDispatch()
   const [hearted, setHearted] = useState(false)
   const wishlist = useAppSelector(selectWishlist)  
-  const router = useRouter()
   
   useEffect(() => {
     let listed = wishlist?.find((l: any) => l._id === info._id)

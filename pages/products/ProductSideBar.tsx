@@ -1,51 +1,35 @@
 import styled from "styled-components"
 import Image from "next/image"
 import  Heart  from '@/images/heart.png'
-import { ClotheType, selectAllClothes } from "lib/clothesSlice"
+import { ClotheType  } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
-import { selectCurrentUser, selectWishlist, useAddCartItemMutation, useAddWishListItemMutation, useGuestMutation } from "lib/userSlice"
+import { selectWishlist} from "lib/userSlice"
 import { useEffect, useRef, useState } from "react"
-import { useHandleWishlistProcessing } from "lib/hooks/useHandleWishlistProcessing"
-import { useHandleCartProcessing } from "lib/hooks/useHandleCartProcessing"
-import { AuthState, Profile } from "lib/authSlice"
-import { useHandleGuestProcessing } from "lib/hooks/useCreateguestUser"
-import useLocalStorage from "lib/hooks/useGetLocalStorage"
-import { useUpdateGuestProcessing } from "lib/hooks/useUpdateGuestProcessing"
+import useAddClothingItem from "lib/hooks/useAddClothingItem"
 
 export default function Sidebar({productItem}: {productItem: ClotheType}) {
 
   const wishlist = useAppSelector(selectWishlist)  
-  const currentUser = useAppSelector(selectCurrentUser)
   const [hearted, setHearted] = useState(false)
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
 
-  const [addWistListItem] = useAddWishListItemMutation()
-  const [addCartListItem] = useAddCartItemMutation()
-  const [guest] = useGuestMutation()
-  const handleWishlistProcessing = useHandleWishlistProcessing()
-  const handleCartProcessing = useHandleCartProcessing()
-  const handleGuestProcessing = useHandleGuestProcessing()
-  const handleUpdateGuestProcessing = useUpdateGuestProcessing()
+  const handleAddItem = useAddClothingItem()
 
-  const localStorageKey = useLocalStorage('key', (currentUser ? currentUser : {}))
-  console.log(localStorageKey)
-  console.log(Object.keys(localStorageKey).length > 0)
-  // Write a useEffect that will focus on the useRef
+  // focus on the useRef
   useEffect(() => {
     if (selectOptionsRef.current) {
       selectOptionsRef.current.focus()
     }
   }, [])
   
+  // Options for the clothes size select
   const options = productItem.sizes.map((l, index) => (
     <option key={index} value={l}>
       {l}
     </option>))
 
-  useEffect(() => {
-    localStorage.setItem('key', JSON.stringify(currentUser))
-  }, [currentUser])
-  
+
+  // Checks for a heart 
   useEffect(() => {
     let listed = wishlist?.find((l: any) => l._id === productItem._id)
     if (listed && !hearted) {
@@ -56,86 +40,12 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
   }, [wishlist])
 
 
- 
-  
-  async function handleAddClotheItemToWishList(_id: string) {
-    const spreadWishList = handleWishlistProcessing(_id)
-    try {
-      const res = await addWistListItem({
-        ...spreadWishList
-      }).unwrap()
-      localStorage.setItem('key', JSON.stringify(res))
-
-    } catch (err) {
-      console.log(err)
-    }
+  function handleAddClotheItemToWishList(_id: string) {
+    handleAddItem(_id, 'wishlist')
   }
-
-  function doesUserExist() {
-    if (currentUser) {
-      return true
-    } else {
-      return false
-    }
-  }
-  // create async function to handle adding item to cart 
-  // uses a hook to handle the processing of the data
-  // uses the addCartListItem mutation to add item to rtk
-  async function handleAddClotheItemToCart(_id: string) {
-    if (selectOptionsRef.current?.value === 'Choose size') {
-      return alert('Please choose a size')
-    } else {
-
-      if (doesUserExist()) { // Yes they do
-        console.log('UPDATING USER ACCOUNT')
-        const spreadCart = handleCartProcessing(_id, selectOptionsRef.current!.value)
-        try {
-          const res = await addCartListItem({
-            ...spreadCart
-          }).unwrap()
-          localStorage.setItem('key', JSON.stringify(res))
-
-        } catch (err) {
-          console.log(err)
-        }
-        // guest account 
-      } else if (localStorageKey && (localStorageKey as { accessToken: string }).accessToken) {
-        console.log('UPDATING GUEST ACCOUNT')
-        const spreadGuestCart = handleUpdateGuestProcessing(
-          //@ts-ignore
-          _id, localStorageKey, selectOptionsRef.current!.value
-        )
-        try {
-          const res = await addCartListItem({
-            ...spreadGuestCart
-          }).unwrap()
-          localStorage.setItem('key', JSON.stringify(res))
-
-        } catch (err) {
-          console.log(err)
-        }
-
-      } else { // neither guest nor user account
-        console.log('CREATING GUEST ACCOUNT')
-        const tempUser: Partial<Profile> = {
-          given_name: '',
-          surname: '',
-          gender: '',
-          wishlist: [],
-          cart: [],
-        }
-        const spreadGuest = handleGuestProcessing(_id, tempUser, selectOptionsRef.current!.value)
-        try {
-          const res = await guest({
-            ...spreadGuest
-          }).unwrap()
-          localStorage.setItem('key', JSON.stringify(res))
-
-        } catch (err) {
-          console.log(err)
-        }
-      }
-    }
+  function handleAddClotheItemToCart(_id: string) {
+    if (selectOptionsRef.current?.value === 'Choose size') return alert('Please choose a size')
+    handleAddItem(_id, 'cart', selectOptionsRef.current!.value, '+')
   }
 
   return (

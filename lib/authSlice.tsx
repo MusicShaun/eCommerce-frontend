@@ -48,6 +48,12 @@ const userSlice = createSlice({
       }
     ),
     builder.addMatcher(
+      extendedUserSlice.endpoints.guest.matchFulfilled,
+      (state, { payload }) => {
+        state.key = payload
+      }
+    ),
+    builder.addMatcher(
       extendedUserSlice.endpoints.addWishListItem.matchFulfilled,
       (state, { payload }) => {
         state.key = payload

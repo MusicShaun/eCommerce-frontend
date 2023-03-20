@@ -83,7 +83,7 @@ export default function Sidebar() {
       <Stack2>
         <Tab>
         <Icon />
-          <div onClick={handleSignout}>Sign out</div>
+          <div onClick={handleSignout} style={{cursor: 'pointer'}}>Sign out</div>
         </Tab>
       </Stack2>
     </Container>
@@ -147,8 +147,7 @@ const Icon = styled.div`
   height: 20px;
   background-color: blue;
   margin-right:   20px;
+  cursor: pointer;
 `
-function dispatch(arg0: { payload: undefined; type: string }) {
-  throw new Error("Function not implemented.")
-}
+
 

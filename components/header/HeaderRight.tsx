@@ -7,7 +7,8 @@ import NavUserDropdown from "../nav/NavUserDropdown"
 import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "lib/hooks/hooks"
 import Link from "next/link"
-import { selectWishlist } from "lib/userSlice"
+import { selectCart, selectWishlist } from "lib/userSlice"
+import Cart from "@/pages/user/Cart"
 
 export default function HeaderRight() {
 
@@ -16,6 +17,7 @@ export default function HeaderRight() {
   const triangleRef = useRef<HTMLImageElement>(null); 
   const [trianglePosition, setTrianglePosition] = useState({ x: 0 })
   const [windowSize, setWindowSize] = useState({ X: 0 })
+  const cart = useAppSelector(selectCart)
 
   // Get position of ref and apply its x coordinates to the triangle
   // Then add event listener to window to detect resize and reposition triangle
@@ -84,15 +86,18 @@ export default function HeaderRight() {
       </Button>
 
       <Button>
-        <Image
-          src={Bag}
-          width='30'
-          height='30'
-          style={{ filter: 'invert(1)' }}
-          alt=''
-        />
-
-      </Button>
+        <Link href='/user/Cart' as='cart'>
+          <Image
+            src={Bag}
+            width='30'
+            height='30'
+            style={{ filter: 'invert(1)' }}
+            alt=''
+          />
+            <HeartNumber>{cart.length}</HeartNumber>
+          </Link>
+        </Button>
+        
     </ButtonContainer>
     </>
   )
@@ -144,13 +149,14 @@ const DropdownContainer = styled.div`
 `
 const HeartNumber = styled.div`
   position: absolute;
-  top: 0;
+  top: 20px;
   left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  color: white;
+  font-size: ${({ theme }) => theme.fontML};
+  color: ${({ theme }) => theme.white};
 
 `

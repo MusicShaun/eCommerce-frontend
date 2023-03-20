@@ -1,6 +1,6 @@
 import Banner from '@/components/Banner'
 import styled from 'styled-components'
-import React, from 'react'
+import React from 'react'
 import { ClotheType, selectAllClothes, useGetAllClothesQuery } from 'lib/clothesSlice'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'

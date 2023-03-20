@@ -1,9 +1,7 @@
-import Image from 'next/image'
 import Banner from '@/components/Banner'
 import styled from 'styled-components'
-import React, { useEffect } from 'react'
+import React, from 'react'
 import { ClotheType, selectAllClothes, useGetAllClothesQuery } from 'lib/clothesSlice'
-import { store } from 'lib/store'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 

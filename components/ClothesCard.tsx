@@ -63,6 +63,8 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
             src={heart}
             alt=''
             fill
+            sizes="(width: 100%, height: 100%)"
+
           />
         </AddToWishList>
     </Tile>

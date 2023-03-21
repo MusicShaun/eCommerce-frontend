@@ -60,7 +60,7 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
         <SmallDarkText>SIZE:</SmallDarkText> 
         <label htmlFor="selectSize"></label>
         <Select ref={selectOptionsRef} name='selectSize' id='selectSize' required>
-          <option selected hidden>Choose size</option>
+          <option value='Choose size' hidden>Choose size</option>
           {options}
         </Select>
 

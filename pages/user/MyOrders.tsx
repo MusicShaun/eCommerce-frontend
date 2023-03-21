@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import Empty from './Empty'
+import Empty from '../../components/Empty'
 import MyAccountLayout from '../../components/Layout'
 
 export default function MyOrders() {

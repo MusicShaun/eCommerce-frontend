@@ -2,7 +2,6 @@ import { ClotheType } from "lib/clothesSlice";
 
 
 export function handleCart( _id: string, size: string, currentUser: any, allClothes: ClotheType[], direction: string) {
-  console.log(`${direction === '+' ? 'Adding' : 'deleteing' } item to user account`)
 
   const createCartArray = 
     (obj: any) => {

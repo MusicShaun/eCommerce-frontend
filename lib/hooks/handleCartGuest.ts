@@ -3,7 +3,6 @@ import { ClotheType } from "lib/clothesSlice";
 
 export function handleCartGuest(_id: string, user: Partial<Profile>, size: string, allClothes: ClotheType[]) {
 
-  console.log('handle guest cart')
   const createCartArray = 
     (obj: any, user: any) => {
       let t

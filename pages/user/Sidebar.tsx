@@ -57,14 +57,14 @@ export default function Sidebar() {
       <Stack2>
         <Tab>
           <Icon />
-          <Link  href='/user/PersonelDetails'><div>PersonalDetails</div></Link>
+          <Link  href='/user/PersonelDetails'><div>Personal Details</div></Link>
         </Tab>
       </Stack2>
 
       <Stack2>
         <Tab>
           <Icon />
-          <Link href='/user/MyOrders' ><div>MyOrders</div></Link>
+          <Link href='/user/MyOrders' ><div>My Orders</div></Link>
         </Tab>
 
         <Tab>
@@ -76,7 +76,7 @@ export default function Sidebar() {
 
         <Tab>
           <Icon />
-          <Link href='/user/PurchaseHistory' ><div>PuchaseHistory</div></Link>
+          <Link href='/user/PurchaseHistory' ><div>Puchase History</div></Link>
         </Tab>
       </Stack2>
 

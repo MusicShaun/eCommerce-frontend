@@ -35,7 +35,7 @@ export default function NavUserDropdown() {
                 Sign in
               </HeadButtons>
             </Link>
-            <Link href='/login/LoginWrapper' as='/login'>
+            <Link href='/login/LoginWrapper' as='/register'>
               <HeadButtons>
                 Join
               </HeadButtons>
@@ -75,7 +75,7 @@ const Container = styled.div`
   background-color: ${({ theme }) => theme.background};
   z-index: 1;
   transform: translateY(-400px);
-  transition: transform 0.8s cubic-bezier(0.57, 0.16, 0.55, 0.82); //out
+  transition: transform 0.8s cubic-bezier(0, 0.17, 0.55, 0.82); //out
 `
 
 

@@ -12,7 +12,7 @@ import useAddClothingItem from 'lib/hooks/useAddClothingItem'
 export default function WishList() {
 
   const wishlist = useAppSelector(selectWishlist)  
-  const handleAddItem = useAddClothingItem()
+  const {handleAddItem} = useAddClothingItem()
 
   async function handleRemoveItemFromWishList(_id: string) {
     handleAddItem(_id, 'wishlist')

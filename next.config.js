@@ -25,6 +25,17 @@ const nextConfig = {
         destination: '/women',
         permanent: true,
       },
+      {
+        source: '/login/LoginWrapper',
+        destination: '/login',
+        permanent: true,
+      },
+      {
+        source: '/register/register',
+        destination: '/register',
+        permanent: true,
+      },
+
 
     ]
   },

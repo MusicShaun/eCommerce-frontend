@@ -2,6 +2,7 @@ import Nav4Panel from "@/components/nav/Nav4Panel"
 import NavShirts from "@/components/nav/NavShirts"
 import NavSneakers from "@/components/nav/NavShoes"
 import NavShorts from "@/components/nav/NavShorts"
+import Link from "next/link"
 import { useState } from "react"
 import styled from "styled-components"
 
@@ -25,7 +26,7 @@ export default function HeaderBottom() {
         onMouseEnter={() => setNavShirts(true)}
         onMouseLeave={() => setNavShirts(false)}
       >
-          <span >Shirts </span>    
+        <Link href='/filter/[productType]' as='/filter/shirts'><span >Shirts </span></Link> 
       </Tab>
       {navShirts && <NavShirts setNavShirts={setNavShirts} />}
 
@@ -33,7 +34,7 @@ export default function HeaderBottom() {
         onMouseEnter={() => setNavShoes(true)}
         onMouseLeave={() => setNavShoes(false)}
       > 
-          <span>Shoes </span>    
+        <Link href="/filter/[productType]" as="/filter/shoes"><span>Shoes </span>    </Link>
       </Tab>
       {navShoes && <NavSneakers setNavShoes={setNavShoes} />}
 
@@ -41,7 +42,7 @@ export default function HeaderBottom() {
         onMouseEnter={() => setNavShorts(true)}
         onMouseLeave={() => setNavShorts(false)}
       >
-          <span>Shorts </span>    
+        <Link href='/filter/[productType]' as='/filter/shorts'><span>Shorts </span></Link>
       </Tab>
       {navshorts && <NavShorts setNavShorts={setNavShorts} />}
 

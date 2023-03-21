@@ -9,7 +9,7 @@ interface IProps {
 
 export default function ClothesGallery({ info }: IProps) {
 
-  const handleAddItem = useAddClothingItem()
+  const {handleAddItem} = useAddClothingItem()
 
   function handleAddClotheItemToWishList(_id: string) {
     handleAddItem(_id, 'wishlist')
@@ -52,6 +52,7 @@ const Wrapper = styled.div`
   align-items: center;
 `
 const Container = styled.div`
+  position: relative;
   max-width: 1300px;
   width: 100%;
   height: auto;
@@ -60,6 +61,7 @@ const Container = styled.div`
   align-items: center;
 `
 const Box = styled.div`
+  position: relative;
   width: 100%;
   height: auto;
   

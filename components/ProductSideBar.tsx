@@ -3,9 +3,10 @@ import Image from "next/image"
 import  Heart  from '@/images/heart.png'
 import { ClotheType  } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
-import { selectWishlist} from "lib/userSlice"
+import { selectWishlist } from "lib/userSlice"
 import { useEffect, useRef, useState } from "react"
 import useAddClothingItem from "lib/hooks/useAddClothingItem"
+import PacmanLoader from "react-spinners/PacmanLoader"
 
 export default function Sidebar({productItem}: {productItem: ClotheType}) {
 
@@ -13,7 +14,8 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
   const [hearted, setHearted] = useState(false)
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
 
-  const handleAddItem = useAddClothingItem()
+
+  const {handleAddItem, isCartLoading, isWishLoading} = useAddClothingItem()
 
   // focus on the useRef
   useEffect(() => {
@@ -48,6 +50,16 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
     handleAddItem(_id, 'cart', selectOptionsRef.current!.value, '+')
   }
 
+  const cssLoaderSpecs = {
+    display: 'flex',
+    zIndex: 9000,
+    width: '100%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    top: '220px',
+
+  }
+
   return (
     <Container>
       <Box>
@@ -67,11 +79,20 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
         <SmallDarkText>BRAND: <span>{productItem.brand}</span></SmallDarkText>
 
         <ShoppingControls>
+          <SpinnerContainer style={{display: isCartLoading || isWishLoading ? 'flex' : 'none'}}>
+            <PacmanLoader
+              color={'#2d2d2d'}
+              size={50}
+              loading={isCartLoading || isWishLoading}
+              cssOverride={cssLoaderSpecs}
+              speedMultiplier={1.5}
+              />
+          </SpinnerContainer>
           <AddToBag onClick={() => handleAddClotheItemToCart(productItem._id)}>ADD TO BAG</AddToBag>
           <HeartContainer onClick={() => handleAddClotheItemToWishList(productItem._id)}
             style={{
             backgroundColor: hearted ? 'black' : 'lightgrey'
-          }}>
+            }}>
             <Image
               src={Heart}
               width='18'
@@ -81,9 +102,9 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
                 position: 'absolute',
                 top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
                 filter: hearted ? 'invert(1)': ''
-
               }}
-              />
+            />
+
           </HeartContainer>
         </ShoppingControls>
 
@@ -170,4 +191,14 @@ const Conditions = styled.div`
    & > div {
     margin: 5px 0;
    }
+`
+const SpinnerContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.446);
 `

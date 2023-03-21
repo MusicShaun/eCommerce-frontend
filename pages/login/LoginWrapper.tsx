@@ -2,7 +2,7 @@ import styled from "styled-components"
 import Login from "./Login"
 import Register from "./Register"
 import { useState } from "react"
-import SignInOptions from "./SignInOptions"
+import SignInOptions from "../../components/SignInOptions"
 
 
 export default function LoginWrapper() {

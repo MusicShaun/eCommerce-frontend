@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import InfoCenter from './InfoCenter'
+import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
 import { useRegisterMutation } from 'lib/userSlice'
 

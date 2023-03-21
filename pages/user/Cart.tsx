@@ -6,6 +6,7 @@ import { useAppSelector } from 'lib/hooks/hooks'
 import { selectCart } from 'lib/userSlice'
 import ClothesCardCart from '@/components/ClothesCardCart'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
+import PacmanLoader from 'react-spinners/PacmanLoader'
 
 
 
@@ -13,7 +14,7 @@ import useAddClothingItem from 'lib/hooks/useAddClothingItem'
 export default function Cart() {
 
   const cart = useAppSelector(selectCart)  
-  const handleAddItem = useAddClothingItem()
+  const {handleAddItem, isCartLoading} = useAddClothingItem()
 
   function deleteClothingItem(_id: string) {
     handleAddItem(_id, 'cart', '', '-')
@@ -55,12 +56,21 @@ export default function Cart() {
     button: `Start Shopping`
   }
 
+  const cssLoaderSpecs = {
+    display: 'flex',
+    zIndex: 9000,
+    width: '400px',
+    left: '50%',
+    transform: 'translate(-30%, -50%)',
+    top: '50%',
+  }
 
   let content 
   if (cart.length > 0) {
     content = 
       <WishContainer>
-        <div>
+
+        <div style={{position: 'relative'}}>
           {result.map((item: any, index: number) => {
             return <ClothesCardCart
               info={item}
@@ -68,7 +78,18 @@ export default function Cart() {
               deleteClothingItem={deleteClothingItem} 
               handleAddClotheItemToCart={handleAddClotheItemToCart}
             />
-            })}
+          })}
+          
+          <SpinnerContainer style={{display: isCartLoading ? 'flex' : 'none'}}>
+            <PacmanLoader
+              color={'#2d2d2d'}
+              size={50}
+              loading={isCartLoading}
+              cssOverride={cssLoaderSpecs}
+              speedMultiplier={1.5}
+              />
+          </SpinnerContainer>
+
         </div>
         <Total>Total:  ${findTotalPrice()} </Total>
         <Checkout onClick={handleCheckout}>CHECKOUT</Checkout>  
@@ -144,4 +165,15 @@ const Checkout = styled.button`
   font-size: ${({theme }) => theme.fontL};
   cursor: pointer;
   margin-top: 20px;
+`
+
+const SpinnerContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.446);
 `

@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useEffect } from 'react'
 import styled from 'styled-components'
-import InfoCenter from './InfoCenter'
+import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import { useLoginMutation } from 'lib/userSlice'

@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import styled from 'styled-components'
+import styled, { CSSProperties } from 'styled-components'
 import Banner from '@/components/Banner'
 import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheType} from 'lib/clothesSlice'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
+import PacmanLoader from 'react-spinners/PacmanLoader'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,9 +28,9 @@ export default function Home() {
 
 
   if (isLoading) {
-    console.log('LOADING')
+    
   } else if (isSuccess) {
-    console.log('SUCCESS')
+    
     randomClothes = [...selectAll].sort(() => Math.random() - 0.5)
   } else if (isError) {
     console.log(JSON.stringify(error))
@@ -68,7 +69,15 @@ export default function Home() {
 
       <Wrapper>
         <Banner info={firstBanner} />
-          {isSuccess && <ClothesGallery info={randomClothes!} />}
+        <PacmanLoader
+          color={'#2d2d2d'}
+          size={50}
+          loading={isLoading}
+          cssOverride={{
+            display: 'block', height: '450px', margin: 'auto', marginTop: '200px'
+          }}
+        />
+        {isSuccess && <ClothesGallery info={randomClothes!} />}
         <Banner info={secondBanner} />
       </Wrapper>
 

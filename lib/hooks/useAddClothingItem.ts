@@ -13,8 +13,8 @@ export default function useAddClothingItem() {
   const currentUser = useAppSelector(selectCurrentUser)
   const allClothes = useAppSelector(selectAllClothes);
 
-  const [addWistListItem] = useAddWishListItemMutation()
-  const [addCartListItem] = useAddCartItemMutation()
+  const [addWistListItem, {isLoading: isWishLoading}] = useAddWishListItemMutation()
+  const [addCartListItem, {isLoading: isCartLoading}] = useAddCartItemMutation()
   const [guest] = useGuestMutation()
 
 
@@ -67,6 +67,6 @@ export default function useAddClothingItem() {
       }
     }
   
-    return handleAddItem
+    return {handleAddItem, isCartLoading, isWishLoading}
 
 }

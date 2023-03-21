@@ -4,7 +4,6 @@ import { ClotheType } from "lib/clothesSlice";
 
 export function handleGuestWishlist(_id: string, user: Partial<Profile>, allClothes: ClotheType[]) {
 
-  console.log(`THIS IS THE GUEST WISHLIST`)
   const createWishlistArray = 
     (obj: any, user: any) => {
       let t

@@ -3,7 +3,6 @@ import { ClotheType } from "lib/clothesSlice";
 
 
 export function handleDeleteCartItem(_id: string, currentUser: any, allClothes: ClotheType[]) {
-  console.log(`handle user wishlist`)
 
   const createWishlistArray = 
     (obj: ClotheType): ClotheType[] => {

@@ -28,19 +28,15 @@ const ButtonContainer = styled.div`
     font-weight: 500;
     font-size: ${({theme}) => theme.fontL};
     color: ${({ theme }) => theme.white};
-    
-    &:hover {
-      color: ${({ theme }) => theme.headerTop};
-    }
-  }
   
+  }
+
 `
 const Button = styled.button`
   height: 100%;
   width: 33.3%;
   border: none;
   background: none;
-  color: ${({ theme }) => theme.white};
 
   & a  {
     text-decoration: none;
@@ -50,6 +46,10 @@ const Button = styled.button`
   }
   &:hover {
     background-color: ${({ theme }) => theme.backgroundSecondary};  
+    color: ${({ theme }) => theme.headerTop};
   }
+  &:hover span {
+      color: ${({ theme }) => theme.headerTop};
+    }
   
 `

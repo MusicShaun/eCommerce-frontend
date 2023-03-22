@@ -117,4 +117,8 @@ const Tab = styled.div`
   & + div {
     font-size: ${({theme}) => theme.fontM}
   }
+  & a {
+    color: inherit;
+    text-decoration: none;
+  }
 `

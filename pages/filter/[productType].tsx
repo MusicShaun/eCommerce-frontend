@@ -1,24 +1,47 @@
 import { useRouter } from 'next/router'
 import { useAppSelector } from 'lib/hooks/hooks'
-import { selectShirts, selectShoes, selectShorts } from 'lib/clothesSlice'
+import { ClotheType, selectShirts, selectShoes, selectShorts } from 'lib/clothesSlice'
+import styled from 'styled-components'
+import ClothesGallery from '@/components/ClothesGallery'
 
 export default function ProductGrouped() {
 
-  const shoes = useAppSelector(selectShoes)
-  const shorts = useAppSelector(selectShorts)
-  const shirts = useAppSelector(selectShirts)
+  const selectorMap = {
+    shoes: selectShoes,
+    shorts: selectShorts,
+    shirts: selectShirts,
+  }
   const router = useRouter()
-  const { product } = router.query
+  const { productType } = router.query
 
-  console.log(product)
-
-
+  const productList: ClotheType[] = useAppSelector(selectorMap[productType as string] || (() => null));
 
 
   return (
-    <div>
-      
-
-    </div>
+    <Wrapper>
+      <Container>
+        <ClothesGallery info={productList} />
+      </Container>
+    </Wrapper>
   )
 }
+
+
+
+const Wrapper = styled.div`
+  position: absolute;
+  left: 0;
+  top: 155px;
+  width: 100%;
+  height: calc(90% - 155px);
+  display: flex;
+  justify-content: center;
+`
+const Container = styled.div`
+  width: 960px;
+  height: auto;
+  display: flex;
+  flex-direction: columns;
+  justify-content: space-between;
+  margin-top: 60px;
+`

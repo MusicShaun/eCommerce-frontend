@@ -1,21 +1,25 @@
-import React, { useRef, useState } from 'react'
+import { ClotheType } from 'lib/clothesSlice'
+import React, { FormEvent, useRef, useState } from 'react'
 import styled from 'styled-components'
 
+interface IProps {
+  getPriceRange: (min: number, max: number) => void
+}
 
-export default function PriceSlider() {
+export default function PriceSlider({ getPriceRange } : IProps) {
 
   const [min, setMin ] = useState(10)
   const [max, setMax] = useState(500)
-  const minRef = useRef(null)
-  const maxRef = useRef(null)
+  const minRef = useRef<HTMLInputElement>(null)
+  const maxRef = useRef<HTMLInputElement>(null)
 
   // SET MIN AND MAX VALUES
   // IF SLIDERS GO PAST ONE ANOTHER, SWAPS VALUES
-  function validateRange(minRef, maxRef) {
-    let minValue = minRef.current.value;
-    let maxValue = maxRef.current.value;
+  // Convert intial values to numbers
+  function validateRange(minRef: any, maxRef: any) {
+    let minValue = Number(minRef.current.value);
+    let maxValue = Number(maxRef.current.value);
 
-    console.log(minValue, maxValue)
     if (minValue > maxValue) {
       let tempValue = maxValue;
       maxValue = minValue;
@@ -25,10 +29,15 @@ export default function PriceSlider() {
     setMax(maxValue)
   }
 
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    console.log('price range submitted')
+    getPriceRange(min,max)
+  }
 
   return (
 
-    <SliderWrapper>
+    <SliderWrapper onChange={(e) => handleSubmit(e)}>
       <SmallDarkText>Price: </SmallDarkText>
       <SpaceEm>
         <SmallDarkText>{min}</SmallDarkText>
@@ -36,11 +45,11 @@ export default function PriceSlider() {
       </SpaceEm>
       <SliderContainer>
         <label htmlFor='min'></label>
-        <input ref={minRef} id='min' type="range" min="10" max='500' step="5"
+        <input ref={minRef} id='min' type="range" min="10" max='500' step="5" defaultValue='10'
           onChange={() => validateRange(minRef, maxRef)}
           />
         <label htmlFor='max'></label>
-        <input ref={maxRef} id='max' type="range" min="10" max='500' step="5"
+        <input ref={maxRef} id='max' type="range" min="10" max='500' step="5" defaultValue='500'
            onChange={() => validateRange(minRef, maxRef)}
           />
       </SliderContainer>
@@ -50,7 +59,7 @@ export default function PriceSlider() {
 
 
 
-const SliderWrapper = styled.div`
+const SliderWrapper = styled.form`
   width: 100%;
   height: auto;
   display: flex;

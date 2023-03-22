@@ -1,34 +1,39 @@
+import { ClotheType } from "lib/clothesSlice"
+import { SetStateAction, useRef, useState } from "react"
 import styled from "styled-components"
 
 
 interface IProps {
   info: {
     arr: string[],
-    filterByBrand: () => string,
+    filterByFunction: (selection: string) => void,
     name: string
   }
 }
 
 export default function ProductFilterSideBarSelect({ info }: IProps) {
 
-  // map over info.brands to create select options 
-  // add onChange event to select element
-  // call info.filterByBrand() on change
+  const [selected, setSelected] = useState('')
+
   const selectors = info.arr.map((a, i) => {  
       return <option value={a}>{a}</option>
   })
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    console.log('filter submit')
+    info.filterByFunction(selected)
+  }
 
   return (
     <div>
-      <form onSubmit={info.filterByBrand}>
+      <form onChange={(e) => handleSubmit(e)}>
       <SmallDarkText>{info.name}:</SmallDarkText> 
         <label htmlFor={info.name}></label>
-        <Select id={info.name}>
+        <Select id={info.name} onChange={(e) => setSelected(e.target.value)}>
           <option selected >- </option>
           {selectors}
         </Select>
-        
       </form>
     </div>
   )

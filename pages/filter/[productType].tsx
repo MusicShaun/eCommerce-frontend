@@ -4,31 +4,61 @@ import { ClotheType, selectShirts, selectShoes, selectShorts } from 'lib/clothes
 import styled from 'styled-components'
 import ClothesGallery from '@/components/ClothesGallery'
 import ProductFilterSideBar from '@/components/ProductFilterSideBar'
+import { useState } from 'react'
+
+interface SelectorMap {
+  [key: string]: (state: any) => ClotheType[];
+}
 
 export default function ProductGrouped() {
 
-  const selectorMap = {
+  const [filteredClothes, setFilteredClothes] = useState<ClotheType[]>([])
+  const router = useRouter()
+  const { productType } = router.query
+
+  const selectorMap: SelectorMap = {
     shoes: selectShoes,
     shorts: selectShorts,
     shirts: selectShirts,
   }
-  const router = useRouter()
-  const { productType } = router.query
 
-  const productList: ClotheType[] = useAppSelector(selectorMap[productType as string] || (() => null));
+  const productList: ClotheType[] = useAppSelector(selectorMap[productType!]);
+
+  function getFilteredClotheArray(arr: ClotheType[]) {
+    setFilteredClothes(arr)
+  }
 
 
+  const truthyCheckFilteredArray = filteredClothes && filteredClothes.length > 0 
+
+
+  console.log(filteredClothes)
+  
   return (
     <Wrapper>
       <Container>
-        <ProductFilterSideBar info={productList} />
-        <ClothesGallery info={productList} />
+
+
+        <ProductFilterSideBar
+          info={productList}
+          setFilteredClothes={setFilteredClothes}
+          filteredClothes={filteredClothes}
+        />
+
+        <button onClick={() => getFilteredClotheArray(filteredClothes)}>SUBMIT</button>
+
+        <ClothesGallery info={truthyCheckFilteredArray ? filteredClothes : productList} />
+
+        
       </Container>
     </Wrapper>
   )
 }
 
-
+// function handleFilterSubmit() {
+//   console.log('function called')
+//   getFilteredClotheArray
+// }
 
 const Wrapper = styled.div`
   position: absolute;
@@ -47,5 +77,4 @@ const Container = styled.div`
   justify-content: space-between;
   margin-top: 60px;
 
-  border: 1px solid red;
 `

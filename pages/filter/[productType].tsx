@@ -3,6 +3,7 @@ import { useAppSelector } from 'lib/hooks/hooks'
 import { ClotheType, selectShirts, selectShoes, selectShorts } from 'lib/clothesSlice'
 import styled from 'styled-components'
 import ClothesGallery from '@/components/ClothesGallery'
+import ProductFilterSideBar from '@/components/ProductFilterSideBar'
 
 export default function ProductGrouped() {
 
@@ -20,6 +21,7 @@ export default function ProductGrouped() {
   return (
     <Wrapper>
       <Container>
+        <ProductFilterSideBar info={productList} />
         <ClothesGallery info={productList} />
       </Container>
     </Wrapper>
@@ -38,10 +40,12 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 const Container = styled.div`
-  width: 960px;
+  width: 1300px;
   height: auto;
   display: flex;
   flex-direction: columns;
   justify-content: space-between;
   margin-top: 60px;
+
+  border: 1px solid red;
 `

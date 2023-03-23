@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import ClothesGallery from '@/components/ClothesGallery'
 import ProductFilterSideBar from '@/components/ProductFilterSideBar'
 import { useState } from 'react'
+import Link from 'next/link'
 
 interface SelectorMap {
   [key: string]: (state: any) => ClotheType[];
@@ -13,6 +14,9 @@ interface SelectorMap {
 export default function ProductGrouped() {
 
   const [filteredClothes, setFilteredClothes] = useState<ClotheType[]>([])
+  const [updatedFilteredClothes, setUpdatedFilteredClothes] = useState<ClotheType[]>([])
+  const [noResults, setNoResults] = useState(false)
+  
   const router = useRouter()
   const { productType } = router.query
 
@@ -24,41 +28,71 @@ export default function ProductGrouped() {
 
   const productList: ClotheType[] = useAppSelector(selectorMap[productType!]);
 
-  function getFilteredClotheArray(arr: ClotheType[]) {
-    setFilteredClothes(arr)
+  // A function to collect state changes from children and create a clothes array for display
+  function handleFilteredClotheArray(arr: ClotheType[]) {
+    setUpdatedFilteredClothes(arr)
+    setFilteredClothes([])
+
+    if (filteredClothes.length === 0) {
+      setNoResults(true)
+    }
   }
 
+  // Check whether the user has made a search query, if so, use the updatedFilteredClothes state
+  const truthyCheckFilteredArray = updatedFilteredClothes && updatedFilteredClothes.length > 0
 
-  const truthyCheckFilteredArray = filteredClothes && filteredClothes.length > 0 
+  let galleryContent
+  if (noResults) {
+    galleryContent = <SearchFailure>
+      <h1>There were no clothes matching this search</h1>
+      <button onClick={() => setNoResults(false)}>
+        Okay
+      </button>
+    </SearchFailure>
+  } else if (truthyCheckFilteredArray) {
+    galleryContent = <ClothesGallery info={updatedFilteredClothes} />
+  } else if (!truthyCheckFilteredArray) {
+    galleryContent = <ClothesGallery info={productList} />
+  } 
 
-
-  console.log(filteredClothes)
-  
+    
   return (
     <Wrapper>
       <Container>
 
+        <SideBar>
+          <ProductFilterSideBar
+            info={productList}
+            setFilteredClothes={setFilteredClothes}
+            filteredClothes={filteredClothes}
+          />
 
-        <ProductFilterSideBar
-          info={productList}
-          setFilteredClothes={setFilteredClothes}
-          filteredClothes={filteredClothes}
-        />
+          <SubmitButton onClick={() => handleFilteredClotheArray(filteredClothes)}>
+            SUBMIT
+          </SubmitButton>
+        </SideBar>
 
-        <button onClick={() => getFilteredClotheArray(filteredClothes)}>SUBMIT</button>
+        <BodyContainer>
+          <TagContainer>
+            <Link href='/filter/[productType]' as='/filter/shirts'>
+              <TagButton >Shirts</TagButton>
+            </Link>
+            <Link href='/filter/[productType]' as='/filter/shorts'>
+              <TagButton >Shorts</TagButton>
+            </Link>
+            <Link href='/filter/[productType]' as='/filter/shoes'>
+              <TagButton >Shoes</TagButton>
+            </Link>
+          </TagContainer>
+          
+          {galleryContent}
+        </BodyContainer>
 
-        <ClothesGallery info={truthyCheckFilteredArray ? filteredClothes : productList} />
-
-        
       </Container>
     </Wrapper>
   )
 }
 
-// function handleFilterSubmit() {
-//   console.log('function called')
-//   getFilteredClotheArray
-// }
 
 const Wrapper = styled.div`
   position: absolute;
@@ -68,13 +102,71 @@ const Wrapper = styled.div`
   height: calc(90% - 155px);
   display: flex;
   justify-content: center;
+
 `
 const Container = styled.div`
+  position: relative;
   width: 1300px;
   height: auto;
   display: flex;
-  flex-direction: columns;
   justify-content: space-between;
   margin-top: 60px;
 
+`
+const SearchFailure = styled.div`
+  max-width: 970px;
+`
+const SubmitButton = styled.button`
+  width: 330px;
+  padding: 8px;
+  border: none;
+  margin-top: 20px;
+  font-size: ${({ theme }) => theme.fontML};
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+  box-shadow: inset 0 0 rgba(0, 0, 0, 0.0);
+  &:active {
+    background-color: ${({ theme }) => theme.primary};
+    box-shadow: inset 3px -3px 5px rgba(0, 0, 0, 0.4), inset -1px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.08s ease-in-out;
+  }
+`
+
+const SideBar = styled.div`
+  width: 330px;
+`
+const BodyContainer = styled.div`
+  width: 950px;
+  display: flex;
+  flex-direction: column;
+`
+
+
+const TagContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 25px;
+`
+const TagButton = styled.button`
+  font-size: ${({ theme }) => theme.fontML};
+  background-color: transparent;
+  border: none;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  box-shadow: inset 0 0 rgba(0, 0, 0, 0.0);
+  text-decoration: underline;
+  text-underline-offset: 10px;
+
+  &:after {
+    content: '';
+    padding-left: 10px;
+    text-decoration: none !important;
+  }
+  &:active {
+    background-color: ${({ theme }) => theme.primary};
+    box-shadow: inset 3px -3px 5px rgba(0, 0, 0, 0.4), inset -1px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.08s ease-in-out;
+  }
 `

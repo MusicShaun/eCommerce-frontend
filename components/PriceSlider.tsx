@@ -1,15 +1,14 @@
 import { ClotheType } from 'lib/clothesSlice'
-import React, { FormEvent, useRef, useState } from 'react'
+import React, { FormEvent, SetStateAction, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 interface IProps {
-  getPriceRange: (min: number, max: number) => void
+  priceRange: number[]
+  setPriceRange: React.Dispatch<SetStateAction<number[]>>
 }
 
-export default function PriceSlider({ getPriceRange } : IProps) {
+export default function PriceSlider({ priceRange, setPriceRange } : IProps) {
 
-  const [min, setMin ] = useState(10)
-  const [max, setMax] = useState(500)
   const minRef = useRef<HTMLInputElement>(null)
   const maxRef = useRef<HTMLInputElement>(null)
 
@@ -25,31 +24,25 @@ export default function PriceSlider({ getPriceRange } : IProps) {
       maxValue = minValue;
       minValue = tempValue;
     }
-    setMin(minValue)
-    setMax(maxValue)
+    setPriceRange([minValue, maxValue])
   }
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    console.log('price range submitted')
-    getPriceRange(min,max)
-  }
 
   return (
 
-    <SliderWrapper onChange={(e) => handleSubmit(e)}>
+    <SliderWrapper >
       <SmallDarkText>Price: </SmallDarkText>
       <SpaceEm>
-        <SmallDarkText>{min}</SmallDarkText>
-        <SmallDarkText>{max} </SmallDarkText>
+        <SmallDarkText>{priceRange[0]}</SmallDarkText>
+        <SmallDarkText>{priceRange[1]} </SmallDarkText>
       </SpaceEm>
       <SliderContainer>
         <label htmlFor='min'></label>
-        <input ref={minRef} id='min' type="range" min="10" max='500' step="5" defaultValue='10'
+        <input ref={minRef} id='min' type="range" min="10" max='500' step="10" defaultValue='10'
           onChange={() => validateRange(minRef, maxRef)}
           />
         <label htmlFor='max'></label>
-        <input ref={maxRef} id='max' type="range" min="10" max='500' step="5" defaultValue='500'
+        <input ref={maxRef} id='max' type="range" min="10" max='500' step="10" defaultValue='500'
            onChange={() => validateRange(minRef, maxRef)}
           />
       </SliderContainer>

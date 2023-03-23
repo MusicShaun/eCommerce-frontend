@@ -1,4 +1,4 @@
-import React, { SetStateAction, useState } from 'react'
+import React, { SetStateAction, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ProductFilterSideBarSelect from './ProductFilterSideBarSelect'
 import { ClotheType } from 'lib/clothesSlice'
@@ -12,42 +12,79 @@ interface IProps {
 }
 
 
-export default function ProductFilterSideBar( {info, setFilteredClothes}: IProps) {
+export default function ProductFilterSideBar( {info, setFilteredClothes, filteredClothes}: IProps) {
 
-  function filterByFunction(selection: string) {
-    console.log(selection)
-    let arr = []
-    arr = Object.values(info).filter((l => Object.values(l).find(x => x === selection)))
-    setFilteredClothes(arr)
-    console.log(arr)
+  const [brand, setBrand] = useState('')
+  const [color, setColor] = useState('')
+  const [size, setSize] = useState('')
+  const [priceRange, setPriceRange] = useState([0, 500])
+
+  function stateSetterFunction(brand: string, color: string, size: string) {
+    if (brand) {
+      setBrand(brand)
+    }
+    if (color) {
+      setColor(color)
+    }
+    if (size) {
+      setSize(size)
+    }
   }
 
+  // BIG USEEFFECT HERE WHICH TAKES ALL THE STATES ABOVE AS ARGUMENTS TO FILTER THE CLOTHES ARRAY
+  function filterArrayFunction(str: string) {
+    return (filteredClothes.length > 0 ? filteredClothes : Object.values(info))
+    .filter((l => Object.values(l).find(x => x === str)))
+  }
+  useEffect(() => {
+    if (brand) {
+      setFilteredClothes(filterArrayFunction(brand))
+      console.log('brand', brand)
+    }
+    if (color) {
+      setFilteredClothes(filterArrayFunction(color))
+      console.log('color', color)
+    }
+    if (size) {
+      setFilteredClothes(
+        (filteredClothes.length > 0 ? filteredClothes : Object.values(info))
+          .filter((l => Object.values(l.sizes).find(x => x === size))))
+      console.log('size', size)
+    }
+
+    setFilteredClothes(
+      (filteredClothes.length > 0 ? filteredClothes : Object.values(info))
+      .filter((l => Number(l.price.replace('$', '')) < priceRange[1] && Number(l.price.replace('$', '')) > priceRange[0])))
+      console.log('priceRange', priceRange)
+
+  }, [brand, color, size, priceRange])
+
+
+
+
+  // THIS IS THE OBJECTS THAT ARE PASSED TO THE PRODUCTFILTERSIDEBARSELECT COMPONENT
   const Brand = {
     arr: Object.values(info).map(l => l.brand), 
-    filterByFunction,
+    stateSetterFunction,
     name: 'Brand'
   }
   const Color = {
     arr: Object.values(info).map(l => l.color), 
-    filterByFunction,
+    stateSetterFunction,
     name: 'Color'
   }
-  
-
   const flatMapSizes = Object.values(info).flatMap(l => l.sizes)
   const uniqueSizes = flatMapSizes.filter((size, index, self) => self.indexOf(size) === index)
   const Sizes = {
     arr: uniqueSizes, 
-    filterByFunction,
+    stateSetterFunction,
     name: 'Sizes'
   }
 
-  function getPriceRange(min: number, max: number) {
-    let arr = []
-    arr = Object.values(info).filter((l => Number(l.price.replace('$','')) < max && Number(l.price.replace('$','')) > min))
-    console.log(arr)
-    setFilteredClothes(arr)
-  }
+
+
+
+
 
   return (
     <Container>
@@ -56,19 +93,9 @@ export default function ProductFilterSideBar( {info, setFilteredClothes}: IProps
       <ProductFilterSideBarSelect info={Color} />
       <ProductFilterSideBarSelect info={Sizes} />
       
-      <PriceSlider getPriceRange={getPriceRange} />
+      <PriceSlider setPriceRange={setPriceRange} priceRange={priceRange} />
 
-      <TagContainer>
-        <Link href='/filter/[productType]' as='/filter/shirts'>
-          <TagButton >Shirts</TagButton>
-        </Link>
-        <Link href='/filter/[productType]' as='/filter/shorts'>
-          <TagButton >Shorts</TagButton>
-        </Link>
-        <Link href='/filter/[productType]' as='/filter/shoes'>
-          <TagButton >Shoes</TagButton>
-          </Link>
-      </TagContainer>
+
     </Container>
   )
 }
@@ -79,16 +106,4 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-`
-const TagContainer = styled.div`
-  width: 100%;
-  margin-top: 20px;
-`
-const TagButton = styled.button`
-  font-size: ${({ theme }) => theme.fontML};
-  padding: 10px;
-  border-radius: 15px;
-  border: none;
-  margin: 10px;
-  cursor: pointer;
 `

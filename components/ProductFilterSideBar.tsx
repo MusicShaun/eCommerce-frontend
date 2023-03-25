@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import ProductFilterSideBarSelect from './ProductFilterSideBarSelect'
 import { ClotheType } from 'lib/clothesSlice'
 import PriceSlider from './PriceSlider'
-import Link from 'next/link'
 
 interface IProps {
   info: ClotheType[]
@@ -11,80 +10,80 @@ interface IProps {
   filteredClothes: ClotheType[] | []
 }
 
-
 export default function ProductFilterSideBar( {info, setFilteredClothes, filteredClothes}: IProps) {
 
-  const [brand, setBrand] = useState('')
-  const [color, setColor] = useState('')
-  const [size, setSize] = useState('')
+  const [ filters, setFilters ] = useState({brand: '', color: '', size: ''})
   const [priceRange, setPriceRange] = useState([0, 500])
 
-  function stateSetterFunction(brand: string, color: string, size: string) {
-    if (brand) {
-      setBrand(brand)
-    }
-    if (color) {
-      setColor(color)
-    }
-    if (size) {
-      setSize(size)
-    }
+  // passed as prop 
+  // it collects the state from the child component used to filter the clothes
+  function stateSetterFunction(name: string, value: string) {
+    setFilters({ ...filters, [name]: value });
   }
+  // passed as prop
+  // it resets the state above when triggered from the child component
+  function childStateSetterFunction(name: string) {
+    setFilters({...filters, [name]: ''})
+  }
+
 
   // BIG USEEFFECT HERE WHICH TAKES ALL THE STATES ABOVE AS ARGUMENTS TO FILTER THE CLOTHES ARRAY
-  function filterArrayFunction(str: string) {
-    return (filteredClothes.length > 0 ? filteredClothes : Object.values(info))
-    .filter((l => Object.values(l).find(x => x === str)))
+  function filterArrayFunction(str: string, clothes: ClotheType[]) {
+    return clothes.filter((l => Object.values(l).find(x => x === str)))
+  }
+  function applyFilters(clothes: ClotheType[], filters: {brand: string, color: string, size: string}, priceRange: number[]) {
+    let filteredClothes = [...clothes];
+  
+    if (filters.brand) {
+      filteredClothes = filteredClothes.filter(cloth => cloth.brand === filters.brand);
+    }
+  
+    if (filters.color) {
+      filteredClothes = filteredClothes.filter(cloth => cloth.color === filters.color);
+    }
+  
+    if (filters.size) { //! something is wrong with the sizes
+      filteredClothes = filteredClothes.filter(cloth => cloth.sizes.includes(filters.size));
+    }
+  
+    filteredClothes = filteredClothes.filter(cloth => {
+      const price = Number(cloth.price.replace('$', ''));
+      return price >= priceRange[0] && price <= priceRange[1];
+    });
+  
+    return filteredClothes;
   }
   useEffect(() => {
-    if (brand) {
-      setFilteredClothes(filterArrayFunction(brand))
-      console.log('brand', brand)
-    }
-    if (color) {
-      setFilteredClothes(filterArrayFunction(color))
-      console.log('color', color)
-    }
-    if (size) {
-      setFilteredClothes(
-        (filteredClothes.length > 0 ? filteredClothes : Object.values(info))
-          .filter((l => Object.values(l.sizes).find(x => x === size))))
-      console.log('size', size)
-    }
-
-    setFilteredClothes(
-      (filteredClothes.length > 0 ? filteredClothes : Object.values(info))
-      .filter((l => Number(l.price.replace('$', '')) < priceRange[1] && Number(l.price.replace('$', '')) > priceRange[0])))
-      console.log('priceRange', priceRange)
-
-  }, [brand, color, size, priceRange])
+    const filteredClothes = applyFilters(info, filters, priceRange)
+    setFilteredClothes(filteredClothes)
+  }, [info, filters, priceRange])
 
 
 
-
-  // THIS IS THE OBJECTS THAT ARE PASSED TO THE PRODUCTFILTERSIDEBARSELECT COMPONENT
+  // THIS IS THE OBJECTS THAT ARE PASSED TO THE PRODUCTFILTERSIDEBARSELECT CHILD COMPONENT
   const Brand = {
+    name: 'brand',
     arr: Object.values(info).map(l => l.brand), 
     stateSetterFunction,
-    name: 'Brand'
+    childStateSetterFunction
   }
   const Color = {
+    name: 'color',
     arr: Object.values(info).map(l => l.color), 
     stateSetterFunction,
-    name: 'Color'
+    childStateSetterFunction
   }
   const flatMapSizes = Object.values(info).flatMap(l => l.sizes)
   const uniqueSizes = flatMapSizes.filter((size, index, self) => self.indexOf(size) === index)
   const Sizes = {
     arr: uniqueSizes, 
     stateSetterFunction,
-    name: 'Sizes'
+    name: 'sizes',
+    childStateSetterFunction
   }
 
 
-
-
-
+  console.log(filters)
 
   return (
     <Container>
@@ -95,15 +94,14 @@ export default function ProductFilterSideBar( {info, setFilteredClothes, filtere
       
       <PriceSlider setPriceRange={setPriceRange} priceRange={priceRange} />
 
-
     </Container>
   )
 }
+
 
 const Container = styled.div`
   width: 330px;
   height: auto;
   display: flex;
   flex-direction: column;
-
 `

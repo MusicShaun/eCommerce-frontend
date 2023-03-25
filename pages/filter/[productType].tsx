@@ -38,6 +38,8 @@ export default function ProductGrouped() {
     }
   }
 
+  console.log(filteredClothes)
+  console.log(updatedFilteredClothes)
   // Check whether the user has made a search query, if so, use the updatedFilteredClothes state
   const truthyCheckFilteredArray = updatedFilteredClothes && updatedFilteredClothes.length > 0
 
@@ -110,7 +112,7 @@ const Container = styled.div`
   height: auto;
   display: flex;
   justify-content: space-between;
-  margin-top: 60px;
+  margin-top: 25px;
 
 `
 const SearchFailure = styled.div`
@@ -125,6 +127,7 @@ const SubmitButton = styled.button`
   font-weight: 600;
   transition: all 0.2s ease-in-out;
   box-shadow: inset 0 0 rgba(0, 0, 0, 0.0);
+  cursor: pointer;
   &:active {
     background-color: ${({ theme }) => theme.primary};
     box-shadow: inset 3px -3px 5px rgba(0, 0, 0, 0.4), inset -1px 1px 3px rgba(0, 0, 0, 0.1);
@@ -136,8 +139,9 @@ const SideBar = styled.div`
   width: 330px;
 `
 const BodyContainer = styled.div`
-  width: 950px;
+  max-width: 950px;
   display: flex;
+  flex: 1;
   flex-direction: column;
 `
 

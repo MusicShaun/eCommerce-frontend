@@ -1,12 +1,12 @@
 import {  useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 
-
 interface IProps {
   info: {
     arr: string[],
-    stateSetterFunction: (brand: string, color: string, size: string) => void,
-    name: string
+    stateSetterFunction: (name: string, value: string) => void,
+    name: string,
+    childStateSetterFunction: (name: string) => void
   }
 }
 
@@ -24,24 +24,39 @@ export default function ProductFilterSideBarSelect({ info }: IProps) {
   function handleStateUpdate(e: any) {
     setSelected(e.target.value)
   }
+
+  // set filter state in parent component or reset
   useEffect(() => {
-    if (info.name === 'Brand') {
-      info.stateSetterFunction(selected, '', '')
-    } else if (info.name === 'Color') {
-      info.stateSetterFunction('', selected, '')
-    } else if (info.name === 'Size') {
-      info.stateSetterFunction('', '', selected)
-    } else {
-      resetSelect
+    switch (info.name) {
+      case 'brand':
+      case 'color':
+      case 'size':
+        info.stateSetterFunction(info.name, selected)
+        break;
+      default:
+        resetSelect
+        break;
     }
   }, [selected])
 
+  // Reset state in parent component
+  // Reset value of useRef's
   function resetSelect(e: HTMLSelectElement | any) {
     e.preventDefault()
+    switch (info.name) {
+      case 'brand':
+      case 'color':
+      case 'size':
+        info.childStateSetterFunction(info.name)
+        break;
+      default:
+        break;
+    }
+
     if (selectRef.current) {
       selectRef.current.value = '';
       setSelected('');
-    }
+    } 
   }
 
   return (

@@ -21,16 +21,13 @@ export default function ProductFilterSideBar( {info, setFilteredClothes, filtere
     setFilters({ ...filters, [name]: value });
   }
   // passed as prop
-  // it resets the state above when triggered from the child component
+  // it resets the filter state when triggered from the child component
   function childStateSetterFunction(name: string) {
     setFilters({...filters, [name]: ''})
   }
 
 
-  // BIG USEEFFECT HERE WHICH TAKES ALL THE STATES ABOVE AS ARGUMENTS TO FILTER THE CLOTHES ARRAY
-  function filterArrayFunction(str: string, clothes: ClotheType[]) {
-    return clothes.filter((l => Object.values(l).find(x => x === str)))
-  }
+  // BIG function HERE TO FILTER THE CLOTHES ARRAY
   function applyFilters(clothes: ClotheType[], filters: {brand: string, color: string, size: string}, priceRange: number[]) {
     let filteredClothes = [...clothes];
   
@@ -76,9 +73,9 @@ export default function ProductFilterSideBar( {info, setFilteredClothes, filtere
   const flatMapSizes = Object.values(info).flatMap(l => l.sizes)
   const uniqueSizes = flatMapSizes.filter((size, index, self) => self.indexOf(size) === index)
   const Sizes = {
+    name: 'sizes',
     arr: uniqueSizes, 
     stateSetterFunction,
-    name: 'sizes',
     childStateSetterFunction
   }
 

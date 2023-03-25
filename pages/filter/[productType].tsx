@@ -46,7 +46,7 @@ export default function ProductGrouped() {
   let galleryContent
   if (noResults) {
     galleryContent = <SearchFailure>
-      <h1>There were no clothes matching this search</h1>
+      <h1>This search has no results</h1>
       <button onClick={() => setNoResults(false)}>
         Okay
       </button>
@@ -117,6 +117,26 @@ const Container = styled.div`
 `
 const SearchFailure = styled.div`
   max-width: 970px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & button {
+    width: 200px;
+    border: none;
+    margin-top: 20px;
+    font-size: ${({ theme }) => theme.fontL};
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+
+    &:hover {
+      background-color: ${({ theme }) => theme.headerTop};
+      color: ${({ theme }) => theme.textInvert};
+    }
+  }
 `
 const SubmitButton = styled.button`
   width: 330px;

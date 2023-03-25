@@ -9,8 +9,10 @@ import Link from 'next/link'
 
 interface SelectorMap {
   [key: string]: (state: any) => ClotheType[];
+  shoes: (state: any) => ClotheType[];
+  shorts: (state: any) => ClotheType[];
+  shirts: (state: any) => ClotheType[];
 }
-
 export default function ProductGrouped() {
 
   const [filteredClothes, setFilteredClothes] = useState<ClotheType[]>([])
@@ -26,7 +28,7 @@ export default function ProductGrouped() {
     shirts: selectShirts,
   }
 
-  const productList: ClotheType[] = useAppSelector(selectorMap[productType!]);
+  const productList: ClotheType[] = useAppSelector(selectorMap[productType as string]);
 
   // A function to collect state changes from children and create a clothes array for display
   function handleFilteredClotheArray(arr: ClotheType[]) {

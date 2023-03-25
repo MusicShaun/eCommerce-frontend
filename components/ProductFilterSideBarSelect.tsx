@@ -13,7 +13,7 @@ interface IProps {
 export default function ProductFilterSideBarSelect({ info }: IProps) {
 
   const [selected, setSelected] = useState('')
-  const selectRef = useRef(null)
+  const selectRef = useRef<HTMLSelectElement>(null)
 
   const selectors = info.arr.map((a, i) => {  
       return <option value={a}>{a}</option>

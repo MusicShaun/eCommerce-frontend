@@ -12,7 +12,7 @@ interface IProps {
 
 export default function ProductFilterSideBar( {info, setFilteredClothes, filteredClothes}: IProps) {
 
-  const [ filters, setFilters ] = useState({brand: '', color: '', size: ''})
+  const [ filters, setFilters ] = useState({brand: '', color: '', sizes: ''})
   const [priceRange, setPriceRange] = useState([0, 500])
 
   // passed as prop 
@@ -28,9 +28,9 @@ export default function ProductFilterSideBar( {info, setFilteredClothes, filtere
 
 
   // BIG function HERE TO FILTER THE CLOTHES ARRAY
-  function applyFilters(clothes: ClotheType[], filters: {brand: string, color: string, size: string}, priceRange: number[]) {
+  function applyFilters(clothes: ClotheType[], filters: {brand: string, color: string, sizes: string}, priceRange: number[]) {
     let filteredClothes = [...clothes];
-  
+    console.log(filters)
     if (filters.brand) {
       filteredClothes = filteredClothes.filter(cloth => cloth.brand === filters.brand);
     }
@@ -39,8 +39,8 @@ export default function ProductFilterSideBar( {info, setFilteredClothes, filtere
       filteredClothes = filteredClothes.filter(cloth => cloth.color === filters.color);
     }
   
-    if (filters.size) { //! something is wrong with the sizes
-      filteredClothes = filteredClothes.filter(cloth => cloth.sizes.includes(filters.size));
+    if (filters.sizes) { 
+      filteredClothes = filteredClothes.filter(cloth => cloth.sizes.includes(filters.sizes));
     }
   
     filteredClothes = filteredClothes.filter(cloth => {
@@ -60,17 +60,17 @@ export default function ProductFilterSideBar( {info, setFilteredClothes, filtere
   // THIS IS THE OBJECTS THAT ARE PASSED TO THE PRODUCTFILTERSIDEBARSELECT CHILD COMPONENT
   const Brand = {
     name: 'brand',
-    arr: Object.values(info).map(l => l.brand), 
+    arr: Object.values(info).map(b => b.brand), 
     stateSetterFunction,
     childStateSetterFunction
   }
   const Color = {
     name: 'color',
-    arr: Object.values(info).map(l => l.color), 
+    arr: Object.values(info).map(c => c.color), 
     stateSetterFunction,
     childStateSetterFunction
   }
-  const flatMapSizes = Object.values(info).flatMap(l => l.sizes)
+  const flatMapSizes = Object.values(info).flatMap(s => s.sizes)
   const uniqueSizes = flatMapSizes.filter((size, index, self) => self.indexOf(size) === index)
   const Sizes = {
     name: 'sizes',
@@ -79,8 +79,6 @@ export default function ProductFilterSideBar( {info, setFilteredClothes, filtere
     childStateSetterFunction
   }
 
-
-  console.log(filters)
 
   return (
     <Container>

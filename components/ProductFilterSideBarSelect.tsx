@@ -3,9 +3,9 @@ import styled from "styled-components"
 
 interface IProps {
   info: {
+    name: string,
     arr: string[],
     stateSetterFunction: (name: string, value: string) => void,
-    name: string,
     childStateSetterFunction: (name: string) => void
   }
 }
@@ -30,7 +30,7 @@ export default function ProductFilterSideBarSelect({ info }: IProps) {
     switch (info.name) {
       case 'brand':
       case 'color':
-      case 'size':
+      case 'sizes':
         info.stateSetterFunction(info.name, selected)
         break;
       default:

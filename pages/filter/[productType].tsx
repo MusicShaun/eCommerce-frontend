@@ -4,7 +4,7 @@ import { ClotheType, selectShirts, selectShoes, selectShorts } from 'lib/clothes
 import styled from 'styled-components'
 import ClothesGallery from '@/components/ClothesGallery'
 import ProductFilterSideBar from '@/components/ProductFilterSideBar'
-import { useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import Link from 'next/link'
 
 interface SelectorMap {
@@ -15,12 +15,16 @@ interface SelectorMap {
 }
 export default function ProductGrouped() {
 
+  useEffect(() => {
+    if (!productList) router.push('/')
+  }, [])
+
   const [filteredClothes, setFilteredClothes] = useState<ClotheType[]>([])
   const [updatedFilteredClothes, setUpdatedFilteredClothes] = useState<ClotheType[]>([])
   const [noResults, setNoResults] = useState(false)
   
   const router = useRouter()
-  const { productType } = router.query
+  const { productType } = router.query //! This does not render before the productList, be wary 
 
   const selectorMap: SelectorMap = {
     shoes: selectShoes,
@@ -28,7 +32,7 @@ export default function ProductGrouped() {
     shirts: selectShirts,
   }
 
-  const productList: ClotheType[] = useAppSelector(selectorMap[productType as string]);
+  const productList: ClotheType[] | undefined = useAppSelector(selectorMap[productType as string]);
 
   // A function to collect state changes from children and create a clothes array for display
   function handleFilteredClotheArray(arr: ClotheType[]) {
@@ -40,12 +44,11 @@ export default function ProductGrouped() {
     }
   }
 
-  console.log(filteredClothes)
-  console.log(updatedFilteredClothes)
   // Check whether the user has made a search query, if so, use the updatedFilteredClothes state
   const truthyCheckFilteredArray = updatedFilteredClothes && updatedFilteredClothes.length > 0
 
   let galleryContent
+
   if (noResults) {
     galleryContent = <SearchFailure>
       <h1>This search has no results</h1>
@@ -53,8 +56,10 @@ export default function ProductGrouped() {
         Okay
       </button>
     </SearchFailure>
+
   } else if (truthyCheckFilteredArray) {
     galleryContent = <ClothesGallery info={updatedFilteredClothes} />
+
   } else if (!truthyCheckFilteredArray) {
     galleryContent = <ClothesGallery info={productList} />
   } 

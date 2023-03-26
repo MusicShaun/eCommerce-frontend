@@ -1,8 +1,8 @@
 import styled from "styled-components"
 import Image from "next/image"
-import User from '@/images/user.png'
-import Heart from '@/images/heart.png'
-import Bag from '@/images/bag.png'
+import User from '@/images/user.webp'
+import Heart from '@/images/heart.webp'
+import Bag from '@/images/bag.webp'
 import NavUserDropdown from "../nav/NavUserDropdown"
 import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "lib/hooks/hooks"

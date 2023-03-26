@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Image from "next/image"
-import  Heart  from '@/images/heart.png'
+import  Heart  from '@/images/heart.webp'
 import { ClotheType  } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
 import { selectWishlist } from "lib/userSlice"

@@ -104,6 +104,15 @@ const Tab = styled.div`
   border: none;
   color: white;
 
+  & > a {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
   &:hover {
     cursor: pointer;
     background-color: ${({ theme }) => theme.backgroundSecondary};

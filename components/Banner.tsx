@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React from 'react'
 import styled from 'styled-components'
-import banner from '@/images/home-banner.jpg'
+import banner from '@/images/home-banner.webp'
 
 interface IProps {
   [key: string]: any

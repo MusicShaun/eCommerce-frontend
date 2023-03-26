@@ -1,9 +1,8 @@
 
 import styled from 'styled-components'
 import React from 'react'
-import arch from '@/images/arch.jpg'
+import arch from '@/images/arch.webp'
 import Image from 'next/image'
-import MyAccount from './MyAccount'
 
 export default function UserLanding() {
   return (

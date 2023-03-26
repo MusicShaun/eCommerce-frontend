@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Image from 'next/image'
 import { ClotheType } from 'lib/clothesSlice'
-import heart from '../images/hearty.webp'
+import heart from '../images/hearty.png'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'

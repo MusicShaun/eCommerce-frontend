@@ -1,38 +1,49 @@
 import { useRouter } from 'next/router'
 import { useAppSelector } from 'lib/hooks/hooks'
-import { ClotheType, selectShirts, selectShoes, selectShorts } from 'lib/clothesSlice'
+import { ClotheType, extendedClothesSlice, selectShirts, selectShoes, selectShorts } from 'lib/clothesSlice'
 import styled from 'styled-components'
 import ClothesGallery from '@/components/ClothesGallery'
 import ProductFilterSideBar from '@/components/ProductFilterSideBar'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { store } from 'lib/store'
 
-interface SelectorMap {
-  [key: string]: (state: any) => ClotheType[];
-  shoes: (state: any) => ClotheType[];
-  shorts: (state: any) => ClotheType[];
-  shirts: (state: any) => ClotheType[];
+store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
+
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = [
+    { params: { productType: 'shirts' } },
+    { params: { productType: 'shorts' } },
+    { params: { productType: 'shoes' } }
+  ]
+  return {
+    paths,
+    fallback: false
+  }
 }
-export default function ProductGrouped() {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const res = await fetch(`https://shauns-ecommerce.herokuapp.com/api/asos/get${params!.productType}`)
+  const productType = await res.json()
+  console.log('static props rendered')
+  return { 
+    props:  productType ,
+  }
+}
 
-  useEffect(() => {
-    if (!productList) router.push('/')
-  }, [])
+
+
+interface IProps {
+  data: ClotheType[]
+}
+export default function ProductGrouped( {data}: IProps) {
+
+  const productList = data
 
   const [filteredClothes, setFilteredClothes] = useState<ClotheType[]>([])
   const [updatedFilteredClothes, setUpdatedFilteredClothes] = useState<ClotheType[]>([])
   const [noResults, setNoResults] = useState(false)
-  
-  const router = useRouter()
-  const { productType } = router.query //! This does not render before the productList, be wary 
-
-  const selectorMap: SelectorMap = {
-    shoes: selectShoes,
-    shorts: selectShorts,
-    shirts: selectShirts,
-  }
-
-  const productList: ClotheType[] | undefined = useAppSelector(selectorMap[productType as string]);
 
   // A function to collect state changes from children and create a clothes array for display
   function handleFilteredClotheArray(arr: ClotheType[]) {
@@ -64,7 +75,6 @@ export default function ProductGrouped() {
     galleryContent = <ClothesGallery info={productList} />
   } 
 
-    
   return (
     <Wrapper>
       <Container>

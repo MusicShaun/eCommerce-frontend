@@ -16,7 +16,7 @@ export default function ProductFilterSideBarSelect({ info }: IProps) {
   const selectRef = useRef<HTMLSelectElement>(null)
 
   const selectors = info.arr.map((a, i) => {  
-      return <option value={a}>{a}</option>
+    return <option value={a} key={i}>{a}</option>
   })
 
   // Set state onchange

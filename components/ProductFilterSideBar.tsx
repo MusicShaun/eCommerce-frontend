@@ -30,7 +30,7 @@ export default function ProductFilterSideBar( {info, setFilteredClothes, filtere
   // BIG function HERE TO FILTER THE CLOTHES ARRAY
   function applyFilters(clothes: ClotheType[], filters: {brand: string, color: string, sizes: string}, priceRange: number[]) {
     let filteredClothes = [...clothes];
-    console.log(filters)
+    
     if (filters.brand) {
       filteredClothes = filteredClothes.filter(cloth => cloth.brand === filters.brand);
     }

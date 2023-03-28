@@ -13,7 +13,7 @@ export default function NavUserDropdown() {
 
   useEffect(() => {
     const key = localStorage.getItem('key')
-    if (key != null) {
+    if (key != null && key) {
       setLoggedIn(true)
     }
   }, [])

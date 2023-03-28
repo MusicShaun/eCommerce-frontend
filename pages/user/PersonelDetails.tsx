@@ -13,8 +13,6 @@ export default function PersonalDetails() {
   const [updateUser, {isLoading, isSuccess}] = useUpdateUserMutation()
   const user = useAppSelector(selectCurrentUser) //! theres actually 2 selectCurrectUSers. This needs to be fixed
 
-  console.log(user?.profile._id)
-
   function setInterestWomen() {
     setInterestRadio({
       men: false,
@@ -33,19 +31,19 @@ export default function PersonalDetails() {
   async function handleUpdateUser(e: any) {
     e.preventDefault()
     let data = new FormData(e.target)
-    let formObject = Object.fromEntries(data.entries())
+    const { given_name, surname, email, dob } = Object.fromEntries(data.entries())
+    const localUser = JSON.parse(localStorage.getItem('key')!)
 
     try {
-      const res = await updateUser({ //! DOES THIS NEED TO BE INSIDE PROFILE? THERE WILL BE A TYPES ISSUE 
-        given_name: formObject.given_name as string,
-        surname: formObject.surname as string,
-        email: formObject.email as string,
-        dob: formObject.birthday as string,
+      const res = await updateUser({ 
+        ...localUser.profile,
+        given_name: given_name === '' ? localUser.profile.given_name : given_name,
+        surname: surname === '' ? localUser.profile.surname : surname,
+        email: email === '' ? localUser.profile.email : email,
+        dob: dob === '' ?  localUser.profile.dob : dob ,
         gender: interestRadio.men ? 'men' : 'women',
-        _id: user!.profile._id,
-        ...user.profile
+        _id: localUser.profile._id,
       }).unwrap()
-      console.log(res)
       localStorage.setItem('key', JSON.stringify(res))
     } catch (err) {
       console.log(err)

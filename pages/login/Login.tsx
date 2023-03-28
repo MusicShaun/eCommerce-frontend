@@ -23,28 +23,24 @@ export default function login() {
   // }, [])
 
 
-  const [login, { isLoading, isSuccess, isError, error, data }] = useLoginMutation()
-
-  const user = useAppSelector(selectCurrentUser)
+  const [login] = useLoginMutation()
 
   // Submit login form // Set localStorage // push user to state 
   async function handleSubmit(e: any) {
     e.preventDefault()
-    const data = new FormData(e.target)
+    const formData = new FormData(e.target)
 
     try {
       const data = await login({
-        email: 'kkk@kkk.com',
-        password: '12345678'
+        email: formData.get('email') as string,
+        password: formData.get('password') as string
       }).unwrap()
-        // email: data.get('email') as string,
-        // password: data.get('password') as string
       localStorage.setItem('key', JSON.stringify(data))
-      console.log('USER LOGIN COMPLETE')
       router.push('/')
       
     } catch (err) {
       console.log(err)
+      alert('Invalid email or password')
     }
   }
 
@@ -57,11 +53,11 @@ export default function login() {
           <FieldSetBox>
             <Field>
               <label htmlFor='email'>EMAIL ADDRESS</label>
-              <input name='email'  type='email' id='email' autoComplete='email username' value='kkk@kkk.com' />
+              <input name='email'  type='email' id='email' autoComplete='email username' />
             </Field>
             <Field>
               <label htmlFor='password'>PASSWORD</label>
-              <input name='password' type='text' id='password' autoComplete='password' value='12345678'/>
+              <input name='password' type='text' id='password' autoComplete='password' />
             </Field>
           </FieldSetBox>
           <FieldSetBox>

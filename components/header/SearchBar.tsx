@@ -53,6 +53,13 @@ const Form = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  & > * {
+    @media ${({ theme }) => theme.mobileL} {
+    display: none;
+    }
+  }
+
 `
 const Input = styled.input`
   width: 100%;

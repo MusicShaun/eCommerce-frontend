@@ -77,6 +77,10 @@ export default function ProductFilterSideBarSelect({ info }: IProps) {
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+
+  @media ${({ theme }) => theme.mobileL} {
+    flex-direction: row;
+  }
 `
 const SmallDarkText = styled.div`
   color: black;
@@ -89,6 +93,10 @@ const Select = styled.select`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media ${({ theme }) => theme.mobileL} {
+    margin: 10px 10px;
+  }
 `
 const Btn = styled.button`
   padding: 8px;

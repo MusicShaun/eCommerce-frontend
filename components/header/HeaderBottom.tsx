@@ -130,4 +130,9 @@ const Tab = styled.div`
     color: inherit;
     text-decoration: none;
   }
+  &:nth-child(4), :nth-child(5), :nth-child(6) {
+    @media ${({ theme }) => theme.mobileL} {
+      display: none;
+    }
+  }
 `

@@ -128,7 +128,13 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 25px;
+  padding: 0 20px;
 
+  @media ${({ theme }) => theme.mobileL} {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 `
 const SearchFailure = styled.div`
   max-width: 970px;

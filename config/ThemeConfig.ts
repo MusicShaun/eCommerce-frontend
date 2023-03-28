@@ -10,7 +10,14 @@ const colors = {
   BLUE: '#1e90ff',
   GREEN: '#1aff0f'
 }
-
+const sizes = {
+  mobileS: '415px',
+  mobileL: '768px',
+  tablet: '1024px',
+  laptop: '1440px',
+  laptopL: '2560px',
+  desktop: '2560px',
+};
 
 export const light = {
   text: colors.BLACK,
@@ -36,8 +43,17 @@ export const light = {
   fontL: '24px',
   fontML: '18px',
   fontM: '14px',
+  fontMS: '12px',
   fontS: '8px',
-  fontXS: '6px'
+  fontXS: '6px',
+
+  mobileS: `(max-width: ${sizes.mobileS})`,
+  mobileL: `(max-width: ${sizes.mobileL})`,
+  tablet: `(max-width: ${sizes.tablet})`,
+  laptop: `(max-width: ${sizes.laptop})`,
+  laptopL: `(max-width: ${sizes.laptopL})`,
+  desktop: `(min-width: ${sizes.desktop})`,
+
 } as const
 
 

@@ -34,9 +34,14 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   color: white;
+  padding: 0px 10px;
 
   & h4 {
     text-align: center;
+
+    @media ${({ theme }) => theme.mobileL} {
+      font-size: ${({ theme }) => theme.fontMS};
+    }
   }
 
   & a {
@@ -56,7 +61,6 @@ const Tag = styled.button`
   background-color: black;
   height: 100%;
   border: none;
-  
 
   &:hover {
       cursor: pointer;

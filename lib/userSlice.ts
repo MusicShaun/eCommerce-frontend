@@ -21,7 +21,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
         method: 'POST',
         body,
       }),
-      invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth'], // Should these be provides tags? 
     }),
     register: builder.mutation<LocalUser, Signup>({
       query: (body) => ({
@@ -57,6 +57,14 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       
       invalidatesTags: ['Auth'],
     }),
+    updateUser: builder.mutation<LocalUser, Profile>({
+      query: (body) => ({
+        url: `/users/${body._id}`,
+        method: 'PUT',
+        body: body
+      }),
+      invalidatesTags: ['Auth']
+    }),
   })
 })
 
@@ -65,6 +73,7 @@ export const { useLoginMutation,
   useAddWishListItemMutation,
   useAddCartItemMutation,
   useGuestMutation,
+  useUpdateUserMutation,
 } = extendedUserSlice
 
 

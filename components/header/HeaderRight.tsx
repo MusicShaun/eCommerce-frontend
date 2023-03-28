@@ -104,6 +104,7 @@ export default function HeaderRight() {
 }
 const ButtonContainer = styled.div`
   width: 12%;
+  min-width: 125px;
   height: 100%;
   display: flex;
 

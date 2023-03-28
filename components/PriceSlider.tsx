@@ -33,6 +33,7 @@ export default function PriceSlider({ priceRange, setPriceRange } : IProps) {
     <SliderWrapper >
       <SmallDarkText>Price: </SmallDarkText>
       <SpaceEm>
+        <SmallDarkText>Price: {priceRange[0]} </SmallDarkText>
         <SmallDarkText>{priceRange[0]}</SmallDarkText>
         <SmallDarkText>{priceRange[1]} </SmallDarkText>
       </SpaceEm>
@@ -57,11 +58,31 @@ const SliderWrapper = styled.form`
   height: auto;
   display: flex;
   flex-direction: column;
+
+  @media ${({ theme }) => theme.mobileL} {
+    & > div:first-child {
+      display: none;
+    }
+  }
+  
 `
 const SpaceEm = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
+  & div:nth-child(1)  {
+      display: none;
+    }
+  @media ${({ theme }) => theme.mobileL} {
+
+    & div:nth-child(2) {
+      display: none;
+    }
+    & div:nth-child(1)  {
+      display: flex;
+    }
+  }
 `
 
 const SliderContainer = styled.div`

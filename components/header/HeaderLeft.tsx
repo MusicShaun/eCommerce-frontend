@@ -19,7 +19,10 @@ export default function HeaderLeft() {
   )
 }
 const ButtonContainer = styled.div`
+display: flex;
+  flex-wrap: nowrap;
   width: 27%;
+  min-width: 250px;
   margin-right: 3%;
   height: 100%;
   border-right: 1px solid ${({ theme }) => theme.headerMiddle};
@@ -35,6 +38,7 @@ const ButtonContainer = styled.div`
 const Button = styled.button`
   height: 100%;
   width: 33.3%;
+  min-width: 90px;
   border: none;
   background: none;
 
@@ -51,5 +55,11 @@ const Button = styled.button`
   &:hover span {
       color: ${({ theme }) => theme.headerTop};
     }
+  &:nth-child(2), :nth-child(3) {
+    @media ${({ theme }) => theme.mobileS} {
+      display: none;
+    }
+  } 
+
   
 `

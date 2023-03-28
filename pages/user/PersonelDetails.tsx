@@ -1,28 +1,56 @@
 import styled from 'styled-components'
 import MyAccountLayout from '../../components/Layout'
-
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { selectCurrentUser, useUpdateUserMutation } from 'lib/userSlice'
+import { useAppSelector } from 'lib/hooks/hooks'
 
 export default function PersonalDetails() {
 
-  const oneRef: React.MutableRefObject<any> = useRef()
-  const [radioOne, setRadioOne ] = useState(false)
-  const [radioTwo, setRadioTwo] = useState(false)
+  const womenRef: React.MutableRefObject<any> = useRef()
+  const menRef: React.MutableRefObject<any> = useRef()
+  const [interestRadio, setInterestRadio ] = useState({ men: false, women: false })
     
-  useEffect(() => { //! WHAT IS THE THING FOR A CHECKBOX BEING CHECKED?>
-    // if (oneRef.current !==null ) {
-    //   console.log(' made it here')
-    //   oneRef.current.addEventListener('onmousedown', console.log('shit works'))
+  const [updateUser, {isLoading, isSuccess}] = useUpdateUserMutation()
+  const user = useAppSelector(selectCurrentUser) //! theres actually 2 selectCurrectUSers. This needs to be fixed
 
-    //   return () => oneRef.current.removeEventListener('onclick', console.log('shit works'))
-    // }
-  }, [oneRef.current])
+  console.log(user?.profile._id)
 
-  function setChecks() {
-    console.log(radioOne)
-    setRadioOne(!radioOne)
-  } 
+  function setInterestWomen() {
+    setInterestRadio({
+      men: false,
+      women: true
+    })
+    menRef.current.checked = false;
+  }
+  function setInterestMen() {
+    setInterestRadio({
+      men: true,
+      women: false
+    })
+    womenRef.current.checked = false;
+  }
 
+  async function handleUpdateUser(e: any) {
+    e.preventDefault()
+    let data = new FormData(e.target)
+    let formObject = Object.fromEntries(data.entries())
+
+    try {
+      const res = await updateUser({ //! DOES THIS NEED TO BE INSIDE PROFILE? THERE WILL BE A TYPES ISSUE 
+        given_name: formObject.given_name as string,
+        surname: formObject.surname as string,
+        email: formObject.email as string,
+        dob: formObject.birthday as string,
+        gender: interestRadio.men ? 'men' : 'women',
+        _id: user!.profile._id,
+        ...user.profile
+      }).unwrap()
+      console.log(res)
+      localStorage.setItem('key', JSON.stringify(res))
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
 
   return (
@@ -33,32 +61,33 @@ export default function PersonalDetails() {
         <p>Feel free to edit any of your details below so your account is totally up to date.</p>
       </Header>
       <FormLogin>
-        <Form>
+        <Form onSubmit={handleUpdateUser}>
           <FieldSet>
             <FieldSetBox>
               <Field>
-                <label>EMAIL ADDRESS</label>
-                <input />
+                <label htmlFor='email' >EMAIL ADDRESS</label>
+                <input id='email' type='email' name='email'/>
               </Field>
               <Field>
-                <label>FIRST NAME</label>
-                <input />
+                <label htmlFor='given_name'>FIRST NAME</label>
+                <input id='given_name' name='given_name'/>
               </Field>
               <Field>
-                <label>LAST NAME</label>
-                <input />
+                <label htmlFor='surname' >LAST NAME</label>
+                <input id='surname' name='surname' />
               </Field>
               <Field>
-                <label>DATE OF BIRTH</label>
-                <input type="date" id="birthday" name="birthday" />
+                <label htmlFor='dob' >DATE OF BIRTH</label>
+                <input type="date" id="dob" name="dob" />
               </Field>
               <Field >
                 <label>Mostly interested in</label>
                   <RadioField style={{ flexDirection: 'row', padding: '10px 0 0 0 ' }}>
-                  <input type='checkbox'  ref={oneRef} />  
-                  <label>Womenswear</label>
-                  <input type='radio'/>
-                  <label>Menswear</label>
+
+                    <input type='radio' onClick={setInterestWomen} id='women' ref={womenRef} />  
+                  <label htmlFor='women' >Womenswear</label>
+                  <input type='radio' onClick={setInterestMen} id='men' ref={menRef} />
+                  <label htmlFor='men' >Menswear</label>
 
                   </RadioField>        
               </Field>

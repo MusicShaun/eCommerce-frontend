@@ -17,6 +17,7 @@
   * Netlify & Heroku
 
 
+<br/> 
 
 <h4>What does it do?</h4>
 
@@ -28,14 +29,18 @@
   * Can sort clothes either through navigation or the search bar. 
   * Has a very specific search page for users looking for the exact item. 
 
-
-<p>As mentioned before this is a work in progress.</p>
+<br/>
 
 
 
 <h3>Current Tasks / Upcoming </h3>
 
   - Error handling in nodeJs. 
-  - A Larger data pool to better test the speed of server requests. 
-  - A security feature for removing localStorage data when 'expiresAt' elapses. 
+  - A Larger data pool for more accurate testing. 
+  - Automatic localStorage security. 
+  - Mobile Styling 
+  
+
+<br/> 
+<p>If you feel like offering constructive criticism please be my guest</p> 
   

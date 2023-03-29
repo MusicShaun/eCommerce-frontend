@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
 import { useRegisterMutation } from 'lib/userSlice'
+import PacmanLoader from 'react-spinners/PacmanLoader'
 
 export default function login() {
 
@@ -50,12 +51,21 @@ export default function login() {
     } else return ''
   }
 
+
   return (<>
     
     <InfoCenter />
-
-
     <FormLogin>
+      <SpinnerContainer style={{display: isLoading ? 'flex' : 'none'}}>
+        <PacmanLoader
+          color={'#2d2d2d'}
+          size={50}
+          loading={isLoading}
+          cssOverride={{zIndex: 9000}}
+          speedMultiplier={1.5}
+        />
+      </SpinnerContainer>
+
       <Form onSubmit={(e) => handleSubmit(e)}>
         <FieldSet>
           <FieldSetBox>
@@ -172,4 +182,24 @@ const SubmitBtn = styled.button`
   background-color: black;
   color: white;
   font-weight: 700;
+  cursor: pointer; 
+
+  &:active {
+    transition: box-shadow 0.1s ease-in-out;
+    box-shadow: inset 5px 5px 5px grey;
+  }
+`
+const SpinnerContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.446);
+  border: 3px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

@@ -19,10 +19,10 @@ export default function HeaderLeft() {
   )
 }
 const ButtonContainer = styled.div`
-display: flex;
+  display: flex;
   flex-wrap: nowrap;
   width: 27%;
-  min-width: 250px;
+  min-width: 300px;
   margin-right: 3%;
   height: 100%;
   border-right: 1px solid ${({ theme }) => theme.headerMiddle};
@@ -38,7 +38,7 @@ display: flex;
 const Button = styled.button`
   height: 100%;
   width: 33.3%;
-  min-width: 90px;
+  min-width: 102px;
   border: none;
   background: none;
 

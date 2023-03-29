@@ -5,6 +5,7 @@ import router from 'next/router'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import { useLoginMutation } from 'lib/userSlice'
 import { selectCurrentUser } from 'lib/authSlice'
+import PacmanLoader from 'react-spinners/PacmanLoader'
 
 export default function login() {
 
@@ -23,7 +24,7 @@ export default function login() {
   // }, [])
 
 
-  const [login] = useLoginMutation()
+  const [login, {isLoading}] = useLoginMutation()
 
   // Submit login form // Set localStorage // push user to state 
   async function handleSubmit(e: any) {
@@ -48,6 +49,15 @@ export default function login() {
 
   return (<>
     <FormLogin>
+      <SpinnerContainer style={{display: isLoading ? 'flex' : 'none'}}>
+          <PacmanLoader
+            color={'#2d2d2d'}
+            size={50}
+            loading={isLoading}
+            cssOverride={{zIndex: 9000}}
+            speedMultiplier={1.5}
+          />
+        </SpinnerContainer>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <FieldSet>
           <FieldSetBox>
@@ -126,4 +136,18 @@ const SubmitBtn = styled.button`
 `
 const ForgotPassword = styled.a`
   margin-top: 22px;
+`
+const SpinnerContainer = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9000;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.446);
+  border: 3px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

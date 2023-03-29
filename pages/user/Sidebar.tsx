@@ -5,6 +5,16 @@ import { apiSlice } from "lib/apiSlice"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
 import WishList from "./WishList"
 import { selectCurrentUser } from "lib/userSlice"
+import Image from "next/image"
+import details from '@/images/account_details.png'
+import welcome from '@/images/account_welcome.png'
+import orders from '@/images/account_orders.png'
+import history from '@/images/account_history.png'
+import logout from '@/images/account_logout.png'
+import wishlist from '@/images/account_wishlist.png'
+
+
+
 
 export default function Sidebar() {
   
@@ -49,40 +59,40 @@ export default function Sidebar() {
 
       <Stack2>
         <Tab>
-          <Icon />
+          <Image src={welcome} alt=''  width={20} height={20} />
           <Link href='/user/MyAccount' ><div>Welcome</div></Link>
         </Tab>
       </Stack2>
 
       <Stack2>
         <Tab>
-          <Icon />
-          <Link  href='/user/PersonalDetails'><div>Personal Details</div></Link>
+          <Image src={details} alt=''  width={20} height={20} />
+          <Link  href='/user/PersonelDetails'><div>Personal Details</div></Link>
         </Tab>
       </Stack2>
 
       <Stack2>
         <Tab>
-          <Icon />
+          <Image src={orders} alt='' width={20} height={20} />
           <Link href='/user/MyOrders' ><div>My Orders</div></Link>
         </Tab>
 
         <Tab>
-          <Icon />
+          <Image src={wishlist} alt=''  width={20} height={20} />
           <Link href='/user/WishList' ><div>WishList
             {/* ({wishlist.length}) */}
           </div></Link>
         </Tab>
 
         <Tab>
-          <Icon />
+          <Image src={history} alt=''  width={20} height={20} />
           <Link href='/user/PurchaseHistory' ><div>Puchase History</div></Link>
         </Tab>
       </Stack2>
 
       <Stack2>
         <Tab>
-        <Icon />
+          <Image src={logout} alt=''  width={20} height={20} />
           <div onClick={handleSignout} style={{cursor: 'pointer'}}>Sign out</div>
         </Tab>
       </Stack2>
@@ -136,18 +146,19 @@ const Tab = styled.li`
   width: 100%;
   display: flex;
   align-items: center;
+  padding-left: 20px;
 
+  & div {
+    margin-left: 20px;
+  }
+  & img {
+    cursor: pointer;
+  }
   & a, div:active, div:visited, div:link {
     text-decoration: none;
     color: inherit;
   }
 `
-const Icon = styled.div`
-  width: 20px;
-  height: 20px;
-  background-color: blue;
-  margin-right:   20px;
-  cursor: pointer;
-`
+
 
 

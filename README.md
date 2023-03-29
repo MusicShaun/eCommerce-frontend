@@ -1,4 +1,4 @@
-![alt text](https://res.cloudinary.com/dyneqi48f/image/upload/v1676016779/nsz9k9ogjf64gszkbb02.png)
+<a align='center' href='www.shaunpickett.com'>![alt text](https://res.cloudinary.com/dyneqi48f/image/upload/v1676016779/nsz9k9ogjf64gszkbb02.png)</a>
 <h1 align='center'> Shaun's eCommerce Project </h1>
 <h2 align='center'> Currently a Work In Progress.</h2>
 

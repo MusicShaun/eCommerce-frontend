@@ -43,6 +43,7 @@
   - Automatic localStorage security. 
   - Mobile Styling 
   
+<img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1680078093/asos-look-alike-2_wlfeyq.png' alt='' width='100%'/>
 
 <br/> 
 <p>If you feel like offering constructive criticism please be my guest</p> 

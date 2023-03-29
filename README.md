@@ -1,5 +1,7 @@
-Hello! 
-This is a dummy site with the purpose of showcasing my code. 
+insert image 
+
+<h1 align='center'> eCommerce Example </h1>
+
 
 This eCommerce site allows a user to buy clothes and manage a user account. The aim is to create a site with as fast as possible server interactions and as few requests as possible. 
 
@@ -11,17 +13,7 @@ The front-end is written in NextJS/Typescript and deployed on Netlify.
 The back-end is wrriten in NodeJs and deployed on Heroku. 
 
 ```
-import { ClotheType, extendedClothesSlice } from 'lib/clothesSlice'
-import styled from 'styled-components'
-import ClothesGallery from '@/components/ClothesGallery'
-import ProductFilterSideBar from '@/components/ProductFilterSideBar'
-import { useState } from 'react'
-import Link from 'next/link'
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { store } from 'lib/store'
-
 store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
-
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = [
@@ -43,48 +35,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 }
 
-
-
 interface IProps {
   data: ClotheType[]
 }
-export default function ProductGrouped( {data}: IProps) {
-
-  const productList = data
-  const [filteredClothes, setFilteredClothes] = useState<ClotheType[]>([])
-  const [updatedFilteredClothes, setUpdatedFilteredClothes] = useState<ClotheType[]>([])
-  const [noResults, setNoResults] = useState(false)
-
-  // A function to collect state changes from children and create a clothes array for display
-  function handleFilteredClotheArray(arr: ClotheType[]) {
-    setUpdatedFilteredClothes(arr)
-    setFilteredClothes([])
-
-    if (filteredClothes.length === 0) {
-      setNoResults(true)
-    }
-  }
-
-  // Check whether the user has made a search query
-  // If yes, use the updatedFilteredClothes state
-  const truthyCheckFilteredArray = updatedFilteredClothes && updatedFilteredClothes.length > 0
-
-  let galleryContent
-  if (noResults) {
-    galleryContent = <SearchFailure>
-      <h1>This search has no results</h1>
-      <button onClick={() => setNoResults(false)}>
-        Okay
-      </button>
-    </SearchFailure>
-
-  } else if (truthyCheckFilteredArray) {
-    galleryContent = <ClothesGallery info={updatedFilteredClothes} />
-
-  } else if (!truthyCheckFilteredArray) {
-    galleryContent = <ClothesGallery info={productList} />
-  } 
-
 ```
 
 The main tools worth mentioning are  

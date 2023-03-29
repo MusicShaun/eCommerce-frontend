@@ -38,7 +38,6 @@ interface IProps {
 export default function ProductGrouped( {data}: IProps) {
 
   const productList = data
-
   const [filteredClothes, setFilteredClothes] = useState<ClotheType[]>([])
   const [updatedFilteredClothes, setUpdatedFilteredClothes] = useState<ClotheType[]>([])
   const [noResults, setNoResults] = useState(false)
@@ -53,11 +52,11 @@ export default function ProductGrouped( {data}: IProps) {
     }
   }
 
-  // Check whether the user has made a search query, if so, use the updatedFilteredClothes state
+  // Check whether the user has made a search query
+  // If yes, use the updatedFilteredClothes state
   const truthyCheckFilteredArray = updatedFilteredClothes && updatedFilteredClothes.length > 0
 
   let galleryContent
-
   if (noResults) {
     galleryContent = <SearchFailure>
       <h1>This search has no results</h1>

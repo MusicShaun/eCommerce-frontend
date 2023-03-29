@@ -1,4 +1,3 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from './store'
 import { ClotheType } from './clothesSlice'
 import { apiSlice } from './apiSlice'

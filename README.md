@@ -1,4 +1,4 @@
-<a align='center' href='www.shaunpickett.com'>![alt text](https://res.cloudinary.com/dyneqi48f/image/upload/v1676016779/nsz9k9ogjf64gszkbb02.png)</a>
+<div align='center'>![alt text](https://res.cloudinary.com/dyneqi48f/image/upload/v1676016779/nsz9k9ogjf64gszkbb02.png)</div>
 <h1 align='center'> Shaun's eCommerce Project </h1>
 <h2 align='center'> Currently a Work In Progress.</h2>
 
@@ -8,6 +8,7 @@
 <br />This is done mainly with RTK-Query as well as NextJs. 
 <br/>The website style is a copy of ASOS. I have no intention of profiting from this. It's merely practice. </p>
 
+
 <h3>Tooling / features </h3>
 
   * React Toolkit Query 
@@ -16,10 +17,11 @@
   * Netlify & Heroku
 
 
+
 <h4>What does it do?</h4>
 
   * The user can login or signup with JWT authentication.
-  * Can simply make one-click to create an anonymous guest account. 
+  * One-click to create an anonymous guest account. 
   * Or create a user profile. 
   * Super fast page navigation. 
   * Displays clothes for sale. 
@@ -27,19 +29,13 @@
   * Has a very specific search page for users looking for the exact item. 
 
 
+<p>As mentioned before this is a work in progress.</p>
 
 
-The main tools worth mentioning are  
-  - RTK query
-  - Typescript 
-  - NextJS 
 
-Minor tools such as Mongoose, Bcrypt or express don't seem worth the mention. 
+<h3>Current Tasks / Upcoming </h3>
 
-Mobile responsiveness will not be setup. At this point it seems like an inneffective use of time. 
-
-UPCOMING FEATURES 
-  - Error handling in nodeJs. There is none currently. 
+  - Error handling in nodeJs. 
   - A Larger data pool to better test the speed of server requests. 
   - A security feature for removing localStorage data when 'expiresAt' elapses. 
-- 
+  

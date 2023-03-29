@@ -4,6 +4,7 @@
 
 
 <h3>Tooling / features </h3>
+
   * React Toolkit Query 
   * NextJS
   * Typescript
@@ -49,7 +50,7 @@ interface IProps {
 The main tools worth mentioning are  
   - RTK query
   - Typescript 
-  - NextJS
+  - NextJS 
 
 Minor tools such as Mongoose, Bcrypt or express don't seem worth the mention. 
 

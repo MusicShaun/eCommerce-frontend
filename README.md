@@ -9,7 +9,7 @@
 <br/>The website style is a copy of ASOS. I have no intention of profiting from this. It's merely practice. </p>
 
 
-<h3>Tooling / features </h3>
+<h3>Tooling / features U+1F929 </h3>
 
   * React Toolkit Query 
   * NextJS

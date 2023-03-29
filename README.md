@@ -1,7 +1,14 @@
 insert image 
+<a name='logo' href='https://res.cloudinary.com/dyneqi48f/image/upload/v1676016779/nsz9k9ogjf64gszkbb02.png' width='100'></a>
+<h1 align='center'> Shaun's eCommerce Project </h1>
+<h2 align='center'> Currently a Work In Progress.</h2>
 
-<h1 align='center'> eCommerce Example </h1>
 
+<h3>Tooling / features </h3>
++ React Toolkit Query 
++ NextJS
++ Typescript
++ NodeJs server
 
 This eCommerce site allows a user to buy clothes and manage a user account. The aim is to create a site with as fast as possible server interactions and as few requests as possible. 
 

@@ -4,10 +4,10 @@
 
 
 <h3>Tooling / features </h3>
-* React Toolkit Query 
-* NextJS
-* Typescript
-* NodeJs server
+  * React Toolkit Query 
+  * NextJS
+  * Typescript
+  * NodeJs server
 
 This eCommerce site allows a user to buy clothes and manage a user account. The aim is to create a site with as fast as possible server interactions and as few requests as possible. 
 

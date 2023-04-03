@@ -31,6 +31,7 @@ export default function login() {
         surname: data.get('last') as string,
         email: data.get('email') as string,
         password: data.get('password') as string,
+        passwordConfirm: data.get('confirm_password') as string,
         dob: data.get('date') as string,
         gender: handleInterestCheck(e),
       }).unwrap()
@@ -84,6 +85,10 @@ export default function login() {
             <Field>
               <label>PASSWORD</label>
               <input name='password' autoComplete='new-password' required/>
+            </Field>
+            <Field>
+              <label>CONFIRM PASSWORD</label>
+              <input name='confirm_password' autoComplete='new-password' required/>
             </Field>
             <Field>
               <label>DATE OF BIRTH</label>

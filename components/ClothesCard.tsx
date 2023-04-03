@@ -48,7 +48,7 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
     }, 2000)
     return () => clearTimeout(timer)
   }
-  console.log(heartAnimation)
+
   return (
     <Tile>
       <Link href={`/products/${url}`} style={{height: '100%', color: 'inherit', textDecoration: 'none'}}>

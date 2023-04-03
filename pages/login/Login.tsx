@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import { useLoginMutation } from 'lib/userSlice'
 import { selectCurrentUser } from 'lib/authSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
+import Link from 'next/link'
 
 export default function login() {
 
@@ -74,7 +75,7 @@ export default function login() {
             <SubmitBtn>SIGN IN</SubmitBtn>
           </FieldSetBox>
           <FieldSetBox>
-            <ForgotPassword>Forgot password?</ForgotPassword>
+            <Link href='/login/ForgotPassword' as='/forgotpassword'><ForgotPassword>Forgot password?</ForgotPassword></Link>
           </FieldSetBox>
         </FieldSet>
       </Form>

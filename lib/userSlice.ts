@@ -65,6 +65,20 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Auth']
     }),
+    forgotPassword: builder.mutation<any, any>({//! fix the any any types 
+      query: (body) => ({
+        url: '/users/forgotPassword',
+        method: 'POST',
+        body, 
+      }),
+    }),
+    resetPassword: builder.mutation<any, any>({
+      query: (body) => ({
+        url: `/users/resetPassword/${body.accessToken}`,
+        method: 'PATCH',
+        body,
+      }),
+    }),
   })
 })
 
@@ -74,6 +88,8 @@ export const { useLoginMutation,
   useAddCartItemMutation,
   useGuestMutation,
   useUpdateUserMutation,
+  useForgotPasswordMutation,
+  useResetPasswordMutation,
 } = extendedUserSlice
 
 

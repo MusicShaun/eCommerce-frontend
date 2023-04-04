@@ -68,7 +68,7 @@ export default function login() {
             </Field>
             <Field>
               <label htmlFor='password'>PASSWORD</label>
-              <input name='password' type='text' id='password' autoComplete='password' />
+              <input name='password' type='password' id='password' autoComplete='password' />
             </Field>
           </FieldSetBox>
           <FieldSetBox>
@@ -135,8 +135,11 @@ const SubmitBtn = styled.button`
   color: white;
   font-weight: 700;
 `
-const ForgotPassword = styled.a`
+const ForgotPassword = styled.div`
   margin-top: 22px;
+  color: black;
+  text-decoration: none;
+  
 `
 const SpinnerContainer = styled.div`
   position: fixed;

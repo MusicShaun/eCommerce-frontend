@@ -12,8 +12,8 @@ export default function NavUserDropdown() {
   const [loggedIn, setLoggedIn ] = useState(false)
 
   useEffect(() => {
-    const key = localStorage.getItem('key')
-    if (key != null && key) {
+    const key = JSON.parse(localStorage.getItem('key') ?? '{}')
+    if (key && key.accessToken) {
       setLoggedIn(true)
     }
   }, [])

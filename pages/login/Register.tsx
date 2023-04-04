@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
@@ -8,6 +8,7 @@ import PacmanLoader from 'react-spinners/PacmanLoader'
 export default function login() {
 
   const [register, { isLoading }] = useRegisterMutation()
+  const passwordRef = useRef<HTMLInputElement>(null)
 
     // Check if token in localStorage has expired. If not, redirect to home
   // useEffect(() => {
@@ -24,7 +25,14 @@ export default function login() {
   async function handleSubmit(e:any ) {
     e.preventDefault()
     const data = new FormData(e.target)
-
+    if (data.get('password') !== data.get('confirm_password')) {
+      console.log(data.get('password'), data.get('confirm_password'))
+      passwordRef.current!.value = ''
+      // passwordRef.current?.setCustomValidity('Passwords do not match')
+      passwordRef.current?.focus()
+      alert('Passwords do not match')
+      return
+    }
     try {
       const res = await register({
         given_name: data.get('first') as string,
@@ -84,11 +92,11 @@ export default function login() {
             </Field>
             <Field>
               <label>PASSWORD</label>
-              <input name='password' autoComplete='new-password' required/>
+              <input name='password' autoComplete='new-password' type='password' required/>
             </Field>
             <Field>
               <label>CONFIRM PASSWORD</label>
-              <input name='confirm_password' autoComplete='new-password' required/>
+              <input name='confirm_password' autoComplete='new-password' type='password'  required ref={passwordRef} />
             </Field>
             <Field>
               <label>DATE OF BIRTH</label>

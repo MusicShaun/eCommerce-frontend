@@ -15,10 +15,14 @@ import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import password from '@/images/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useForgotPasswordMutation } from 'lib/userSlice'
+import ErrorWindow from '@/components/ErrorWindow'
+import { useState } from 'react'
 
 export default function ForgotPassword() {
 
-  const [forgotPassword ] = useForgotPasswordMutation()
+  const [errorWindow, setErrorWindow] = useState(false)
+  const [successWindow, setSuccessWindow] = useState(false)
+  const [forgotPassword, {isSuccess, error} ] = useForgotPasswordMutation()
 
   // Submit login form // Set localStorage // push user to state 
   async function handleSubmit(e: any) {
@@ -27,14 +31,17 @@ export default function ForgotPassword() {
     const email = formData.get('email')
     console.log(email)
     try {
-      forgotPassword({email: email}).unwrap()
-    } catch (err) {
+      const res = await forgotPassword({ email: email }).unwrap()
+      console.log(res)
+      setSuccessWindow(true)
+    } catch (err: any) {
       console.log(err)
+      setErrorWindow(true)
     }
-
+    
   }
   
-  
+
   
   return (
      <Wrapper>
@@ -42,7 +49,22 @@ export default function ForgotPassword() {
           alt=''
           fill
         sizes='100vw, 100vh'
-        />
+      />
+      {errorWindow && error && ('data' in error)
+        ? <ErrorWindow
+          header='Uh Oh!'
+          message={error.data!.message!}
+          closeWindow={setErrorWindow} />
+        : false
+      }
+      {successWindow 
+        ? <ErrorWindow
+          header='This wont take long!'
+          message='Instructions have been sent to your email!'
+          closeWindow={setSuccessWindow} />
+        : false
+      }
+
       <Box>
 
         <BorderBreak />

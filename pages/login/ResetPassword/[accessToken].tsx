@@ -19,7 +19,7 @@ import { useRouter } from 'next/router'
 
 export default function ResetPassword() {
 
-  const [resetPassword , {isSuccess}] = useResetPasswordMutation()
+  const [resetPassword , {isSuccess, error, isError}] = useResetPasswordMutation()
   const router = useRouter()
   const { accessToken } = router.query
 
@@ -30,18 +30,23 @@ export default function ResetPassword() {
     const passwordConfirm = formData.get('passwordConfirm')
 
     try {
-      resetPassword({
+      const res = await resetPassword({
         password: password,
         passwordConfirm: passwordConfirm,
         accessToken: accessToken
       }).unwrap()
-      if (isSuccess) router.push('/login') //! This needs more error handling. Ig the call is successful but fails , where do i go?
-    } catch (err) {
-      console.log(err)
-      alert('Something went wrong. Please try again later')
-    }
+      router.push('/login')
 
+    } catch (err: any) {
+      console.log(err)
+      if (err.data.message.includes('invalid')) {
+        alert('Your reset token has expired. Please request a new one.')
+        router.push('/login/ForgotPassword', '/forgotpassword')
+      }
+      //! need to include more error handling from the backend. Every message is the same 
+    }
   }
+
   
   
   return (

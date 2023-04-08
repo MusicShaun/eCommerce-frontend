@@ -18,12 +18,16 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import ErrorWindow from '@/components/ErrorWindow'
 
+
+
+
 export default function ResetPassword() {
 
   const [resetPassword, {isLoading, error }] = useResetPasswordMutation()
   const [errorWindow, setErrorWindow] = useState(false)
   const [successWindow, setSuccessWindow] = useState(false)
-  
+  const [errorMessage, setErrorMessage] = useState('')
+
   const router = useRouter()
   const { accessToken } = router.query
 
@@ -46,6 +50,7 @@ export default function ResetPassword() {
       router.push('/login')
 
     } catch (err: any) {
+      setErrorMessage(err.data.message)
       setErrorWindow(true)
       console.log(err)
       if (err.data.message.includes('invalid')) {
@@ -65,10 +70,10 @@ export default function ResetPassword() {
           fill
         sizes='100vw, 100vh'
       />
-      {errorWindow && error && ('data' in error)
+      {errorWindow && error 
         ? <ErrorWindow
           header='Uh Oh!'
-          message={error.data!.message}
+          message={errorMessage}
           closeWindow={setErrorWindow} />
         : false
       }

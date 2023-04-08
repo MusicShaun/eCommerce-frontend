@@ -23,6 +23,7 @@ export default function ForgotPassword() {
   const [errorWindow, setErrorWindow] = useState(false)
   const [successWindow, setSuccessWindow] = useState(false)
   const [forgotPassword, {isLoading, error} ] = useForgotPasswordMutation()
+  const [errorMessage, setErrorMessage] = useState('')
 
   // Submit login form // Set localStorage // push user to state 
   async function handleSubmit(e: any) {
@@ -34,6 +35,7 @@ export default function ForgotPassword() {
       const res = await forgotPassword({ email: email }).unwrap()
       console.log(res)
     } catch (err: any) {
+      setErrorMessage(err.data.message)
       console.log(err)
       setErrorWindow(true)
     }
@@ -49,10 +51,10 @@ export default function ForgotPassword() {
           fill
         sizes='100vw, 100vh'
       />
-      {errorWindow && error && ('data' in error)
+      {errorWindow && error 
         ? <ErrorWindow
           header='Uh Oh!'
-          message={error.data!.message}
+          message={errorMessage}
           closeWindow={setErrorWindow} />
         : false
       }

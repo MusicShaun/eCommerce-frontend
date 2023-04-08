@@ -9,7 +9,14 @@ export default function login() {
 
   const [register, { isLoading }] = useRegisterMutation()
   const passwordRef = useRef<HTMLInputElement>(null)
+  const focusRef = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    if (focusRef.current) focusRef.current.focus() 
+  }, []) 
+
+
+  
     // Check if token in localStorage has expired. If not, redirect to home
   // useEffect(() => {
   //   const cached = localStorage.getItem('key')
@@ -26,7 +33,6 @@ export default function login() {
     e.preventDefault()
     const data = new FormData(e.target)
     if (data.get('password') !== data.get('confirm_password')) {
-      console.log(data.get('password'), data.get('confirm_password'))
       passwordRef.current!.value = ''
       // passwordRef.current?.setCustomValidity('Passwords do not match')
       passwordRef.current?.focus()
@@ -50,7 +56,6 @@ export default function login() {
       console.log(err)
     }
   }
-  // const canSave = [title, content, userId].every(Boolean) && !isLoading;
 
   function handleInterestCheck(e:any) {
     if (e.target.women.checked) {
@@ -80,7 +85,7 @@ export default function login() {
           <FieldSetBox>
             <Field>
               <label>EMAIL ADDRESS</label>
-              <input name='email' autoComplete='email' required/>
+              <input ref={focusRef}  name='email' autoComplete='email' required/>
             </Field>
             <Field>
               <label>FIRST NAME</label>

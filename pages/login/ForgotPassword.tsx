@@ -22,18 +22,17 @@ export default function ForgotPassword() {
 
   const [errorWindow, setErrorWindow] = useState(false)
   const [successWindow, setSuccessWindow] = useState(false)
-  const [forgotPassword, {isSuccess, error} ] = useForgotPasswordMutation()
+  const [forgotPassword, {isLoading, error} ] = useForgotPasswordMutation()
 
   // Submit login form // Set localStorage // push user to state 
   async function handleSubmit(e: any) {
     e.preventDefault()
     const formData = new FormData(e.target)
     const email = formData.get('email')
-    console.log(email)
     try {
+      setSuccessWindow(true)
       const res = await forgotPassword({ email: email }).unwrap()
       console.log(res)
-      setSuccessWindow(true)
     } catch (err: any) {
       console.log(err)
       setErrorWindow(true)
@@ -53,7 +52,7 @@ export default function ForgotPassword() {
       {errorWindow && error && ('data' in error)
         ? <ErrorWindow
           header='Uh Oh!'
-          message={error.data!.message!}
+          message={error.data!.message}
           closeWindow={setErrorWindow} />
         : false
       }
@@ -77,7 +76,7 @@ export default function ForgotPassword() {
             <PacmanLoader
               color={'#2d2d2d'}
               size={50}
-              loading={false}
+              loading={isLoading}
               cssOverride={{zIndex: 9000}}
               speedMultiplier={1.5}
             />
@@ -202,6 +201,10 @@ const SubmitBtn = styled.button`
   color: white;
   font-weight: 700;
   border-radius: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 const Reset = styled.div`
   position: absolute;

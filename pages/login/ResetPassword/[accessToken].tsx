@@ -11,25 +11,33 @@
 
 import Image from 'next/image'
 import styled from 'styled-components'
-import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import password from '@/images/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useResetPasswordMutation } from 'lib/userSlice'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
+import ErrorWindow from '@/components/ErrorWindow'
 
 export default function ResetPassword() {
 
-  const [resetPassword , {isSuccess, error, isError}] = useResetPasswordMutation()
+  const [resetPassword, {isLoading, error }] = useResetPasswordMutation()
+  const [errorWindow, setErrorWindow] = useState(false)
+  const [successWindow, setSuccessWindow] = useState(false)
+  
   const router = useRouter()
   const { accessToken } = router.query
 
   async function handleSubmit(e: any) {
     e.preventDefault()
+
+
+
     const formData = new FormData(e.target)
     const password = formData.get('password')
     const passwordConfirm = formData.get('passwordConfirm')
-
+    
     try {
+      setSuccessWindow(true)
       const res = await resetPassword({
         password: password,
         passwordConfirm: passwordConfirm,
@@ -38,6 +46,7 @@ export default function ResetPassword() {
       router.push('/login')
 
     } catch (err: any) {
+      setErrorWindow(true)
       console.log(err)
       if (err.data.message.includes('invalid')) {
         alert('Your reset token has expired. Please request a new one.')
@@ -55,7 +64,21 @@ export default function ResetPassword() {
           alt=''
           fill
         sizes='100vw, 100vh'
-        />
+      />
+      {errorWindow && error && ('data' in error)
+        ? <ErrorWindow
+          header='Uh Oh!'
+          message={error.data!.message}
+          closeWindow={setErrorWindow} />
+        : false
+      }
+      {successWindow 
+        ? <ErrorWindow
+          header='This wont take long!'
+          message='Instructions have been sent to your email!'
+          closeWindow={setSuccessWindow} />
+        : false
+      }
       <Box>
 
         <BorderBreak />
@@ -68,7 +91,7 @@ export default function ResetPassword() {
             <PacmanLoader
               color={'#2d2d2d'}
               size={50}
-              loading={false}
+              loading={isLoading}
               cssOverride={{zIndex: 9000}}
               speedMultiplier={1.5}
             />
@@ -197,6 +220,10 @@ const SubmitBtn = styled.button`
   color: white;
   font-weight: 700;
   border-radius: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 const Reset = styled.div`
   position: absolute;

@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect } from 'react'
+import React, { SyntheticEvent, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
@@ -11,7 +11,12 @@ import Link from 'next/link'
 export default function login() {
 
   const dispatch = useAppDispatch()
-
+  const focusRef = useRef<HTMLInputElement>(null)
+  
+  useEffect(() => {
+    if (focusRef.current) focusRef.current.focus()
+  }, [])
+  
   // Check if token in localStorage has expired. If not, redirect to home
   // useEffect(() => {
   //   const cached = localStorage.getItem('key')
@@ -64,7 +69,7 @@ export default function login() {
           <FieldSetBox>
             <Field>
               <label htmlFor='email'>EMAIL ADDRESS</label>
-              <input name='email'  type='email' id='email' autoComplete='email username' />
+              <input ref={focusRef} name='email'  type='email' id='email' autoComplete='email username' />
             </Field>
             <Field>
               <label htmlFor='password'>PASSWORD</label>
@@ -105,6 +110,14 @@ const FieldSetBox = styled.div`
   flex-direction: column;
   align-items: center;  
   width: 100%;
+
+  & > a {
+    text-decoration: none;
+
+    &:hover {
+      font-size: ${({ theme }) => theme.fontM};
+    }
+  }
 `
 const Field = styled.div`
   display: flex;
@@ -134,6 +147,10 @@ const SubmitBtn = styled.button`
   background-color: black;
   color: white;
   font-weight: 700;
+
+  &:hover {
+    cursor: pointer;
+  }
 `
 const ForgotPassword = styled.div`
   margin-top: 22px;

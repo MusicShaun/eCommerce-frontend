@@ -88,7 +88,7 @@ const nextConfig = {
       },
       {
         source: '/resetpassword',
-        destination: '/login/ResetPassword',
+        destination: '/login/RestPassword',
         permanent: true,
       },
 

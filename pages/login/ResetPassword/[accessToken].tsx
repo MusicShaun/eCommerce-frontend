@@ -42,7 +42,7 @@ export default function ResetPassword() {
     
     try {
       setSuccessWindow(true)
-      const res = await resetPassword({
+      await resetPassword({
         password: password,
         passwordConfirm: passwordConfirm,
         accessToken: accessToken
@@ -79,8 +79,8 @@ export default function ResetPassword() {
       }
       {successWindow 
         ? <ErrorWindow
-          header='This wont take long!'
-          message='Instructions have been sent to your email!'
+          header='Your password has been reset'
+          message='Redirecting to login page...'
           closeWindow={setSuccessWindow} />
         : false
       }

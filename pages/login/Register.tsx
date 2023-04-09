@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
 import { useRegisterMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
+import ErrorWindow from '@/components/ErrorWindow'
 
 export default function login() {
 
-  const [register, { isLoading }] = useRegisterMutation()
+  const [errorWindow, setErrorWindow] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const [register, { isLoading , error}] = useRegisterMutation()
   const passwordRef = useRef<HTMLInputElement>(null)
   const focusRef = useRef<HTMLInputElement>(null)
 
@@ -15,20 +18,6 @@ export default function login() {
     if (focusRef.current) focusRef.current.focus() 
   }, []) 
 
-
-  
-    // Check if token in localStorage has expired. If not, redirect to home
-  // useEffect(() => {
-  //   const cached = localStorage.getItem('key')
-  //   if (cached) {
-  //     const { expires_at } = JSON.parse(cached)
-
-  //     if (Date.now() < expires_at) {
-  //       router.push('/')    
-  //     }
-  //   }
-  // }, [])
-  
   async function handleSubmit(e:any ) {
     e.preventDefault()
     const data = new FormData(e.target)
@@ -46,13 +35,15 @@ export default function login() {
         email: data.get('email') as string,
         password: data.get('password') as string,
         passwordConfirm: data.get('confirm_password') as string,
-        dob: data.get('date') as string,
+        dob: data.get('dob') as string,
         gender: handleInterestCheck(e),
       }).unwrap()
       localStorage.setItem('key', JSON.stringify(res))
       router.push('/')
       
-    } catch (err) {
+    } catch (err: any) {
+      setErrorWindow(true)
+      setErrorMessage(err.data.message)
       console.log(err)
     }
   }
@@ -80,6 +71,14 @@ export default function login() {
         />
       </SpinnerContainer>
 
+      {errorWindow && error 
+        ? <ErrorWindow
+          header='Uh Oh!'
+          message={errorMessage}
+          closeWindow={setErrorWindow} />
+        : false
+      }
+
       <Form onSubmit={(e) => handleSubmit(e)}>
         <FieldSet>
           <FieldSetBox>
@@ -105,7 +104,7 @@ export default function login() {
             </Field>
             <Field>
               <label>DATE OF BIRTH</label>
-              <input type="date" id="birthday" name="birthday" required/>
+              <input type="date" id="dob" name="dob" required/>
             </Field>
             <Field>
               <label>Mostly interested in</label>
@@ -216,7 +215,6 @@ const SpinnerContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.446);
-  border: 3px solid red;
   display: flex;
   justify-content: center;
   align-items: center;

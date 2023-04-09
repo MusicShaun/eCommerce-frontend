@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled, {css, keyframes} from "styled-components"
 import Image from "next/image"
 import  Heart  from '@/images/heart.webp'
 import { ClotheType  } from "lib/clothesSlice"
@@ -8,14 +8,27 @@ import { useEffect, useRef, useState } from "react"
 import useAddClothingItem from "lib/hooks/useAddClothingItem"
 import PacmanLoader from "react-spinners/PacmanLoader"
 
-export default function Sidebar({productItem}: {productItem: ClotheType}) {
+const slideIn = keyframes` 
+   0% {
+    transform: translateX(200%);
+   } 30% {
+    transform: translateX(0%);
+   } 60% {
+    transform: translateX(0%);
+   } 100% {
+    transform: translateX(200%);
+    }
+`
 
-  const wishlist = useAppSelector(selectWishlist)  
+export default function Sidebar({ productItem }: { productItem: ClotheType }) {
+
+  const wishlist = useAppSelector(selectWishlist)
   const [hearted, setHearted] = useState(false)
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
 
 
-  const {handleAddItem, isCartLoading, isWishLoading} = useAddClothingItem()
+  const { handleAddItem, isCartLoading, isWishLoading, isCartSuccess } = useAddClothingItem()
+  
 
   // focus on the useRef
   useEffect(() => {
@@ -60,6 +73,7 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
 
   }
 
+
   return (
     <Container>
       <Box>
@@ -69,7 +83,7 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
 
         <SmallDarkText>COLOR: <span>{productItem.color}</span></SmallDarkText>
 
-        <SmallDarkText>SIZE:</SmallDarkText> 
+        <SmallDarkText>SIZE:</SmallDarkText>
         <label htmlFor="selectSize"></label>
         <Select ref={selectOptionsRef} name='selectSize' id='selectSize' required>
           <option value='Choose size' hidden>Choose size</option>
@@ -79,6 +93,7 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
         <SmallDarkText>BRAND: <span>{productItem.brand}</span></SmallDarkText>
 
         <ShoppingControls>
+
           <SpinnerContainer style={{display: isCartLoading || isWishLoading ? 'flex' : 'none'}}>
             <PacmanLoader
               color={'#2d2d2d'}
@@ -88,6 +103,13 @@ export default function Sidebar({productItem}: {productItem: ClotheType}) {
               speedMultiplier={1.5}
               />
           </SpinnerContainer>
+
+          <CartItemAdded isCartSuccess={isCartSuccess}>
+            <div>
+              Item added to cart
+            </div>
+          </CartItemAdded>
+
           <AddToBag onClick={() => handleAddClotheItemToCart(productItem._id)}>ADD TO BAG</AddToBag>
           <HeartContainer onClick={() => handleAddClotheItemToWishList(productItem._id)}
             style={{
@@ -201,4 +223,19 @@ const SpinnerContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.446);
+`
+
+const CartItemAdded = styled.div<{isCartSuccess: boolean}>`
+  position: absolute;
+  border: 2px solid ${({theme}) => theme.success};
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  top: -150px;
+  right: -50px;
+  z-index: 12490;
+  transform: translateX(200%);
+  animation: 3s ease-in-out 1;
+  animation-name: ${({isCartSuccess}) => isCartSuccess ? slideIn : 'none'};
+  
 `

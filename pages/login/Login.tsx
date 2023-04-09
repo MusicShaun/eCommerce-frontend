@@ -167,7 +167,6 @@ const SpinnerContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.446);
-  border: 3px solid red;
   display: flex;
   justify-content: center;
   align-items: center;

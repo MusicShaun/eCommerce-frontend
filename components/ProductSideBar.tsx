@@ -9,6 +9,7 @@ import PacmanLoader from "react-spinners/PacmanLoader"
 import heartOutline from '@/images/heart-outline.svg'
 import heartFilled from '@/images/heart-filled.svg'
 import ModalError from "./ModalErrorWindow"
+import router from "next/router"
 
 const slideIn = keyframes` 
    0% {
@@ -33,16 +34,18 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
   const [heartAnimation, setHeartAnimation] = useState(false)
 
-
   const { handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isError, error } = useAddClothingItem()
 
   // error handling
   useEffect(() => {
     if (isError && error) {
       setIsModalOpen(true)
-      if ('data' in error ) setErrorMessage(error.data!.message) 
+      if ('data' in error) {
+        const fetchError = error as any
+        setErrorMessage(fetchError.data.message ?? 'Unknown error')
+      }
     }
-  }, [isError])
+  }, [isError, error])
 
   // focus on the useRef
   useEffect(() => {
@@ -69,15 +72,15 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
   }, [wishlist])
 
 
-  function handleAddClotheItemToWishList(_id: string) {
-    handleAddItem(_id, 'wishlist')
+  async function handleAddClotheItemToWishList(_id: string) {
+    await handleAddItem(_id, 'wishlist')
   }
-  function handleAddClotheItemToCart(_id: string) {
+  async function handleAddClotheItemToCart(_id: string) {
     if (selectOptionsRef.current?.value === 'Choose size') return (
       setErrorMessage('Please choose a size'), 
       setIsModalOpen(true)
     )
-    handleAddItem(_id, 'cart', selectOptionsRef.current!.value, '+')
+    await handleAddItem(_id, 'cart', selectOptionsRef.current!.value, '+')
   }
 
   function handleHeartAnimation() {
@@ -87,6 +90,12 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
     }, 2000)
     return () => clearTimeout(timer)
   }
+
+  function handleRequestClose() {
+    setIsModalOpen(false)
+    router.push('/login')
+  }
+
   const cssLoaderSpecs = {
     display: 'flex',
     zIndex: 9000,
@@ -99,7 +108,7 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
 
 
   return (<>
-    <ModalError isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} errorMessage={errorMessage}  />
+    <ModalError isOpen={isModalOpen} onRequestClose={() => handleRequestClose()} errorMessage={errorMessage}  />
     
     <Container>
       <Box>

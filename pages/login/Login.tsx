@@ -29,10 +29,8 @@ export default function login() {
         password: formData.get('password') as string
       }).unwrap()
 
-      // store sensitive data in cookie
-      Cookies.set('jwt', data.accessToken)
       const { accessToken, ...rest } = data
-      // store non-sensitive data in localStorage
+      Cookies.set('jwt', accessToken!)
       localStorage.setItem('key', JSON.stringify({ ...rest }))
       // move user to landing page 
       router.push('/')

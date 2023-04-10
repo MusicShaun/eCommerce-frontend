@@ -22,9 +22,10 @@ const localhostOrHeroku = isBrowser
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api/asos/',
+    baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
     prepareHeaders: (headers) => {
       const token = Cookies.get('jwt')
+      console.log(token)
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
       }

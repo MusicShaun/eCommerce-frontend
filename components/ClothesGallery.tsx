@@ -1,18 +1,41 @@
 import styled from "styled-components"
 import ClothesCard from "./ClothesCard"
 import { ClotheType } from "lib/clothesSlice"
-
+import ModalError from "./ModalErrorWindow"
 import useAddClothingItem  from "lib/hooks/useAddClothingItem"
+import { useEffect, useState } from "react"
+import router from "next/router"
 interface IProps { 
   info: ClotheType[]
 }
 
 export default function ClothesGallery({ info }: IProps) {
 
-  const {handleAddItem} = useAddClothingItem()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const { handleAddItem, isError , error } = useAddClothingItem()
+  
+    
+  // error handling
+  useEffect(() => {
+    console.log('error', error)
+    console.log('isError', isError)
+    if (isError && error) {
+      setIsModalOpen(true)
+      if ('data' in error) {
+        const fetchError = error as any
+        setErrorMessage(fetchError.data.message ?? 'Unknown error')
+      }
+    }
+  }, [isError, error])
 
-  function handleAddClotheItemToWishList(_id: string) {
-    handleAddItem(_id, 'wishlist')
+  async function handleAddClotheItemToWishList(_id: string) {
+    await handleAddItem(_id, 'wishlist')
+  }
+
+  function handleRequestClose() {
+    setIsModalOpen(false)
+    router.push('/login')
   }
 
 
@@ -32,14 +55,15 @@ export default function ClothesGallery({ info }: IProps) {
     content = null
   }
 
-  return (
-   
+  return (<>
+    <ModalError isOpen={isModalOpen} onRequestClose={() => handleRequestClose()} errorMessage={errorMessage}  />
+
     <Wrapper>
       <Container>
         {content}
       </Container>
       </Wrapper>
-
+      </>
   )
 }
 

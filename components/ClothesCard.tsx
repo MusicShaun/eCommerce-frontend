@@ -30,6 +30,8 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
   const wishlist = useAppSelector(selectWishlist)  
   const [heartAnimation, setHeartAnimation] = useState(false)
 
+
+  
   useEffect(() => {
     let listed = wishlist?.find((l: any) => l._id === info._id)
     if (listed && !hearted) {

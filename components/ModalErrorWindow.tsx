@@ -25,6 +25,9 @@ const ErrorModal = ({ isOpen, onRequestClose, errorMessage }: Props) => {
       padding: '20px',
       minWidth: '300px',
       minHeight: '200px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   };
 
@@ -34,10 +37,16 @@ const ErrorModal = ({ isOpen, onRequestClose, errorMessage }: Props) => {
       onRequestClose={onRequestClose}
       style={modalStyles}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <h3 style={{ marginBottom: '10px' }}>Error</h3>
-        <p style={{ textAlign: 'center' }}>{errorMessage}</p>
-        <button onClick={onRequestClose} style={{ marginTop: '20px' }}>OK</button>
+      <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
+        <h3 style={{ marginBottom: '10px' }}>
+          Error
+        </h3>
+        <p style={{ textAlign: 'center' }}>
+          {errorMessage}
+        </p>
+        <button onClick={onRequestClose} style={{ marginTop: '20px', padding: '5px 20px', cursor: 'pointer' }}>
+          OK
+        </button>
       </div>
     </Modal>
   )

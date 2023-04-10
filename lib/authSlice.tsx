@@ -14,7 +14,7 @@ export interface Profile {
   dob?: string 
 }
 export interface LocalUser { //* localStorage 
-    accessToken: string
+    accessToken?: string
     expiresAt: string
     marked_as_expired: boolean
     profile: Profile

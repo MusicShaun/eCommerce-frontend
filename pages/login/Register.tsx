@@ -40,14 +40,16 @@ export default function login() {
         gender: handleInterestCheck(e),
       }).unwrap()
 
-      Cookies.set('jwt', res.accessToken)
       const { accessToken, ...rest } = res
+      Cookies.set('jwt', accessToken!)
       localStorage.setItem('key', JSON.stringify({...rest}))
       router.push('/')
       
     } catch (err: any) {
       setErrorWindow(true)
-      setErrorMessage(err.data.message)
+      if (err.status == 429) setErrorMessage('Too many requests, please try again later')
+      else if ('data' in err && err.data.message) setErrorMessage(err.data.message)
+      else setErrorMessage(err.error)
       console.log(err)
     }
   }

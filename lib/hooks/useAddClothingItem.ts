@@ -31,7 +31,6 @@ export default function useAddClothingItem() {
       cart: [],
     }
 
-
     try {
       let res
       //* USER LOGGED IN - TYPE CART 

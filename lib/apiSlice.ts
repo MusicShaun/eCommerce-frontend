@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
-import { RootState } from './store'
 import Cookies from 'js-cookie'
 export interface User {
   token: string
@@ -25,7 +24,6 @@ export const apiSlice = createApi({
     baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
     prepareHeaders: (headers) => {
       const token = Cookies.get('jwt')
-      console.log(token)
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
       }

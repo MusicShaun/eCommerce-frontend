@@ -95,7 +95,6 @@ const SliderContainer = styled.div`
   & input[type=range]  {
     position: absolute;
     left: 5%;
-    -webkit-appearance: none;
     width: 90%;
     background: transparent; 
   }

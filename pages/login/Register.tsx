@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
 import { useRegisterMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
@@ -65,7 +64,6 @@ export default function login() {
 
   return (<>
     
-    <InfoCenter />
     <FormLogin>
       <SpinnerContainer style={{display: isLoading ? 'flex' : 'none'}}>
         <PacmanLoader
@@ -169,6 +167,7 @@ const Field = styled.div`
   & input {
     height: 50px;
     width: 100%;
+    padding-left: 10px;
   }
   & label {
     text-align: left;
@@ -187,6 +186,7 @@ const RadioField = styled.div`
     height: 30px;
     width: 100px;
     margin:0 20px 0 0;
+    
   }
   & label {
     text-align: left;

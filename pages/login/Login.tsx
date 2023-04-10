@@ -119,6 +119,7 @@ const Field = styled.div`
   & input {
     height: 50px;
     width: 100%;
+    padding-left: 10px;
   }
   & label {
     text-align: left;

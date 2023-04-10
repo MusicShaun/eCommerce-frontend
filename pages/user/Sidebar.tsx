@@ -67,7 +67,7 @@ export default function Sidebar() {
       <Stack2>
         <Tab>
           <Image src={details} alt=''  width={20} height={20} />
-          <Link  href='/user/PersonelDetails'><div>Personal Details</div></Link>
+          <Link  href='/user/PersonalDetails'><div>Personal Details</div></Link>
         </Tab>
       </Stack2>
 

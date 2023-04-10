@@ -13,14 +13,14 @@ import router from "next/router"
 
 const slideIn = keyframes` 
    0% {
-    transform: translateX(200%);
+    right: -40vw
    } 30% {
-    transform: translateX(0%);
+    right: -0vw
    } 60% {
-    transform: translateX(0%);
+    right: -0vw
    } 100% {
-    transform: translateX(200%);
-    }
+    right: -40vw
+}
 `
 
 
@@ -255,14 +255,13 @@ const SpinnerContainer = styled.div`
 
 const CartItemAdded = styled.div<{isCartSuccess: boolean}>`
   position: absolute;
-  border: 2px solid ${({theme}) => theme.success};
+  border: 1px solid ${({theme}) => theme.success};
   background-color: white;
   padding: 10px;
   border-radius: 10px;
-  top: -150px;
-  right: -50px;
+  top: -152px;
+  right: -40vw;
   z-index: 12490;
-  transform: translateX(200%);
   animation: 3s ease-in-out 1;
   animation-name: ${({isCartSuccess}) => isCartSuccess ? slideIn : 'none'};
   

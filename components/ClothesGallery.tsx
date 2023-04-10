@@ -18,8 +18,6 @@ export default function ClothesGallery({ info }: IProps) {
     
   // error handling
   useEffect(() => {
-    console.log('error', error)
-    console.log('isError', isError)
     if (isError && error) {
       setIsModalOpen(true)
       if ('data' in error) {

@@ -7,6 +7,7 @@ import { selectAllClothes } from "lib/clothesSlice"
 import { handleWishlist } from "./handleWishlist"
 import { handleCartGuest } from "./handleCartGuest"
 import { handleGuestWishlist } from "./handleGuestWishlist"
+import Cookies from "js-cookie"
 
 export default function useAddClothingItem() {
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
@@ -55,9 +56,14 @@ export default function useAddClothingItem() {
       }
       
       if ('data' in res) {
+        const { accessToken, ...rest } = res.data
+        Cookies.set('jwt', accessToken!)
+        localStorage.setItem('key', JSON.stringify({ ...rest }))
         localStorage.setItem('key', JSON.stringify(res.data))
       } else {
-        localStorage.setItem('key', JSON.stringify(res))
+        const { accessToken, ...rest } = res
+        Cookies.set('jwt', accessToken!)
+        localStorage.setItem('key', JSON.stringify({...rest}))
       }
 
     } catch (err) {

@@ -28,7 +28,6 @@ export function handleCartGuest(_id: string, user: Partial<Profile>, size: strin
     
   const getclothingItemToPush = filterArray(allClothes, _id, "+", size)
   tempValue = createCartArray(getclothingItemToPush, user)
-  console.log(tempValue)
   
   return {
       ...tempValue,

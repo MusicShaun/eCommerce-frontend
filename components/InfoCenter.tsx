@@ -2,21 +2,25 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-
 export default function Info_Center() {
+
+  function handleclick() {
+    alert('Using personal information is prohibited. Thank you!')
+  }
+
   return (
     <Container>
-      <h2>OR SIGN IN WITH...</h2>
+      <h2 style={{marginBottom: '20px'}}>OR SIGN IN WITH...</h2>
       <SocialLinks>
-        <SocialLink>
+        <SocialLink onClick={handleclick}>
           <Icon />
-          <Text>GOogle</Text>
+          <Text>Google</Text>
         </SocialLink>
-        <SocialLink>
+        <SocialLink  onClick={handleclick}>
           <Icon />
           <Text>Facebook</Text>
         </SocialLink>
-        <SocialLink>
+        <SocialLink onClick={handleclick}>
           <Icon />
           <Text>Apple</Text>
         </SocialLink>
@@ -40,6 +44,8 @@ const SocialLinks = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-around;
+
+
 `
 const SocialLink = styled.a`
   width: 30%;
@@ -47,6 +53,11 @@ const SocialLink = styled.a`
   border: 1px dashed grey;
   display: flex;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #f5f5f5;
+  }
 `
 const Icon = styled.div`
   width: 50px;

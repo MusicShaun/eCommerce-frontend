@@ -17,7 +17,8 @@ export default function Product({productItem}: ProductProps) {
         <Image
           src={productItem.image}
           alt=''
-          fill sizes="(width: 100%, height: 100%)"
+          fill
+          sizes="(width: 100%, height: 100%)"
         />
       </Container>
     )

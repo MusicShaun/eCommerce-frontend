@@ -13,10 +13,9 @@ export default function useAddClothingItem() {
   const currentUser = useAppSelector(selectCurrentUser)
   const allClothes = useAppSelector(selectAllClothes);
 
-  const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess}] = useAddWishListItemMutation()
-  const [addCartListItem, {isLoading: isCartLoading, isSuccess: isCartSuccess }] = useAddCartItemMutation()
+  const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
+  const [addCartListItem, {isLoading: isCartLoading, isSuccess: isCartSuccess, isError: isCartError, error: cartError }] = useAddCartItemMutation()
   const [guest] = useGuestMutation()
-
 
   async function handleAddItem(_id: string, type: string, size?: string, direction?: string) {
 
@@ -35,26 +34,25 @@ export default function useAddClothingItem() {
 
     try {
       let res
-      
       //* USER LOGGED IN - TYPE CART 
       if (currentUser && currentUser.profile && type === 'cart') {
         const s = handleCart(_id, size!, currentUser, allClothes, direction!)
-        res = await addCartListItem({ ...s })
+        res = await addCartListItem({ ...s }).unwrap()
 
       //* USER LOGGED IN - TYPE WISHLIST
       } else if (currentUser && currentUser.profile && type === 'wishlist') {
         const s = handleWishlist(_id, currentUser, allClothes)
-        res = await addWistListItem({ ...s })
+        res = await addWistListItem({ ...s }).unwrap()
 
-      //* USER NOT LOGGED IN - TYPE CART
+      // //* USER NOT LOGGED IN - TYPE CART
       } else if (!currentUser && type === 'cart') {
         const s = handleCartGuest(_id, tempUser, size!, allClothes)
-        res = await guest({ ...s })
+        res = await guest({ ...s }).unwrap()
 
-      //* USER NOT LOGGED IN - TYPE WISHLIST
+      // //* USER NOT LOGGED IN - TYPE WISHLIST
       } else {
         const s = handleGuestWishlist(_id, tempUser, allClothes)
-        res = await guest({ ...s })
+        res = await guest({ ...s }).unwrap()
       }
       
       if ('data' in res) {
@@ -62,11 +60,15 @@ export default function useAddClothingItem() {
       } else {
         localStorage.setItem('key', JSON.stringify(res))
       }
-      } catch (err) {
+
+    } catch (err) {
         console.log(err)
       }
     }
   
-  return { handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isWishSuccess }
-
+  return {
+    handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isWishSuccess,
+    error: cartError || wishError,
+    isError: isCartError || isWishError,
+  }
 }

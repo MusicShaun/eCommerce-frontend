@@ -65,7 +65,7 @@ export default function ProductFilterSideBarSelect({ info }: IProps) {
         <SmallDarkText>{info.name}:</SmallDarkText> 
         <label htmlFor={info.name}></label>
         <Select id={info.name} onChange={(e) => handleStateUpdate(e)} ref={selectRef}>
-          <option selected >- </option>
+          <option value='' >- </option>
           {selectors}
         </Select>
         <Btn onClick={(e) => resetSelect(e)}>reset</Btn>

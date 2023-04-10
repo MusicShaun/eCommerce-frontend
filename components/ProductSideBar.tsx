@@ -1,12 +1,14 @@
-import styled, {css, keyframes} from "styled-components"
+import styled, { keyframes} from "styled-components"
 import Image from "next/image"
-import  Heart  from '@/images/heart.webp'
 import { ClotheType  } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
 import { selectWishlist } from "lib/userSlice"
 import { useEffect, useRef, useState } from "react"
 import useAddClothingItem from "lib/hooks/useAddClothingItem"
 import PacmanLoader from "react-spinners/PacmanLoader"
+import heartOutline from '@/images/heart-outline.svg'
+import heartFilled from '@/images/heart-filled.svg'
+import ModalError from "./ModalErrorWindow"
 
 const slideIn = keyframes` 
    0% {
@@ -20,15 +22,27 @@ const slideIn = keyframes`
     }
 `
 
+
+
 export default function Sidebar({ productItem }: { productItem: ClotheType }) {
 
   const wishlist = useAppSelector(selectWishlist)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [ errorMessage, setErrorMessage ] = useState('')
   const [hearted, setHearted] = useState(false)
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
+  const [heartAnimation, setHeartAnimation] = useState(false)
 
 
-  const { handleAddItem, isCartLoading, isWishLoading, isCartSuccess } = useAddClothingItem()
-  
+  const { handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isError, error } = useAddClothingItem()
+
+  // error handling
+  useEffect(() => {
+    if (isError && error) {
+      setIsModalOpen(true)
+      if ('data' in error ) setErrorMessage(error.data!.message) 
+    }
+  }, [isError])
 
   // focus on the useRef
   useEffect(() => {
@@ -59,10 +73,20 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
     handleAddItem(_id, 'wishlist')
   }
   function handleAddClotheItemToCart(_id: string) {
-    if (selectOptionsRef.current?.value === 'Choose size') return alert('Please choose a size')
+    if (selectOptionsRef.current?.value === 'Choose size') return (
+      setErrorMessage('Please choose a size'), 
+      setIsModalOpen(true)
+    )
     handleAddItem(_id, 'cart', selectOptionsRef.current!.value, '+')
   }
 
+  function handleHeartAnimation() {
+    setHeartAnimation(true)
+    const timer = setTimeout(() => {
+      setHeartAnimation(false)
+    }, 2000)
+    return () => clearTimeout(timer)
+  }
   const cssLoaderSpecs = {
     display: 'flex',
     zIndex: 9000,
@@ -74,7 +98,9 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
   }
 
 
-  return (
+  return (<>
+    <ModalError isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} errorMessage={errorMessage}  />
+    
     <Container>
       <Box>
         <Title>{productItem.name.toUpperCase()} {productItem.heading}</Title>
@@ -111,23 +137,23 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
           </CartItemAdded>
 
           <AddToBag onClick={() => handleAddClotheItemToCart(productItem._id)}>ADD TO BAG</AddToBag>
-          <HeartContainer onClick={() => handleAddClotheItemToWishList(productItem._id)}
-            style={{
-            backgroundColor: hearted ? 'black' : 'lightgrey'
-            }}>
+          
+          <AddToWishList onClick={() => handleAddClotheItemToWishList(productItem._id)}>
             <Image
-              src={Heart}
-              width='18'
-              height='18'
-              alt=''
-              style={{
-                position: 'absolute',
-                top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-                filter: hearted ? 'invert(1)': ''
-              }}
-            />
-
-          </HeartContainer>
+              onClick={handleHeartAnimation}
+                src={!hearted ? heartOutline : heartFilled}
+                alt=''
+                fill
+                sizes="(width: 18px, height: 18px)"
+              />
+            <Image
+                style={{display: heartAnimation ? 'flex' : 'none'}}
+                src={ heartFilled}
+                alt=''
+                fill
+                sizes="(width: 18px, height: 18px)"
+              />
+        </AddToWishList>
         </ShoppingControls>
 
         <Conditions>
@@ -139,7 +165,7 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
 
       </Box>
     </Container>
-  )
+  </>)
 }
 
 const Container = styled.div`
@@ -195,14 +221,7 @@ const AddToBag = styled.button`
     cursor: pointer;
   }
 `
-const HeartContainer = styled.div`
-position: relative;
-  width: 40px;
-  aspect-ratio: 1/1;
-  background-color: lightgrey;
-  border-radius: 50%;
-  cursor: pointer;
-`
+
 const Conditions = styled.div`
   margin-top: 1rem;
   padding: 1rem;
@@ -238,4 +257,61 @@ const CartItemAdded = styled.div<{isCartSuccess: boolean}>`
   animation: 3s ease-in-out 1;
   animation-name: ${({isCartSuccess}) => isCartSuccess ? slideIn : 'none'};
   
+`
+
+const wiggle = 
+  keyframes`
+    0% {
+      transform: rotate(0deg) scale(1.2) translateY(2px) ;
+    } 20% {
+      transform: rotate(-10deg) scale(1.2) translateY(2px);
+    } 40% {
+      transform: rotate(10deg) scale(1.2) translateY(2px);
+    } 60% {
+      transform: rotate(-10deg)scale(1.2) translateY(2px);
+    } 80% {
+      transform: rotate(10deg)  translateY(2px);
+    } 100% {
+      transform: rotate(-10deg) scale(1.2) translateY(2px);
+    }
+  `
+const heartAnimation = keyframes`
+  from {
+    transform: scale(1) ;
+    opacity: 1;
+  } to {
+    transform: scale(15);
+    opacity: 0;
+    display: none;
+  }
+`
+const AddToWishList = styled.div`
+  position: relative;
+  width: 40px;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+  top: 0%;
+  right: 0%;
+  background-color: ${({ theme }) => theme.lightGrey};
+  border-radius: 50%;
+  
+
+  & img {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%), translateY(2px);
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+  }
+  &:hover img:first-child  {
+    transform: scale(1.2) translateY(2px);
+    animation: ${wiggle} 1s ease-in-out infinite 0.2s alternate;
+    transition: transform 0.2s ease-in-out;
+  } 
+  & > img + img {
+    animation: ${heartAnimation} 0.6s ease-in-out 1;
+    animation-fill-mode: forwards;
+  } 
 `

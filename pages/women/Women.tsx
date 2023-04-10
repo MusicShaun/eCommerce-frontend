@@ -1,9 +1,6 @@
-import Image from 'next/image'
 import Banner from '@/components/Banner'
 import styled from 'styled-components'
-import React, { useEffect } from 'react'
-import { ClotheType, Clothes, extendedClothesSlice, selectAllClothes, selectClothesData, useGetAllClothesQuery } from 'lib/clothesSlice'
-import { store } from 'lib/store'
+import { ClotheType,  selectAllClothes,  useGetAllClothesQuery } from 'lib/clothesSlice'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 
@@ -25,9 +22,7 @@ export default function Women() {
 
 
   if (isLoading) {
-    console.log('LOADING')
   } else if (isSuccess) {
-    console.log('SUCCESS')
     randomClothes = [...selectAll].sort(() => Math.random() - 0.5)
   } else if (isError) {
     console.log(JSON.stringify(error))

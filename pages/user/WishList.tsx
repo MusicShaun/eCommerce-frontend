@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Empty from '../../components/Empty'
 import MyAccountLayout from '../../components/Layout'
@@ -6,13 +6,15 @@ import { useAppSelector } from 'lib/hooks/hooks'
 import ClothesCard from '@/components/ClothesCard'
 import { selectWishlist } from 'lib/userSlice'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
+import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
 
 
 
 export default function WishList() {
 
   const wishlist = useAppSelector(selectWishlist)  
-  const {handleAddItem} = useAddClothingItem()
+  const { handleAddItem } = useAddClothingItem()
+
 
   async function handleRemoveItemFromWishList(_id: string) {
     handleAddItem(_id, 'wishlist')

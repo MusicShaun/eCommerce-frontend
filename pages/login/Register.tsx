@@ -5,6 +5,7 @@ import router from 'next/router'
 import { useRegisterMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import ErrorWindow from '@/components/ErrorWindow'
+import Cookies from 'js-cookie'
 
 export default function login() {
 
@@ -38,7 +39,10 @@ export default function login() {
         dob: data.get('dob') as string,
         gender: handleInterestCheck(e),
       }).unwrap()
-      localStorage.setItem('key', JSON.stringify(res))
+
+      Cookies.set('jwt', res.accessToken)
+      const { accessToken, ...rest } = res
+      localStorage.setItem('key', JSON.stringify({...rest}))
       router.push('/')
       
     } catch (err: any) {

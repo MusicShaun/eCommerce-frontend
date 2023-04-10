@@ -15,7 +15,7 @@ export interface Profile {
 }
 export interface LocalUser { //* localStorage 
     accessToken: string
-    expires_at: string
+    expiresAt: string
     marked_as_expired: boolean
     profile: Profile
     countryCode: string

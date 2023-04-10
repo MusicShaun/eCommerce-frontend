@@ -1,34 +1,20 @@
-import React, { SyntheticEvent, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
-import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import { useLoginMutation } from 'lib/userSlice'
-import { selectCurrentUser } from 'lib/authSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import Link from 'next/link'
+import Cookies from 'js-cookie'
 
 export default function login() {
 
-  const dispatch = useAppDispatch()
   const focusRef = useRef<HTMLInputElement>(null)
   
   useEffect(() => {
     if (focusRef.current) focusRef.current.focus()
   }, [])
   
-  // Check if token in localStorage has expired. If not, redirect to home
-  // useEffect(() => {
-  //   const cached = localStorage.getItem('key')
-  //   if (cached) {
-  //     const { expires_at } = JSON.parse(cached)
-  // CHECK IF THE TOKEN IS EMPOTY FIRST
-  //     if (Date.now() < expires_at) {
-  //       router.push('/')
-  //     }
-  //   }
-  // }, [])
-
 
   const [login, {isLoading}] = useLoginMutation()
 
@@ -42,9 +28,14 @@ export default function login() {
         email: formData.get('email') as string,
         password: formData.get('password') as string
       }).unwrap()
-      localStorage.setItem('key', JSON.stringify(data))
+
+      // store sensitive data in cookie
+      Cookies.set('jwt', data.accessToken)
+      const { accessToken, ...rest } = data
+      // store non-sensitive data in localStorage
+      localStorage.setItem('key', JSON.stringify({ ...rest }))
+      // move user to landing page 
       router.push('/')
-      
     } catch (err) {
       console.log(err)
       alert('Invalid email or password')

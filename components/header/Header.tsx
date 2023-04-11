@@ -49,7 +49,7 @@ const TopHeader = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1001;
-  background-color: ${({theme}) => theme.headerTop }
+  background-color: ${({theme}) => theme.headerTop };
 `
 const BottomHeader = styled.div`
   position: relative;

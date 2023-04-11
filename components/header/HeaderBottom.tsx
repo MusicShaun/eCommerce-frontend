@@ -5,6 +5,7 @@ import NavShorts from "@/components/nav/NavShorts"
 import Link from "next/link"
 import { useState } from "react"
 import styled from "styled-components"
+import NavMobileDropDown from "../nav/NavMobileDropDown"
 
 export default function HeaderBottom() {
 
@@ -30,6 +31,7 @@ export default function HeaderBottom() {
       </Tab>
       {navShirts && <NavShirts setNavShirts={setNavShirts} />}
 
+        <NavMobileDropDown /> 
       <Tab
         onMouseEnter={() => setNavShoes(true)}
         onMouseLeave={() => setNavShoes(false)}
@@ -93,6 +95,10 @@ const  Box = styled.div`
   justify-content: space-between;
   width: 500px;
   height: 100%;
+
+  @media ${({ theme }) => theme.mobileL} {
+    width: 100%;
+  }
 
 `
 const Tab = styled.div`

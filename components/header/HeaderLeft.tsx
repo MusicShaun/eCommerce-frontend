@@ -27,6 +27,10 @@ const ButtonContainer = styled.div`
   height: 100%;
   border-right: 1px solid ${({ theme }) => theme.headerMiddle};
 
+  @media ${({ theme }) => theme.mobileS} {
+    min-width: auto;
+    margin-right: auto;
+  }
   & span {
     font-weight: 500;
     font-size: ${({theme}) => theme.fontL};

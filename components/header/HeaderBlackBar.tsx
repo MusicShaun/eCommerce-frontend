@@ -27,6 +27,7 @@ const BlackBar = styled.div`
   height: 45px;
   background-color: ${({ theme }) => theme.headerBottom};
   z-index: -1;
+
 `
 const Container = styled.div`
   width: 900px;
@@ -42,6 +43,9 @@ const Container = styled.div`
     @media ${({ theme }) => theme.mobileL} {
       font-size: ${({ theme }) => theme.fontMS};
     }
+    @media ${({ theme }) => theme.mobileS} {
+    display: none;
+  }
   }
 
   & a {

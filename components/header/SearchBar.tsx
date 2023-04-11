@@ -54,6 +54,10 @@ const Form = styled.form`
   justify-content: center;
   align-items: center;
 
+  @media ${({ theme }) => theme.mobileS} {
+    width: auto;
+  }
+
   & > * {
     @media ${({ theme }) => theme.mobileL} {
     display: none;

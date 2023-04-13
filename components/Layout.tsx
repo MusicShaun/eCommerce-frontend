@@ -42,8 +42,27 @@ const Container = styled.div`
   display: flex;
   justify-content: space-around;
 
+  @media ${({theme}) => theme.tablet} {
+      width: 100%;
+
+      & > div:first-child {
+      margin-left: 50px;
+      }
+      & > div:last-child {
+      margin-right: 50px;
+      }
+    }
+  @media ${({theme}) => theme.mobileL} {
+    & > div:first-child {
+    margin-left: 0px;
+    }
+  }
   & > div:last-child {
     width: 620px;
+
+    @media ${({theme}) => theme.tablet} {
+      width: calc(100% - 280px);
+    }
   }
 `
 const Header = styled.div`
@@ -58,4 +77,15 @@ const Header = styled.div`
     width: 300px;
   }
 
+  @media ${({theme}) => theme.tablet} {
+      width: 100%;
+      margin-left: 50px;
+  }
+  @media ${({ theme }) => theme.mobileL} {
+    justify-content: center;
+    margin-left: 0px;
+      & div:last-child {
+        display: none;
+      }
+  }
 `

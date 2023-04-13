@@ -10,6 +10,8 @@ export default function MyAccount() {
   useEffect(() => {
     if (JWTExpiry()) {
       localStorage.removeItem('key')
+      //! remove cookie 
+      
       window.location.href = '/login'
     } else {
       return

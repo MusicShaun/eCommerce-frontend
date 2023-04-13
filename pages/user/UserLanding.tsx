@@ -14,10 +14,14 @@ export default function UserLanding() {
 }
 
 const Container = styled.div`
-position: relative;
+  position: relative;
   width: 100%;
   height: 542px;
   background-color: white;
+
+  @media ${({ theme }) => theme.mobileL} {
+   display: none;
+  }
 `
 // const Image = styled.div`
 //   width: 100%;

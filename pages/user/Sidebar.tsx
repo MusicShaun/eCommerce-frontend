@@ -57,7 +57,7 @@ export default function Sidebar() {
         </Badge>
       </Stack>
 
-      <Stack2>
+      <Stack2 >
         <Tab>
           <Image src={welcome} alt=''  width={20} height={20} />
           <Link href='/user/MyAccount' ><div>Welcome</div></Link>
@@ -107,11 +107,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
+
+  @media ${({ theme }) => theme.mobileL} {
+    max-width: 100%;
+  }
 `
 const Stack = styled.div`
   display: flex;
-  border-top: 2px solid ${({theme}) => theme.background};
-  border-bottom: 2px solid ${({theme}) => theme.background};
+  border-top: 2px solid ${({theme}) => theme.backgroundSecondary};
+  border-bottom: 2px solid ${({theme}) => theme.backgroundSecondary};
 `
 const Badge = styled.div`
   display: flex;
@@ -137,8 +141,8 @@ const Circle = styled.div`
 const Stack2 = styled.ul`
   display: flex;
   flex-direction: column;
-  border-top: 2px solid ${({theme}) => theme.background};
-  border-bottom: 2px solid ${({theme}) => theme.background};
+  border-top: 2px solid ${({theme}) => theme.backgroundSecondary};
+  border-bottom: 2px solid ${({theme}) => theme.backgroundSecondary};
   margin: 0;
 `
 const Tab = styled.li`
@@ -147,6 +151,13 @@ const Tab = styled.li`
   display: flex;
   align-items: center;
   padding-left: 20px;
+  border-bottom: 1px solid ${({theme}) => theme.backgroundSecondary};
+
+  @media ${({ theme }) => theme.mobileL} {
+    & a {
+          width: 100%;
+        }
+      }
 
   & div {
     margin-left: 20px;

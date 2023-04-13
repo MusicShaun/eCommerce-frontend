@@ -2,7 +2,7 @@
 const colors = {
   BLACK: '#000',
   WHITE: '#ffffff',
-  DULL_WHITE: '#f8f8f8',
+  DULL_WHITE: '#eeeeee',
   DARK_GREY: '#2d2d2d',
   MEDIUM_GREY: '#525050',
   LIGHT_GREY: '#cdcdcd',

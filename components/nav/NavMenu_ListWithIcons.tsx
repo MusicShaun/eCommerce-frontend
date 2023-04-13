@@ -58,8 +58,8 @@ const LIWithImage = styled.li`
   & a:hover {
     color: green;
   }
-}
 `
+
 const DropdownIcons = styled.div`
   position: relative;
   min-width: 40px;

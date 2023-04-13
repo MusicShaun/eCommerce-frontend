@@ -16,8 +16,8 @@ export default function Nav4Panel({ setNavShirts }: IProps) {
 
   return (
     <BoxContainer
-    onMouseEnter={() => setNavShirts(true)}
-    onMouseLeave={() => setNavShirts(false)}
+      onMouseEnter={() => setNavShirts(true)}
+      onMouseLeave={() => setNavShirts(false)}
     >
     <Box>
       <Title>Product</Title>

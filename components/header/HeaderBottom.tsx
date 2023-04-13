@@ -3,7 +3,7 @@ import NavShirts from "@/components/nav/NavShirts"
 import NavSneakers from "@/components/nav/NavShoes"
 import NavShorts from "@/components/nav/NavShorts"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 import NavMobileDropDown from "../nav/NavMobileDropDown"
 
@@ -11,34 +11,53 @@ export default function HeaderBottom() {
 
   const [navShirts, setNavShirts] = useState(false)
   const [ navShoes , setNavShoes ] = useState(false)
-  const [ navshorts, setNavShorts ] = useState(false)
+  const [navshorts, setNavShorts] = useState(false)
+  const [navMobile, setNavMobile] = useState(false)
+  const [ navMobileClothe, setNavMobileClothe ] = useState('')
   const [emptyHover, setEmptyHover] = useState(false)
   
   let darkenBackground = navShoes || navShirts || navshorts || emptyHover
   
+  useEffect(() => {
+    if (window.innerWidth < 400) {
+      if (navShirts) {
+        setNavMobile(true)
+        setNavMobileClothe('shirts')
+      }
+      else if (navShoes) {
+        setNavMobile(true)
+        setNavMobileClothe('shoes')
+      }
+      else if (navshorts) {
+        setNavMobile(true)
+        setNavMobileClothe('shorts')
+      }
+      else if (!navShirts && !navShoes && !navshorts) {
+        setNavMobile(false)
+      }
+    }
+  }, [navShirts, navShoes, navshorts])
+
 
   return (
     <ButtonContainer>
       {darkenBackground && <DarkenBackground />}
       
       <Box>
-
+        
       <Tab
         onMouseEnter={() => setNavShirts(true)}
         onMouseLeave={() => setNavShirts(false)}
       >
         <Link href='/filter/[productType]' as='/filter/shirts'><span >Shirts </span></Link> 
       </Tab>
-      {navShirts && <NavShirts setNavShirts={setNavShirts} />}
-
-        <NavMobileDropDown /> 
+        
       <Tab
         onMouseEnter={() => setNavShoes(true)}
         onMouseLeave={() => setNavShoes(false)}
       > 
         <Link href="/filter/[productType]" as="/filter/shoes"><span>Shoes </span>    </Link>
       </Tab>
-      {navShoes && <NavSneakers setNavShoes={setNavShoes} />}
 
       <Tab
         onMouseEnter={() => setNavShorts(true)}
@@ -46,9 +65,7 @@ export default function HeaderBottom() {
       >
         <Link href='/filter/[productType]' as='/filter/shorts'><span>Shorts </span></Link>
       </Tab>
-      {navshorts && <NavShorts setNavShorts={setNavShorts} />}
 
-      {emptyHover && <Nav4Panel setEmptyHover={setEmptyHover} />}
       <Tab
               onMouseEnter={() => setEmptyHover(true)}
               onMouseLeave={() => setEmptyHover(false)}>
@@ -63,7 +80,14 @@ export default function HeaderBottom() {
               onMouseEnter={() => setEmptyHover(true)}
               onMouseLeave={() => setEmptyHover(false)}>
         <span>Empty</span>    
-      </Tab>
+        </Tab>
+
+        {navShirts && <NavShirts setNavShirts={setNavShirts} />}
+        {navshorts && <NavShorts setNavShorts={setNavShorts} />}
+        {navShoes && <NavSneakers setNavShoes={setNavShoes} />}
+        {emptyHover && <Nav4Panel setEmptyHover={setEmptyHover} />}
+        {navMobile ? <NavMobileDropDown setNavMobile={setNavMobile} navMobileClothe={navMobileClothe} /> : false} 
+
       </Box>
     </ButtonContainer>
 
@@ -136,7 +160,7 @@ const Tab = styled.div`
     color: inherit;
     text-decoration: none;
   }
-  &:nth-child(4), :nth-child(5), :nth-child(6) {
+  &:nth-child(4), :nth-child(5), :nth-child(6), :nth-child(7) {
     @media ${({ theme }) => theme.mobileL} {
       display: none;
     }

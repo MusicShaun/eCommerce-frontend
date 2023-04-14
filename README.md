@@ -21,6 +21,7 @@
 
 
 <br/> 
+<h2 align='center'>SITEMAP</h2>
 <img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1681458650/ecommerce-sitemap_kecntx.png' />
 <br />
 
@@ -35,7 +36,8 @@
   * Has a very specific search page for users looking for the exact item. 
 
 <br/>
-
+<img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1680078093/asos-look-alike-2_wlfeyq.png' alt='' width='100%'/>
+<br /> 
 
 
 <h3>Current Tasks / Upcoming 	✅	</h3>
@@ -45,7 +47,6 @@
   - Automatic localStorage security. 
   - Mobile Styling 
   
-<img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1680078093/asos-look-alike-2_wlfeyq.png' alt='' width='100%'/>
 
 <br/> 
 <p>If you feel like offering constructive criticism please be my guest</p> 

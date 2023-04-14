@@ -21,6 +21,8 @@
 
 
 <br/> 
+<img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1681458650/ecommerce-sitemap_kecntx.png' />
+<br />
 
 <h3>What does it do? </h3>
 

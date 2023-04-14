@@ -7,17 +7,19 @@
 <img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1680078015/asos-look-alike_scmogj.png' alt='' width='100%'/>
 
 <h3>Purpose</h3>
-<p>To learn how to greatly reduce API requests and response times. 
-<br />This is done mainly with RTK-Query as well as NextJs. 
-<br/>The website style is a copy of ASOS. I have no intention of profiting from this. It's merely practicing code. </p>
+<p>To learn how to reduce API requests and response times. 
+<br /> Learn the query side of RTK-Query
+<br/>Practice NextJS
+<br/>Create an entire site from back to front. 
+</p>
 
 
 <h3>Tooling / features 	🤩 </h3>
 
   * React Toolkit Query 
-  * NextJS
-  * NodeJs server
-  * Netlify & Heroku
+  * NextJS on Netlify
+  * NodeJs server on Heroku
+  
 
 
 <br/> 
@@ -27,13 +29,13 @@
 
 <h3>What does it do? </h3>
 
-  * The user can login or signup with JWT authentication.
-  * One-click to create an anonymous guest account. 
-  * Or create a user profile. 
-  * Super fast page navigation. 
-  * Displays clothes for sale. 
-  * Can sort clothes either through navigation or the search bar. 
-  * Has a very specific search page for users looking for the exact item. 
+  * Sign up securely with JWT authentication
+  * Cookies sent with every request to verify JWT 
+  * One-click create a guest account
+  * Super fast NextJS page navigation. 
+  * RTK caching state to avoid downloading identical requests
+  * Add clothes to wishlist or cart 
+  * Find clothes easily via search, header or tabs
 
 <br/>
 <img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1680078093/asos-look-alike-2_wlfeyq.png' alt='' width='100%'/>
@@ -42,10 +44,10 @@
 
 <h3>Current Tasks / Upcoming 	✅	</h3>
 
-  - Error handling in nodeJs. 
+  - More thorough error handling in nodeJs. 
   - A Larger data pool for more accurate testing. 
-  - Automatic localStorage security. 
-  - Mobile Styling 
+  - Finish Mobile Styling 
+  - Test across different browsers 
   
 
 <br/> 

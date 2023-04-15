@@ -44,7 +44,7 @@ export default function PersonalDetails() {
         gender: interestRadio.men ? 'men' : 'women',
         _id: localUser.profile._id,
       }).unwrap()
-      localStorage.setItem('key', JSON.stringify(res))
+      localStorage.setItem('key', JSON.stringify({...localUser, profile: res}))
     } catch (err) {
       console.log(err)
     }

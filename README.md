@@ -19,6 +19,7 @@
   * React Toolkit Query 
   * NextJS on Netlify
   * NodeJs server on Heroku
+  * Database on MongoDb
   
 
 

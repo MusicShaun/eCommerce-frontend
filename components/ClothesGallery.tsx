@@ -56,12 +56,12 @@ export default function ClothesGallery({ info }: IProps) {
   return (<>
     <ModalError isOpen={isModalOpen} onRequestClose={() => handleRequestClose()} errorMessage={errorMessage}  />
 
-    <Wrapper>
-      <Container>
-        {content}
-      </Container>
+      <Wrapper>
+        <Container>
+          {content}
+        </Container>
       </Wrapper>
-      </>
+    </>
   )
 }
 

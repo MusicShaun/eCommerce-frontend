@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import NavMenuThreeImageTiles from '@/components/nav/NavMenu_ThreeImagesTiles'
 import NavMenuListWithIcons from '@/components/nav/NavMenu_ListWithIcons'
 import NavMenuList from '@/components/nav/NavMenu_List'
-import { Dispatch, SetStateAction, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { selectShoes } from 'lib/clothesSlice'
 

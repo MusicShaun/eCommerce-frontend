@@ -6,12 +6,14 @@ import { selectAllClothes } from "lib/clothesSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 import { updateSearchBar } from "lib/searchBarSlice";
 import router from "next/router";
+import ModalErrorWindow from "../ModalErrorWindow";
 
 export default function SearchBar() {
   
   const dispatch = useAppDispatch()
   const clothes = useAppSelector(selectAllClothes)
   const inputRef = React.useRef<HTMLInputElement>(null)
+  const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   function handleSearch(e: any) {
     e.preventDefault()
@@ -24,14 +26,20 @@ export default function SearchBar() {
        cloth.toString().toLowerCase().includes(searchInput.toLowerCase())
       )
     )
+
+  
+    if (filteredClothes.length === 0) return setIsModalOpen(true), dispatch(updateSearchBar(clothes))
+    
     dispatch(updateSearchBar(filteredClothes))
-      router.push('/ProductSearch')
+    router.push('/ProductSearch')
   }
 
 
+  return (<>
+    <ModalErrorWindow isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} errorMessage={'Your search has no results'} />
 
-  return (
-    <Form onSubmit={(e) => handleSearch(e)}>
+        <Form onSubmit={(e) => handleSearch(e)}>
+
       <label> </label>
       <Input type='text' placeholder='Search for clothing items' ref={inputRef} />
       <Image
@@ -42,7 +50,7 @@ export default function SearchBar() {
         style={{position: 'absolute', right: '20px'}}
       />
     </Form>
-  )
+  </>)
 }
 
 

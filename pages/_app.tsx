@@ -20,10 +20,10 @@ export default function App({ Component, pageProps }: AppProps) {
   
   return (
     <ThemeProvider theme={!isTheme ? theme.light : theme.dark}>
-      <Provider store={store}> 
-        <Header />
-        <Component {...pageProps} />
-      </Provider>
+        <Provider store={store}> 
+          <Header />
+          <Component {...pageProps} />
+        </Provider>
 
     </ThemeProvider>)
 }

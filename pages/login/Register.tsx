@@ -39,9 +39,8 @@ export default function login() {
         gender: handleInterestCheck(e),
       }).unwrap()
 
-      const { accessToken, ...rest } = res
-      Cookies.set('jwt', accessToken!)
-      localStorage.setItem('key', JSON.stringify({...rest}))
+
+      // localStorage.setItem('key', JSON.stringify({...rest}))
       router.push('/')
       
     } catch (err: any) {

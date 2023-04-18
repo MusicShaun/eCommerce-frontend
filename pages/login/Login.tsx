@@ -2,44 +2,43 @@ import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import InfoCenter from '../../components/InfoCenter'
 import router from 'next/router'
-import { useLoginMutation } from 'lib/userSlice'
+import { useGetUserQuery, useLoginMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import Link from 'next/link'
-import Cookies from 'js-cookie'
+
+
 
 export default function login() {
 
   const focusRef = useRef<HTMLInputElement>(null)
+  const [login, { isLoading, isSuccess }] = useLoginMutation()
   
   useEffect(() => {
     if (focusRef.current) focusRef.current.focus()
   }, [])
   
 
-  const [login, {isLoading}] = useLoginMutation()
 
   // Submit login form // Set localStorage // push user to state 
   async function handleSubmit(e: any) {
     e.preventDefault()
     const formData = new FormData(e.target)
 
-    try {
-      const data = await login({
+    try { // LOGIN 
+      const res = await login({
         email: formData.get('email') as string,
         password: formData.get('password') as string
       }).unwrap()
 
-      const { accessToken, ...rest } = data
-      Cookies.set('jwt', accessToken!)
-      localStorage.setItem('key', JSON.stringify({ ...rest }))
-      // move user to landing page 
       router.push('/')
+      
     } catch (err) {
       console.log(err)
       alert('Invalid email or password')
+    } finally {
+
     }
   }
-
 
 
   return (<>
@@ -161,3 +160,4 @@ const SpinnerContainer = styled.div`
   justify-content: center;
   align-items: center;
 `
+

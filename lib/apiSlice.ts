@@ -21,16 +21,19 @@ const localhostOrHeroku = isBrowser
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
+    baseUrl: 'http://localhost:5000/api/asos/',
+    credentials: 'include',
+    mode: 'cors',
     prepareHeaders: (headers) => {
-      const token = Cookies.get('jwt')
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`)
-      }
+      const jwt = Cookies.get('jwt') // only works client side as cookies are not available server side
+      if (jwt) headers.set('Authorization', `Bearer ${jwt}`)
+      
+      const userId = Cookies.get('userId')
+      if (userId) headers.set('X-UserId', userId)
       return headers
     },
   }),
-  tagTypes: ['Clothes', 'Auth'],
+  tagTypes: ['Status', 'Clothes', 'Auth'],
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath]

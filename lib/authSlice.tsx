@@ -13,18 +13,27 @@ export interface Profile {
   email?: string
   dob?: string 
 }
-export interface LocalUser { //* localStorage 
-    accessToken?: string
-    expiresAt: string
-    marked_as_expired: boolean
-    profile: Profile
-    countryCode: string
+// export interface LocalUser { //* localStorage 
+//     expiresAt: string
+//     marked_as_expired: boolean
+//     profile: Profile
+//     countryCode: string
+// }
+export interface LocalUser {
+  given_name: string
+  surname: string 
+  gender: string 
+  wishlist: ClotheType[]
+  cart: ClotheType[]
+  email?: string
+  dob?: string 
 }
-
 export type AuthState = {
+  status: string
   key: LocalUser | null
 }
 const initialState: AuthState = {
+  status: 'idle',
   key: null,
 }
 
@@ -38,7 +47,7 @@ const userSlice = createSlice({
     builder.addMatcher(
       extendedUserSlice.endpoints.login.matchFulfilled,
       (state, { payload }) => {
-        state.key = payload
+        state.status = payload
       }
     ),
     builder.addMatcher(

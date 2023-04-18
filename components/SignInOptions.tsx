@@ -33,7 +33,8 @@ const SignInButtons = styled.div`
   height: 61px;
   width: 50%;
   border-bottom: 2px solid lightgrey;
-
+  cursor: pointer;
+  
   & div {
     display: block;
     text-align: center;

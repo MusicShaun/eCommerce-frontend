@@ -6,13 +6,16 @@ import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheT
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-
+import { extendedUserSlice, useGetUserQuery } from 'lib/userSlice'
 
 const inter = Inter({ subsets: ['latin'] })
 
 extendedClothesSlice.endpoints.getAllClothes.initiate()
+// extendedUserSlice.endpoints.getUser.initiate()
 
 export default function Home() {
+
+  const user = useGetUserQuery()
 
   const selectAll = useAppSelector(selectAllClothes)
   let randomClothes: ClotheType[] = []

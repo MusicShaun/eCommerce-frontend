@@ -8,14 +8,14 @@ export default function MyAccount() {
   const JWTExpiry = useCheckJWTexpiry()
 
   useEffect(() => {
-    if (JWTExpiry()) {
-      localStorage.removeItem('key')
-      //! remove cookie 
+    // if (JWTExpiry()) {
+    //   localStorage.removeItem('key')
+    //   //! remove cookie 
       
-      window.location.href = '/login'
-    } else {
-      return
-    }
+    //   window.location.href = '/login'
+    // } else {
+    //   return
+    // }
   },[])
 
   return (

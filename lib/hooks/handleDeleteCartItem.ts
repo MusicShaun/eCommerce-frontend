@@ -7,7 +7,7 @@ export function handleDeleteCartItem(_id: string, currentUser: any, allClothes: 
   const createWishlistArray = 
     (obj: ClotheType): ClotheType[] => {
       let t
-      t = [...(currentUser!.profile.wishlist || [])]
+      t = [...(currentUser!.wishlist || [])]
       t.push(obj)
       return t.flat()
     }
@@ -23,8 +23,8 @@ export function handleDeleteCartItem(_id: string, currentUser: any, allClothes: 
     let tempValue: any[] = []
     // DOES ITEM EXIST ALREADY IN WISHLIST?
     let check =
-      currentUser?.profile.wishlist &&
-      currentUser.profile.wishlist.some((item: ClotheType) => item._id === _id)
+      currentUser?.wishlist &&
+      currentUser.wishlist.some((item: ClotheType) => item._id === _id)
 
     if (!check) {
       // IF NOT, ADD ITEM TO WISHLIST

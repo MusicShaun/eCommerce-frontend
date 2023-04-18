@@ -35,12 +35,12 @@ export default function useAddClothingItem() {
     try {
       let res
       //* USER LOGGED IN - TYPE CART 
-      if (currentUser && currentUser.profile && type === 'cart') {
+      if (currentUser && currentUser && type === 'cart') {
         const s = handleCart(_id, size!, currentUser, allClothes, direction!)
         res = await addCartListItem({ ...s }).unwrap()
 
       //* USER LOGGED IN - TYPE WISHLIST
-      } else if (currentUser && currentUser.profile && type === 'wishlist') {
+      } else if (currentUser && currentUser && type === 'wishlist') {
         const s = handleWishlist(_id, currentUser, allClothes)
         res = await addWistListItem({ ...s }).unwrap()
 

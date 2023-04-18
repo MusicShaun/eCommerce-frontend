@@ -37,7 +37,7 @@ export function handleCart( _id: string, size: string, currentUser: any, allClot
   return {
       ...currentUser!,
       profile: {
-        ...(currentUser!.profile || {}),
+        ...(currentUser! || {}),
         cart: tempValue.flat(),
     },
   }

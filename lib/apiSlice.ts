@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
 import Cookies from 'js-cookie'
+import { getCookie } from 'cookies-next';
 export interface User {
   token: string
   email: string
@@ -25,7 +26,9 @@ export const apiSlice = createApi({
     credentials: 'include',
     // mode: 'no-cors',
     prepareHeaders: (headers) => {
-      const jwt = Cookies.get('jwt') // only works client side as cookies are not available server side
+      let jwt:any = Cookies.get('jwt')
+      if (jwt === undefined || jwt === null )  jwt = getCookie('jwt') 
+      console.log(jwt) // only works client side as cookies are not available server side
       if (jwt) headers.set('Authorization', `Bearer ${jwt}`)
       return headers
     },

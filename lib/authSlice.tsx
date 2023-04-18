@@ -51,6 +51,12 @@ const userSlice = createSlice({
       }
     ),
     builder.addMatcher(
+      extendedUserSlice.endpoints.getUser.matchFulfilled,
+      (state, { payload }) => {
+        state.key = payload
+      }
+    ),
+    builder.addMatcher(
       extendedUserSlice.endpoints.register.matchFulfilled,
       (state, { payload }) => {
         state.key = payload

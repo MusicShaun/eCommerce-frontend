@@ -54,7 +54,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
 
 
 
-    guest: builder.mutation<any, any>({
+    guest: builder.mutation<LocalUser, any>({
       query: (body) => ({
         url: '/users/guest',
         method: 'POST',

@@ -15,7 +15,7 @@ extendedClothesSlice.endpoints.getAllClothes.initiate()
 
 export default function Home() {
 
-  const user = useGetUserQuery()
+  const { data: getUser, isSuccess: isUserSuccess } = useGetUserQuery()
 
   const selectAll = useAppSelector(selectAllClothes)
   let randomClothes: ClotheType[] = []

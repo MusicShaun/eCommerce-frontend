@@ -20,6 +20,7 @@ export default function Sidebar() {
   
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
+  console.log(user)
   // const wishlist = useAppSelector(selectWishList)
 
   function handleSignout() {

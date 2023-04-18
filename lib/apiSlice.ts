@@ -17,19 +17,16 @@ const localhostOrHeroku = isBrowser
   ? 'http://localhost:5000/api/asos/'
   : 'https://shauns-ecommerce.herokuapp.com/api/asos/'
 
-  
+  const tok = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MzQwY2ZhMTk3MGEyNWE5ZGNlOGVjOSIsImlhdCI6MTY4MTgyMTI0MSwiZXhwIjoxNjg0NDEzMjQxfQ.ylj6WXnsT7K8pULgxebdlVMBdin0EZmCQDXgFUbi2_I'
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:5000/api/asos/',
+    baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
     credentials: 'include',
     // mode: 'no-cors',
     prepareHeaders: (headers) => {
       const jwt = Cookies.get('jwt') // only works client side as cookies are not available server side
       if (jwt) headers.set('Authorization', `Bearer ${jwt}`)
-      
-      const userId = Cookies.get('userId')
-      if (userId) headers.set('X-UserId', userId)
       return headers
     },
   }),

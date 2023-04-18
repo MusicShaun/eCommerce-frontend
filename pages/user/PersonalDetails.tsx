@@ -64,27 +64,27 @@ export default function PersonalDetails() {
             <FieldSetBox>
               <Field>
                 <label htmlFor='email' >EMAIL ADDRESS</label>
-                  <input id='email' type='email' name='email' placeholder={user?.profile.email} />
+                  <input id='email' type='email' name='email' placeholder={user?.email} />
               </Field>
               <Field>
                 <label htmlFor='given_name'>FIRST NAME</label>
-                  <input id='given_name' name='given_name' placeholder={user?.profile.given_name } />
+                  <input id='given_name' name='given_name' placeholder={user?.given_name } />
               </Field>
               <Field>
                 <label htmlFor='surname' >LAST NAME</label>
-                <input id='surname' name='surname' placeholder={user?.profile.surname} />
+                <input id='surname' name='surname' placeholder={user?.surname} />
               </Field>
               <Field>
                 <label htmlFor='dob' >DATE OF BIRTH</label>
-                <input type="date" id="dob" name="dob" defaultValue={user?.profile.dob} />
+                <input type="date" id="dob" name="dob" defaultValue={user?.dob} />
               </Field>
               <Field >
                 <label>Mostly interested in</label>
                   <RadioField style={{ flexDirection: 'row', padding: '10px 0 0 0 ' }}>
 
-                    <input type='radio' onClick={setInterestWomen} id='women' ref={womenRef} checked={user?.profile.gender === 'women'} />  
+                    <input type='radio' onClick={setInterestWomen} id='women' ref={womenRef} checked={user?.gender === 'women'} />  
                     <label htmlFor='women' >Womenswear</label>
-                    <input type='radio' onClick={setInterestMen} id='men' ref={menRef} checked={user?.profile.gender === 'men'} />
+                    <input type='radio' onClick={setInterestMen} id='men' ref={menRef} checked={user?.gender === 'men'} />
                     <label htmlFor='men' >Menswear</label>
 
                   </RadioField>        

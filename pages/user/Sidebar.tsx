@@ -44,15 +44,15 @@ export default function Sidebar() {
         }}>
         <Circle>
           <h1>
-          {userIsNotNull(user?.profile.given_name).charAt(0)}
-          {userIsNotNull(user?.profile.surname).charAt(0)}
+          {userIsNotNull(user?.given_name).charAt(0)}
+          {userIsNotNull(user?.surname).charAt(0)}
           </h1>
         </Circle>
         <Badge>
           <p>Hi, </p>
           <h3>
-            {userIsNotNull(user?.profile.given_name)}
-            {userIsNotNull(user?.profile.surname)}
+            {userIsNotNull(user?.given_name)}
+            {userIsNotNull(user?.surname)}
           </h3>
         </Badge>
       </Stack>

@@ -23,7 +23,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:5000/api/asos/',
     credentials: 'include',
-    mode: 'no-cors',
+    // mode: 'no-cors',
     prepareHeaders: (headers) => {
       const jwt = Cookies.get('jwt') // only works client side as cookies are not available server side
       if (jwt) headers.set('Authorization', `Bearer ${jwt}`)

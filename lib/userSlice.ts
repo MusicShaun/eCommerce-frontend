@@ -80,7 +80,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       
       invalidatesTags: ['Auth'],
     }),
-    updateUser: builder.mutation<LocalUser, Profile>({
+    updateUser: builder.mutation<any, any>({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',

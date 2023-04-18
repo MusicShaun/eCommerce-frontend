@@ -56,14 +56,9 @@ export default function useAddClothingItem() {
       }
       
       if ('data' in res) {
-        const { accessToken, ...rest } = res.data
-        Cookies.set('jwt', accessToken!)
-        localStorage.setItem('key', JSON.stringify({ ...rest }))
         localStorage.setItem('key', JSON.stringify(res.data))
       } else {
-        const { accessToken, ...rest } = res
-        Cookies.set('jwt', accessToken!)
-        localStorage.setItem('key', JSON.stringify({...rest}))
+        localStorage.setItem('key', JSON.stringify({...res}))
       }
 
     } catch (err) {

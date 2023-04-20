@@ -24,7 +24,10 @@ export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
-    credentials: 'include'
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials:"include"
   }),
 
   tagTypes: ['Status', 'Clothes', 'Auth'],

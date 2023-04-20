@@ -14,7 +14,7 @@ export const store = configureStore({
   reducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware).concat(
-    // logger
+    logger
   )
 
 })

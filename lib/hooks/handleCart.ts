@@ -6,7 +6,7 @@ export function handleCart( _id: string, size: string, currentUser: any, allClot
   const createCartArray = 
     (obj: any) => {
       let t
-      t = [...(currentUser!.profile.cart || [])]
+      t = [...(currentUser!.cart || [])]
       t.push(obj)
       return t.flat()
     }
@@ -32,14 +32,10 @@ export function handleCart( _id: string, size: string, currentUser: any, allClot
 
   let tempValue = direction === '+'
     ? createCartArray(filterArray(allClothes, _id, size))
-    : filterOutArray(currentUser.profile.cart, _id)
+    : filterOutArray(currentUser.cart, _id)
 
   return {
-      ...currentUser!,
-      profile: {
-        ...(currentUser! || {}),
-        cart: tempValue.flat(),
-    },
+    ...currentUser!,
+    cart: tempValue.flat(),
   }
-
 }

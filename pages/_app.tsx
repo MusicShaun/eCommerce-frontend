@@ -9,11 +9,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { store } from 'lib/store'
 import { extendedClothesSlice } from 'lib/clothesSlice'
 
-
 // store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
 
 
-export default function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps) {
 
   
   const [isTheme, setIsTheme] = useState(false)
@@ -27,4 +26,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
     </ThemeProvider>)
 }
+export default App
+
         {/* <ReactQueryDevtools initialIsOpen={false} /> Switches off in production mode */} //! circle back to this. React devtools sounds great

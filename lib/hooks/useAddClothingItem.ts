@@ -12,7 +12,8 @@ import Cookies from "js-cookie"
 export default function useAddClothingItem() {
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
   const currentUser = useAppSelector(selectCurrentUser)
-  const allClothes = useAppSelector(selectAllClothes);
+  const allClothes = useAppSelector(selectAllClothes)
+
 
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
   const [addCartListItem, {isLoading: isCartLoading, isSuccess: isCartSuccess, isError: isCartError, error: cartError }] = useAddCartItemMutation()

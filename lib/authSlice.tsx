@@ -29,11 +29,9 @@ export interface LocalUser {
   dob?: string 
 }
 export type AuthState = {
-  status: string
   key: LocalUser | null
 }
 const initialState: AuthState = {
-  status: 'idle',
   key: null,
 }
 
@@ -47,7 +45,7 @@ const userSlice = createSlice({
     builder.addMatcher(
       extendedUserSlice.endpoints.login.matchFulfilled,
       (state, { payload }) => {
-        state.status = payload
+        console.log(' Logged in ')
       }
     ),
     builder.addMatcher(

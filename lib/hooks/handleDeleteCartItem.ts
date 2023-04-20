@@ -33,14 +33,13 @@ export function handleDeleteCartItem(_id: string, currentUser: any, allClothes: 
       
     } else {
       // IF YES, REMOVE ITEM FROM WISHLIST
-      tempValue = filterArray(currentUser!.profile.wishlist, _id, "-")
+      tempValue = filterArray(currentUser!.wishlist, _id, "-")
     }
     
     return {
         ...currentUser!,
-        profile: {
-          ...(currentUser!.profile || {}),
+
           wishlist: tempValue.flat(),
-      },
+      
     }
 }

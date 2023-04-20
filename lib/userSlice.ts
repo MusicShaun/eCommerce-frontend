@@ -12,9 +12,7 @@ export interface Signup {
   surname: string 
   dob: string
 }
-interface Status {
-  status: string
-} 
+
 
 export const extendedUserSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

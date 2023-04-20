@@ -25,7 +25,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
     credentials: 'include',
-    // mode: 'no-cors',
+    mode: 'cors',
 
 //! this is redundant
   //   prepareHeaders: async (headers) => {

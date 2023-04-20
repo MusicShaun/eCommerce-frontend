@@ -24,21 +24,7 @@ export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
-    credentials: 'include',
-    // mode: 'cors',
-
-//! this is redundant
-  //   prepareHeaders: async (headers) => {
-
-  //     const { default: Cookies } = await loadCookies();
-  //     const token = Cookies.get('jwt')
-  //     if (token) {
-  //       headers.set('authorization', `Bearer ${token}`)
-  //     }
-
-  //     return headers
-  //   },
-
+    credentials: 'include'
   }),
 
   tagTypes: ['Status', 'Clothes', 'Auth'],

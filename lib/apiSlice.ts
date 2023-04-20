@@ -1,11 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
-import dynamic from 'next/dynamic'
-import { GetServerSideProps } from 'next';
-import { LocalUser } from './authSlice';
-import { extendedUserSlice } from './userSlice';
-import { IncomingMessage } from 'http';
-import { parse } from 'cookie';
+
 // import Cookies from 'js-cookie';
 
 export interface User {
@@ -24,8 +19,6 @@ const localhostOrHeroku = [
 ]
 
 
-const loadCookies = () => import('js-cookie');
-
 
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
@@ -34,16 +27,18 @@ export const apiSlice = createApi({
     credentials: 'include',
     // mode: 'no-cors',
 
-    prepareHeaders: async (headers) => {
+//! this is redundant
+  //   prepareHeaders: async (headers) => {
 
-      const { default: Cookies } = await loadCookies();
-      const token = Cookies.get('jwt')
-      if (token) {
-        headers.set('authorization', `Bearer ${token}`)
-      }
+  //     const { default: Cookies } = await loadCookies();
+  //     const token = Cookies.get('jwt')
+  //     if (token) {
+  //       headers.set('authorization', `Bearer ${token}`)
+  //     }
 
-      return headers
-    },
+  //     return headers
+  //   },
+
   }),
 
   tagTypes: ['Status', 'Clothes', 'Auth'],
@@ -57,13 +52,4 @@ export const apiSlice = createApi({
     // do elsewhere
   })
 })
-
-
-export function getToken(req: IncomingMessage): string | undefined {
-  const cookies = parse(req.headers.cookie || '');
-  console.log('this is the getToken function in apiSlice')
-  console.log(cookies.token)
-  return cookies.token;
-}
-
 

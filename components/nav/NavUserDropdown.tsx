@@ -4,21 +4,30 @@ import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAppDispatch } from 'lib/hooks/hooks'
 import { apiSlice } from 'lib/apiSlice'
-
+import Cookies from 'js-cookie'
 
 export default function NavUserDropdown() {
 
   const dispatch = useAppDispatch()
   const [loggedIn, setLoggedIn ] = useState(false)
 
+  // checks if user is logged in
   useEffect(() => {
-    const key = JSON.parse(localStorage.getItem('key') ?? '{}')
-    if (key && key.accessToken) {
-      setLoggedIn(true)
+    const jwt = Cookies.get('jwt')
+    if (jwt) {
+    //! perform a request to verify the jwt on the server-side
+    //! if the jwt is valid, setLoggedIn(true)
+    //! if the jwt is invalid or has expired, remove the jwt cookie and setLoggedIn(false)
     }
   }, [])
 
+
+  // expires cookie 
+  // removes user info from localStorage
+  // resets api state
+  // redirects to login page
   function handleLogout() {
+    document.cookie =  "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     localStorage.removeItem('key')
     dispatch(apiSlice.util.resetApiState())
     router.push('/login/LoginWrapper', '/login', {shallow: true})

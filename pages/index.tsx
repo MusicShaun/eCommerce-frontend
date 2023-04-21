@@ -7,20 +7,20 @@ import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { extendedUserSlice, useGetUserQuery } from 'lib/userSlice'
+import { useEffect, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 extendedClothesSlice.endpoints.getAllClothes.initiate()
-// extendedUserSlice.endpoints.getUser.initiate()
 
 export default function Home() {
 
-  const { data: getUser, isSuccess: isUserSuccess } = useGetUserQuery()
+  const { } = useGetUserQuery()
 
   const selectAll = useAppSelector(selectAllClothes)
-  let randomClothes: ClotheType[] = []
-
-
+  const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
+  const [countRenders, setCountRenders] = useState(0)
+  console.log(countRenders)
 
   const {
     isLoading,
@@ -29,16 +29,16 @@ export default function Home() {
     error
   } = useGetAllClothesQuery()
 
-
-  if (isLoading) {
-    
-  } else if (isSuccess) {
-    
-    randomClothes = [...selectAll].sort(() => Math.random() - 0.5)
-  } else if (isError) {
-    console.log(JSON.stringify(error))
-  }
-
+  // Wrapped in a useEffect to avoid re rendering when getUser fires
+  useEffect(() => {
+    if (isLoading) {
+    } else if (isSuccess) {
+      setRandomClothes([...selectAll].sort(() => Math.random() - 0.5))
+    } else if (isError) {
+      console.log(JSON.stringify(error))
+    }
+    setCountRenders(prev => prev + 1)
+  }, [isSuccess, isError, selectAll, isLoading])
 
 
 
@@ -59,7 +59,7 @@ export default function Home() {
     subheader3: ''
   } as const
 
-
+  
 
   return (
     <>
@@ -80,7 +80,9 @@ export default function Home() {
             display: 'block', height: '450px', margin: 'auto', marginTop: '200px'
           }}
         />
-        {isSuccess && <ClothesGallery info={randomClothes!} />}
+        {isSuccess &&
+          <ClothesGallery info={randomClothes!} />
+        }
         <Banner info={secondBanner} />
       </Wrapper>
 

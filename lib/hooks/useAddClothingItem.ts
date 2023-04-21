@@ -2,7 +2,7 @@ import { selectCurrentUser, useAddCartItemMutation, useAddWishListItemMutation, 
 import { useRef } from "react"
 import { handleCart } from "./handleCart"
 import { useAppSelector } from "./hooks"
-import { Profile } from "lib/authSlice"
+import { LocalUser } from "lib/authSlice"
 import { selectAllClothes } from "lib/clothesSlice"
 import { handleWishlist } from "./handleWishlist"
 import { handleCartGuest } from "./handleCartGuest"
@@ -25,7 +25,7 @@ export default function useAddClothingItem() {
       return alert('Please choose a size')
     }
 
-    const tempUser: Partial<Profile> = {
+    const tempUser: Partial<LocalUser> = {
       given_name: '',
       surname: '',
       gender: '',

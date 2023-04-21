@@ -1,7 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
 
-// import Cookies from 'js-cookie';
 
 export interface User {
   token: string
@@ -13,11 +12,9 @@ export interface LoginRequest {
 }
 
 
-const localhostOrHeroku = [
-   'http://localhost:5000/api/asos/',
-   'https://shauns-ecommerce.herokuapp.com/api/asos/'
-]
 
+  //  'http://localhost:5000/api/asos/',
+  //  'https://shauns-ecommerce.herokuapp.com/api/asos/'
 
 
 export const apiSlice = createApi({

@@ -38,8 +38,6 @@ export function handleDeleteCartItem(_id: string, currentUser: any, allClothes: 
     
     return {
         ...currentUser!,
-
           wishlist: tempValue.flat(),
-      
     }
 }

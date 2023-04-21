@@ -1,7 +1,7 @@
 import { RootState } from './store'
 import { ClotheType } from './clothesSlice'
 import { apiSlice } from './apiSlice'
-import { LocalUser, Profile } from './authSlice'
+import { LocalUser } from './authSlice'
 
 export interface Signup {
   email: string
@@ -34,11 +34,6 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       },
     }),
   
-  
-  
-  
-  
-  
     register: builder.mutation<LocalUser, Signup>({
       query: (body) => ({
         url: '/users/signup',
@@ -48,10 +43,6 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Auth'],
     }),
 
-
-
-
-
     guest: builder.mutation<LocalUser, any>({
       query: (body) => ({
         url: '/users/guest',
@@ -60,6 +51,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       }),
       // invalidatesTags: ['Auth'],
     }),
+    
     addWishListItem: builder.mutation<LocalUser, LocalUser>({
       query: (body) => ({
         url: `/users/`,

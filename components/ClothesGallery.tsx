@@ -15,7 +15,6 @@ export default function ClothesGallery({ info }: IProps) {
   const [errorMessage, setErrorMessage] = useState('')
   const { handleAddItem, isError , error } = useAddClothingItem()
   
-    
   // error handling
   useEffect(() => {
     if (isError && error) {

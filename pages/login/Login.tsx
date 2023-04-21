@@ -19,7 +19,7 @@ export default function login() {
   
 
 
-  // Submit login form // Set localStorage // push user to state 
+  // Submit login form 
   async function handleSubmit(e: any) {
     e.preventDefault()
     const formData = new FormData(e.target)

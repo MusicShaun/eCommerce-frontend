@@ -3,16 +3,7 @@ import { RootState, store } from "./store";
 import { ClotheType } from "./clothesSlice";
 import { extendedUserSlice } from "./userSlice";
 
-export interface Profile {
-  given_name: string
-  surname: string 
-  gender: string 
-  wishlist: ClotheType[]
-  cart: ClotheType[]
-  _id: string
-  email?: string
-  dob?: string 
-}
+
 // export interface LocalUser { //* localStorage 
 //     expiresAt: string
 //     marked_as_expired: boolean
@@ -45,7 +36,7 @@ const userSlice = createSlice({
     builder.addMatcher(
       extendedUserSlice.endpoints.login.matchFulfilled,
       (state, { payload }) => {
-        console.log(' Logged in ')
+        console.log('User logged in')
       }
     ),
     builder.addMatcher(

@@ -1,7 +1,7 @@
-import { LocalUser, Profile } from "lib/authSlice";
+import { LocalUser } from "lib/authSlice";
 import { ClotheType } from "lib/clothesSlice";
 
-export function handleCartGuest(_id: string, user: Partial<Profile>, size: string, allClothes: ClotheType[]) {
+export function handleCartGuest(_id: string, user: Partial<LocalUser>, size: string, allClothes: ClotheType[]) {
 
   const createCartArray = 
     (obj: any, user: any) => {

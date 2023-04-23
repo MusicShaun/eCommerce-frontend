@@ -3,7 +3,6 @@ import Link from "next/link"
 import router from "next/router"
 import { apiSlice } from "lib/apiSlice"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import WishList from "./WishList"
 import { selectCurrentUser } from "lib/userSlice"
 import Image from "next/image"
 import details from '@/images/account_details.png'
@@ -14,16 +13,13 @@ import logout from '@/images/account_logout.png'
 import wishlist from '@/images/account_wishlist.png'
 
 
-
-
 export default function Sidebar() {
   
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
-  console.log(user)
-  // const wishlist = useAppSelector(selectWishList)
 
-  function handleSignout() {
+  function handleLogout() {
+    document.cookie =  "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     localStorage.removeItem('key')
     dispatch(apiSlice.util.resetApiState())
     router.push('/login/LoginWrapper', '/login', {shallow: true})
@@ -94,7 +90,7 @@ export default function Sidebar() {
       <Stack2>
         <Tab>
           <Image src={logout} alt=''  width={20} height={20} />
-          <div onClick={handleSignout} style={{cursor: 'pointer'}}>Sign out</div>
+          <div onClick={handleLogout} style={{cursor: 'pointer'}}>Sign out</div>
         </Tab>
       </Stack2>
     </Container>

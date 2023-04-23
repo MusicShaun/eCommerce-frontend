@@ -1,8 +1,8 @@
-import { Profile } from "lib/authSlice";
+import { LocalUser } from "lib/authSlice";
 import { ClotheType } from "lib/clothesSlice";
 
 
-export function handleGuestWishlist(_id: string, user: Partial<Profile>, allClothes: ClotheType[]) {
+export function handleGuestWishlist(_id: string, user: Partial<LocalUser>, allClothes: ClotheType[]) {
 
   const createWishlistArray = 
     (obj: any, user: any) => {

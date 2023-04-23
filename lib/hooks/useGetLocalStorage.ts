@@ -1,4 +1,3 @@
-import { User } from "lib/apiSlice";
 import { LocalUser } from "lib/authSlice";
 import { useEffect, useState } from "react";
 

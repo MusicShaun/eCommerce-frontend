@@ -7,7 +7,6 @@ import { selectAllClothes } from "lib/clothesSlice"
 import { handleWishlist } from "./handleWishlist"
 import { handleCartGuest } from "./handleCartGuest"
 import { handleGuestWishlist } from "./handleGuestWishlist"
-import Cookies from "js-cookie"
 
 export default function useAddClothingItem() {
   const selectOptionsRef = useRef<HTMLSelectElement>(null)

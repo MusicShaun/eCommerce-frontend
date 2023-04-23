@@ -28,7 +28,7 @@ export function handleGuestWishlist(_id: string, user: Partial<LocalUser>, allCl
   tempValue = createWishlistArray(getclothingItemToPush, user)
   
   return {
-      ...tempValue,
+      // ...tempValue,
         wishlist: tempValue.flat(),
   }
 

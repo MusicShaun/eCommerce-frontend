@@ -51,6 +51,7 @@ interface IProps {
 }
 export default function ClothesSinglePage( {product}: IProps) {
 
+
   const plainProductObject = product?.[0]
 
   const content = plainProductObject ? (

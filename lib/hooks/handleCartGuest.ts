@@ -30,7 +30,7 @@ export function handleCartGuest(_id: string, user: Partial<LocalUser>, size: str
   tempValue = createCartArray(getclothingItemToPush, user)
   
   return {
-      ...tempValue,
+      // ...tempValue,
         cart: tempValue.flat(),
   }
 

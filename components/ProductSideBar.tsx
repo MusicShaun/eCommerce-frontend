@@ -2,7 +2,7 @@ import styled, { keyframes} from "styled-components"
 import Image from "next/image"
 import { ClotheType  } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
-import { selectWishlist } from "lib/userSlice"
+import { selectWishlist, useGetUserQuery } from "lib/userSlice"
 import { useEffect, useRef, useState } from "react"
 import useAddClothingItem from "lib/hooks/useAddClothingItem"
 import PacmanLoader from "react-spinners/PacmanLoader"
@@ -35,7 +35,8 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
   const [heartAnimation, setHeartAnimation] = useState(false)
 
   const { handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isError, error } = useAddClothingItem()
-
+  const { data, isSuccess, refetch } = useGetUserQuery()
+  
   // error handling
   useEffect(() => {
     if (isError && error) {
@@ -72,8 +73,10 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
   }, [wishlist])
 
 
+  // after these functions add a heart or cart item, they refetch the user data. 
   async function handleAddClotheItemToWishList(_id: string) {
     await handleAddItem(_id, 'wishlist')
+    refetch()
   }
   async function handleAddClotheItemToCart(_id: string) {
     if (selectOptionsRef.current?.value === 'Choose size') return (
@@ -81,6 +84,7 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
       setIsModalOpen(true)
     )
     await handleAddItem(_id, 'cart', selectOptionsRef.current!.value, '+')
+    refetch()
   }
 
   function handleHeartAnimation() {

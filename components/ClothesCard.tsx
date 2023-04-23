@@ -1,7 +1,6 @@
 import styled, {keyframes} from "styled-components"
 import Image from 'next/image'
 import { ClotheType } from 'lib/clothesSlice'
-import heart from '../images/hearty.png'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
@@ -29,8 +28,7 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
   const [hearted, setHearted] = useState(false)
   const wishlist = useAppSelector(selectWishlist)  
   const [heartAnimation, setHeartAnimation] = useState(false)
-
-
+  console.log(wishlist)
   
   useEffect(() => {
     let listed = wishlist?.find((l: any) => l._id === info._id)

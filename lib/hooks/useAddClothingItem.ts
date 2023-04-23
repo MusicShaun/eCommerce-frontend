@@ -13,7 +13,6 @@ export default function useAddClothingItem() {
   const currentUser = useAppSelector(selectCurrentUser)
   const allClothes = useAppSelector(selectAllClothes)
 
-
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
   const [addCartListItem, {isLoading: isCartLoading, isSuccess: isCartSuccess, isError: isCartError, error: cartError }] = useAddCartItemMutation()
   const [guest] = useGuestMutation()
@@ -32,34 +31,31 @@ export default function useAddClothingItem() {
       cart: [],
     }
 
+    // EACH IF USES A HOOK TO SPREAD THE ITEM INTO THE WISHLIST OR CART
+    // THE NEW ARRAY IS THEN SENT TO THE BACKEND TO BE UPDATED
+    // THERE ARE 4 POSSIBLE PLACES THE DATA WILL BE SENT TO 
     try {
-      let res
       //* USER LOGGED IN - TYPE CART 
       if (currentUser && currentUser && type === 'cart') {
         const s = handleCart(_id, size!, currentUser, allClothes, direction!)
-        res = await addCartListItem({ ...s }).unwrap()
+        await addCartListItem({ ...s }).unwrap()
 
       //* USER LOGGED IN - TYPE WISHLIST
       } else if (currentUser && currentUser && type === 'wishlist') {
         const s = handleWishlist(_id, currentUser, allClothes)
-        res = await addWistListItem({ ...s }).unwrap()
+        await addWistListItem({ ...s }).unwrap()
 
       // //* USER NOT LOGGED IN - TYPE CART
       } else if (!currentUser && type === 'cart') {
         const s = handleCartGuest(_id, tempUser, size!, allClothes)
-        res = await guest({ ...s }).unwrap()
+        await guest({ ...s }).unwrap()
 
       // //* USER NOT LOGGED IN - TYPE WISHLIST
       } else {
         const s = handleGuestWishlist(_id, tempUser, allClothes)
-        res = await guest({ ...s }).unwrap()
+        await guest({ ...s }).unwrap()
       }
-      
-      if ('data' in res) {
-        localStorage.setItem('key', JSON.stringify(res.data))
-      } else {
-        localStorage.setItem('key', JSON.stringify({...res}))
-      }
+    
 
     } catch (err) {
         console.log(err)

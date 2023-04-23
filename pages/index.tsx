@@ -21,7 +21,6 @@ export default function Home() {
   const selectAll = useAppSelector(selectAllClothes)
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const [countRenders, setCountRenders] = useState(0)
-  console.log(countRenders)
 
   const {
     isLoading,

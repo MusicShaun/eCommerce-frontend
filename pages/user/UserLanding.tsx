@@ -3,14 +3,18 @@ import styled from 'styled-components'
 import React from 'react'
 import arch from '@/images/arch.webp'
 import Image from 'next/image'
+import Head from 'next/head'
 
 export default function UserLanding() {
-  return (
+  return (<>
+    <Head>
+      <title>Your Account</title>
+    </Head>
     <Container>
       <Image src={arch} fill alt='' 
       />
     </Container>
-  )
+  </>)
 }
 
 const Container = styled.div`

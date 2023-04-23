@@ -10,10 +10,10 @@ export default function HeaderLeft() {
       <Link href='/' as='/'><span style={{fontSize: '30px', transform: 'scaleY(1.5)'}}>baba</span></Link>  
       </Button>
       <Button>
-        <Link href='/women/Women' as='/women'><span >WOMEN</span></Link>  
+        <Link href='/women/' as='/women'><span >WOMEN</span></Link>  
       </Button>
       <Button >
-        <Link href='/men/Men' as='/men' ><span >MEN</span></Link>
+        <Link href='/men/' as='/men' ><span >MEN</span></Link>
       </Button>
     </ButtonContainer>
   )

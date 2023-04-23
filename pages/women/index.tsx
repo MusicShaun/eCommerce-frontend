@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { ClotheType,  selectAllClothes,  useGetAllClothesQuery } from 'lib/clothesSlice'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
+import Head from 'next/head'
 
 
 
@@ -46,7 +47,10 @@ export default function Women() {
     subheader3: ''
   } as const
 
-  return (
+  return (<>
+    <Head>
+      <title>Womens Clothes</title>
+    </Head>
     <Wrapper>
 
         
@@ -58,7 +62,7 @@ export default function Women() {
       <Banner info={secondBanner} />
 
     </Wrapper>
-  )
+    </>)
 }
 const Wrapper = styled.main`
   position: absolute;

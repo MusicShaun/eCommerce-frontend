@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Empty from '../../components/Empty'
 import MyAccountLayout from '../../components/Layout'
+import Head from 'next/head'
 
 export default function PurchaseHistory() {
 
@@ -23,10 +24,14 @@ export default function PurchaseHistory() {
   }
 
 
-  return (
+  return (<>
+  <Head>
+    <title>Purchase History
+      </title></Head>
     <MyAccountLayout>
     {content}
-  </MyAccountLayout>)
+    </MyAccountLayout>
+    </>)
 }
 
 const Container = styled.div`

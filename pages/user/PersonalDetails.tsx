@@ -3,6 +3,7 @@ import MyAccountLayout from '../../components/Layout'
 import React, { useRef, useState } from 'react'
 import { selectCurrentUser, useUpdateUserMutation } from 'lib/userSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
+import Head from 'next/head'
 
 export default function PersonalDetails() {
 
@@ -52,6 +53,9 @@ export default function PersonalDetails() {
 
 
   return (
+    <> <Head>
+    <title>Personal details</title>
+  </Head>
     <MyAccountLayout>
     <Container>
       <Header>
@@ -100,7 +104,7 @@ export default function PersonalDetails() {
       </FormLogin>
       </Container>
     </MyAccountLayout>
-  )
+    </>)
 }
 
 const Container = styled.div`

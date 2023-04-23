@@ -5,6 +5,7 @@ import router from 'next/router'
 import { useGetUserQuery, useLoginMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import Link from 'next/link'
+import Head from 'next/head'
 
 
 
@@ -42,6 +43,9 @@ export default function login() {
 
 
   return (<>
+    <Head>
+      <title>Login</title>
+    </Head>
     <FormLogin>
       <SpinnerContainer style={{display: isLoading ? 'flex' : 'none'}}>
           <PacmanLoader

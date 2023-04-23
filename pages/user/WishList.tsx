@@ -7,8 +7,7 @@ import ClothesCard from '@/components/ClothesCard'
 import { selectWishlist } from 'lib/userSlice'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
 import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
-
-
+import Head from 'next/head'
 
 export default function WishList() {
 
@@ -48,6 +47,9 @@ export default function WishList() {
   }
 
   return (<>
+    <Head>
+      <title>Wish list</title>
+    </Head>
     <MyAccountLayout>
       {content}
     </MyAccountLayout>

@@ -5,6 +5,7 @@ import Product from '@/components/Product'
 import { ClotheType, extendedClothesSlice } from 'lib/clothesSlice'
 import { store } from 'lib/store'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 
 store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
 
@@ -59,9 +60,14 @@ export default function ClothesSinglePage( {product}: IProps) {
     </Container>
   ) : null;
 
-  return <Wrapper>
-    {content}
-  </Wrapper>;
+  return <>
+    <Head>
+      <title>{plainProductObject?.brand}</title>
+    </Head>
+    <Wrapper>
+      {content}
+    </Wrapper>
+  </>
 }
 
 

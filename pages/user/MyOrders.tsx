@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Empty from '../../components/Empty'
 import MyAccountLayout from '../../components/Layout'
 import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
+import Head from 'next/head'
 
 export default function MyOrders() {
 
@@ -26,11 +27,14 @@ export default function MyOrders() {
   }
 
 
-  return (
+  return (<>
+    <Head>
+    <title>Your Orders
+      </title></Head>
   <MyAccountLayout>
   {content}
     </MyAccountLayout>
-  )
+    </>)
 }
 
 const Container = styled.div`

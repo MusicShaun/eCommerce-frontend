@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import Login from "./Login"
+import Login from "."
 import Register from "./Register"
 import { useState } from "react"
 import SignInOptions from "@/components/SignInOptions"

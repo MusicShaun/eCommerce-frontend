@@ -4,6 +4,7 @@ import React from 'react'
 import { ClotheType, selectAllClothes, useGetAllClothesQuery } from 'lib/clothesSlice'
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
+import Head from 'next/head'
 
 
 export default function Men() {
@@ -27,13 +28,17 @@ export default function Men() {
     subheader3: 'SURPRISE'
   } as const
 
-  return (
+  return (<>
+    <Head>
+      <title>Mens Clothes</title>
+    </Head>
+
     <Wrapper>
       <Banner info={info} />
       {isSuccess && <ClothesGallery info={randomClothes!} />}
       <Banner info={info} />
     </Wrapper>
-  )
+    </>)
 }
 const Wrapper = styled.main`
   position: absolute;

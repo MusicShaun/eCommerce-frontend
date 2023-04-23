@@ -4,18 +4,22 @@ import ClothesGallery from '@/components/ClothesGallery'
 import ProductFilterSideBar from '@/components/ProductFilterSideBar'
 import { useState } from 'react'
 import Link from 'next/link'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { store } from 'lib/store'
+import Head from 'next/head'
 
 store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
 
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = [
-    { params: { productType: 'shirts' } },
-    { params: { productType: 'shorts' } },
-    { params: { productType: 'shoes' } }
-  ]
+export const getStaticPaths: GetStaticPaths = async ({ params }: GetStaticPropsContext) => {
+  console.log('get static paths')
+  const res = await fetch(`https://shauns-ecommerce.herokuapp.com/api/asos/getallclothes`)
+  const {data} = await res.json()
+  const path = Object.keys(data)
+
+  const paths = path.map((name) => {
+    return { params: { productType: name } }
+  })
   return {
     paths,
     fallback: false
@@ -72,7 +76,10 @@ export default function ProductGrouped( {data}: IProps) {
     galleryContent = <ClothesGallery info={productList} />
   } 
 
-  return (
+  return (<>
+     <Head>
+      <title>Product Search</title>
+      </Head>
     <Wrapper>
       <Container>
 
@@ -106,7 +113,7 @@ export default function ProductGrouped( {data}: IProps) {
 
       </Container>
     </Wrapper>
-  )
+    </>)
 }
 
 

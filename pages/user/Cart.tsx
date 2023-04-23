@@ -7,6 +7,7 @@ import { selectCart } from 'lib/userSlice'
 import ClothesCardCart from '@/components/ClothesCardCart'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
 import PacmanLoader from 'react-spinners/PacmanLoader'
+import Head from 'next/head'
 
 
 
@@ -104,6 +105,9 @@ export default function Cart() {
   }
 
   return (<>
+    <Head>
+      <title>Cart</title>
+      </Head>
     <MyAccountLayout>
       {content}      
     </MyAccountLayout>

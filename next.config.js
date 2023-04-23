@@ -27,16 +27,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: '/men',
-        destination: '/men/Men',
-        permanent: true,
-      },
-      {
-        source: '/women',
-        destination: '/women/Women',
-        permanent: true,
-      },
-      {
         source: '/wishlist',
         destination: '/user/Wishlist',
         permanent: true,

@@ -94,7 +94,9 @@ const Tile = styled.div`
   
   width: 100%;
   height: 100%;
-  margin: 12px ;
+  max-width: 380px;
+  min-width: 250px;
+  margin: 12px 0;
   aspect-ratio: 2/3;
   flex: 1;
   cursor: pointer;

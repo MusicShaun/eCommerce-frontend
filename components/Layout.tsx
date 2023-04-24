@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import React from 'react'
 import Sidebar from '../pages/user/Sidebar'
+import SidebarMobile from './SidebarMobile'
 
 
 
@@ -16,6 +17,7 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
       </Header>
       <Container>
         <Sidebar />
+        <SidebarMobile />
         {children}
 
       </Container>
@@ -44,7 +46,6 @@ const Container = styled.div`
 
   @media ${({theme}) => theme.tablet} {
       width: 100%;
-
       & > div:first-child {
       margin-left: 50px;
       }
@@ -52,16 +53,23 @@ const Container = styled.div`
       margin-right: 50px;
       }
     }
+
   @media ${({theme}) => theme.mobileL} {
     & > div:first-child {
     margin-left: 0px;
     }
+
+    flex-direction: column;
   }
+
   & > div:last-child {
     width: 620px;
-
     @media ${({theme}) => theme.tablet} {
       width: calc(100% - 280px);
+    }
+    @media ${({theme}) => theme.mobileL} {
+      width: 100%;
+      margin-right: 0;
     }
   }
 `
@@ -82,10 +90,6 @@ const Header = styled.div`
       margin-left: 50px;
   }
   @media ${({ theme }) => theme.mobileL} {
-    justify-content: center;
-    margin-left: 0px;
-      & div:last-child {
-        display: none;
-      }
+    display: none;
   }
 `

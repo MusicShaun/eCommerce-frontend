@@ -93,8 +93,15 @@ const Box = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(200px, 290px));
   grid-template-rows: auto;
   justify-content: center;
+  justify-items: center;
 
   padding: 20px;
   margin: auto 0px;
   gap: 20px;
+
+  @media ${({ theme }) => theme.laptop} {
+    grid-template-columns: repeat(auto-fit, minmax(min(290px, 350px), 1fr));
+    grid-template-rows: minmax(min(290px, 80vw), 1fr);
+  }
+
 `

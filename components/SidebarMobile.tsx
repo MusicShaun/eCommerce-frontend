@@ -37,7 +37,7 @@ export default function Sidebar() {
     <Container>
       <Stack
         style={{
-        height: '168px', padding: '40px 0'
+        height: '128px', padding: '20px 0'
         }}>
         <Circle>
           <h1>
@@ -59,21 +59,19 @@ export default function Sidebar() {
           <Image src={welcome} alt=''  width={20} height={20} />
           <Link href='/user/MyAccount' ><div>Welcome</div></Link>
         </Tab>
-      </Stack2>
 
-      <Stack2>
         <Tab>
           <Image src={details} alt=''  width={20} height={20} />
           <Link  href='/user/PersonalDetails'><div>Personal Details</div></Link>
         </Tab>
-      </Stack2>
 
-      <Stack2>
         <Tab>
           <Image src={orders} alt='' width={20} height={20} />
           <Link href='/user/MyOrders' ><div>My Orders</div></Link>
         </Tab>
+        </Stack2>
 
+      <Stack2>
         <Tab>
           <Image src={wishlist} alt=''  width={20} height={20} />
           <Link href='/user/WishList' ><div>WishList
@@ -85,9 +83,7 @@ export default function Sidebar() {
           <Image src={history} alt=''  width={20} height={20} />
           <Link href='/user/PurchaseHistory' ><div>Puchase History</div></Link>
         </Tab>
-      </Stack2>
 
-      <Stack2>
         <Tab>
           <Image src={logout} alt=''  width={20} height={20} />
           <div onClick={handleLogout} style={{cursor: 'pointer'}}>Sign out</div>
@@ -100,13 +96,13 @@ export default function Sidebar() {
 const Container = styled.div`
   width: 100%;
   height: fit-content;
-  max-width: 280px; 
-  display: flex;
   flex-direction: column;
   background-color: white;
+  display: none;
+  padding-bottom: 25px;
 
   @media ${({ theme }) => theme.mobileL} {
-    display: none;
+    display: flex;
   }
 `
 const Stack = styled.div`
@@ -137,8 +133,8 @@ const Circle = styled.div`
 `
 const Stack2 = styled.ul`
   display: flex;
-  flex-direction: column;
-  border-top: 2px solid ${({theme}) => theme.backgroundSecondary};
+
+  border-top: 2px solid ${({ theme }) => theme.backgroundSecondary};
   border-bottom: 2px solid ${({theme}) => theme.backgroundSecondary};
   margin: 0;
 `
@@ -147,8 +143,9 @@ const Tab = styled.li`
   width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 20px;
-  border-bottom: 1px solid ${({theme}) => theme.backgroundSecondary};
+  padding-left: 8px;
+  border-bottom: 1px solid ${({ theme }) => theme.backgroundSecondary};
+  font-size: ${({ theme }) => theme.fontM};
 
   @media ${({ theme }) => theme.mobileL} {
     & a {
@@ -157,7 +154,7 @@ const Tab = styled.li`
       }
 
   & div {
-    margin-left: 20px;
+    margin-left: 8px;
   }
   & img {
     cursor: pointer;

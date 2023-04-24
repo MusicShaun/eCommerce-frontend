@@ -99,4 +99,8 @@ const Container = styled.div`
   height: auto;
   display: flex;
   flex-direction: column;
+
+  @media ${({ theme }) => theme.mobileL} {
+    width: 285px;
+  }
 `

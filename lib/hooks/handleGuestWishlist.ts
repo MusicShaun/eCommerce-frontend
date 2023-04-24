@@ -5,7 +5,7 @@ import { ClotheType } from "lib/clothesSlice";
 export function handleGuestWishlist(_id: string, user: Partial<LocalUser>, allClothes: ClotheType[]) {
 
   const createWishlistArray = 
-    (obj: any, user: any) => {
+    (obj: ClotheType, user:  Partial<LocalUser>) => {
       let t
       t = [...(user.wishlist || [])]
       t.push(obj)

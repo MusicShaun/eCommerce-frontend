@@ -35,9 +35,17 @@ const ButtonContainer = styled.div`
     font-weight: 500;
     font-size: ${({theme}) => theme.fontL};
     color: ${({ theme }) => theme.white};
-  
   }
 
+  @media ${({ theme }) => theme.tablet} {
+    min-width: 280px;
+  }
+  @media ${({ theme }) => theme.tablet} {
+    border-right: none;
+  }
+  @media ${({ theme }) => theme.mobileS} {
+    min-width: 100px;
+  }
 `
 const Button = styled.button`
   height: 100%;
@@ -59,11 +67,20 @@ const Button = styled.button`
   &:hover span {
       color: ${({ theme }) => theme.headerTop};
     }
+
+  @media ${({ theme }) => theme.tablet} {
+    min-width: 90px;
+  }
   &:nth-child(2), :nth-child(3) {
     @media ${({ theme }) => theme.mobileS} {
       display: none;
     }
-  } 
 
+    & span {
+      @media ${({ theme }) => theme.tablet} {
+        font-size: ${({theme}) => theme.fontML}
+      }
+    }
+  } 
   
 `

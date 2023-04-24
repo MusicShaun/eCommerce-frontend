@@ -4,7 +4,7 @@ import { ClotheType } from "lib/clothesSlice";
 export function handleCartGuest(_id: string, user: Partial<LocalUser>, size: string, allClothes: ClotheType[]) {
 
   const createCartArray = 
-    (obj: any, user: any) => {
+    (obj: ClotheType, user:  Partial<LocalUser>) => {
       let t
       t = [...(user.cart || [])]
       t.push(obj)

@@ -108,6 +108,10 @@ const ButtonContainer = styled.div`
   height: 100%;
   display: flex;
 
+  @media ${({ theme }) => theme.tablet} {
+    width: 50%
+  }
+
 `
 const LittleArrow = styled.div`
   position: absolute;
@@ -142,11 +146,15 @@ const Button = styled.div`
 const DropdownContainer = styled.div`
   position: absolute;
   top: 60px;
-  width: 280px;
+  width: 208px;
   height: 0px;
   transition:  height 0.5s cubic-bezier(0.31, 0.71, 0.56, 0.98) 0.4s;  // in
   z-index: 000;
   overflow: hidden;
+
+  @media ${({ theme }) => theme.mobileS} {
+    width: 200px;
+  }
 `
 const HeartNumber = styled.div`
   position: absolute;

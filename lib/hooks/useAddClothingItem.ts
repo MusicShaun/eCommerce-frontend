@@ -31,27 +31,29 @@ export default function useAddClothingItem() {
       cart: [],
     }
 
-    // EACH IF USES A HOOK TO SPREAD THE ITEM INTO THE WISHLIST OR CART
-    // THE NEW ARRAY IS THEN SENT TO THE BACKEND TO BE UPDATED
-    // THERE ARE 4 POSSIBLE PLACES THE DATA WILL BE SENT TO 
+
+    const USER_LOGGED_IN_CART = currentUser && type === 'cart'
+    const USER_LOGGED_IN_WISHLIST = currentUser && type === 'wishlist'
+    const USER_NOT_LOGGED_IN_CART = !currentUser && type === 'cart'
+    const USER_NOT_LOGGED_IN_WISHLIST = !currentUser && type === 'wishlist'
+
+    //* CHECKS IF CART OR WISHLIST, CHECKS IF LOGGED IN
+    //* THE HANDLE CREATES THE OBJECT S
+    //* S IS SENT TO THE BACKEND AS A CLOTHETYPE OBJECT
     try {
-      //* USER LOGGED IN - TYPE CART 
-      if (currentUser && currentUser && type === 'cart') {
+      if (USER_LOGGED_IN_CART) {
         const s = handleCart(_id, size!, currentUser, allClothes, direction!)
         await addCartListItem({ ...s }).unwrap()
 
-      //* USER LOGGED IN - TYPE WISHLIST
-      } else if (currentUser && currentUser && type === 'wishlist') {
+      } else if (USER_LOGGED_IN_WISHLIST) {
         const s = handleWishlist(_id, currentUser, allClothes)
         await addWistListItem({ ...s }).unwrap()
 
-      // //* USER NOT LOGGED IN - TYPE CART
-      } else if (!currentUser && type === 'cart') {
+      } else if (USER_NOT_LOGGED_IN_CART) {
         const s = handleCartGuest(_id, tempUser, size!, allClothes)
         await guest({ ...s }).unwrap()
 
-      // //* USER NOT LOGGED IN - TYPE WISHLIST
-      } else {
+      } else if (USER_NOT_LOGGED_IN_WISHLIST) {
         const s = handleGuestWishlist(_id, tempUser, allClothes)
         await guest({ ...s }).unwrap()
       }

@@ -140,6 +140,7 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    padding: 0;
   }
 `
 const SearchFailure = styled.div`
@@ -180,16 +181,27 @@ const SubmitButton = styled.button`
     box-shadow: inset 3px -3px 5px rgba(0, 0, 0, 0.4), inset -1px 1px 3px rgba(0, 0, 0, 0.1);
     transition: all 0.08s ease-in-out;
   }
+  @media ${({ theme }) => theme.mobileL} {
+    width: 285px;
+  }
 `
 
 const SideBar = styled.div`
   width: 330px;
+
+  @media ${({ theme }) => theme.mobileL} {
+    width: 285px;
+  }
 `
 const BodyContainer = styled.div`
   max-width: 950px;
   display: flex;
   flex: 1;
   flex-direction: column;
+
+  @media ${({ theme }) => theme.mobileL} {
+    max-width: 240px;
+  }
 `
 
 

@@ -64,12 +64,16 @@ export default function NavUserDropdown() {
 
 const Container = styled.div`
   position: absolute;
-  width: 280px;
+  width: 100%;
   height: 260px;
   background-color: ${({ theme }) => theme.background};
   z-index: 1;
   transform: translateY(-400px);
   transition: transform 0.8s cubic-bezier(0, 0.17, 0.55, 0.82); //out
+
+  @media ${({ theme }) => theme.mobileS} {
+    width: 100%;
+  }
 `
 
 

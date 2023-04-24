@@ -16,6 +16,7 @@ export interface Signup {
 interface Status {
   status: string
 }
+type AddItem = Pick<LocalUser, 'cart'> | Pick<LocalUser, 'wishlist'>
 
 
 export const extendedUserSlice = apiSlice.injectEndpoints({
@@ -38,7 +39,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       },
     }),
   
-    register: builder.mutation<LocalUser, Status>({
+    register: builder.mutation<Status, Signup>({
       query: (body) => ({
         url: '/users/signup',
         method: 'POST',
@@ -48,7 +49,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
     }),
 
 
-    guest: builder.mutation<LocalUser, Status>({
+    guest: builder.mutation<Status, AddItem>({
       query: (body) => ({
         url: '/users/guest',
         method: 'POST',
@@ -57,7 +58,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       // invalidatesTags: ['Auth'],
     }),
     
-    addWishListItem: builder.mutation<LocalUser, Status>({
+    addWishListItem: builder.mutation<Status, LocalUser>({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',
@@ -68,7 +69,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
     }),
 
 
-    addCartItem: builder.mutation<LocalUser, Status>({
+    addCartItem: builder.mutation<Status, LocalUser>({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',
@@ -79,7 +80,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
     }),
 
 
-    updateUser: builder.mutation<LocalUser, Status>({
+    updateUser: builder.mutation<Status, LocalUser>({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',

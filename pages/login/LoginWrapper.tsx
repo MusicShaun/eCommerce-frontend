@@ -13,11 +13,11 @@ export default function LoginWrapper() {
     <Wrapper>
       <Header><h1>ASOS</h1></Header>
       <Box>
-      <SignInOptions setLoggingIn={setLoggingIn} />
-        {loggingIn ?
-          <Login />
-          : <Register />
-        }
+        <SignInOptions setLoggingIn={setLoggingIn} />
+          {loggingIn ?
+            <Login />
+            : <Register />
+          }
       </Box>
     </Wrapper>
   )
@@ -49,11 +49,19 @@ const Header = styled.div`
     font-size: 25px;
     font-weight: 700;
   }
+
+  @media ${({ theme }) => theme.mobileL} {
+    width: 100%;
+  }
 `
 const Box = styled.main`
   height: auto;
   width: 650px;
   margin-bottom: 40px;
   background-color: white;
+
+  @media ${({ theme }) => theme.mobileL} {
+    width: 100%;
+  }
 `
 

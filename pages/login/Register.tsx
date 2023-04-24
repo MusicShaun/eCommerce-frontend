@@ -148,12 +148,17 @@ const FieldSet = styled.fieldset`
   align-items: center;  
   width: 100%;
   border: none;
+
+  @media ${({ theme }) => theme.mobileL} {
+    padding: 0px;
+  }
 `
 const FieldSetBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;  
   width: 100%;
+
 `
 const Field = styled.div`
   display: flex;
@@ -163,16 +168,23 @@ const Field = styled.div`
   margin-bottom: 19px;
   width: 570px;
 
+
   & input {
     height: 50px;
     width: 100%;
     padding-left: 10px;
+
   }
   & label {
     text-align: left;
     width: 100%;
     font-weight: 700;
   } 
+
+  @media ${({ theme }) => theme.mobileL} {
+    width: 100vw;
+    padding: 0px 10px;
+  }
 `
 const RadioField = styled.div`
     display: flex;
@@ -186,6 +198,10 @@ const RadioField = styled.div`
     width: 100px;
     margin:0 20px 0 0;
     
+    @media ${({ theme }) => theme.mobileL} {
+      margin: 0;
+      width: 50px;
+    }
   }
   & label {
     text-align: left;

@@ -129,6 +129,10 @@ const Field = styled.div`
     width: 100%;
     font-weight: 700;
   }
+
+  @media ${({ theme }) => theme.mobileL} {
+    padding: 0px;
+  }
 `
 const SubmitBtn = styled.button`
   display: flex;

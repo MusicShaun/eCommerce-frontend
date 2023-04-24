@@ -1,26 +1,13 @@
 import Link from 'next/link'
 import router from 'next/router'
-import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useAppDispatch } from 'lib/hooks/hooks'
-import { apiSlice } from 'lib/apiSlice'
-import Cookies from 'js-cookie'
+import {  apiSlice, useIsLoggedInQuery } from 'lib/apiSlice'
 
 export default function NavUserDropdown() {
 
   const dispatch = useAppDispatch()
-  const [loggedIn, setLoggedIn ] = useState(false)
-
-  // checks if user is logged in
-  useEffect(() => {
-    const jwt = Cookies.get('jwt')
-    if (jwt) {
-    //! perform a request to verify the jwt on the server-side
-    //! if the jwt is valid, setLoggedIn(true)
-    //! if the jwt is invalid or has expired, remove the jwt cookie and setLoggedIn(false)
-    }
-  }, [])
-
+  const {data: loggedIn } = useIsLoggedInQuery()
 
   // expires cookie 
   // removes user info from localStorage
@@ -33,11 +20,10 @@ export default function NavUserDropdown() {
     router.push('/login/LoginWrapper', '/login', {shallow: true})
   }
 
-
   return (
     <Container >
       <HeadContainer>
-        {!loggedIn &&
+        {!loggedIn ? 
           <div>
             <Link href='/login/LoginWrapper' as='/login'>
               <HeadButtons style={{ borderRight: ' 1px solid black' }}>
@@ -50,16 +36,16 @@ export default function NavUserDropdown() {
               </HeadButtons>
             </Link>
           </div>
-        }
-        {loggedIn &&
+          : 
           <div>
-            <Link href='/login/LoginWrapper' as='/login'>
-              <HeadButtons onClick={handleLogout}>
-                Log out
-              </HeadButtons>
-            </Link>
-          </div>
+          <Link href='/login/LoginWrapper' as='/login'>
+            <HeadButtons onClick={handleLogout}>
+              Log out
+            </HeadButtons>
+          </Link>
+        </div>
         }
+
         <XContainer>X</XContainer>
       </HeadContainer>
 
@@ -68,7 +54,6 @@ export default function NavUserDropdown() {
         <Link href='/user/PersonalDetails' ><div>Personal Details</div></Link>
         <Link href='/user/MyOrders' ><div>My Orders</div></Link>
         <Link href='/user/PurchaseHistory' ><div>Purchase History</div></Link>
-        <Logout onClick={handleLogout}>Logout</Logout>
    
       </BodyContainer>
 
@@ -80,7 +65,7 @@ export default function NavUserDropdown() {
 const Container = styled.div`
   position: absolute;
   width: 280px;
-  height: 300px;
+  height: 260px;
   background-color: ${({ theme }) => theme.background};
   z-index: 1;
   transform: translateY(-400px);

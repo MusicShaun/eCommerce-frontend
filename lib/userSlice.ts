@@ -13,6 +13,10 @@ export interface Signup {
   dob: string
 }
 
+interface Status {
+  status: string
+}
+
 
 export const extendedUserSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -34,7 +38,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       },
     }),
   
-    register: builder.mutation<LocalUser, Signup>({
+    register: builder.mutation<LocalUser, Status>({
       query: (body) => ({
         url: '/users/signup',
         method: 'POST',
@@ -43,7 +47,8 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       invalidatesTags: ['Auth'],
     }),
 
-    guest: builder.mutation<LocalUser, any>({
+
+    guest: builder.mutation<LocalUser, Status>({
       query: (body) => ({
         url: '/users/guest',
         method: 'POST',
@@ -52,7 +57,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       // invalidatesTags: ['Auth'],
     }),
     
-    addWishListItem: builder.mutation<LocalUser, LocalUser>({
+    addWishListItem: builder.mutation<LocalUser, Status>({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',
@@ -61,7 +66,9 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       
       invalidatesTags: ['Auth'],
     }),
-    addCartItem: builder.mutation<LocalUser, LocalUser>({
+
+
+    addCartItem: builder.mutation<LocalUser, Status>({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',
@@ -70,7 +77,9 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       
       invalidatesTags: ['Auth'],
     }),
-    updateUser: builder.mutation<any, any>({
+
+
+    updateUser: builder.mutation<LocalUser, Status>({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',
@@ -78,6 +87,8 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Auth']
     }),
+
+
     forgotPassword: builder.mutation<any, any>({//! fix the any any types 
       query: (body) => ({
         url: '/users/forgotPassword',

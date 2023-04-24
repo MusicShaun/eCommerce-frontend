@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { HYDRATE } from 'next-redux-wrapper'
+import { RootState } from './store'
 
 
 export interface User {
@@ -9,6 +10,9 @@ export interface User {
 export interface LoginRequest {
   email: string
   password: string
+}
+interface Status {
+  status: string
 }
 
 
@@ -27,7 +31,7 @@ export const apiSlice = createApi({
     credentials:"include"
   }),
 
-  tagTypes: ['Status', 'Clothes', 'Auth'],
+  tagTypes: ['Status', 'Clothes', 'Auth', 'LoggedIn'],
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
       return action.payload[reducerPath]
@@ -35,7 +39,17 @@ export const apiSlice = createApi({
 
   },
   endpoints: (builder) => ({
-    // do elsewhere
+
+    isLoggedIn: builder.query<boolean, void>({
+      query: () => `/users/isloggedin`,
+      providesTags: ['LoggedIn'],
+      transformResponse: (status: Status) => {
+        if (status.status === 'success') {
+          return true
+        } else { return false }
+      },
+    })
   })
 })
 
+export const { useIsLoggedInQuery } = apiSlice

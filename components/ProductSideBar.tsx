@@ -191,12 +191,23 @@ position: relative;
   justify-content: center;
   background-color: white;
 
+  @media ${({ theme }) => theme.mobileL} {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+
+  }
 `
 const Box = styled.div`
   width: 240px;
   display: flex;
   flex-direction: column;
 
+  @media ${({ theme }) => theme.mobileL} {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 `
 const Title = styled.div`
   font-size: 1.2rem;
@@ -221,6 +232,8 @@ const ShoppingControls = styled.div`
   display: flex;
   justify-content: space-between;
   align-items:center;
+  max-width: 100vw;
+  height: auto;
 
 `
 const AddToBag = styled.button`
@@ -229,9 +242,13 @@ const AddToBag = styled.button`
   border: none;
   color: white;
   width: 80%;
-
+  box-shadow: inset 0 0 0 ;
   &:hover {
     cursor: pointer;
+  }
+  &:active {
+    transform: scale(0.98);
+    box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.2);
   }
 `
 
@@ -258,7 +275,7 @@ const SpinnerContainer = styled.div`
 `
 
 const CartItemAdded = styled.div<{isCartSuccess: boolean}>`
-  position: absolute;
+  position: fixed;
   border: 1px solid ${({theme}) => theme.success};
   background-color: white;
   padding: 10px;
@@ -268,7 +285,7 @@ const CartItemAdded = styled.div<{isCartSuccess: boolean}>`
   z-index: 12490;
   animation: 3s ease-in-out 1;
   animation-name: ${({isCartSuccess}) => isCartSuccess ? slideIn : 'none'};
-  
+  overflow: hidden;
 `
 
 const wiggle = 

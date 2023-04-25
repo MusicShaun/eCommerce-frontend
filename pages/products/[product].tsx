@@ -88,10 +88,16 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 const Container = styled.div`
+position: relative;
   width: 960px;
-  height: auto;
+  height: 100%;
   display: flex;
-  flex-direction: columns;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 60px;
+
+  @media ${({ theme }) => theme.mobileL} {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 0px;
+  }
 `

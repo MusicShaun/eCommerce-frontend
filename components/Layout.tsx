@@ -44,7 +44,12 @@ const Container = styled.div`
   display: flex;
   justify-content: space-around;
 
-  @media ${({theme}) => theme.tablet} {
+  & * {
+    box-sizing: border-box;
+  }
+
+  @media ${({ theme }) => theme.tablet} {
+    align-items: center;
       width: 100%;
       & > div:first-child {
       margin-left: 50px;

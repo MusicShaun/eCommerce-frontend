@@ -60,7 +60,7 @@ export default function PersonalDetails() {
     <Container>
       <Header>
         <h2>MY DETAILS</h2>
-        <p>Feel free to edit any of your details below so your account is totally up to date.</p>
+        <p>{"("}Feel free to edit any of your details below so your account is totally up to date.{")"}</p>
       </Header>
       <FormLogin>
         <Form onSubmit={handleUpdateUser}>
@@ -111,9 +111,33 @@ const Container = styled.div`
   width: 100%;
   min-height: 542px;
   background-color: white;
+
+  @media ${({ theme }) => theme.tablet} {
+    display: flex;
+    flex-direction: column;
+    max-width: 620px;
+  }
+  @media ${({ theme }) => theme.mobileL} {
+    align-items: center;
+  }
 `
 const Header = styled.div`
   padding-left: 32px;
+  max-width: 620px;
+  margin: 10px 0px;
+  padding-bottom: 10px;
+  border-bottom: 10px solid ${({theme }) => theme.backgroundSecondary};
+
+  & p {
+    white-space: pre-wrap;
+    font-size: ${({ theme }) => theme.fontMS}
+  }
+
+  @media ${({ theme }) => theme.tablet} {
+    padding: 0 0 10px 20px;
+    max-width: 100%;
+    height: 100%;
+  }
 `
 
 const FormLogin = styled.div`
@@ -155,6 +179,11 @@ const Field = styled.div`
     width: 100%;
     font-weight: 700;
   } 
+
+  @media ${({ theme }) => theme.tablet } {
+    width: 100%;
+    padding: 0 20px;
+  }
 `
 const RadioField = styled.div`
     display: flex;
@@ -186,4 +215,8 @@ const SubmitBtn = styled.button`
   color: white;
   font-weight: 700;
   margin-left: 20px;
+
+  @media ${({ theme }) => theme.tablet} {
+    margin: 0 auto;
+  }
 `

@@ -41,16 +41,19 @@ export default function Sidebar() {
         }}>
         <Circle>
           <h1>
-          {userIsNotNull(user?.given_name).charAt(0)}
-          {userIsNotNull(user?.surname).charAt(0)}
+            {userIsNotNull(user?.given_name).charAt(0)}
+            {userIsNotNull(user?.surname).charAt(0)}
+            {!user ? '?' : false}
           </h1>
         </Circle>
         <Badge>
-          <p>Hi, </p>
+          <p>Hi, </p> 
           <h3>
             {userIsNotNull(user?.given_name)}
             {userIsNotNull(user?.surname)}
+            {!user ? 'guest' : false}
           </h3>
+          {!user ? <p>Please sign in </p> : false}
         </Badge>
       </Stack>
 
@@ -105,6 +108,9 @@ const Container = styled.div`
   flex-direction: column;
   background-color: white;
 
+  @media ${({ theme }) => theme.tablet} {
+    max-width: 240px; 
+  }
   @media ${({ theme }) => theme.mobileL} {
     display: none;
   }

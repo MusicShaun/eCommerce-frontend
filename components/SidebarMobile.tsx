@@ -42,7 +42,8 @@ export default function Sidebar() {
         <Circle>
           <h1>
           {userIsNotNull(user?.given_name).charAt(0)}
-          {userIsNotNull(user?.surname).charAt(0)}
+            {userIsNotNull(user?.surname).charAt(0)}
+            {!user ? '?' : false}
           </h1>
         </Circle>
         <Badge>
@@ -50,11 +51,15 @@ export default function Sidebar() {
           <h3>
             {userIsNotNull(user?.given_name)}
             {userIsNotNull(user?.surname)}
+            {!user ? 'guest' : false}
+
           </h3>
+          {!user ? <p>Please sign in </p> : false}
+
         </Badge>
       </Stack>
 
-      <Stack2 >
+      <Stack2 > //! TURN THESE STACKS INTO GRID MODE. DUMB DOING IT THIS WAY 
         <Tab>
           <Image src={welcome} alt=''  width={20} height={20} />
           <Link href='/user/MyAccount' ><div>Welcome</div></Link>
@@ -99,7 +104,7 @@ const Container = styled.div`
   flex-direction: column;
   background-color: white;
   display: none;
-  padding-bottom: 25px;
+  margin-bottom: 5px;
 
   @media ${({ theme }) => theme.mobileL} {
     display: flex;
@@ -117,6 +122,7 @@ const Badge = styled.div`
   & > * {
     margin: 5px 0;
   }
+
 `
 const Circle = styled.div`
   background-color: black;
@@ -137,19 +143,30 @@ const Stack2 = styled.ul`
   border-top: 2px solid ${({ theme }) => theme.backgroundSecondary};
   border-bottom: 2px solid ${({theme}) => theme.backgroundSecondary};
   margin: 0;
+
+  & li:nth-child(2) {
+    border-right: 2px solid ${({theme}) => theme.backgroundSecondary};
+    border-left: 2px solid ${({theme}) => theme.backgroundSecondary};
+  }
 `
 const Tab = styled.li`
   height: 60px;
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
   padding-left: 8px;
   border-bottom: 1px solid ${({ theme }) => theme.backgroundSecondary};
   font-size: ${({ theme }) => theme.fontM};
 
+   &:active {
+    background-color: ${({ theme }) => theme.backgroundSecondary};
+    box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.25);
+   }
+
   @media ${({ theme }) => theme.mobileL} {
     & a {
-          width: 100%;
+          width: fit-content;
         }
       }
 

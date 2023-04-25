@@ -227,6 +227,7 @@ const SmallDarkText = styled.div`
 const Select = styled.select`
   padding: 8px;
   margin-bottom: 8px;
+  cursor: pointer;
 `
 const ShoppingControls = styled.div`
   display: flex;
@@ -243,8 +244,10 @@ const AddToBag = styled.button`
   color: white;
   width: 80%;
   box-shadow: inset 0 0 0 ;
+  cursor: pointer;
+
   &:hover {
-    cursor: pointer;
+     
   }
   &:active {
     transform: scale(0.98);
@@ -319,6 +322,7 @@ const AddToWishList = styled.div`
   width: 40px;
   aspect-ratio: 1/1;
   cursor: pointer;
+
   top: 0%;
   right: 0%;
   background-color: ${({ theme }) => theme.lightGrey};

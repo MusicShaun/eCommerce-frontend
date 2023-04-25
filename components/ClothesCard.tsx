@@ -160,6 +160,7 @@ const AddToWishList = styled.div`
   background-color: ${({ theme }) => theme.lightGrey};
   border-radius: 50%;
   
+  cursor: pointer;
 
   & img {
     transform: translateY(2px);

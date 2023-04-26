@@ -46,7 +46,11 @@ const BoxContainer = styled.div`
   display: flex;
   height: 340px;
   width: 100%;
-  background-color: ${({theme}) => theme.backgroundSecondary};
+  background-color: ${({ theme }) => theme.backgroundSecondary};
+  
+  @media ${({ theme }) => theme.mobileL} {
+    display: none;
+  }
 `
 const Box = styled.div`
   display: flex;

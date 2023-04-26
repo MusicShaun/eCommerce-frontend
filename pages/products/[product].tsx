@@ -22,7 +22,7 @@ export const getStaticPaths: GetStaticPaths = async () => {// how many html page
   const combined = [...data.shirts, ...data.shorts, ...data.shoes]
   // Get the paths we want to pre-render based on pages
   // console.log(combined)
-  const paths = combined.map((l: any) => ({params: { product: l.heading.replaceAll(' ' ,'-') }}))
+  const paths = combined.map((l: any) => ({params: { product: l.heading.replace(/' '/g ,'-') }}))
     
   return {
     paths,

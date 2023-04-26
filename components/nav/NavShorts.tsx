@@ -43,6 +43,11 @@ const BoxContainer = styled.div`
   width: 100%;
   background-color: ${({theme}) => theme.backgroundSecondary};
 
+
+  @media ${({ theme }) => theme.mobileL} {
+    display: none;
+  }
+
 `
 const Box = styled.div`
   display: flex;
@@ -57,6 +62,7 @@ const Box = styled.div`
   &:last-child {
     border-right: none;
   }
+
 `
 const Title = styled.h3`
   text-decoration: underline;

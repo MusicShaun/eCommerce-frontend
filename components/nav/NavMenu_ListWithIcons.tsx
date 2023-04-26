@@ -18,7 +18,7 @@ export default function NavMenu_ListWithIcons({ info }: IProps) {
             alt=''
           />
         </DropdownIcons>  
-        <Link href={`/products/${l.heading.replaceAll(' ', '-')}`} style={{ height: '100%', color: 'inherit', textDecoration: 'none' }}>
+        <Link href={`/products/${l.heading.replace(/' '/g, '-')}`} style={{ height: '100%', color: 'inherit', textDecoration: 'none' }}>
           {l.heading}
           </Link>
     </LIWithImage>)

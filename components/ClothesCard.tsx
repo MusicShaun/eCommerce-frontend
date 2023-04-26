@@ -38,7 +38,7 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
     }
   }, [wishlist])
   
-  let url = info.heading.replaceAll(' ', '-')
+  let url = info.heading ? info.heading.replace(/ /g, '-') : '' 
 
   function handleHeartAnimation() {
     setHeartAnimation(true)
@@ -53,7 +53,8 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
       <Link href={`/products/${url}`} style={{height: '100%', color: 'inherit', textDecoration: 'none'}}>
         
         <PicturePlacement>
-          <Image src={info.image} alt='' fill sizes="(width: 100%, height: 100%)"/> 
+          <Image src={info.image} alt='' fill sizes="(width: 100%, height: 100%)"
+          style={{ objectFit: "contain"}}/> 
         </PicturePlacement>
 
         <Header>

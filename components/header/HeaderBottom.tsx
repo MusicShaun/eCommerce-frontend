@@ -3,23 +3,54 @@ import NavShirts from "@/components/nav/NavShirts"
 import NavSneakers from "@/components/nav/NavShoes"
 import NavShorts from "@/components/nav/NavShorts"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { Dispatch, useEffect, useReducer, useState } from "react"
 import styled from "styled-components"
 import NavMobileDropDown from "../nav/NavMobileDropDown"
 
 export default function HeaderBottom() {
 
-  const [navShirts, setNavShirts] = useState(false)
+  const [navShirts, setNavShirts] = useState(false) //! TURN INTO REDUCER
   const [ navShoes , setNavShoes ] = useState(false)
   const [navshorts, setNavShorts] = useState(false)
   const [navMobile, setNavMobile] = useState(false)
   const [ navMobileClothe, setNavMobileClothe ] = useState('')
   const [emptyHover, setEmptyHover] = useState(false)
+
+  type NavState = {
+    [key: string]: boolean
+  }
+  const initialNavState = {
+    navShirts: false,
+    navShoes: false,
+    navShorts: false,
+    mobileShirts: false,
+    mobileShoes: false,
+    mobileShorts: false,
+  }
+  const [navState, dispatch] = useReducer((state: NavState , action: any) => {
+    switch (action.type) {
+      case 'navShirts':
+        return { ...state, navShirts: action.payload }
+      case 'navShoes':
+        return { ...state, navShoes: action.payload }
+      case 'navShorts':
+        return { ...state, navshorts: action.payload }
+      case 'mobileShirts':
+        return { ...state, mobileShirts: action.payload }
+      case 'mobileShoes':
+        return { ...state, mobileShoes: action.payload }
+      case 'mobileShorts':
+        return { ...state, mobileShorts: action.payload }
+      default:
+        return state
+    }
+  }, initialNavState)
+  
   
   let darkenBackground = navShoes || navShirts || navshorts || emptyHover
   
   useEffect(() => {
-    if (window.innerWidth < 400) {
+    if (window.innerWidth < 768) {
       if (navShirts) {
         setNavMobile(true)
         setNavMobileClothe('shirts')

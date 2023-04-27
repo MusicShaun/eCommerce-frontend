@@ -12,8 +12,8 @@ interface IProps {
 
 export default function NavMobileDropDown({ handleEnterNavTab, navMobileClothe }: IProps) {
   
-  const clotheName = navMobileClothe === 'shirts'
-    ? selectShirts : navMobileClothe === 'shorts'
+  const clotheName = navMobileClothe === 'navShirts'
+    ? selectShirts : navMobileClothe === 'navShorts'
       ? selectShorts : selectShoes
   
   const clothes: ClotheType[] = useAppSelector(clotheName)

@@ -38,7 +38,7 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
     }
   }, [wishlist])
   
-  let url = info.heading ? info.heading.replace(/ /g, '-') : '' 
+  let url = info.heading ? info.heading.replace(/\s/g, '-') : '' 
 
   function handleHeartAnimation() {
     setHeartAnimation(true)

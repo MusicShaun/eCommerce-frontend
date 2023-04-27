@@ -1,6 +1,5 @@
 import { ClotheType, selectShirts, selectShoes, selectShorts } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
-import { Dispatch, SetStateAction } from "react"
 import styled from "styled-components"
 import Image from "next/image"
 import Link from "next/link"
@@ -28,7 +27,7 @@ export default function NavMobileDropDown({ handleEnterNavTab, navMobileClothe }
           alt=''
         />
       </DropdownIcons>  
-      <Link href={`/products/${l.heading.replace(/' '/g, '-')}`} style={{ height: '100%', color: 'inherit', textDecoration: 'none' }}>
+      <Link href={`/products/${l.heading.replace(/\s/g, '-')}`} style={{ height: '100%', color: 'inherit', textDecoration: 'none' }}>
         {l.brand}
         </Link>
   </LIWithImage>)
@@ -43,7 +42,7 @@ export default function NavMobileDropDown({ handleEnterNavTab, navMobileClothe }
           alt=''
         />
       </DropdownIcons>  
-      <Link href={`/products/${l.heading.replace(/' '/g, '-')}`} style={{ height: '100%', color: 'inherit', textDecoration: 'none' }}>
+      <Link href={`/products/${l.heading.replace(/\s/g, '-')}`} style={{ height: '100%', color: 'inherit', textDecoration: 'none' }}>
         {l.heading}
         </Link>
   </LIWithImage>)

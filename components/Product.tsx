@@ -1,4 +1,3 @@
-
 import { ClotheType } from 'lib/clothesSlice'
 import Image from 'next/image'
 import React from 'react'

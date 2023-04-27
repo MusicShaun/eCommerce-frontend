@@ -13,7 +13,7 @@ interface IProps {
 export default function Product_Tile({info, deleteClothingItem, handleAddClotheItemToCart}: IProps) {
  
   const cart = info
-  let url = cart.heading ? cart.heading.replace(/' '/g, '-') : ''
+  let url = cart.heading ? cart.heading.replace(/\s/g, '-') : ''
 
   return (
     <Tile>

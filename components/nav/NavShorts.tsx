@@ -1,23 +1,22 @@
 import styled from 'styled-components'
 import NavMenuList from '@/components/nav/NavMenu_List'
 import NavMenuLargeImageTiles from '@/components/nav/NavMenu_LargeImageTiles'
-import { Dispatch, SetStateAction } from 'react'
 import {  selectShorts } from 'lib/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 
 interface IProps {
-  setNavShorts: Dispatch<SetStateAction<boolean>>
+  handleEnterNavTab: (name: string, value: boolean ) => void
 }
 
-export default function NavShorts({ setNavShorts }: IProps) {
+export default function NavShorts({ handleEnterNavTab }: IProps) {
 
   const shortsOnly = useAppSelector(selectShorts)
 
 
   return (
     <BoxContainer
-    onMouseEnter={() => setNavShorts(true)}
-    onMouseLeave={() => setNavShorts(false)}
+    onMouseEnter={() => handleEnterNavTab('Shorts', true)}
+    onMouseLeave={() => handleEnterNavTab('Shorts', false)}
     >
     <Box>
       <Title>Product</Title>

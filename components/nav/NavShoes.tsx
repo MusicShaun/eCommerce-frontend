@@ -2,21 +2,21 @@ import styled from 'styled-components'
 import NavMenuThreeImageTiles from '@/components/nav/NavMenu_ThreeImagesTiles'
 import NavMenuListWithIcons from '@/components/nav/NavMenu_ListWithIcons'
 import NavMenuList from '@/components/nav/NavMenu_List'
-import { Dispatch, SetStateAction } from 'react'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { selectShoes } from 'lib/clothesSlice'
 
 interface IProps {
-  setNavShoes: Dispatch<SetStateAction<boolean>>
+  handleEnterNavTab: (name: string, value: boolean ) => void
 }
-export default function Nav4Panel({ setNavShoes }:IProps) {
+export default function Nav4Panel({ handleEnterNavTab }:IProps) {
   
   const shoesOnly = useAppSelector(selectShoes)
 
   return (
     <BoxContainer
-    onMouseEnter={() => setNavShoes(true)}
-    onMouseLeave={() => setNavShoes(false)}>
+    onMouseEnter={() => handleEnterNavTab('Shoes', true)}
+    onMouseLeave={() => handleEnterNavTab('Shoes', false)}
+    >
     <Box>
       <Title>Product</Title>
       <NavMenuList info={shoesOnly} />

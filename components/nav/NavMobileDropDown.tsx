@@ -6,11 +6,11 @@ import Image from "next/image"
 import Link from "next/link"
 
 interface IProps {
-  setNavMobile: Dispatch<SetStateAction<boolean>>
+  handleEnterNavTab: (name: string, value: boolean ) => void 
   navMobileClothe: string;
 }
 
-export default function NavMobileDropDown({ setNavMobile, navMobileClothe }: IProps) {
+export default function NavMobileDropDown({ handleEnterNavTab, navMobileClothe }: IProps) {
   
   const selectClothe: Record<string, any> = {
     'shirts': selectShirts,
@@ -18,7 +18,9 @@ export default function NavMobileDropDown({ setNavMobile, navMobileClothe }: IPr
     'shoes': selectShoes
   }
 
-  const clothes: ClotheType[] = useAppSelector(selectClothe[navMobileClothe])
+  console.log(selectClothe[navMobileClothe])
+  const clothes: ClotheType[] = useAppSelector(
+    'shirts' ? selectShirts : 'shorts' ? selectShorts : selectShoes)
 
   let brands =
   clothes.map((l: ClotheType, index: number) =>
@@ -55,8 +57,17 @@ export default function NavMobileDropDown({ setNavMobile, navMobileClothe }: IPr
 
   return (
     <BoxContainer
-    onMouseEnter={() => setNavMobile(true)}
-    onMouseLeave={() => setNavMobile(false)}
+      onMouseEnter={() =>
+        console.log(`nav${selectClothe[navMobileClothe].charAt(0) + selectClothe[navMobileClothe].slice(1)}`)}
+      
+        // handleEnterNavTab(
+        //   `nav${selectClothe[navMobileClothe].charAt(0) + selectClothe[navMobileClothe].slice(1)}`
+        //   , true
+        // )}
+      onMouseLeave={() =>
+        handleEnterNavTab(
+          `nav${selectClothe[navMobileClothe].charAt(0) + selectClothe[navMobileClothe].slice(1)}`
+          , false)}
     >
     <Box>
       <Title>Brand</Title>

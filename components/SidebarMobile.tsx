@@ -11,13 +11,18 @@ import orders from '@/images/account_orders.png'
 import history from '@/images/account_history.png'
 import logout from '@/images/account_logout.png'
 import wishlist from '@/images/account_wishlist.png'
+import { useState } from "react"
 
-
-export default function Sidebar() {
+interface IProps {
+  open: boolean
+}
+export default function Sidebar({open}: IProps) {
   
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
 
+  const [showMenu, setShowMenu ] = useState(false) 
+  
   function handleLogout() {
     document.cookie =  "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
     localStorage.removeItem('key')
@@ -32,6 +37,7 @@ export default function Sidebar() {
     } 
     return ''
   }
+
 
   return (
     <Container>
@@ -59,41 +65,51 @@ export default function Sidebar() {
         </Badge>
       </Stack>
 
-      <Stack2 > //! TURN THESE STACKS INTO GRID MODE. DUMB DOING IT THIS WAY 
-        <Tab>
+
+      <ContainMenu style={{transform: open ? 'translateX(0px)' : 'translateX(100%)'}}>
+      <Stack2 >
+
+      <Tab>
           <Image src={welcome} alt=''  width={20} height={20} />
-          <Link href='/user/MyAccount' ><div>Welcome</div></Link>
-        </Tab>
+          <div onClick={() => setShowMenu(prev => !prev)}>ACCOUNT MENU</div>
+          </Tab>
+          
+        <Link href='/user/PersonalDetails'>
+          <Tab>
+            <Image src={details} alt=''  width={20} height={20} />
+            <div>Personal Details</div>
+          </Tab>
+        </Link>
 
-        <Tab>
-          <Image src={details} alt=''  width={20} height={20} />
-          <Link  href='/user/PersonalDetails'><div>Personal Details</div></Link>
-        </Tab>
-
-        <Tab>
+        <Link href='/user/MyOrders' >
+          <Tab>
           <Image src={orders} alt='' width={20} height={20} />
-          <Link href='/user/MyOrders' ><div>My Orders</div></Link>
-        </Tab>
-        </Stack2>
+          <div>My Orders</div>
+            </Tab>
+        </Link>
 
-      <Stack2>
-        <Tab>
+        <Link href='/user/WishList' >
+          <Tab>
           <Image src={wishlist} alt=''  width={20} height={20} />
-          <Link href='/user/WishList' ><div>WishList
+          <div>WishList
             {/* ({wishlist.length}) */}
-          </div></Link>
-        </Tab>
+          </div>
+          </Tab>
+        </Link>
 
-        <Tab>
-          <Image src={history} alt=''  width={20} height={20} />
-          <Link href='/user/PurchaseHistory' ><div>Puchase History</div></Link>
-        </Tab>
+        <Link href='/user/PurchaseHistory' >
+          <Tab>
+           <Image src={history} alt=''  width={20} height={20} />
+            <div>Puchase History</div>
+          </Tab>
+        </Link>
 
         <Tab>
           <Image src={logout} alt=''  width={20} height={20} />
           <div onClick={handleLogout} style={{cursor: 'pointer'}}>Sign out</div>
         </Tab>
-      </Stack2>
+        </Stack2>
+        </ContainMenu>
     </Container>
   )
 }
@@ -102,7 +118,6 @@ const Container = styled.div`
   width: 100%;
   height: fit-content;
   flex-direction: column;
-  background-color: white;
   display: none;
   margin-bottom: 5px;
 
@@ -137,39 +152,55 @@ const Circle = styled.div`
   margin-left: -12px;
   margin-right: 10px;
 `
+const ContainMenu = styled.div`
+  position: absolute;
+  overflow-y: hidden;
+  width: 100%;
+  height: fit-content;
+  top: 132px;
+  transition: transform 0.5s cubic-bezier(0.11, 0.64, 0.37, 1.02);
+
+`
 const Stack2 = styled.ul`
-  display: flex;
-
-  border-top: 2px solid ${({ theme }) => theme.backgroundSecondary};
-  border-bottom: 2px solid ${({theme}) => theme.backgroundSecondary};
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 100%));
+  grid-template-rows: auto;
+  justify-content: center;
+  justify-items: center;
+  gap: 5px;
   margin: 0;
+  margin-bottom: 5px;
+  overflow: hidden;
+  background-color: ${({theme}) => theme.backgroundSecondary};
+  & a {
+    width: 100%;
 
-  & li:nth-child(2) {
-    border-right: 2px solid ${({theme}) => theme.backgroundSecondary};
-    border-left: 2px solid ${({theme}) => theme.backgroundSecondary};
+    &:active, :visited, :link {
+      text-decoration: none;
+      color: inherit;
+    }
   }
 `
 const Tab = styled.li`
   height: 60px;
+  background-color: white;
   width: 100%;
   display: flex;
+  flex: 1;
   align-items: center;
   justify-content: center;
   padding-left: 8px;
-  border-bottom: 1px solid ${({ theme }) => theme.backgroundSecondary};
   font-size: ${({ theme }) => theme.fontM};
-
+  
    &:active {
     background-color: ${({ theme }) => theme.backgroundSecondary};
     box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.25);
    }
 
   @media ${({ theme }) => theme.mobileL} {
-    & a {
-          width: fit-content;
-        }
-      }
-
+  }
   & div {
     margin-left: 8px;
   }

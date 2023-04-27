@@ -1,13 +1,21 @@
 import styled from 'styled-components'
-import React from 'react'
+import React, { useState } from 'react'
 import Sidebar from '../pages/user/Sidebar'
 import SidebarMobile from './SidebarMobile'
-
-
+import Hamburger from 'hamburger-react'
 
 export default function MyAccountLayout({children}: { children: React.ReactNode}) {
 
+  const [isOpen, setOpen] = useState<boolean>(false)
 
+
+  const closeAllMenusOnEsc = (e: any) => {
+    e = e || window.event;
+  
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      setOpen( false);
+    }
+  }
 
   return (
     <Wrapper>
@@ -15,10 +23,23 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
         <div>ASOS</div>
         <div>My Account</div>
       </Header>
+
+      <HamburgerContainer>
+        <Hamburger toggled={isOpen} toggle={setOpen} />
+      </HamburgerContainer>
+      {isOpen ? <Darken /> : false}
+
       <Container>
+
+        
+        <SidebarMobile open={isOpen}  /> 
+
+
         <Sidebar />
-        <SidebarMobile />
         {children}
+
+
+
 
       </Container>
     </Wrapper>
@@ -37,6 +58,10 @@ const Wrapper = styled.main`
   align-items: center; 
   background-color: ${({theme}) => theme.backgroundSecondary };
   z-index: 100;
+
+  @media ${({ theme }) => theme.mobileL} {
+    justify-content: flex-start;
+  }
 `
 const Container = styled.div`
   width: 960px; 
@@ -97,4 +122,22 @@ const Header = styled.div`
   @media ${({ theme }) => theme.mobileL} {
     display: none;
   }
+`
+
+const HamburgerContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+  z-index: 1000;
+  `
+
+const Darken = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.25);
 `

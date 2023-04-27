@@ -12,15 +12,11 @@ interface IProps {
 
 export default function NavMobileDropDown({ handleEnterNavTab, navMobileClothe }: IProps) {
   
-  const selectClothe: Record<string, any> = {
-    'shirts': selectShirts,
-    'shorts': selectShorts,
-    'shoes': selectShoes
-  }
-
-  console.log(selectClothe[navMobileClothe])
-  const clothes: ClotheType[] = useAppSelector(
-    'shirts' ? selectShirts : 'shorts' ? selectShorts : selectShoes)
+  const clotheName = navMobileClothe === 'shirts'
+    ? selectShirts : navMobileClothe === 'shorts'
+      ? selectShorts : selectShoes
+  
+  const clothes: ClotheType[] = useAppSelector(clotheName)
 
   let brands =
   clothes.map((l: ClotheType, index: number) =>
@@ -57,16 +53,14 @@ export default function NavMobileDropDown({ handleEnterNavTab, navMobileClothe }
 
   return (
     <BoxContainer
-      onMouseEnter={() =>
-        console.log(`nav${selectClothe[navMobileClothe].charAt(0) + selectClothe[navMobileClothe].slice(1)}`)}
-      
-        // handleEnterNavTab(
-        //   `nav${selectClothe[navMobileClothe].charAt(0) + selectClothe[navMobileClothe].slice(1)}`
-        //   , true
-        // )}
+      onMouseEnter={() =>      
+        handleEnterNavTab(
+          navMobileClothe
+          , true
+        )}
       onMouseLeave={() =>
         handleEnterNavTab(
-          `nav${selectClothe[navMobileClothe].charAt(0) + selectClothe[navMobileClothe].slice(1)}`
+          navMobileClothe
           , false)}
     >
     <Box>

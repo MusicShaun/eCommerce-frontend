@@ -30,6 +30,7 @@ export default function HeaderBottom() {
   const [navState, dispatch] = useReducer((state: NavState , action: any) => {
     switch (action.type) {
       case 'navShirts':
+        console.log('shirts')
         return { ...state, navShirts: action.payload }
       case 'navShoes':
         return { ...state, navShoes: action.payload }
@@ -45,31 +46,37 @@ export default function HeaderBottom() {
         return state
     }
   }, initialNavState)
-  
-  
-  let darkenBackground = navShoes || navShirts || navshorts || emptyHover
-  
-  useEffect(() => {
-    if (window.innerWidth < 768) {
-      if (navShirts) {
-        setNavMobile(true)
-        setNavMobileClothe('shirts')
-      }
-      else if (navShoes) {
-        setNavMobile(true)
-        setNavMobileClothe('shoes')
-      }
-      else if (navshorts) {
-        setNavMobile(true)
-        setNavMobileClothe('shorts')
-      }
-      else if (!navShirts && !navShoes && !navshorts) {
-        setNavMobile(false)
-      }
-    }
-  }, [navShirts, navShoes, navshorts])
 
+console.log(Object.keys(navState))
+  
+  let darkenBackground = false
+  // let darkenBackground = navShoes || navShirts || navshorts || emptyHover
+  
+  // useEffect(() => {
+  //   if (window.innerWidth < 768) {
+  //     if (navShirts) {
+  //       setNavMobile(true)
+  //       setNavMobileClothe('shirts')
+  //     }
+  //     else if (navShoes) {
+  //       setNavMobile(true)
+  //       setNavMobileClothe('shoes')
+  //     }
+  //     else if (navshorts) {
+  //       setNavMobile(true)
+  //       setNavMobileClothe('shorts')
+  //     }
+  //     else if (!navShirts && !navShoes && !navshorts) {
+  //       setNavMobile(false)
+  //     }
+  //   }
+  // }, [navShirts, navShoes, navshorts])
 
+  function handleEnterNavTab(name: string, value: boolean) {
+    dispatch({ type: name, payload: value })
+  }
+
+  
   return (
     <ButtonContainer>
       {darkenBackground && <DarkenBackground />}
@@ -77,22 +84,22 @@ export default function HeaderBottom() {
       <Box>
         
       <Tab
-        onMouseEnter={() => setNavShirts(true)}
-        onMouseLeave={() => setNavShirts(false)}
+        onMouseEnter={() => handleEnterNavTab('navShirt', true)}
+        onMouseLeave={() => handleEnterNavTab('navShirt', false)}
       >
         <Link href='/filter/[productType]' as='/filter/shirts'><span >Shirts </span></Link> 
       </Tab>
         
       <Tab
-        onMouseEnter={() => setNavShoes(true)}
-        onMouseLeave={() => setNavShoes(false)}
+        onMouseEnter={() => handleEnterNavTab('navShoes', true)}
+        onMouseLeave={() => handleEnterNavTab('navShoes', false)}
       > 
         <Link href="/filter/[productType]" as="/filter/shoes"><span>Shoes </span>    </Link>
       </Tab>
 
       <Tab
-        onMouseEnter={() => setNavShorts(true)}
-        onMouseLeave={() => setNavShorts(false)}
+        onMouseEnter={() => handleEnterNavTab('navShorts', true)}
+        onMouseLeave={() => handleEnterNavTab('navShorts', false)}
       >
         <Link href='/filter/[productType]' as='/filter/shorts'><span>Shorts </span></Link>
       </Tab>
@@ -113,9 +120,9 @@ export default function HeaderBottom() {
         <span>Empty</span>    
         </Tab>
 
-        {navShirts && <NavShirts setNavShirts={setNavShirts} />}
-        {navshorts && <NavShorts setNavShorts={setNavShorts} />}
-        {navShoes && <NavSneakers setNavShoes={setNavShoes} />}
+        {navState.navShirts && <NavShirts setNavShirts={setNavShirts} />}
+        {navState.navshorts && <NavShorts setNavShorts={setNavShorts} />}
+        {navState.navShoes && <NavSneakers setNavShoes={setNavShoes} />}
         {emptyHover && <Nav4Panel setEmptyHover={setEmptyHover} />}
         {navMobile ? <NavMobileDropDown setNavMobile={setNavMobile} navMobileClothe={navMobileClothe} /> : false} 
 

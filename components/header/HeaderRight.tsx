@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "lib/hooks/hooks"
 import Link from "next/link"
 import { selectCart, selectWishlist } from "lib/userSlice"
-import Cart from "@/pages/user/Cart"
+import { useRouter } from "next/router"
 
 export default function HeaderRight() {
 
@@ -18,6 +18,7 @@ export default function HeaderRight() {
   const [trianglePosition, setTrianglePosition] = useState({ x: 0 })
   const [windowSize, setWindowSize] = useState({ X: 0 })
   const cart = useAppSelector(selectCart)
+  const router = useRouter()
 
   // Get position of ref and apply its x coordinates to the triangle
   // Then add event listener to window to detect resize and reposition triangle
@@ -51,7 +52,8 @@ export default function HeaderRight() {
       <Button
         onMouseEnter={() => setShowDropdown(true)}
         onMouseLeave={() => setShowDropdown(false)}
-        
+        //link to user account page
+        onClick={() => router.push('/user/MyAccount')}
       >
        
         <Image

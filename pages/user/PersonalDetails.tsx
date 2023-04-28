@@ -86,9 +86,17 @@ export default function PersonalDetails() {
                 <label>Mostly interested in</label>
                   <RadioField style={{ flexDirection: 'row', padding: '10px 0 0 0 ' }}>
 
-                    <input type='radio' onClick={setInterestWomen} id='women' ref={womenRef} checked={user?.gender === 'women'} />  
+                    <input type='radio'
+                        onChange={setInterestWomen}
+                        id='women' ref={womenRef}
+                        checked={user?.gender === 'women' || interestRadio.women}
+                      />  
                     <label htmlFor='women' >Womenswear</label>
-                    <input type='radio' onClick={setInterestMen} id='men' ref={menRef} checked={user?.gender === 'men'} />
+                    <input type='radio'
+                      onChange={setInterestMen}
+                      id='men' ref={menRef}
+                      checked={user?.gender === 'men' || interestRadio.men}
+                      />
                     <label htmlFor='men' >Menswear</label>
 
                   </RadioField>        
@@ -111,6 +119,7 @@ const Container = styled.div`
   width: 100%;
   min-height: 542px;
   background-color: white;
+  padding-bottom: 20px;
 
   @media ${({ theme }) => theme.tablet} {
     display: flex;
@@ -142,6 +151,7 @@ const Header = styled.div`
 
 const FormLogin = styled.div`
   height: auto;
+  width: 100%;
   padding-bottom: 20px;
 `
 const Form = styled.form`
@@ -160,6 +170,11 @@ const FieldSetBox = styled.div`
   flex-direction: column;
   align-items: flex-start;  
   width: 100%;
+
+  @media ${({ theme }) => theme.mobileL} {
+    max-width: 100%;
+  }
+
 `
 const Field = styled.div`
   display: flex;
@@ -202,6 +217,14 @@ const RadioField = styled.div`
     width: auto;
     font-weight: 700;
   }
+
+  @media ${({ theme }) => theme.tablet} {
+    & input {
+    width: 50px;
+    margin:0 5px 0 0;
+  }
+}
+
 `
 
 const SubmitBtn = styled.button`

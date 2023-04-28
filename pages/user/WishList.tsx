@@ -50,7 +50,10 @@ export default function WishList() {
     <Head>
       <title>Wish list</title>
     </Head>
+
+
     <MyAccountLayout>
+      
       {content}
     </MyAccountLayout>
     </>)
@@ -61,6 +64,7 @@ const Container = styled.div`
   flex-direction: column;
   width: 100%;
   height: auto;
+  padding-bottom: 20px;
 `
 const First = styled.div`
   width: 100%;

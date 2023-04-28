@@ -1,15 +1,25 @@
 import styled from 'styled-components'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../pages/user/Sidebar'
 import SidebarMobile from './SidebarMobile'
 import Hamburger from 'hamburger-react'
+import BackButton from './BackButton'
+import { useRouter } from 'next/router'
 
 export default function MyAccountLayout({children}: { children: React.ReactNode}) {
 
   const [isOpen, setOpen] = useState<boolean>(false)
+  const router = useRouter()
 
-
+  useEffect(() => {
+    if (router.pathname.toLowerCase().includes('myaccount')) {
+      setOpen(true)
+    }
+  }, [])
+  
+  //* ADD A CLOSE MENU ON ESCAPE. 
   const closeAllMenusOnEsc = (e: any) => {
+    console.log(e)
     e = e || window.event;
   
     if (e.key === 'Escape' || e.keyCode === 27) {
@@ -24,22 +34,17 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
         <div>My Account</div>
       </Header>
 
-      <HamburgerContainer>
-        <Hamburger toggled={isOpen} toggle={setOpen} />
+      <HamburgerContainer >
+        <Hamburger toggled={isOpen} toggle={setOpen} size={40} rounded label="Show menu" />
       </HamburgerContainer>
       {isOpen ? <Darken /> : false}
 
       <Container>
-
-        
+      
         <SidebarMobile open={isOpen}  /> 
-
-
         <Sidebar />
+        <BackButton/>
         {children}
-
-
-
 
       </Container>
     </Wrapper>
@@ -68,13 +73,13 @@ const Container = styled.div`
   height: auto;
   display: flex;
   justify-content: space-around;
+  
 
   & * {
     box-sizing: border-box;
   }
 
   @media ${({ theme }) => theme.tablet} {
-    align-items: center;
       width: 100%;
       & > div:first-child {
       margin-left: 50px;
@@ -84,7 +89,8 @@ const Container = styled.div`
       }
     }
 
-  @media ${({theme}) => theme.mobileL} {
+  @media ${({ theme }) => theme.mobileL} {
+    align-items: center;
     & > div:first-child {
     margin-left: 0px;
     }
@@ -128,8 +134,13 @@ const HamburgerContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  margin: 10px;
-  z-index: 1000;
+  margin: 40px 30px;
+  z-index: 1001;
+  display: none;
+
+  @media ${({ theme }) => theme.mobileL} {
+    display: flex;
+  }
   `
 
 const Darken = styled.div`

@@ -107,6 +107,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
+  margin-right: 10px;
 
   @media ${({ theme }) => theme.tablet} {
     max-width: 240px; 
@@ -117,7 +118,6 @@ const Container = styled.div`
 `
 const Stack = styled.div`
   display: flex;
-  border-top: 2px solid ${({theme}) => theme.backgroundSecondary};
   border-bottom: 2px solid ${({theme}) => theme.backgroundSecondary};
 `
 const Badge = styled.div`

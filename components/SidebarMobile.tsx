@@ -11,7 +11,7 @@ import orders from '@/images/account_orders.png'
 import history from '@/images/account_history.png'
 import logout from '@/images/account_logout.png'
 import wishlist from '@/images/account_wishlist.png'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface IProps {
   open: boolean
@@ -21,7 +21,9 @@ export default function Sidebar({open}: IProps) {
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
 
-  const [showMenu, setShowMenu ] = useState(false) 
+  const [showMenu, setShowMenu] = useState(false) 
+  
+
   
   function handleLogout() {
     document.cookie =  "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
@@ -71,7 +73,9 @@ export default function Sidebar({open}: IProps) {
 
       <Tab>
           <Image src={welcome} alt=''  width={20} height={20} />
-          <div onClick={() => setShowMenu(prev => !prev)}>ACCOUNT MENU</div>
+            <div onClick={() => setShowMenu(prev => !prev)} style={{ borderBottom: '1px solid black' }}>
+              ACCOUNT MENU
+            </div>
           </Tab>
           
         <Link href='/user/PersonalDetails'>
@@ -120,6 +124,7 @@ const Container = styled.div`
   flex-direction: column;
   display: none;
   margin-bottom: 5px;
+  z-index: 1000;
 
   @media ${({ theme }) => theme.mobileL} {
     display: flex;
@@ -127,8 +132,6 @@ const Container = styled.div`
 `
 const Stack = styled.div`
   display: flex;
-  border-top: 2px solid ${({theme}) => theme.backgroundSecondary};
-  border-bottom: 2px solid ${({theme}) => theme.backgroundSecondary};
 `
 const Badge = styled.div`
   display: flex;

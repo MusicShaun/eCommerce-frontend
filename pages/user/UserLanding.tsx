@@ -24,7 +24,7 @@ const Container = styled.div`
   background-color: white;
 
   @media ${({ theme }) => theme.mobileL} {
-   display: none;
+   /* display: none; */
   }
 `
 // const Image = styled.div`

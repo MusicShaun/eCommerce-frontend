@@ -12,16 +12,14 @@ export default function NavUserDropdown() {
   const dispatch = useAppDispatch()
 
   async function handleLogout() {
+    localStorage.removeItem('key')
     try {
       const res = await logout() 
-      if (isSuccess) {
-        localStorage.removeItem('key')
-        dispatch(apiSlice.util.resetApiState())
-      }
     }
     catch (err) {
       console.log(err)
     } finally {
+      dispatch(apiSlice.util.resetApiState())
       router.push('/login/LoginWrapper', '/login', { shallow: true })
     }
   }

@@ -3,13 +3,13 @@ import Link from "next/link"
 import router from "next/router"
 import { apiSlice } from "lib/apiSlice"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import { selectCurrentUser } from "lib/userSlice"
+import { selectCurrentUser, useLogoutMutation } from "lib/userSlice"
 import Image from "next/image"
 import details from '@/images/account_details.png'
 import welcome from '@/images/account_welcome.png'
 import orders from '@/images/account_orders.png'
 import history from '@/images/account_history.png'
-import logout from '@/images/account_logout.png'
+import logoutIMG from '@/images/account_logout.png'
 import wishlist from '@/images/account_wishlist.png'
 
 
@@ -17,14 +17,21 @@ export default function Sidebar() {
   
   const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
+  const [logout, { isSuccess }] = useLogoutMutation()
 
-  function handleLogout() {
-    document.cookie =  "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+
+  async function handleLogout() {
     localStorage.removeItem('key')
-    dispatch(apiSlice.util.resetApiState())
-    router.push('/login/LoginWrapper', '/login', {shallow: true})
+    try {
+      const res = await logout() 
+    }
+    catch (err) {
+      console.log(err)
+    } finally {
+      dispatch(apiSlice.util.resetApiState())
+      router.push('/login/LoginWrapper', '/login', { shallow: true })
+    }
   }
-
 
   function userIsNotNull(check: string | null | undefined): string {
     if (typeof check === 'string') {
@@ -92,8 +99,8 @@ export default function Sidebar() {
 
       <Stack2>
         <Tab>
-          <Image src={logout} alt=''  width={20} height={20} />
-          <div onClick={handleLogout} style={{cursor: 'pointer'}}>Sign out</div>
+          <Image src={logoutIMG} alt=''  width={20} height={20} />
+          <div onClick={() => handleLogout()} style={{cursor: 'pointer'}}>Sign out</div>
         </Tab>
       </Stack2>
     </Container>

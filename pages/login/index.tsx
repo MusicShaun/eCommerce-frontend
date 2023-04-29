@@ -86,6 +86,12 @@ export default function login() {
 const FormLogin = styled.div`
   padding: 40px;
   height: auto;
+
+  & input, textarea {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
 `
 const Form = styled.form`
   width: 100%;
@@ -147,6 +153,9 @@ const SubmitBtn = styled.button`
 
   &:hover {
     cursor: pointer;
+  }
+  @media ${({ theme }) => theme.mobileL} {
+    width: 100%;
   }
 `
 const ForgotPassword = styled.div`

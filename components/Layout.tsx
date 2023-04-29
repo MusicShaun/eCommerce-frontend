@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../pages/user/Sidebar'
-import SidebarMobile from './SidebarMobile'
+import SidebarMobile from './nav/NavUserDropdownMobile'
 import Hamburger from 'hamburger-react'
 import BackButton from './BackButton'
 import { useRouter } from 'next/router'

@@ -1,8 +1,6 @@
 import styled from "styled-components"
 import Link from "next/link"
-import router from "next/router"
-import { apiSlice } from "lib/apiSlice"
-import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
+import { useAppSelector } from "lib/hooks/hooks"
 import { selectCurrentUser } from "lib/userSlice"
 import Image from "next/image"
 import details from '@/images/account_details.png'
@@ -11,26 +9,17 @@ import orders from '@/images/account_orders.png'
 import history from '@/images/account_history.png'
 import logout from '@/images/account_logout.png'
 import wishlist from '@/images/account_wishlist.png'
-import { useEffect, useState } from "react"
+import useLogout from "lib/utils/useLogout"
+import router from "next/router"
 
 interface IProps {
   open: boolean
 }
 export default function Sidebar({open}: IProps) {
   
-  const dispatch = useAppDispatch()
   const user = useAppSelector(selectCurrentUser)
-
-  const [showMenu, setShowMenu] = useState(false) 
+  const handleLogout = useLogout()
   
-
-  
-  function handleLogout() {
-    document.cookie =  "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    localStorage.removeItem('key')
-    dispatch(apiSlice.util.resetApiState())
-    router.push('/login/LoginWrapper', '/login', {shallow: true})
-  }
 
 
   function userIsNotNull(check: string | null | undefined): string {
@@ -73,7 +62,7 @@ export default function Sidebar({open}: IProps) {
 
       <Tab>
           <Image src={welcome} alt=''  width={20} height={20} />
-            <div onClick={() => setShowMenu(prev => !prev)} style={{ borderBottom: '1px solid black' }}>
+            <div style={{ borderBottom: '1px solid black' }}>
               ACCOUNT MENU
             </div>
           </Tab>
@@ -108,10 +97,19 @@ export default function Sidebar({open}: IProps) {
           </Tab>
         </Link>
 
-        <Tab>
-          <Image src={logout} alt=''  width={20} height={20} />
-          <div onClick={handleLogout} style={{cursor: 'pointer'}}>Sign out</div>
-        </Tab>
+        {user ?
+          <Tab>
+            <Image src={logout} alt='' width={20} height={20} />
+            <div onClick={handleLogout} style={{ cursor: 'pointer' }}>Sign out</div>
+          </Tab>
+          :
+          <Tab>
+            <Image src={logout} alt='' width={20} height={20} />
+            <div onClick={() => router.push('/login')} style={{ cursor: 'pointer' }}>Sign in</div>
+          </Tab>
+          }
+          
+
         </Stack2>
         </ContainMenu>
     </Container>

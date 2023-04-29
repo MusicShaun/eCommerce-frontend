@@ -1,24 +1,14 @@
 import Link from 'next/link'
-import router from 'next/router'
 import styled from 'styled-components'
-import { useAppDispatch } from 'lib/hooks/hooks'
-import {  apiSlice, useIsLoggedInQuery } from 'lib/apiSlice'
+import {   useIsLoggedInQuery } from 'lib/apiSlice'
+import handleLogout  from 'lib/utils/useLogout'
 
 export default function NavUserDropdown() {
 
-  const dispatch = useAppDispatch()
+
   const {data: loggedIn } = useIsLoggedInQuery()
 
-  // expires cookie 
-  // removes user info from localStorage
-  // resets api state
-  // redirects to login page
-  function handleLogout() {
-    document.cookie =  "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-    localStorage.removeItem('key')
-    dispatch(apiSlice.util.resetApiState())
-    router.push('/login/LoginWrapper', '/login', {shallow: true})
-  }
+
 
   return (
     <Container >
@@ -38,11 +28,9 @@ export default function NavUserDropdown() {
           </div>
           : 
           <div>
-          <Link href='/login/LoginWrapper' as='/login'>
             <HeadButtons onClick={handleLogout}>
               Log out
             </HeadButtons>
-          </Link>
         </div>
         }
 

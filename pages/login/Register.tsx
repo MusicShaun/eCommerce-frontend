@@ -141,6 +141,11 @@ const FormLogin = styled.div`
 const Form = styled.form`
   width: 100%;
   max-width: 650px;
+
+  & input, textarea {
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+  }
 `
 const FieldSet = styled.fieldset`
   display: flex;
@@ -188,11 +193,12 @@ const Field = styled.div`
 `
 const RadioField = styled.div`
     display: flex;
-  flex-direction: column;
-  align-items: center;  
-  padding: 0 105px;
-  margin-bottom: 19px;
-  width: 100%;
+    flex-direction: column;
+    align-items: center;  
+    padding: 0 105px;
+    margin-bottom: 19px;
+    width: 100%;
+
   & input {
     height: 30px;
     width: 100px;

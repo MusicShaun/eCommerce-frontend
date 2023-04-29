@@ -88,7 +88,6 @@ const FormLogin = styled.div`
   height: auto;
 
   & input, textarea {
-    font-size: 16px;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
   }

@@ -6,7 +6,7 @@ import { useAppSelector } from 'lib/hooks/hooks'
 import ClothesCard from '@/components/ClothesCard'
 import { selectWishlist } from 'lib/userSlice'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
-import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
+import { useCheckJWTexpiry } from 'lib/utils/checkJWTexpiry'
 import Head from 'next/head'
 
 export default function WishList() {

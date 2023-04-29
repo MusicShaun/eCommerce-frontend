@@ -1,7 +1,7 @@
 import MyAccountLayout from '../../components/Layout'
 import React, { useEffect } from 'react'
 import UserLanding from './UserLanding'
-import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
+import { useCheckJWTexpiry } from 'lib/utils/checkJWTexpiry'
 
 export default function MyAccount() {
 

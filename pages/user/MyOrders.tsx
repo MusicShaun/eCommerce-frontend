@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Empty from '../../components/Empty'
 import MyAccountLayout from '../../components/Layout'
-import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
+import { useCheckJWTexpiry } from 'lib/utils/checkJWTexpiry'
 import Head from 'next/head'
 
 export default function MyOrders() {

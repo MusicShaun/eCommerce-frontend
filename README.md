@@ -2,13 +2,13 @@
 <img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1676016779/nsz9k9ogjf64gszkbb02.png' alt='' width='100px'/>
 </h1>
 <h1 align='center'> <a href='https://www.shaunpickett.com' target="_blank">	🔗 Shaun's eCommerce Project  <a></h1>
-<h2 align='center'> Currently a Work In Progress. 🔨	</h2>
+<h2 align='center'>  Work In Progress. 🔨	</h2>
 
 <img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1680078015/asos-look-alike_scmogj.png' alt='' width='100%'/>
 
 <h3>Purpose</h3>
 <p>To learn how to reduce API requests and response times. 
-<br /> Learn the query side of RTK-Query
+<br /> Learn the nightmare that is RTK-Query
 <br/>Practice NextJS
 <br/>Create an entire site from back to front. 
 </p>
@@ -48,7 +48,7 @@
   - More thorough error handling in nodeJs. 
   - A Larger data pool for more accurate testing. 
   - Finish Mobile Styling 
-  - Test across different browsers 
+  - Rigorous testing 
   
 
 <br/> 

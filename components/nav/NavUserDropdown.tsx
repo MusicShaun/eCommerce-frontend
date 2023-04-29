@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styled from 'styled-components'
 import {   useIsLoggedInQuery } from 'lib/apiSlice'
-import handleLogout  from 'lib/utils/useLogout'
+import handleLogout  from 'lib/hooks/useLogout'
 
 export default function NavUserDropdown() {
 

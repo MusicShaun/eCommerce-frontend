@@ -1,6 +1,7 @@
 import { deleteCookie } from "cookies-next"
 import { apiSlice } from "lib/apiSlice"
 import { useAppDispatch } from "lib/hooks/hooks"
+import {  useLogoutMutation } from "lib/userSlice"
 import router from "next/router"
 
 
@@ -12,11 +13,11 @@ import router from "next/router"
 
 function useLogout() {
   const dispatch = useAppDispatch()
+  const [logout] = useLogoutMutation()
 
-  function handleLogout() {
-    deleteCookie('jwt', {
-      path: '/',
-    })
+  async function handleLogout() {
+    
+    await logout()
     localStorage.removeItem('key')
     dispatch(apiSlice.util.resetApiState())
     router.push('/login/LoginWrapper', '/login', {shallow: true})

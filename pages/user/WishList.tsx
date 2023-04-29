@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import Empty from '../../components/Empty'
-import MyAccountLayout from '../../components/Layout'
+import Empty from '../../components/EmptyTab'
+import MyAccountLayout from '../../components/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
 import ClothesCard from '@/components/ClothesCard'
 import { selectWishlist } from 'lib/userSlice'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
-import { useCheckJWTexpiry } from 'lib/utils/checkJWTexpiry'
+import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
 import Head from 'next/head'
 
 export default function WishList() {

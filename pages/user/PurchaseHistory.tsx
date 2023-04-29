@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import Empty from '../../components/Empty'
-import MyAccountLayout from '../../components/Layout'
+import Empty from '../../components/EmptyTab'
+import MyAccountLayout from '../../components/AccountLayout'
 import Head from 'next/head'
 
 export default function PurchaseHistory() {

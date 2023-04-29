@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import MyAccountLayout from '../../components/Layout'
+import MyAccountLayout from '../../components/AccountLayout'
 import React, { useRef, useState } from 'react'
 import { selectCurrentUser, useUpdateUserMutation } from 'lib/userSlice'
 import { useAppSelector } from 'lib/hooks/hooks'

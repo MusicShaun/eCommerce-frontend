@@ -38,6 +38,14 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
         return user
       },
     }),
+
+    logout: builder.mutation<Status, void>({
+      query: () => ({
+        url: '/users/logout',
+        method: 'POST',
+      }),
+      invalidatesTags: ['Auth'],
+    }),
   
     register: builder.mutation<Status, Signup>({
       query: (body) => ({
@@ -107,8 +115,10 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
   })
 })
 
-export const { useLoginMutation,
+export const {
+  useLoginMutation,
   useGetUserQuery,
+  useLogoutMutation,
   useRegisterMutation,
   useAddWishListItemMutation,
   useAddCartItemMutation,

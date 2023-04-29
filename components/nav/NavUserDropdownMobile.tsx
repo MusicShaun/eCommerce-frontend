@@ -9,7 +9,7 @@ import orders from '@/images/account_orders.png'
 import history from '@/images/account_history.png'
 import logout from '@/images/account_logout.png'
 import wishlist from '@/images/account_wishlist.png'
-import useLogout from "lib/utils/useLogout"
+import useLogout from "lib/hooks/useLogout"
 import router from "next/router"
 
 interface IProps {
@@ -102,12 +102,14 @@ export default function Sidebar({open}: IProps) {
             <Image src={logout} alt='' width={20} height={20} />
             <div onClick={handleLogout} style={{ cursor: 'pointer' }}>Sign out</div>
           </Tab>
-          :
-          <Tab>
-            <Image src={logout} alt='' width={20} height={20} />
-            <div onClick={() => router.push('/login')} style={{ cursor: 'pointer' }}>Sign in</div>
-          </Tab>
-          }
+            :
+          <Link href='/login/LoginWrapper' as='/login'>
+            <Tab>
+              <Image src={logout} alt='' width={20} height={20} />
+              <div style={{ cursor: 'pointer' }}>Sign in</div>
+            </Tab>
+          </Link>
+        }
           
 
         </Stack2>

@@ -186,7 +186,7 @@ position: relative;
   height: 100%;
   width: 300px;
   max-width: 300px;
-  padding: 0 10px;
+  padding: 0 10px 30px;
   display: flex;
   justify-content: center;
   background-color: white;
@@ -227,6 +227,7 @@ const SmallDarkText = styled.div`
 const Select = styled.select`
   padding: 8px;
   margin-bottom: 8px;
+  height: 40px;
   cursor: pointer;
 `
 const ShoppingControls = styled.div`

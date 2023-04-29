@@ -86,6 +86,7 @@ const Wrapper = styled.div`
   height: calc(90% - 155px);
   display: flex;
   justify-content: center;
+
 `
 const Container = styled.div`
 position: relative;

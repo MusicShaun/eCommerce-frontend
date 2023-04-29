@@ -100,20 +100,21 @@ const SliderContainer = styled.div`
   }
   & input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    background: #36b37e;
+    height: 20px ;
+    width: 20px ;
     cursor: pointer;
     margin-top: -5px;
     position: relative;
     z-index: 1;
+    background-color: rgba(112, 255, 69, 0.941)0;
+    border: 10px solid rgba(112, 255, 69, 0.941)0;
+
   }
   & input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
     height: 5px;
     background: #e8e8e8;
-    border-radius: 3px;
+    border-radius: 5px;
     border: none;
   }
 `

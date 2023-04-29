@@ -15,7 +15,7 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
     if (router.pathname.toLowerCase().includes('myaccount')) {
       setOpen(true)
     }
-  }, [])
+  }, [router.query])
   
   //* ADD A CLOSE MENU ON ESCAPE. 
   const closeAllMenusOnEsc = (e: any) => {

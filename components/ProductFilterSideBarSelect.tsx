@@ -90,6 +90,7 @@ const Select = styled.select`
   padding: 8px;
   margin-bottom: 8px;
   width: 100%;
+  height: 36px;
   display: flex;
   justify-content: center;
   align-items: center;

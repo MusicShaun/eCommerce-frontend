@@ -28,6 +28,7 @@ const Btn = styled.button`
   margin-left: 50px;
   border: none;
   text-decoration: underline;
-  padding: 5px;
+  padding: 6px;
   cursor: pointer;
+  border-radius: 5px;
 `

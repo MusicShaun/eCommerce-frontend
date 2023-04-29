@@ -210,6 +210,11 @@ const TagContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-left: 25px;
+
+  @media ${({ theme }) => theme.mobileL} {
+    margin-left: 0;
+    justify-content: center;
+  }
 `
 const TagButton = styled.button`
   font-size: ${({ theme }) => theme.fontML};

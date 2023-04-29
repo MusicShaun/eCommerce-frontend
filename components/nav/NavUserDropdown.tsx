@@ -1,12 +1,30 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import {   useIsLoggedInQuery } from 'lib/apiSlice'
-import handleLogout  from 'lib/hooks/logout'
+import {   apiSlice, useIsLoggedInQuery } from 'lib/apiSlice'
 import router from 'next/router'
+import { useAppDispatch } from 'lib/hooks/hooks'
+import { useLogoutMutation } from 'lib/userSlice'
 
 export default function NavUserDropdown() {
 
-  const {data: loggedIn } = useIsLoggedInQuery()
+  const { data: loggedIn } = useIsLoggedInQuery()
+  const [logout, { isSuccess }] = useLogoutMutation()
+  const dispatch = useAppDispatch()
+
+  async function handleLogout() {
+    try {
+      const res = await logout() 
+      if (isSuccess) {
+        localStorage.removeItem('key')
+        dispatch(apiSlice.util.resetApiState())
+      }
+    }
+    catch (err) {
+      console.log(err)
+    } finally {
+      router.push('/login/LoginWrapper', '/login', { shallow: true })
+    }
+  }
 
   return (
     <Container >
@@ -26,9 +44,7 @@ export default function NavUserDropdown() {
           </div>
           : 
           <div>
-            <HeadButtons onClick={() => handleLogout(
-                {onSuccess: () => router.push('/login/LoginWrapper', '/login', { shallow: true }),
-              })}>
+            <HeadButtons onClick={() => handleLogout()}>
               Log out
             </HeadButtons>
         </div>

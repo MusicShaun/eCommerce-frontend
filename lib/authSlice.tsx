@@ -35,6 +35,12 @@ const userSlice = createSlice({
       (state, { payload }) => {
         state.key = payload
       }
+    ),
+      builder.addMatcher(
+        extendedUserSlice.endpoints.logout.matchFulfilled,
+        (state) => {
+          state.key = null
+        }
     )
   },
 })

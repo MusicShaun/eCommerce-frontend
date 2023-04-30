@@ -23,7 +23,6 @@
       "@/hooks/*": ["hooks/*"],
       "@/styles/*": ["styles/*"],
       "@/config/*": ["config/*"],
-      "@/images/*": ["images/*"],
       "@/lib/*": ["lib/*"],
       "@/public/*": ["public/*"],
       

@@ -12,7 +12,7 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
-import password from '@/images/password.png'
+import password from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useForgotPasswordMutation } from 'lib/userSlice'
 import ErrorWindow from '@/components/ErrorWindow'

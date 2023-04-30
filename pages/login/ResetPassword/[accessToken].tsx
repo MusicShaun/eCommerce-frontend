@@ -11,7 +11,7 @@
 
 import Image from 'next/image'
 import styled from 'styled-components'
-import password from '@/images/password.png'
+import password from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useResetPasswordMutation } from 'lib/userSlice'
 import { useRouter } from 'next/router'

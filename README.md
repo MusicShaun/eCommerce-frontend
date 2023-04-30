@@ -40,6 +40,7 @@
 
 <br/>
 <h3>Issues </h3>
+
   * NextJs automatically lazy loads all images. This looks tacky on pages with multiple icons. 
   * Mobile cookies are not setting 
   * NextJs links don't behave the same on mobile 

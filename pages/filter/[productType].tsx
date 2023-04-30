@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { store } from 'lib/store'
 import Head from 'next/head'
+import BackButton from '@/components/BackButton'
 
 store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
 
@@ -81,7 +82,9 @@ export default function ProductGrouped( {data}: IProps) {
       <title>Product Search</title>
       </Head>
     <Wrapper>
+      <BackButton /> 
       <Container>
+        
 
         <SideBar>
           <ProductFilterSideBar
@@ -121,11 +124,11 @@ const Wrapper = styled.div`
   position: absolute;
   left: 0;
   top: 155px;
+  margin-top: 30px;
   width: 100%;
   height: calc(90% - 155px);
   display: flex;
   justify-content: center;
-
 `
 const Container = styled.div`
   position: relative;

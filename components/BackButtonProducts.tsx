@@ -16,13 +16,12 @@ export default BackButton
 const Container = styled.div`
   display: inline;
   position: absolute;
-  width: 100%;
-  transform: translateY(-10px);
   max-width: 1300px;
-  margin: 0 auto;
-
+  z-index: 2;
+  top: -30px;
+  left: 20px;
   @media ${({ theme }) => theme.mobileL} {
-    display: inline;
+    /* display: none; */
   }
   `
 

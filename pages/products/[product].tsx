@@ -6,6 +6,7 @@ import { ClotheType, extendedClothesSlice } from 'lib/clothesSlice'
 import { store } from 'lib/store'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
+import BackButton from '@/components/BackButtonProducts'
 
 store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
 
@@ -56,6 +57,7 @@ export default function ClothesSinglePage( {product}: IProps) {
 
   const content = plainProductObject ? (
     <Container>
+      <BackButton />
       <Product productItem={plainProductObject} />
       <ProductSideBar productItem={plainProductObject} />
     </Container>
@@ -66,6 +68,7 @@ export default function ClothesSinglePage( {product}: IProps) {
       <title>{plainProductObject?.brand}</title>
     </Head>
     <Wrapper>
+       
       {content}
     </Wrapper>
   </>
@@ -99,6 +102,6 @@ position: relative;
   @media ${({ theme }) => theme.mobileL} {
     flex-direction: column;
     width: 100%;
-    margin-top: 0px;
+    margin-top: 40px;
   }
 `

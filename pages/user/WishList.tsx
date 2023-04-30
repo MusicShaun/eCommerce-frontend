@@ -15,9 +15,6 @@ export default function WishList() {
   const wishlist = currentUser?.wishlist || []
   const { handleAddItem } = useAddClothingItem()
   
-  
-  console.log(currentUser)
-  console.log(wishlist)
 
   function handleRemoveItemFromWishList(_id: string) {
      handleAddItem(_id, 'wishlist')

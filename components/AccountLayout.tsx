@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../pages/user/Sidebar'
 import SidebarMobile from './nav/MyAccountUserDropdownMobile'
 import Hamburger from 'hamburger-react'
-import BackButton from './BackButton'
+import BackButton from './BackButtonMyAccount'
 import { useRouter } from 'next/router'
 
 export default function MyAccountLayout({children}: { children: React.ReactNode}) {
@@ -30,10 +30,13 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
   return (
     <Wrapper>
       <Header>
-        <div>ASOS</div>
-        <div>My Account</div>
-      </Header>
+        <h3>ASOS</h3>
+          <BackButton/>
 
+        
+        <h3>My Account</h3>
+      </Header>
+   
       <HamburgerContainer >
         <Hamburger toggled={isOpen} toggle={setOpen} size={40} rounded label="Show menu" />
       </HamburgerContainer>
@@ -43,7 +46,7 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
       
         <SidebarMobile open={isOpen}  /> 
         <Sidebar />
-        <BackButton/>
+        
         {children}
 
       </Container>
@@ -110,6 +113,7 @@ const Container = styled.div`
   }
 `
 const Header = styled.div`
+position: relative;
   display: flex;
   width: 920px;
   height: 75px;
@@ -117,7 +121,7 @@ const Header = styled.div`
   font-size: 28px;
   font-weight: 700;
 
-  & div:first-child {
+  & h3:first-child {
     width: 300px;
   }
 
@@ -151,4 +155,9 @@ const Darken = styled.div`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0,0,0,0.25);
+  display: none;
+
+  @media ${({ theme }) => theme.mobileL} {
+    display: block;
+  }
 `

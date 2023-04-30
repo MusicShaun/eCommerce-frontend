@@ -39,7 +39,15 @@
   * Find clothes easily via search, header or tabs
 
 <br/>
+<h3>Issues </h3>
+  * NextJs automatically lazy loads all images. This looks tacky on pages with multiple icons. 
+  * Mobile cookies are not setting 
+  * NextJs links don't behave the same on mobile 
+  
+
+<br />
 <img src='https://res.cloudinary.com/dyneqi48f/image/upload/v1680078093/asos-look-alike-2_wlfeyq.png' alt='' width='100%'/>
+
 <br /> 
 
 
@@ -47,8 +55,8 @@
 
   - More thorough error handling in nodeJs. 
   - A Larger data pool for more accurate testing. 
-  - Finish Mobile Styling 
-  - Rigorous testing 
+
+
   
 
 <br/> 

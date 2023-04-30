@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import InfoCenter from '../../components/InfoCenter'
+import AuthOOptions from '../../components/AuthOOptions'
 import router from 'next/router'
 import { useGetUserQuery, useLoginMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
@@ -78,7 +78,7 @@ export default function login() {
       </Form>
     </FormLogin>
 
-    <InfoCenter />
+    <AuthOOptions />
 
 </>  )
 }

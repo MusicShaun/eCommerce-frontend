@@ -31,7 +31,7 @@ export default function ClothesGallery({ info }: IProps) {
 
   async function handleAddClotheItemToWishList(_id: string) {
     await handleAddItem(_id, 'wishlist')
-    refetch()
+    // refetch() //! CIRCLE BACK TO THIS 
   }
 
   function handleRequestClose() {

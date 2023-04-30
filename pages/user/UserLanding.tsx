@@ -1,7 +1,7 @@
 
 import styled from 'styled-components'
 import React from 'react'
-import arch from '@/images/arch.webp'
+import arch from '@/public/arch.webp'
 import Image from 'next/image'
 import Head from 'next/head'
 

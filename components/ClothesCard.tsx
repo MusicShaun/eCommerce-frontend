@@ -4,9 +4,9 @@ import { ClotheType } from 'lib/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { selectWishlist } from 'lib/userSlice'
-import heartOutline from '@/images/heart-outline.svg'
-import heartFilled from '@/images/heart-filled.svg'
+import {  selectUserById } from 'lib/userSlice'
+import heartOutline from '@/public/heart-outline.svg'
+import heartFilled from '@/public/heart-filled.svg'
 
 interface IProps {
   info: ClotheType
@@ -26,9 +26,11 @@ export const getStaticProps = async () => {
 export default function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
 
   const [hearted, setHearted] = useState(false)
-  const wishlist = useAppSelector(selectWishlist)  
+  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const wishlist = currentUser?.wishlist
   const [heartAnimation, setHeartAnimation] = useState(false)
   
+
   useEffect(() => {
     let listed = wishlist?.find((l: any) => l._id === info._id)
     if (listed && !hearted) {

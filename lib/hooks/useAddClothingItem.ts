@@ -1,4 +1,4 @@
-import { selectCurrentUser, useAddCartItemMutation, useAddWishListItemMutation, useGuestMutation } from "lib/userSlice"
+import {  useAddCartItemMutation, useAddWishListItemMutation, useGuestMutation } from "lib/userSlice"
 import { useRef } from "react"
 import { handleCart } from "./handleCart"
 import { useAppSelector } from "./hooks"
@@ -7,10 +7,11 @@ import { selectAllClothes } from "lib/clothesSlice"
 import { handleWishlist } from "./handleWishlist"
 import { handleCartGuest } from "./handleCartGuest"
 import { handleGuestWishlist } from "./handleGuestWishlist"
+import { selectUserById } from "lib/userSlice"
 
 export default function useAddClothingItem() {
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
-  const currentUser = useAppSelector(selectCurrentUser)
+  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
   const allClothes = useAppSelector(selectAllClothes)
 
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()

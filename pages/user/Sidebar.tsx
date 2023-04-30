@@ -3,20 +3,21 @@ import Link from "next/link"
 import router from "next/router"
 import { apiSlice } from "lib/apiSlice"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import { selectCurrentUser, useLogoutMutation } from "lib/userSlice"
+import { selectUserById, useLogoutMutation } from "lib/userSlice"
 import Image from "next/image"
-import details from '@/images/account_details.png'
-import welcome from '@/images/account_welcome.png'
-import orders from '@/images/account_orders.png'
-import history from '@/images/account_history.png'
-import logoutIMG from '@/images/account_logout.png'
-import wishlist from '@/images/account_wishlist.png'
+import details from '@/public/account_details.png'
+import welcome from '@/public/account_welcome.png'
+import orders from '@/public/account_orders.png'
+import history from '@/public/account_history.png'
+import logoutIMG from '@/public/account_logout.png'
+import wishlist from '@/public/account_wishlist.png'
 
 
 export default function Sidebar() {
   
   const dispatch = useAppDispatch()
-  const user = useAppSelector(selectCurrentUser)
+  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const user = currentUser
   const [logout, { isSuccess }] = useLogoutMutation()
 
 

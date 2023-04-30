@@ -59,6 +59,7 @@ const Box = styled.div`
   height: 100%;
   width: 15%;
   padding: 0px 20px;
+  cursor: pointer;
 
   border-right: 1px solid grey;
 

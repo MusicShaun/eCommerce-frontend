@@ -27,7 +27,7 @@ export default function LoginWrapper() {
 
 const Wrapper = styled.div`
   position: absolute;
-  top: 0;
+  top: 155px;
   left: 0;
   width: 100%;
   min-height: 100%;

@@ -188,9 +188,12 @@ const SubmitButton = styled.button`
 
 const SideBar = styled.div`
   width: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   @media ${({ theme }) => theme.mobileL} {
-    width: 285px;
+    width: 95%;
   }
 `
 const BodyContainer = styled.div`

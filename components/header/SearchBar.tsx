@@ -1,7 +1,7 @@
 import styled, { useTheme } from "styled-components";
 import Image from "next/image";
 import React from 'react'
-import Magnifying from '@/images/magnifying.webp'
+import Magnifying from '@/public/magnifying.webp'
 import { selectAllClothes } from "lib/clothesSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 import { updateSearchBar } from "lib/searchBarSlice";

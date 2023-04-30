@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Empty from '../../components/EmptyTab'
 import MyAccountLayout from '../../components/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
-import { selectCart } from 'lib/userSlice'
+import { selectUserById } from 'lib/userSlice'
 import ClothesCardCart from '@/components/ClothesCardCart'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
 import PacmanLoader from 'react-spinners/PacmanLoader'
@@ -14,7 +14,8 @@ import Head from 'next/head'
 
 export default function Cart() {
 
-  const cart = useAppSelector(selectCart)  
+  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const cart = currentUser?.cart || []
   const {handleAddItem, isCartLoading} = useAddClothingItem()
 
   function deleteClothingItem(_id: string) {

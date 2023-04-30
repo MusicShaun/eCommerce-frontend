@@ -1,11 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
+import Image from 'next/image'
+import Facebook from '../public/facebook.webp'
+import Apple from '../public/apple.webp'
+import Google from '../public/google.webp'
 
-
-export default function Info_Center() {
+export default function AuthOOptions() {
 
   function handleclick() {
-    alert('Using personal information is prohibited. Thank you!')
+    alert('AuthO coming soon! Or not. It might be better to not bloat this app')
   }
 
   return (
@@ -13,15 +16,15 @@ export default function Info_Center() {
       <h2 style={{marginBottom: '20px'}}>OR SIGN IN WITH...</h2>
       <SocialLinks>
         <SocialLink onClick={handleclick}>
-          <Icon />
+          <Image src={Google} alt="google" width={30} height={30} />
           <Text>Google</Text>
         </SocialLink>
         <SocialLink  onClick={handleclick}>
-          <Icon />
+          <Image src={Facebook} alt='facebook' width={30} height={30}  />
           <Text>Facebook</Text>
         </SocialLink>
         <SocialLink onClick={handleclick}>
-          <Icon />
+          <Image src={Apple} alt='apple'  width={30} height={30} />
           <Text>Apple</Text>
         </SocialLink>
       </SocialLinks>
@@ -50,19 +53,19 @@ const SocialLinks = styled.div`
 const SocialLink = styled.a`
   width: 30%;
   height: 100%;
-  border: 1px dashed grey;
+  border-radius: 5px;
+  border: 1px dashed lightgrey;
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 10px;
 
   &:hover {
     cursor: pointer;
     background-color: #f5f5f5;
   }
 `
-const Icon = styled.div`
-  width: 50px;
-  height: 50px;   
-`
+
 const Text = styled.span`
   
 `

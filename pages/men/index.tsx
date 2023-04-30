@@ -11,6 +11,7 @@ export default function Men() {
 
   const selectAll = useAppSelector(selectAllClothes)
 
+  
   const {
     isSuccess,
   } = useGetAllClothesQuery()

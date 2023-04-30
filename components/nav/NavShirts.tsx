@@ -53,6 +53,7 @@ const Box = styled.div`
   flex-grow: 1;
   height: 100%;
   width: 25%;
+  cursor: pointer;
   padding: 0px 20px;
 
   border-right: 1px solid lightgrey;

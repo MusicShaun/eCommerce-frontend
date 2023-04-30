@@ -101,6 +101,7 @@ const Container = styled.div`
   flex-direction: column;
 
   @media ${({ theme }) => theme.mobileL} {
-    width: 285px;
+    width: 100%;
+    margin: 0 auto;
   }
 `

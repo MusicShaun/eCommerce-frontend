@@ -41,6 +41,7 @@ const BoxContainer = styled.div`
   height: 340px;
   width: 100%;
   background-color: ${({theme}) => theme.backgroundSecondary};
+  cursor: pointer;
 
 
   @media ${({ theme }) => theme.mobileL} {

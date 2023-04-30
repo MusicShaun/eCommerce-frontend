@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import MyAccountLayout from '../../components/AccountLayout'
 import React, { useRef, useState } from 'react'
-import { selectCurrentUser, useUpdateUserMutation } from 'lib/userSlice'
+import { selectUserById, useUpdateUserMutation } from 'lib/userSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 import Head from 'next/head'
 
@@ -12,7 +12,8 @@ export default function PersonalDetails() {
   const [interestRadio, setInterestRadio ] = useState({ men: false, women: false })
     
   const [updateUser, {isLoading, isSuccess}] = useUpdateUserMutation()
-  const user = useAppSelector(selectCurrentUser) //! theres actually 2 selectCurrectUSers. This needs to be fixed
+  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const user = currentUser 
 
   function setInterestWomen() {
     setInterestRadio({

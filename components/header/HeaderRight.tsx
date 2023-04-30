@@ -1,24 +1,23 @@
 import styled from "styled-components"
 import Image from "next/image"
-import User from '@/images/user.webp'
-import Heart from '@/images/heart.webp'
-import Bag from '@/images/bag.webp'
+import User from '@/public/user.webp'
+import Heart from '@/public/heart.webp'
+import Bag from '@/public/bag.webp'
 import NavUserDropdown from "../nav/NavUserDropdown"
 import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "lib/hooks/hooks"
 import Link from "next/link"
-import { selectCart, selectWishlist } from "lib/userSlice"
-import { useRouter } from "next/router"
+import { selectUserById } from "lib/userSlice"
 
 export default function HeaderRight() {
 
   const [showDropdown, setShowDropdown ] = useState(false)
-  const wishlist = useAppSelector(selectWishlist)  
+  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const wishlist = currentUser?.wishlist || []
+  const cart = currentUser?.cart || []
   const triangleRef = useRef<HTMLImageElement>(null); 
   const [trianglePosition, setTrianglePosition] = useState({ x: 0 })
   const [windowSize, setWindowSize] = useState({ X: 0 })
-  const cart = useAppSelector(selectCart)
-  const router = useRouter()
 
   // Get position of ref and apply its x coordinates to the triangle
   // Then add event listener to window to detect resize and reposition triangle
@@ -52,8 +51,6 @@ export default function HeaderRight() {
       <Button
         onMouseEnter={() => setShowDropdown(true)}
         onMouseLeave={() => setShowDropdown(false)}
-        //link to user account page
-        onClick={() => router.push('/user/MyAccount')}
       >
        
         <Image

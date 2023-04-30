@@ -1,23 +1,23 @@
 import styled from "styled-components"
 import Link from "next/link"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import { selectCurrentUser, useLogoutMutation } from "lib/userSlice"
+import { useLogoutMutation,selectUserById } from "lib/userSlice"
 import Image from "next/image"
-import details from '@/images/account_details.png'
-import welcome from '@/images/account_welcome.png'
-import orders from '@/images/account_orders.png'
-import history from '@/images/account_history.png'
-import wishlist from '@/images/account_wishlist.png'
+import details from '@/public/account_details.png'
+import welcome from '@/public/account_welcome.png'
+import orders from '@/public/account_orders.png'
+import history from '@/public/account_history.png'
+import wishlist from '@/public/account_wishlist.png'
 import router from "next/router"
 import { apiSlice } from "lib/apiSlice"
-import logoutIMG from '@/images/account_logout.png'
+import logoutIMG from '@/public/account_logout.png'
 
 interface IProps {
   open: boolean
 }
 export default function Sidebar({open}: IProps) {
   
-  const user = useAppSelector(selectCurrentUser)  
+  const user = useAppSelector((state) => selectUserById(state, 'userId'))
   const [logout, { isSuccess }] = useLogoutMutation()
   const dispatch = useAppDispatch()
   

@@ -36,20 +36,21 @@ const clothesAdapter = createEntityAdapter({
 }) 
 const initialState = clothesAdapter.getInitialState()
 
+let combined: ClotheType[] = []
 export const extendedClothesSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
 
     getAllClothes: builder.query<TransformedClothes, void>({
+      
       query: () => '/getallclothes',
       structuralSharing: false,
       transformResponse: (rawResult: Clothes, meta): any => {
-        const combined = [...rawResult.data.shirts, ...rawResult.data.shorts, ...rawResult.data.shoes]
+        combined = [...rawResult.data.shirts, ...rawResult.data.shorts, ...rawResult.data.shoes]
         return clothesAdapter.setAll(initialState, combined)
       },
-      providesTags: ['Clothes']
+      providesTags: (result, error, arg) =>
+        [{ type: 'Clothes', id: "LIST" }]
     }),
-
-
   })
 })
 

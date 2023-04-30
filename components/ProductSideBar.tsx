@@ -2,7 +2,7 @@ import styled, { keyframes} from "styled-components"
 import Image from "next/image"
 import { ClotheType  } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
-import { selectUserById, useGetUserQuery } from "lib/userSlice"
+import { selectUserById } from "lib/userSlice"
 import { useEffect, useRef, useState } from "react"
 import useAddClothingItem from "lib/hooks/useAddClothingItem"
 import PacmanLoader from "react-spinners/PacmanLoader"
@@ -35,8 +35,9 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
   const [heartAnimation, setHeartAnimation] = useState(false)
 
+  const [ cartBtnText , setCartBtnText ] = useState('ADD TO BAG')
+
   const { handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isError, error } = useAddClothingItem()
-  const { data, isSuccess, refetch } = useGetUserQuery()
   
   // error handling
   useEffect(() => {
@@ -84,8 +85,13 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
       setErrorMessage('Please choose a size'), 
       setIsModalOpen(true)
     )
+    setCartBtnText('ADDED')
     await handleAddItem(_id, 'cart', selectOptionsRef.current!.value, '+')
-    // refetch()
+
+    const timer = setTimeout(() => {
+      setCartBtnText('ADD TO BAG')
+    }, 10000)
+    return () => clearTimeout(timer)
   }
 
   function handleHeartAnimation() {
@@ -150,9 +156,9 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
             </div>
           </CartItemAdded>
 
-          <AddToBag onClick={() => handleAddClotheItemToCart(productItem._id)}>ADD TO BAG</AddToBag>
+          <AddToBag onClick={() => handleAddClotheItemToCart(productItem._id)}>{cartBtnText}</AddToBag>
           
-          <AddToWishList onClick={() => handleAddClotheItemToWishList(productItem._id)}>
+          <AddToWishList onClick={() => {handleAddClotheItemToWishList(productItem._id), setHearted(prev => !prev)}}>
             <Image
               onClick={handleHeartAnimation}
                 src={!hearted ? heartOutline : heartFilled}

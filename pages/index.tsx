@@ -6,21 +6,19 @@ import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheT
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { extendedUserSlice, useGetUserQuery } from 'lib/userSlice'
+import { extendedUserSlice } from 'lib/userSlice'
 import { useEffect, useState } from 'react'
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 extendedClothesSlice.endpoints.getAllClothes.initiate()
+extendedUserSlice.endpoints.getUser.initiate()
 
 export default function Home() {
 
-  const { } = useGetUserQuery()
-
   const selectAll = useAppSelector(selectAllClothes)
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
-  const [countRenders, setCountRenders] = useState(0)
 
   const {
     isLoading,
@@ -37,7 +35,7 @@ export default function Home() {
     } else if (isError) {
       console.log(JSON.stringify(error))
     }
-    setCountRenders(prev => prev + 1)
+
   }, [isSuccess, isError, selectAll, isLoading])
 
 

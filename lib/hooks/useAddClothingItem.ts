@@ -1,4 +1,4 @@
-import {  useAddCartItemMutation, useAddWishListItemMutation, useGuestMutation } from "lib/userSlice"
+import {  useAddCartItemMutation, useAddWishListItemMutation, useGetUserQuery, useGuestMutation } from "lib/userSlice"
 import { useRef } from "react"
 import { handleCart } from "./handleCart"
 import { useAppSelector } from "./hooks"
@@ -14,9 +14,11 @@ export default function useAddClothingItem() {
   const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
   const allClothes = useAppSelector(selectAllClothes)
 
+  
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
   const [addCartListItem, {isLoading: isCartLoading, isSuccess: isCartSuccess, isError: isCartError, error: cartError }] = useAddCartItemMutation()
   const [guest] = useGuestMutation()
+  const { data, isSuccess, refetch } = useGetUserQuery()
 
   async function handleAddItem(_id: string, type: string, size?: string, direction?: string) {
 
@@ -62,8 +64,11 @@ export default function useAddClothingItem() {
 
     } catch (err) {
         console.log(err)
-      }
     }
+    finally {
+      
+    }
+  }
   
   return {
     handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isWishSuccess,

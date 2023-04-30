@@ -69,7 +69,7 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
         </BottomP>
       </Link>
       
-      <AddToWishList onClick={() => handleAddClotheItemToWishList(info._id)}>
+      <AddToWishList onClick={() => {handleAddClotheItemToWishList(info._id), setHearted(prev => !prev)}}>
         <Image
           onClick={handleHeartAnimation}
             src={!hearted ? heartOutline : heartFilled}

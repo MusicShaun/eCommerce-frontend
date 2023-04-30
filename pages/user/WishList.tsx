@@ -14,11 +14,13 @@ export default function WishList() {
   const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
   const wishlist = currentUser?.wishlist || []
   const { handleAddItem } = useAddClothingItem()
-
+  
+  
   console.log(currentUser)
+  console.log(wishlist)
 
-  async function handleRemoveItemFromWishList(_id: string) {
-    await handleAddItem(_id, 'wishlist')
+  function handleRemoveItemFromWishList(_id: string) {
+     handleAddItem(_id, 'wishlist')
   }
   
   const EmptyWishList = {

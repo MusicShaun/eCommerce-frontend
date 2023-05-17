@@ -2,6 +2,7 @@ import { ClotheType } from "lib/clothesSlice";
 import { LocalUser } from "../authSlice";
 
 
+
 // TAKES THE USERS WISHLIST ARRAY AND A WISHLIST OBJECT
 // RETURNS A NEW WISHLIST ARRAY WITH THE ADDED WISHLIST OBJECT 
 type R = {
@@ -35,7 +36,7 @@ const filterProductFromWishlist = ({ arr, _id, direction }: F): ClotheType[] => 
 // RETURNS A NEW CART ARRAY WITH THE ADDED CART OBJECT
 type C = {
   obj: ClotheType;
-  user: LocalUser;
+  user: Partial<LocalUser>;
 }
 const recreateCartArray = ({ obj, user }: C): ClotheType[] => {
   let t
@@ -44,7 +45,11 @@ const recreateCartArray = ({ obj, user }: C): ClotheType[] => {
   return t.flat()
 }
 
-//! make comments here 
+
+// THIS IS FOR THE HANDLE CART FUNCTION
+// TAKES THE ALL CLOTHES ARRAY AND THE PRODUCT ID
+// RETURNS A NEW OBJECT WITH THE PRODUCT ID AND SIZE
+// REMOVES UNNECESSARY DATA FROM THE OBJECT
 type G = {
   arr: ClotheType[];
   _id: string;
@@ -55,12 +60,12 @@ const filterProductFromCart = ({ arr, _id, size }: G): ClotheType => {
   const newItemClone = Object.assign({}, newItem)
 
   if (newItemClone && newItemClone !== undefined) {
-    newItemClone.sizes = size; // sizes is a string array. For the user they need one size 
-    delete newItemClone.item //! SHAUN YOU NEED TO WORK ON THIS SECTION@@!!@$!@$!@$
+    newItemClone.sizes = [size]; 
+    delete newItemClone.item 
     delete newItemClone.__v
     return newItemClone;
   }
-  return newItemClone //! this is not right 
+  return newItemClone 
 }
 
 

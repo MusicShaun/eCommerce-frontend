@@ -27,22 +27,6 @@ export default function login() {
   }, [])
   
 
-//!
-const handleSignIn = async () => {
-  try {
-    //* Implement your sign-in logic here using Amplify Auth
-    // await Auth.signIn(
-    //   formData.get('email') as string,
-    //   formData.get('password') as string
-    // );
-
-    //* Update the user's authentication status in the rtk-query slice
-    
-  } catch (error) {
-    console.log('Error signing in:', error);
-  }
-};
-  //! asdfasdfaksdjfkj 
 
   // Submit login form 
   async function handleSubmit(e: any) {
@@ -50,21 +34,12 @@ const handleSignIn = async () => {
     const formData = new FormData(e.target)
 
     try { // LOGIN 
-      await Auth.signIn(
-          formData.get('email') as string,
-          formData.get('password') as string
-      );
-      //* IM ALREADY CALLING USER AUTOMATICALLY. 
-      //*NOW ITD JUST BE A MATTER OF GRABBING THE JWT AND PUTTING IT IN THE PREPARED HEADERS 
+      const res = await login({
+        email: formData.get('email') as string,
+        password: formData.get('password') as string
+      }).unwrap()
 
-
-
-      // const res = await login({
-      //   email: formData.get('email') as string,
-      //   password: formData.get('password') as string
-      // }).unwrap()
-
-      // router.push('/')
+      router.push('/')
       
     } catch (err) {
       console.log(err)

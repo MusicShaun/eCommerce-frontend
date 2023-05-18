@@ -1,11 +1,12 @@
 import styled from "styled-components"
-import Login from "./index"
-import Register from "./Register"
-import { useState } from "react"
+import Login from "../pages/login/index"
+// import Register from "./Registerfixlater"
 import SignInOptions from "@/components/SignInOptions"
+import Register from "../pages/login/Register"
+import { useState } from 'react'
 
 
-export default function LoginWrapper() {
+export default function LoginWrapper({children}) {
 
   const [loggingIn, setLoggingIn ] = useState(true)
 
@@ -14,10 +15,11 @@ export default function LoginWrapper() {
       <Header><h1>ASOS</h1></Header>
       <Box>
         <SignInOptions setLoggingIn={setLoggingIn} />
-          {loggingIn ?
+          {/* {loggingIn ?
             <Login />
             : <Register />
-          }
+          } */}
+          {children}
       </Box>
     </Wrapper>
   )

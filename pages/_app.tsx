@@ -7,7 +7,10 @@ import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import { store } from 'lib/store'
 
-
+import awsconfig from '../src/aws-exports'
+import { Amplify, Auth } from 'aws-amplify'
+Amplify.configure({awsconfig})
+Auth.configure(awsconfig)
 
 function App({ Component, pageProps }: AppProps) {
 

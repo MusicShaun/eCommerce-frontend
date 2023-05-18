@@ -6,8 +6,6 @@ import { createEntityAdapter, createSelector } from '@reduxjs/toolkit'
 
 export interface Signup {
   email: string
-  password: string
-  passwordConfirm: string
   gender: string
   given_name: string
   surname: string 

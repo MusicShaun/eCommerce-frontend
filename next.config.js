@@ -18,12 +18,7 @@ const nextConfig = {
 
       {
         source: '/register',
-        destination: '/login/LoginWrapper',
-        permanent: true,
-      },
-      {
-        source: '/login',
-        destination: '/login/LoginWrapper',
+        destination: '/login/Register',
         permanent: true,
       },
       {

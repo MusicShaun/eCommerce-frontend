@@ -20,7 +20,7 @@ export default function NavUserDropdown() {
       console.log(err)
     } finally {
       dispatch(apiSlice.util.resetApiState())
-      router.push('/login/LoginWrapper', '/login', { shallow: true })
+      router.push('/login')
     }
   }
 
@@ -29,7 +29,7 @@ export default function NavUserDropdown() {
       <HeadContainer>
         {!loggedIn ? 
           <div>
-            <Link href='/login/LoginWrapper' as='/login'>
+            <Link href='/login' as='/login'>
               <HeadButtons style={{ borderRight: ' 1px solid black' }}>
                 Sign in
               </HeadButtons>

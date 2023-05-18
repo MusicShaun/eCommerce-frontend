@@ -8,11 +8,10 @@ import Link from 'next/link'
 import Head from 'next/head'
 
 
-import { withAuthenticator } from '@aws-amplify/ui-react'
 import awsconfig from '../../src/aws-exports'
 import { Amplify, Auth } from 'aws-amplify'
-Amplify.configure({awsconfig})
-Auth.configure(awsconfig)
+import LoginLayout from '@/components/LoginLayout'
+
 // <button onClick={signOut}>Sign out</button>
 // add signOut, user to props
 
@@ -76,6 +75,7 @@ const handleSignIn = async () => {
 
 
   return (<>
+    <LoginLayout>
     <Head>
       <title>Login</title>
     </Head>
@@ -112,7 +112,7 @@ const handleSignIn = async () => {
     </FormLogin>
 
     <AuthOOptions />
-
+    </LoginLayout>
 </>  )
 }
 

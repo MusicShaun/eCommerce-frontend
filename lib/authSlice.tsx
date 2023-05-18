@@ -3,6 +3,7 @@ import { RootState, store } from "./store";
 import { ClotheType } from "./clothesSlice";
 import { extendedUserSlice } from "./userSlice";
 
+//! CHANGE THIS TO A TYPES FILE 
 
 export interface LocalUser {
   given_name: string

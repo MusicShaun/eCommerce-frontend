@@ -24,11 +24,17 @@ interface Status {
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
-    headers: {
-      "Content-Type": "application/json",
+    baseUrl: 'https://shaunysshop.com/',
+    prepareHeaders: (headers, { getState }) => {
+      // Get the JWT token from your Redux store state or any suitable storage mechanism
+      const token = (getState() as RootState).auth.key;
+      if (token) {
+        // Include the token in the Authorization header
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+  
+      return headers;
     },
-    credentials:"include"
   }),
 
   tagTypes: ['Status', 'Clothes', 'Auth', 'LoggedIn'],

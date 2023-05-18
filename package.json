@@ -11,6 +11,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^4.6.1",
     "@next/font": "13.1.6",
+    "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.2",
     "@tanstack/react-query-devtools": "^4.24.9",
     "@types/js-cookie": "^3.0.3",

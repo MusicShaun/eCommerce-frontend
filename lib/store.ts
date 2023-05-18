@@ -1,12 +1,12 @@
 import { Action, ThunkAction, combineReducers, configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
 import logger from 'redux-logger'
-// import userReducer from "./authSlice";
+import auth from "./authSlice";
 import searchBarReducer from "./searchBarSlice";
 
 const reducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
-  // user: userReducer,
+  auth,
   searchBar: searchBarReducer,
 })
 

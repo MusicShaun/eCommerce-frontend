@@ -1,32 +1,38 @@
 import React from 'react'
 import styled from 'styled-components'
-import Image from 'next/image'
-import Facebook from '../public/facebook.webp'
-import Apple from '../public/apple.webp'
-import Google from '../public/google.webp'
+import { GoogleLogin, googleLogout} from '@react-oauth/google';
+import { useAppDispatch } from '@/lib/hooks/hooks'
+import router from 'next/router';
+import { setAuth ,loggedIn} from '@/lib/authSlice';
 
 export default function AuthOOptions() {
 
-  function handleclick() {
-    alert('AuthO coming soon! Or not. It might be better to not bloat this app')
+  const dispatch = useAppDispatch()
+
+  const responseMessage = (response: any) => {
+    //dispatch auth and add response.credentials
+    console.log(response)
+
+    dispatch(setAuth(response.credential))
+    dispatch(loggedIn(true))
+    router.push('/')
+};
+  const errorMessage = (error: any) => {
+      console.log(error);
   }
+
+    
+  // const { profileObj } = response
+  // console.log(profileObj)
+
+  
 
   return (
     <Container>
       <h2 style={{marginBottom: '20px'}}>OR SIGN IN WITH...</h2>
       <SocialLinks>
-        <SocialLink onClick={handleclick}>
-          <Image src={Google} alt="google" width={30} height={30} />
-          <Text>Google</Text>
-        </SocialLink>
-        <SocialLink  onClick={handleclick}>
-          <Image src={Facebook} alt='facebook' width={30} height={30}  />
-          <Text>Facebook</Text>
-        </SocialLink>
-        <SocialLink onClick={handleclick}>
-          <Image src={Apple} alt='apple'  width={30} height={30} />
-          <Text>Apple</Text>
-        </SocialLink>
+      <GoogleLogin onSuccess={responseMessage} onError={() => errorMessage} />
+   
       </SocialLinks>
     </Container>
   )
@@ -69,3 +75,13 @@ const SocialLink = styled.a`
 const Text = styled.span`
   
 `
+
+
+        {/* <SocialLink  onClick={handleclick}>
+          <Image src={Facebook} alt='facebook' width={30} height={30}  />
+          <Text>Facebook</Text>
+        </SocialLink>
+        <SocialLink onClick={handleclick}>
+          <Image src={Apple} alt='apple'  width={30} height={30} />
+          <Text>Apple</Text>
+        </SocialLink> */}

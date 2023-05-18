@@ -24,7 +24,7 @@ interface Status {
 export const apiSlice = createApi({
   reducerPath: 'apiSlice',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://shaunysshop.com/',
+    baseUrl: 'https://shauns-ecommerce.herokuapp.com/api/asos/',
     prepareHeaders: (headers, { getState }) => {
       // Get the JWT token from your Redux store state or any suitable storage mechanism
       const token = (getState() as RootState).auth.key;

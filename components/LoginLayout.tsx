@@ -6,7 +6,8 @@ import Register from "../pages/login/Register"
 import { useState } from 'react'
 
 
-export default function LoginWrapper({children}) {
+export default function LoginWrapper({children}: {children: React.ReactNode}) {
+
 
   const [loggingIn, setLoggingIn ] = useState(true)
 

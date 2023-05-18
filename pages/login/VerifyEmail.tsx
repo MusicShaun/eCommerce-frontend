@@ -1,38 +1,47 @@
+import React, { useState } from 'react';
+import { Auth } from 'aws-amplify';
 import Image from 'next/image'
 import styled from 'styled-components'
 import password from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useForgotPasswordMutation } from 'lib/userSlice'
 import ErrorWindow from '@/components/ErrorWindow'
-import { useState } from 'react'
+import router from 'next/router';
 
-export default function ForgotPassword() {
+
+const VerifyEmail = (email: string) => {
+
+
+  const handleVerification = async (e: any) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const verificationCode = formData.get('code') as string
+
+    try {
+      await Auth.confirmSignUp('shaun.off.beat@gmail.com', verificationCode); // get the string from user input
+      console.log('Email verified successfully');
+      // Redirect to login or display success message
+
+      router.push('/login/FillYourDetails')
+      
+    } catch (error) {
+      console.log('Error verifying email:', error);
+      // Handle verification error
+    }
+  };
+
 
   const [errorWindow, setErrorWindow] = useState(false)
   const [successWindow, setSuccessWindow] = useState(false)
   const [forgotPassword, {isLoading, error} ] = useForgotPasswordMutation()
   const [errorMessage, setErrorMessage] = useState('')
 
-  // Submit login form // Set localStorage // push user to state 
-  async function handleSubmit(e: any) {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const email = formData.get('email')
-    try {
-      setSuccessWindow(true)
-      const res = await forgotPassword({ email: email }).unwrap()
-      console.log(res)
-    } catch (err: any) {
-      setErrorMessage(err.data.message)
-      console.log(err)
-      setErrorWindow(true)
-    }
-    
-  }
+
   
 
   
   return (
+    
      <Wrapper>
         <Image src='https://res.cloudinary.com/dyneqi48f/image/upload/v1680441503/pexels-vincent-gerbouin-2263665_axookb.jpg'
           alt=''
@@ -57,9 +66,9 @@ export default function ForgotPassword() {
       <Box>
 
         <BorderBreak />
-        <Reset>RESET PASSWORD</Reset>
+        <Reset>VERIFY PASSWORD</Reset>
         <Image src={password} alt='' width={75} />
-        <Header><h3>Please enter your email address  and <br/> instructions will be sent to you. </h3></Header>
+        <Header><h3>Please check your email <br/> and enter the code below </h3></Header>
         <FormLogin>
           
         <SpinnerContainer >
@@ -72,18 +81,18 @@ export default function ForgotPassword() {
             />
         </SpinnerContainer>
         
-        <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form onSubmit={(e) => handleVerification(e)}>
           <FieldSet>
             <FieldSetBox>
               <Field>
-                <label htmlFor='email'></label>
-                <input name='email'  type='email' id='email' autoComplete='email username' placeholder='john@example.com' />
+                <label htmlFor='code'></label>
+                <input name='code'  type='text' id='code' placeholder='enter code here' />
               </Field>
             </FieldSetBox>
           </FieldSet>
 
           <FieldSetBox>
-            <SubmitBtn>ENTER</SubmitBtn>
+            <SubmitBtn>VERIFY EMAIL</SubmitBtn>
           </FieldSetBox>
             
         </Form>
@@ -94,7 +103,9 @@ export default function ForgotPassword() {
   
    )
   }
+export default VerifyEmail;
   
+
 const Wrapper = styled.div`
   position: absolute;
   top: 0;

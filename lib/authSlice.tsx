@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState, store } from "./store";
 import { ClotheType } from "./clothesSlice";
-import { extendedUserSlice } from "./userSlice";
 
 
 export interface LocalUser {
@@ -14,37 +12,33 @@ export interface LocalUser {
   dob?: string 
 }
 export type AuthState = {
-  key: LocalUser | null
+  key: string | null
+  loggedIn: boolean
+  email: string
 }
 const initialState: AuthState = {
   key: null,
+  loggedIn: false,
+  email: ''
 }
 
-//* IVE OPTED TO NOT RECEIVE THE USERS INFO FROM THE SERVER
-//* IT SEEMS A WASTE TO HAVE IT SENT BACK AND CHECKED
-//* INSTEAD ILL KEEP SERVER AND CLIENT STORAGE SEPARATE YET IN SYNC 
-// const userSlice = createSlice({
-  // name: 'user',
-  // initialState,
-  // reducers: {} ,
-  // extraReducers: builder => {
 
-    //? THIS IS THE ONLY ONE I WANT TO SUBSCRIBE TO AS ITS THE USER DATA. ONE POINT OF ORIGIN
-    // builder.addMatcher( 
-    //   extendedUserSlice.endpoints.getUser.matchFulfilled,
-    //   (state, { payload }) => {
-    //     state.key = payload
-    //   }
-    // ),
-    //   builder.addMatcher(
-    //     extendedUserSlice.endpoints.logout.matchFulfilled,
-    //     (state) => {
-    //       state.key = null
-    //     }
-    // )
-  // },
-// })
+const userSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    setAuth: (state, action) => {
+      state.key = action.payload
+    },
+    loggedIn: (state, action) => {
+      console.log(action.payload)
+      state.loggedIn = action.payload
+    },
+    setEmailOnLogin: (state, action) => {
+      state.email = action.payload
+    }
+  },
+})
+export const { setAuth, loggedIn } = userSlice.actions
 
-
-// export const selectCurrentUser = (state: RootState) => state.user.key
-// export default userSlice.reducer
+export default userSlice.reducer 

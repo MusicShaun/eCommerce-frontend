@@ -1,21 +1,10 @@
-
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import router from 'next/router'
 import { useRegisterMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import ErrorWindow from '@/components/ErrorWindow'
-
-import awsconfig from '../../src/aws-exports'
-import { Amplify, Auth } from 'aws-amplify'
-import AuthOOptions from '@/components/AuthOOptions'
-import LoginLayout from '@/components/LoginLayout'
-Amplify.configure({awsconfig})
-Auth.configure(awsconfig)
-// <button onClick={signOut}>Sign out</button>
-// add signOut, user to props
-
-
+import Cookies from 'js-cookie'
 
 export default function login() {
 
@@ -40,15 +29,19 @@ export default function login() {
       return
     }
     try {
-      const cognitoUser = await Auth.signUp({
-        username: data.get('email') as string,
-        password: data.get('password') as string
-      })
+      const res = await register({
+        given_name: data.get('first') as string,
+        surname: data.get('last') as string,
+        email: data.get('email') as string,
+        password: data.get('password') as string,
+        passwordConfirm: data.get('confirm_password') as string,
+        dob: data.get('dob') as string,
+        gender: handleInterestCheck(e),
+      }).unwrap()
 
 
-      console.log(cognitoUser)
-
-      // router.push('/login/VerifyEmail')
+      // localStorage.setItem('key', JSON.stringify({...rest}))
+      router.push('/')
       
     } catch (err: any) {
       setErrorWindow(true)
@@ -69,7 +62,7 @@ export default function login() {
 
 
   return (<>
-    <LoginLayout>
+    
     <FormLogin>
       <SpinnerContainer style={{display: isLoading ? 'flex' : 'none'}}>
         <PacmanLoader
@@ -97,6 +90,14 @@ export default function login() {
               <input ref={focusRef}  name='email' autoComplete='email' required/>
             </Field>
             <Field>
+              <label>FIRST NAME</label>
+              <input name='first' autoComplete='name' required/>
+            </Field>
+            <Field>
+              <label>LAST NAME</label>
+              <input name='last' autoComplete='surname' required/>
+            </Field>
+            <Field>
               <label>PASSWORD</label>
               <input name='password' autoComplete='new-password' type='password' required/>
             </Field>
@@ -104,7 +105,20 @@ export default function login() {
               <label>CONFIRM PASSWORD</label>
               <input name='confirm_password' autoComplete='new-password' type='password'  required ref={passwordRef} />
             </Field>
+            <Field>
+              <label>DATE OF BIRTH</label>
+              <input type="date" id="dob" name="dob" required/>
+            </Field>
+            <Field>
+              <label>Mostly interested in</label>
+                <RadioField style={{ flexDirection: 'row', padding: '10px 0 0 0 ' }}>
+                <input type='radio' name='women'/>  
+                <label>Womenswear</label>
+                <input type='radio' name='men'/>
+                <label>Menswear</label>
 
+                </RadioField>        
+            </Field>
           </FieldSetBox>
             
           <FieldSetBox>
@@ -115,9 +129,8 @@ export default function login() {
       </Form>
     </FormLogin>
 
-    <AuthOOptions />
+    
 
-      </LoginLayout>
 </>  )
 }
 

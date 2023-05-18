@@ -1,7 +1,6 @@
-import { createSelector, createEntityAdapter, EntityState, CombinedState } from "@reduxjs/toolkit";
+import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
 import { apiSlice } from "lib/apiSlice";
-import { RootState, store } from "./store";
-import { useAppSelector } from "./hooks/hooks";
+
 
 export type ClotheType = {
   name: string
@@ -12,7 +11,8 @@ export type ClotheType = {
   color: string
   _id: string
   image: string
-  item: string
+  item?: string
+  __v?: number
 }
 export type Clothes = {
   data: {

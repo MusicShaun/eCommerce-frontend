@@ -5,10 +5,12 @@ import router from 'next/router'
 import { useRegisterMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import ErrorWindow from '@/components/ErrorWindow'
+import { useAppSelector } from 'lib/hooks/hooks'
+import { selectUserById, useUpdateUserMutation } from 'lib/userSlice'
+
 
 import awsconfig from '../../src/aws-exports'
 import { Amplify, Auth } from 'aws-amplify'
-import AuthOOptions from '@/components/AuthOOptions'
 import LoginLayout from '@/components/LoginLayout'
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
@@ -22,8 +24,10 @@ export default function login() {
   const [errorWindow, setErrorWindow] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const [register, { isLoading , error}] = useRegisterMutation()
-  const passwordRef = useRef<HTMLInputElement>(null)
   const focusRef = useRef<HTMLInputElement>(null)
+
+  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const user = currentUser 
 
   useEffect(() => {
     if (focusRef.current) focusRef.current.focus() 
@@ -32,23 +36,19 @@ export default function login() {
   async function handleSubmit(e:any ) {
     e.preventDefault()
     const data = new FormData(e.target)
-    if (data.get('password') !== data.get('confirm_password')) {
-      passwordRef.current!.value = ''
-      // passwordRef.current?.setCustomValidity('Passwords do not match')
-      passwordRef.current?.focus()
-      alert('Passwords do not match')
-      return
-    }
+
     try {
-      const cognitoUser = await Auth.signUp({
-        username: data.get('email') as string,
-        password: data.get('password') as string
-      })
+      const res = await register({//! FOR THIS TO WORK, HAVE TO HAVE THE GETUSER API CALLED AND RETURNED WITH EMAIL 
+        email: user?.email || '',
+        given_name: data.get('first') as string,
+        surname: data.get('last') as string,
+        dob: data.get('dob') as string,
+        gender: handleInterestCheck(e)
+      }).unwrap()
 
+      console.log(res)
 
-      console.log(cognitoUser)
-
-      // router.push('/login/VerifyEmail')
+      // router.push('/')
       
     } catch (err: any) {
       setErrorWindow(true)
@@ -92,32 +92,43 @@ export default function login() {
       <Form onSubmit={(e) => handleSubmit(e)}>
         <FieldSet>
           <FieldSetBox>
+
             <Field>
-              <label>EMAIL ADDRESS</label>
-              <input ref={focusRef}  name='email' autoComplete='email' required/>
+              <label>FIRST NAME</label>
+              <input name='first' autoComplete='name' required/>
             </Field>
             <Field>
-              <label>PASSWORD</label>
-              <input name='password' autoComplete='new-password' type='password' required/>
-            </Field>
-            <Field>
-              <label>CONFIRM PASSWORD</label>
-              <input name='confirm_password' autoComplete='new-password' type='password'  required ref={passwordRef} />
+              <label>LAST NAME</label>
+              <input name='last' autoComplete='surname' required/>
             </Field>
 
+            <Field>
+              <label>DATE OF BIRTH</label>
+              <input type="date" id="dob" name="dob" required/>
+            </Field>
+            <Field>
+              <label>Mostly interested in</label>
+                <RadioField style={{ flexDirection: 'row', padding: '10px 0 0 0 ' }}>
+                <input type='radio' name='women'/>  
+                <label>Womenswear</label>
+                <input type='radio' name='men'/>
+                <label>Menswear</label>
+
+                </RadioField>        
+            </Field>
           </FieldSetBox>
             
           <FieldSetBox>
-            <SubmitBtn >JOIN</SubmitBtn>
+            <SubmitBtn >COMPLETE PROFILE</SubmitBtn>
           </FieldSetBox>
 
+          <button onClick={() => router.push('/')}>SKIP</button>
         </FieldSet>
       </Form>
     </FormLogin>
 
-    <AuthOOptions />
+    </LoginLayout>
 
-      </LoginLayout>
 </>  )
 }
 

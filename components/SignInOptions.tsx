@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
@@ -13,10 +14,10 @@ export default function SignInOptions({ setLoggingIn }: IProps) {
   return (
   <SignIn>
     <SignInButtons>
-      <div  onClick={() => setLoggingIn(true)} style={{borderRight: `2px solid lightgrey`}}>LOGIN</div>
+    <Link  href='/login'><div  onClick={() => setLoggingIn(true)} style={{borderRight: `2px solid lightgrey`}}>LOGIN</div></Link>
     </SignInButtons>
     <SignInButtons>
-    <div onClick={() => setLoggingIn(false)}>SIGN UP</div>
+     <Link  href='/login/Register'><div onClick={() => setLoggingIn(false)} >SIGN UP</div></Link>
     </SignInButtons>
   </SignIn >
   )

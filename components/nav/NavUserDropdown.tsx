@@ -2,34 +2,43 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import {   apiSlice, useIsLoggedInQuery } from 'lib/apiSlice'
 import router from 'next/router'
-import { useAppDispatch } from 'lib/hooks/hooks'
+import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import { useLogoutMutation } from 'lib/userSlice'
+import { GoogleLogin, googleLogout} from '@react-oauth/google';
+import { setAuth , loggedIn} from '@/lib/authSlice'
 
 export default function NavUserDropdown() {
 
-  const { data: loggedIn } = useIsLoggedInQuery()
+  // const { data: loggedIn } = useIsLoggedInQuery()
+  const loggedInState = useAppSelector(state => state.auth.loggedIn)
   const [logout, { isSuccess }] = useLogoutMutation()
   const dispatch = useAppDispatch()
+  console.log(loggedInState)
 
   async function handleLogout() {
     localStorage.removeItem('key')
     try {
+      dispatch(setAuth(null))
+      dispatch(loggedIn(false))
+      // googleLogout(); 
       const res = await logout() 
     }
     catch (err) {
       console.log(err)
     } finally {
       dispatch(apiSlice.util.resetApiState())
-      router.push('/login/LoginWrapper', '/login', { shallow: true })
+      router.push('/login')
     }
   }
+
+
 
   return (
     <Container >
       <HeadContainer>
-        {!loggedIn ? 
+        {!loggedInState ? 
           <div>
-            <Link href='/login/LoginWrapper' as='/login'>
+            <Link href='/login' as='/login'>
               <HeadButtons style={{ borderRight: ' 1px solid black' }}>
                 Sign in
               </HeadButtons>

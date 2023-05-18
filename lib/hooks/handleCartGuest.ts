@@ -1,16 +1,10 @@
 import { LocalUser } from "lib/authSlice";
 import { ClotheType } from "lib/clothesSlice";
+import services from "../services/utilities";
 
 export function handleCartGuest(_id: string, user: Partial<LocalUser>, size: string, allClothes: ClotheType[]) {
 
-  const createCartArray = 
-    (obj: ClotheType, user:  Partial<LocalUser>) => {
-      let t
-      t = [...(user.cart || [])]
-      t.push(obj)
-      return t.flat()
-    }
-
+    
   const filterArray = (arr: ClotheType[], _id: string, direction: string, size: string) => {
     const [newItem]: any = arr.filter((item) =>
       direction === "+" ? item._id === _id : item._id !== _id
@@ -27,7 +21,7 @@ export function handleCartGuest(_id: string, user: Partial<LocalUser>, size: str
   let tempValue: any[] = []
     
   const getclothingItemToPush = filterArray(allClothes, _id, "+", size)
-  tempValue = createCartArray(getclothingItemToPush, user)
+  tempValue = services.recreateCartArray({obj: getclothingItemToPush, user})
   
   return {
       // ...tempValue,

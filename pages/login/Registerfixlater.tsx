@@ -8,61 +8,61 @@ import Cookies from 'js-cookie'
 
 export default function login() {
 
-  const [errorWindow, setErrorWindow] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-  const [register, { isLoading , error}] = useRegisterMutation()
-  const passwordRef = useRef<HTMLInputElement>(null)
-  const focusRef = useRef<HTMLInputElement>(null)
+  // const [errorWindow, setErrorWindow] = useState(false)
+  // const [errorMessage, setErrorMessage] = useState('')
+  // const [register, { isLoading , error}] = useRegisterMutation()
+  // const passwordRef = useRef<HTMLInputElement>(null)
+  // const focusRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    if (focusRef.current) focusRef.current.focus() 
-  }, []) 
+  // useEffect(() => {
+  //   if (focusRef.current) focusRef.current.focus() 
+  // }, []) 
 
-  async function handleSubmit(e:any ) {
-    e.preventDefault()
-    const data = new FormData(e.target)
-    if (data.get('password') !== data.get('confirm_password')) {
-      passwordRef.current!.value = ''
-      // passwordRef.current?.setCustomValidity('Passwords do not match')
-      passwordRef.current?.focus()
-      alert('Passwords do not match')
-      return
-    }
-    try {
-      const res = await register({
-        given_name: data.get('first') as string,
-        surname: data.get('last') as string,
-        email: data.get('email') as string,
-        password: data.get('password') as string,
-        passwordConfirm: data.get('confirm_password') as string,
-        dob: data.get('dob') as string,
-        gender: handleInterestCheck(e),
-      }).unwrap()
+  // async function handleSubmit(e:any ) {
+  //   e.preventDefault()
+  //   const data = new FormData(e.target)
+  //   if (data.get('password') !== data.get('confirm_password')) {
+  //     passwordRef.current!.value = ''
+  //     // passwordRef.current?.setCustomValidity('Passwords do not match')
+  //     passwordRef.current?.focus()
+  //     alert('Passwords do not match')
+  //     return
+  //   }
+  //   try {
+  //     const res = await register({
+  //       given_name: data.get('first') as string,
+  //       surname: data.get('last') as string,
+  //       email: data.get('email') as string,
+  //       password: data.get('password') as string,
+  //       passwordConfirm: data.get('confirm_password') as string,
+  //       dob: data.get('dob') as string,
+  //       gender: handleInterestCheck(e),
+  //     }).unwrap()
 
 
-      // localStorage.setItem('key', JSON.stringify({...rest}))
-      router.push('/')
+  //     // localStorage.setItem('key', JSON.stringify({...rest}))
+  //     router.push('/')
       
-    } catch (err: any) {
-      setErrorWindow(true)
-      if (err.status == 429) setErrorMessage('Too many requests, please try again later')
-      else if ('data' in err && err.data.message) setErrorMessage(err.data.message)
-      else setErrorMessage(err.error)
-      console.log(err)
-    }
-  }
+  //   } catch (err: any) {
+  //     setErrorWindow(true)
+  //     if (err.status == 429) setErrorMessage('Too many requests, please try again later')
+  //     else if ('data' in err && err.data.message) setErrorMessage(err.data.message)
+  //     else setErrorMessage(err.error)
+  //     console.log(err)
+  //   }
+  // }
 
-  function handleInterestCheck(e:any) {
-    if (e.target.women.checked) {
-      return 'women'
-    } else if (e.target.men.checked) {
-      return 'men'
-    } else return ''
-  }
+  // function handleInterestCheck(e:any) {
+  //   if (e.target.women.checked) {
+  //     return 'women'
+  //   } else if (e.target.men.checked) {
+  //     return 'men'
+  //   } else return ''
+  // }
 
 
   return (<>
-    
+{/*     
     <FormLogin>
       <SpinnerContainer style={{display: isLoading ? 'flex' : 'none'}}>
         <PacmanLoader
@@ -129,7 +129,7 @@ export default function login() {
       </Form>
     </FormLogin>
 
-    
+     */}
 
 </>  )
 }

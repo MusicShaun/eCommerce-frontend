@@ -19,39 +19,39 @@ Auth.configure(awsconfig)
 
 export default function login() {
 
-  const focusRef = useRef<HTMLInputElement>(null)
-  const [login, { isLoading, isSuccess }] = useLoginMutation()
+  // const focusRef = useRef<HTMLInputElement>(null)
+  // const [login, { isLoading, isSuccess }] = useLoginMutation()
   
-  useEffect(() => {
-    if (focusRef.current) focusRef.current.focus()
-  }, [])
+  // useEffect(() => {
+  //   if (focusRef.current) focusRef.current.focus()
+  // }, [])
   
 
 
-  // Submit login form 
-  async function handleSubmit(e: any) {
-    e.preventDefault()
-    const formData = new FormData(e.target)
+  // // Submit login form 
+  // async function handleSubmit(e: any) {
+  //   e.preventDefault()
+  //   const formData = new FormData(e.target)
 
-    try { // LOGIN 
-      const res = await login({
-        email: formData.get('email') as string,
-        password: formData.get('password') as string
-      }).unwrap()
+  //   try { // LOGIN 
+  //     const res = await login({
+  //       email: formData.get('email') as string,
+  //       password: formData.get('password') as string
+  //     }).unwrap()
 
-      router.push('/')
+  //     router.push('/')
       
-    } catch (err) {
-      console.log(err)
-      alert('Invalid email or password')
-    } finally {
+  //   } catch (err) {
+  //     console.log(err)
+  //     alert('Invalid email or password')
+  //   } finally {
 
-    }
-  }
+  //   }
+  // }
 
 
   return (<>
-    <Head>
+    {/* <Head>
       <title>Login</title>
     </Head>
     <FormLogin>
@@ -86,7 +86,7 @@ export default function login() {
       </Form>
     </FormLogin>
 
-    <AuthOOptions />
+    <AuthOOptions /> */}
 
 </>  )
 }

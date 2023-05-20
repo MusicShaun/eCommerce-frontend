@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { GoogleLogin, googleLogout} from '@react-oauth/google';
 import { useAppDispatch } from '@/lib/hooks/hooks'
 import router from 'next/router';
 import { setAuth ,loggedIn} from '@/lib/authSlice';
@@ -9,21 +8,6 @@ export default function AuthOOptions() {
 
   const dispatch = useAppDispatch()
 
-  const responseMessage = (response: any) => {
-    //dispatch auth and add response.credentials
-    console.log(response)
-
-    dispatch(setAuth(response.credential))
-    dispatch(loggedIn(true))
-    router.push('/')
-};
-  const errorMessage = (error: any) => {
-      console.log(error);
-  }
-
-    
-  // const { profileObj } = response
-  // console.log(profileObj)
 
   
 
@@ -31,7 +15,6 @@ export default function AuthOOptions() {
     <Container>
       <h2 style={{marginBottom: '20px'}}>OR SIGN IN WITH...</h2>
       <SocialLinks>
-      <GoogleLogin onSuccess={responseMessage} onError={() => errorMessage} />
    
       </SocialLinks>
     </Container>

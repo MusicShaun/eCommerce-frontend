@@ -5,17 +5,18 @@ import router from 'next/router'
 import { useRegisterMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import ErrorWindow from '@/components/ErrorWindow'
-
+import VerifyEmail from './VerifyEmail'
 import awsconfig from '../../src/aws-exports'
 import { Amplify, Auth } from 'aws-amplify'
 import AuthOOptions from '@/components/AuthOOptions'
 import LoginLayout from '@/components/LoginLayout'
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks'
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
 // <button onClick={signOut}>Sign out</button>
 // add signOut, user to props
 
-
+import { selectUsersEmail, setEmailOnLogin } from '@/lib/authSlice'
 
 export default function login() {
 
@@ -24,6 +25,10 @@ export default function login() {
   const [register, { isLoading , error}] = useRegisterMutation()
   const passwordRef = useRef<HTMLInputElement>(null)
   const focusRef = useRef<HTMLInputElement>(null)
+  const [showVerify, setShowVerify] = useState(false)
+  const [passkey, setPasskey] = useState('')
+  const dispatch = useAppDispatch()
+
 
   useEffect(() => {
     if (focusRef.current) focusRef.current.focus() 
@@ -34,21 +39,22 @@ export default function login() {
     const data = new FormData(e.target)
     if (data.get('password') !== data.get('confirm_password')) {
       passwordRef.current!.value = ''
-      // passwordRef.current?.setCustomValidity('Passwords do not match')
       passwordRef.current?.focus()
       alert('Passwords do not match')
       return
     }
     try {
+      dispatch(setEmailOnLogin(data.get('email') as string))
+      setPasskey(data.get('password') as string)
+
       const cognitoUser = await Auth.signUp({
         username: data.get('email') as string,
         password: data.get('password') as string
       })
 
+      setShowVerify(true)
 
       console.log(cognitoUser)
-
-      // router.push('/login/VerifyEmail')
       
     } catch (err: any) {
       setErrorWindow(true)
@@ -66,9 +72,17 @@ export default function login() {
       return 'men'
     } else return ''
   }
+  function closeVerificationWindow() {
+    setShowVerify(false)
+  }
 
 
   return (<>
+    {showVerify ? <VerifyEmail
+      password={passkey}
+      hideVerificationWindow={closeVerificationWindow}
+    /> : false} 
+
     <LoginLayout>
     <FormLogin>
       <SpinnerContainer style={{display: isLoading ? 'flex' : 'none'}}>
@@ -98,11 +112,11 @@ export default function login() {
             </Field>
             <Field>
               <label>PASSWORD</label>
-              <input name='password' autoComplete='new-password' type='password' required/>
+              <input name='password' autoComplete='new-password' type='password' />
             </Field>
             <Field>
               <label>CONFIRM PASSWORD</label>
-              <input name='confirm_password' autoComplete='new-password' type='password'  required ref={passwordRef} />
+              <input name='confirm_password' autoComplete='new-password' type='password'  ref={passwordRef} />
             </Field>
 
           </FieldSetBox>

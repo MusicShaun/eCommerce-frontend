@@ -2,39 +2,61 @@ import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import Image from 'next/image'
 import styled from 'styled-components'
-import password from '@/public/password.png'
+import passwordIMG from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useForgotPasswordMutation } from 'lib/userSlice'
 import ErrorWindow from '@/components/ErrorWindow'
 import router from 'next/router';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks';
+import { selectUsersEmail, setAuth } from '@/lib/authSlice';
+
+interface IProps {
+  password: string 
+  hideVerificationWindow: () => void
+}
+
+const VerifyEmail = ({password, hideVerificationWindow}: IProps) => {
+
+  const usersEmail = useAppSelector(selectUsersEmail)
+  const dispatch = useAppDispatch()
+  const [errorMessage, setErrorMessage] = useState('')
 
 
-const VerifyEmail = (email: string) => {
-
-
+  // Get input
+  // Confirm cognito signup
+  // Sign user in
+  // Get jwt 
+  // Route to Home 
   const handleVerification = async (e: any) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const verificationCode = formData.get('code') as string
 
     try {
-      await Auth.confirmSignUp('shaun.off.beat@gmail.com', verificationCode); // get the string from user input
-      console.log('Email verified successfully');
-      // Redirect to login or display success message
+      await Auth.confirmSignUp(usersEmail, verificationCode); // get the string from user input
 
-      router.push('/login/FillYourDetails')
+      const signedInUser = await Auth.signIn(usersEmail, password);
+      const accessToken = signedInUser.signInUserSession.accessToken.jwtToken;
+      console.log(accessToken)
+      dispatch(setAuth(accessToken))
+      hideVerificationWindow()
+
+      console.log('SUCCESS:: REROUTING TO LOGIN ');
+      router.push('/')
       
-    } catch (error) {
+    } catch (error: any) { 
       console.log('Error verifying email:', error);
-      // Handle verification error
+
+      setErrorMessage(error)
+      //!  COME BACK HERE AND DO SOME ERROR HANDLING 
     }
   };
 
 
+  //! THESE STATES WILL NEED TO BE CHECK IF THEYRE STILL USEFUL 
   const [errorWindow, setErrorWindow] = useState(false)
   const [successWindow, setSuccessWindow] = useState(false)
   const [forgotPassword, {isLoading, error} ] = useForgotPasswordMutation()
-  const [errorMessage, setErrorMessage] = useState('')
 
 
   
@@ -67,7 +89,7 @@ const VerifyEmail = (email: string) => {
 
         <BorderBreak />
         <Reset>VERIFY PASSWORD</Reset>
-        <Image src={password} alt='' width={75} />
+        <Image src={passwordIMG} alt='' width={75} />
         <Header><h3>Please check your email <br/> and enter the code below </h3></Header>
         <FormLogin>
           
@@ -117,7 +139,7 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   background-color: lightgrey;
-  z-index: 1001;
+  z-index: 10001;
 `
 const Header = styled.div`
   width: 650px;

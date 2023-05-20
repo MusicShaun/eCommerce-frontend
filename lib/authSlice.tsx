@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ClotheType } from "./clothesSlice";
-
+import { RootState } from "./store";
 
 export interface LocalUser {
   given_name: string
@@ -31,7 +31,6 @@ const userSlice = createSlice({
       state.key = action.payload
     },
     loggedIn: (state, action) => {
-      console.log(action.payload)
       state.loggedIn = action.payload
     },
     setEmailOnLogin: (state, action) => {
@@ -39,6 +38,9 @@ const userSlice = createSlice({
     }
   },
 })
-export const { setAuth, loggedIn } = userSlice.actions
+
+export const selectUsersEmail = (state: RootState) => state.auth.email
+
+export const { setAuth, loggedIn, setEmailOnLogin } = userSlice.actions
 
 export default userSlice.reducer 

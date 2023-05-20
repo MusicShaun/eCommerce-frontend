@@ -38,11 +38,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
 
     
     getUser: builder.query<any, void>({
-      query: (email) => ({
-        url: `/users`,
-        method: 'POST',
-        body: email
-      }),
+      query: () => `/users`,
       transformResponse: (user: LocalUser) => {
         localStorage.setItem('key', JSON.stringify({ ...user }))
         return usersAdapter.setAll(initialState, [user])

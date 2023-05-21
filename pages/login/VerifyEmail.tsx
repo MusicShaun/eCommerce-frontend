@@ -41,8 +41,8 @@ const VerifyEmail = ({password, hideVerificationWindow}: IProps) => {
       dispatch(setAuth(accessToken))
       hideVerificationWindow()
 
-      console.log('SUCCESS:: REROUTING TO LOGIN ');
-      router.push('/')
+      console.log('SUCCESS:: REROUTING TO DETAILS ');
+      router.push('/loin/FillYourDetails')
       
     } catch (error: any) { 
       console.log('Error verifying email:', error);

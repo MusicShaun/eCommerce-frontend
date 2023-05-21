@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import MyAccountLayout from '../../components/AccountLayout'
 import React, { useRef, useState } from 'react'
-import { selectUserById, useUpdateUserMutation } from 'lib/userSlice'
+import { selectUser , useGetUserQuery, useUpdateUserMutation} from 'lib/userSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 import Head from 'next/head'
+import { RootState } from '@/lib/store'
 
 export default function PersonalDetails() {
 
@@ -12,8 +13,11 @@ export default function PersonalDetails() {
   const [interestRadio, setInterestRadio ] = useState({ men: false, women: false })
     
   const [updateUser, {isLoading, isSuccess}] = useUpdateUserMutation()
-  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
-  const user = currentUser 
+  const userEmail = useAppSelector(state => state.auth.email)
+  const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
+  const user = currentUser       
+      
+  const { refetch } = useGetUserQuery(userEmail)
 
   function setInterestWomen() {
     setInterestRadio({
@@ -34,24 +38,32 @@ export default function PersonalDetails() {
     e.preventDefault()
     let data = new FormData(e.target)
     const { given_name, surname, email, dob } = Object.fromEntries(data.entries())
-    const localUser = JSON.parse(localStorage.getItem('key')!)
 
     try {
       const res = await updateUser({ 
-        ...localUser.profile,
-        given_name: given_name === '' ? localUser.profile.given_name : given_name,
-        surname: surname === '' ? localUser.profile.surname : surname,
-        email: email === '' ? localUser.profile.email : email,
-        dob: dob === '' ?  localUser.profile.dob : dob ,
+        ...currentUser,
+        given_name: given_name === '' ? currentUser.given_name : given_name,
+        surname: surname === '' ? currentUser.surname : surname,
+        email: email === '' ? currentUser.email : email,
+        dob: dob === '' ?  currentUser.dob : dob ,
         gender: interestRadio.men ? 'men' : 'women',
-        _id: localUser.profile._id,
+        _id: currentUser._id,
       }).unwrap()
-      localStorage.setItem('key', JSON.stringify({...localUser, profile: res}))
+
+      //!  SETUP A CONFIRMATION MODAL HERE AND THEN HAVE THE ACCOUNT DETAILS STATE UPDATE ON CONFIRMATION
+      resetAllInputFields()
+      refetch()
     } catch (err) {
       console.log(err)
     }
   }
 
+  function resetAllInputFields() {
+    const inputs = document.querySelectorAll('input')
+    inputs.forEach((input) => {
+      input.value = ''
+    })
+  }
 
   return (
     <> <Head>

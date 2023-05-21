@@ -1,9 +1,7 @@
 import { RootState } from './store'
-import { ClotheType } from './clothesSlice'
 import { apiSlice } from './apiSlice'
 import { LocalUser } from './authSlice'
-import { createEntityAdapter, createSelector } from '@reduxjs/toolkit'
-
+import { getAuthEmail } from './selectors';
 export interface Signup {
   email: string
   gender: string
@@ -11,17 +9,17 @@ export interface Signup {
   surname: string 
   dob: string
 }
-
 interface Status {
   status: string
 }
 type AddItem = Pick<LocalUser, 'cart'> | Pick<LocalUser, 'wishlist'>
 
-const usersAdapter = createEntityAdapter({
-    selectId: (user: LocalUser) => 'userId',
-    }
-)
-const initialState = usersAdapter.getInitialState()
+
+// const usersAdapter = createEntityAdapter({
+//     selectId: (user: LocalUser) => 'userId',
+//     }
+// )
+// const initialState = usersAdapter.getInitialState()
 
 
 export const extendedUserSlice = apiSlice.injectEndpoints({
@@ -37,17 +35,22 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
 
 
     
-    getUser: builder.query<any, void>({
-      query: () => `/users`,
+    getUser: builder.query<any, string>({
+      query: (email) => ({
+        url: `/users`,
+        method: 'POST',
+        body:  {email: email }
+      }),
       transformResponse: (user: LocalUser) => {
         localStorage.setItem('key', JSON.stringify({ ...user }))
-        return usersAdapter.setAll(initialState, [user])
+        console.log('GET USER EXECUTED :: GET USER EXECUTED ')
+        return user
+        // return usersAdapter.setAll(initialState, [user])
       },
-      providesTags: (result, error, arg) => [
-        { type: 'Auth', id: "userId" }
-      ],
-      
+      providesTags: ['Auth'],
     }),
+
+
 
     logout: builder.mutation<Status, void>({
       query: () => ({
@@ -80,11 +83,11 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',
-        body,
+        body: {email: getAuthEmail(), ...body}
       }), 
       onQueryStarted(arg, { dispatch, queryFulfilled }) {
         const putResult = dispatch(
-          extendedUserSlice.util.updateQueryData('getUser', undefined, (draft) => {
+          extendedUserSlice.util.updateQueryData('getUser', getAuthEmail(), (draft) => {
             Object.assign(draft, arg)
           })
         )
@@ -98,11 +101,11 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       query: (body) => ({
         url: `/users/`,
         method: 'PUT',
-        body: body,
+        body: { email: getAuthEmail(), ...body }
       }),
       onQueryStarted(arg, { dispatch, queryFulfilled }) {
         const putResult = dispatch(
-          extendedUserSlice.util.updateQueryData('getUser', undefined, (draft) => {
+          extendedUserSlice.util.updateQueryData('getUser', getAuthEmail(), (draft) => {
             Object.assign(draft, arg)
           })
         )
@@ -149,23 +152,22 @@ export const {
   useAddWishListItemMutation,
   useAddCartItemMutation,
   useGuestMutation,
-  useUpdateUserMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
+  useUpdateUserMutation
 } = extendedUserSlice
 
+
+
+
+
 // return the query result object from  getUser 
-export const selectUserResult = extendedUserSlice.endpoints.getUser.select()
+// const selectSelf = (state: RootState) => state
+// export const selectUser = createDraftSafeSelector(
+//   selectSelf,
+//   (state) => state.apiSlice.queries.getUser
+// )
 
-// create the dumb memozied selector
-const selectUserData = createSelector(
-  selectUserResult,
-  userResult => userResult.data // this is the normalised state object with ids& entities // not that i need it 
-)
-
-// create the smart selector
-export const {
-  selectAll: selectAllUsers,
-  selectById: selectUserById,
-} = usersAdapter.getSelectors<RootState>(state => selectUserData(state) ?? initialState)
+export const selectUser = (state: RootState, email: string) =>
+  extendedUserSlice.endpoints.getUser.select(email)(state)?.data ?? {}
 

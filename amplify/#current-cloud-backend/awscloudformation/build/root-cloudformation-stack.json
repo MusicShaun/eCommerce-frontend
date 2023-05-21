@@ -152,15 +152,15 @@
         }
       }
     },
-    "authfrontendd70d18e5": {
+    "authamplifytutorialstepcf139b7e": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": "https://s3.amazonaws.com/amplify-frontend-dev-203653-deployment/amplify-cfn-templates/auth/frontendd70d18e5-cloudformation-template.json",
+        "TemplateURL": "https://s3.amazonaws.com/amplify-amplifytutorialstep-dev-150158-deployment/amplify-cfn-templates/auth/amplifytutorialstepcf139b7e-cloudformation-template.json",
         "Parameters": {
-          "identityPoolName": "frontendd70d18e5_identitypool_d70d18e5",
+          "identityPoolName": "amplifytutorialstepcf139b7e_identitypool_cf139b7e",
           "allowUnauthenticatedIdentities": false,
-          "resourceNameTruncated": "fronted70d18e5",
-          "userPoolName": "frontendd70d18e5_userpool_d70d18e5",
+          "resourceNameTruncated": "amplifcf139b7e",
+          "userPoolName": "amplifytutorialstepcf139b7e_userpool_cf139b7e",
           "autoVerifiedAttributes": "email",
           "mfaConfiguration": "OFF",
           "mfaTypes": "SMS Text Message",
@@ -177,15 +177,15 @@
           "userpoolClientRefreshTokenValidity": 30,
           "userpoolClientWriteAttributes": "email",
           "userpoolClientReadAttributes": "email",
-          "userpoolClientLambdaRole": "fronted70d18e5_userpoolclient_lambda_role",
+          "userpoolClientLambdaRole": "amplifcf139b7e_userpoolclient_lambda_role",
           "userpoolClientSetAttributes": false,
-          "sharedId": "d70d18e5",
-          "resourceName": "frontendd70d18e5",
+          "sharedId": "cf139b7e",
+          "resourceName": "amplifytutorialstepcf139b7e",
           "authSelections": "identityPoolAndUserPool",
           "useDefault": "defaultSocial",
           "hostedUI": true,
           "usernameAttributes": "email",
-          "hostedUIDomainName": "frontendd70d18e5-d70d18e5",
+          "hostedUIDomainName": "amplifytutorialstepcf139b7e-cf139b7e",
           "authProvidersUserPool": "",
           "hostedUIProviderMeta": "[]",
           "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
@@ -216,7 +216,7 @@
       "DependsOn": [
         "AuthRole",
         "UnauthRole",
-        "authfrontendd70d18e5"
+        "authamplifytutorialstepcf139b7e"
       ],
       "Type": "AWS::Lambda::Function",
       "Properties": {
@@ -328,7 +328,7 @@
         },
         "idpId": {
           "Fn::GetAtt": [
-            "authfrontendd70d18e5",
+            "authamplifytutorialstepcf139b7e",
             "Outputs.IdentityPoolId"
           ]
         },

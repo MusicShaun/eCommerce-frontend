@@ -2,14 +2,14 @@ import styled, { keyframes} from "styled-components"
 import Image from "next/image"
 import { ClotheType  } from "lib/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
-import { selectUserById } from "lib/userSlice"
 import { useEffect, useRef, useState } from "react"
 import useAddClothingItem from "lib/hooks/useAddClothingItem"
 import PacmanLoader from "react-spinners/PacmanLoader"
 import heartOutline from '@/public/heart-outline.svg'
 import heartFilled from '@/public/heart-filled.svg'
 import ModalError from "./ModalErrorWindow"
-import router from "next/router"
+import { RootState } from "@/lib/store"
+import { selectUser } from "lib/userSlice"
 
 const slideIn = keyframes` 
    0% {
@@ -27,7 +27,8 @@ const slideIn = keyframes`
 
 export default function Sidebar({ productItem }: { productItem: ClotheType }) {
 
-  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const userEmail = useAppSelector(state => state.auth.email)
+  const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const wishlist = currentUser?.wishlist || []
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [ errorMessage, setErrorMessage ] = useState('')
@@ -75,11 +76,11 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
   }, [wishlist])
 
 
-  // after these functions add a heart or cart item, they refetch the user data. 
+  // after these functions add a heart or cart item
   async function handleAddClotheItemToWishList(_id: string) {
     await handleAddItem(_id, 'wishlist')
-    // refetch()
   }
+
   async function handleAddClotheItemToCart(_id: string) {
     if (selectOptionsRef.current?.value === 'Choose size') return (
       setErrorMessage('Please choose a size'), 
@@ -104,7 +105,6 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
 
   function handleRequestClose() {
     setIsModalOpen(false)
-    router.push('/login')
   }
 
   const cssLoaderSpecs = {

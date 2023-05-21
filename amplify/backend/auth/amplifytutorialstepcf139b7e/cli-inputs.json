@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "frontendd70d18e5_identitypool_d70d18e5",
+    "identityPoolName": "amplifytutorialstepcf139b7e_identitypool_cf139b7e",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "fronted70d18e5",
-    "userPoolName": "frontendd70d18e5_userpool_d70d18e5",
+    "resourceNameTruncated": "amplifcf139b7e",
+    "userPoolName": "amplifytutorialstepcf139b7e_userpool_cf139b7e",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,17 +31,17 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "fronted70d18e5_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "amplifcf139b7e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "d70d18e5",
-    "resourceName": "frontendd70d18e5",
+    "sharedId": "cf139b7e",
+    "resourceName": "amplifytutorialstepcf139b7e",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "defaultSocial",
     "hostedUI": true,
     "usernameAttributes": [
       "email"
     ],
-    "hostedUIDomainName": "frontendd70d18e5-d70d18e5",
+    "hostedUIDomainName": "amplifytutorialstepcf139b7e-cf139b7e",
     "authProvidersUserPool": [],
     "hostedUIProviderMeta": "[]",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",

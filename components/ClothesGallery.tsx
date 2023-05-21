@@ -5,7 +5,6 @@ import ModalError from "./ModalErrorWindow"
 import useAddClothingItem  from "lib/hooks/useAddClothingItem"
 import { useEffect, useState } from "react"
 import router from "next/router"
-import { useGetUserQuery } from "lib/userSlice"
 interface IProps { 
   info: ClotheType[]
 }
@@ -16,7 +15,6 @@ export default function ClothesGallery({ info }: IProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
   const { handleAddItem, isError, error } = useAddClothingItem()
-  const { data, isSuccess, refetch} = useGetUserQuery()
 
   // error handling
   useEffect(() => {
@@ -31,7 +29,6 @@ export default function ClothesGallery({ info }: IProps) {
 
   async function handleAddClotheItemToWishList(_id: string) {
     await handleAddItem(_id, 'wishlist')
-    // refetch() //! CIRCLE BACK TO THIS 
   }
 
   function handleRequestClose() {

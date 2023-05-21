@@ -13,7 +13,6 @@ export default function NavUserDropdown() {
   const loggedInState = useAppSelector(state => state.auth.loggedIn)
   const [logout, { isSuccess }] = useLogoutMutation()
   const dispatch = useAppDispatch()
-  console.log(loggedInState)
 
   async function handleLogout() {
     localStorage.removeItem('key')

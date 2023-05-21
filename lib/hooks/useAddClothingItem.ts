@@ -1,4 +1,4 @@
-import {  useAddCartItemMutation, useAddWishListItemMutation, useGetUserQuery, useGuestMutation } from "lib/userSlice"
+import {  selectUser, useAddCartItemMutation, useAddWishListItemMutation, useGetUserQuery, useGuestMutation } from "lib/userSlice"
 import { useRef } from "react"
 import { handleCart } from "./handleCart"
 import { useAppSelector } from "./hooks"
@@ -7,18 +7,20 @@ import { selectAllClothes } from "lib/clothesSlice"
 import { handleWishlist } from "./handleWishlist"
 import { handleCartGuest } from "./handleCartGuest"
 import { handleGuestWishlist } from "./handleGuestWishlist"
-import { selectUserById } from "lib/userSlice"
+import { RootState } from "../store"
 
 export default function useAddClothingItem() {
   const selectOptionsRef = useRef<HTMLSelectElement>(null)
-  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const userEmail = useAppSelector(state => state.auth.email)
+  const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const allClothes = useAppSelector(selectAllClothes)
 
   
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
   const [addCartListItem, {isLoading: isCartLoading, isSuccess: isCartSuccess, isError: isCartError, error: cartError }] = useAddCartItemMutation()
   const [guest] = useGuestMutation()
-  const { data, isSuccess, refetch } = useGetUserQuery()
+
+  const {} = useGetUserQuery(userEmail) //* THIS IS HERE TO REFRESH STALE DATA
 
   async function handleAddItem(_id: string, type: string, size?: string, direction?: string) {
 
@@ -45,11 +47,14 @@ export default function useAddClothingItem() {
     //* S IS SENT TO THE BACKEND AS A CLOTHETYPE OBJECT
     try {
       if (USER_LOGGED_IN_CART) {
+        console.log('add cart attempted')
         const s = handleCart(_id, size!, currentUser, allClothes, direction!)
-        await addCartListItem({ ...s }).unwrap()
+        console.log(s)
+        await addWistListItem({ ...s }).unwrap()
 
       } else if (USER_LOGGED_IN_WISHLIST) {
         const s = handleWishlist(_id, currentUser, allClothes)
+        console.log(s)
         await addWistListItem({ ...s }).unwrap()
 
       } else if (USER_NOT_LOGGED_IN_CART) {

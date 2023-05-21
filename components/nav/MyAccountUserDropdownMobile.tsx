@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Link from "next/link"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import { useLogoutMutation,selectUserById } from "lib/userSlice"
+import { useLogoutMutation, selectUser } from "lib/userSlice"
 import Image from "next/image"
 import details from '@/public/account_details.png'
 import welcome from '@/public/account_welcome.png'
@@ -11,14 +11,16 @@ import wishlist from '@/public/account_wishlist.png'
 import router from "next/router"
 import { apiSlice } from "lib/apiSlice"
 import logoutIMG from '@/public/account_logout.png'
+import { RootState } from "@/lib/store"
 
 interface IProps {
   open: boolean
 }
 export default function Sidebar({open}: IProps) {
   
-  const user = useAppSelector((state) => selectUserById(state, 'userId'))
-  const [logout, { isSuccess }] = useLogoutMutation()
+  const userEmail = useAppSelector(state => state.auth.email)
+  const user =  useAppSelector((state: RootState) => selectUser(state, userEmail))
+    const [logout, { isSuccess }] = useLogoutMutation()
   const dispatch = useAppDispatch()
   
   function userIsNotNull(check: string | null | undefined): string {

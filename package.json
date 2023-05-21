@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^4.6.1",
+    "@aws-amplify/ui-react": "^4.6.2",
     "@next/font": "13.1.6",
     "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.2",

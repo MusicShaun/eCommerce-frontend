@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ClotheType } from "./clothesSlice";
 import { RootState } from "./store";
+import { useAppDispatch } from "./hooks/hooks";
 
 export interface LocalUser {
   given_name: string
@@ -19,7 +20,7 @@ export type AuthState = {
 const initialState: AuthState = {
   key: null,
   loggedIn: false,
-  email: ''
+  email: 'empty'
 }
 
 
@@ -37,6 +38,7 @@ const userSlice = createSlice({
       state.email = action.payload
     }
   },
+  
 })
 
 export const selectUsersEmail = (state: RootState) => state.auth.email

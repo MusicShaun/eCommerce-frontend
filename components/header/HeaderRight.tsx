@@ -7,17 +7,21 @@ import NavUserDropdown from "../nav/NavUserDropdown"
 import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "lib/hooks/hooks"
 import Link from "next/link"
-import { selectUserById } from "lib/userSlice"
+import { selectUser } from "lib/userSlice"
+import { RootState } from "@/lib/store"
 
 export default function HeaderRight() {
 
-  const [showDropdown, setShowDropdown ] = useState(false)
-  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const [showDropdown, setShowDropdown] = useState(false)
+  const userEmail = useAppSelector(state => state.auth.email)
+  const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const wishlist = currentUser?.wishlist || []
   const cart = currentUser?.cart || []
   const triangleRef = useRef<HTMLImageElement>(null); 
   const [trianglePosition, setTrianglePosition] = useState({ x: 0 })
   const [windowSize, setWindowSize] = useState({ X: 0 })
+
+
 
   // Get position of ref and apply its x coordinates to the triangle
   // Then add event listener to window to detect resize and reposition triangle

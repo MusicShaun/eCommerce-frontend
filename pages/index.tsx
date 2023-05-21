@@ -6,19 +6,23 @@ import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheT
 import ClothesGallery from '@/components/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { extendedUserSlice } from 'lib/userSlice'
+import { extendedUserSlice,  selectUser, useGetUserQuery } from 'lib/userSlice'
 import { useEffect, useState } from 'react'
+import { setEmailOnLogin } from '@/lib/authSlice'
+import { getAuthEmail } from '@/lib/selectors'
+import { RootState } from '@/lib/store'
 
 
 const inter = Inter({ subsets: ['latin'] })
 
 extendedClothesSlice.endpoints.getAllClothes.initiate()
-extendedUserSlice.endpoints.getUser.initiate()
 
 export default function Home() {
 
   const selectAll = useAppSelector(selectAllClothes)
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
+  const userEmail = useAppSelector(state => state.auth.email)
+  const userData = useAppSelector((state: RootState) => selectUser(state, userEmail))
 
   const {
     isLoading,
@@ -26,6 +30,17 @@ export default function Home() {
     isError,
     error
   } = useGetAllClothesQuery()
+
+  const {
+    data: user,
+    isLoading: userIsLoading,
+    isSuccess: userIsSuccess,
+    isError: userIsError,
+    error: userError
+  } = useGetUserQuery(userEmail)
+  console.log(user)
+  
+ 
 
   // Wrapped in a useEffect to avoid re rendering when getUser fires
   useEffect(() => {

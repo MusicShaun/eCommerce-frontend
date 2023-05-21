@@ -3,12 +3,12 @@
 
 const awsmobile = {
     "aws_project_region": "ap-southeast-2",
-    "aws_cognito_identity_pool_id": "ap-southeast-2:2a2c1f7d-f291-486b-97a3-1d6926cc7ba8",
+    "aws_cognito_identity_pool_id": "ap-southeast-2:71eabbaf-ab21-4785-9ad9-f18fd66ebe8e",
     "aws_cognito_region": "ap-southeast-2",
-    "aws_user_pools_id": "ap-southeast-2_lyupkG3HI",
-    "aws_user_pools_web_client_id": "5fpvgbcapauhe1k4av8hc3ijue",
+    "aws_user_pools_id": "ap-southeast-2_MbWEgM2TT",
+    "aws_user_pools_web_client_id": "2ig1cq7biklt0quoakv66r1h8o",
     "oauth": {
-        "domain": "frontendd70d18e5-d70d18e5-dev.auth.ap-southeast-2.amazoncognito.com",
+        "domain": "amplifytutorialstepcf139b7e-cf139b7e-dev.auth.ap-southeast-2.amazoncognito.com",
         "scope": [
             "phone",
             "email",
@@ -38,7 +38,8 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
-    ]
+    ],
+
 };
 
 

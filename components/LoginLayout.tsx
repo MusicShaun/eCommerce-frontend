@@ -1,15 +1,13 @@
 import styled from "styled-components"
-import Login from "../pages/login/index"
-// import Register from "./Registerfixlater"
 import SignInOptions from "@/components/SignInOptions"
-import Register from "../pages/login/Register"
 import { useState } from 'react'
+
 
 
 export default function LoginWrapper({children}: {children: React.ReactNode}) {
 
 
-  const [loggingIn, setLoggingIn ] = useState(true)
+  const [loggingIn, setLoggingIn] = useState(true)
 
   return (
     <Wrapper>

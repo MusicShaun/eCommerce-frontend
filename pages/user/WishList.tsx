@@ -4,20 +4,24 @@ import Empty from '../../components/EmptyTab'
 import MyAccountLayout from '../../components/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
 import ClothesCard from '@/components/ClothesCard'
-import { selectUserById } from 'lib/userSlice'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
 import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
 import Head from 'next/head'
+import { RootState, } from '@/lib/store'
+import { extendedUserSlice,  selectUser, useGetUserQuery } from 'lib/userSlice'
 
 export default function WishList() {
 
-  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const userEmail = useAppSelector(state => state.auth.email)
+  const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
+  console.log(currentUser)
   const wishlist = currentUser?.wishlist || []
+  console.log(wishlist)
   const { handleAddItem } = useAddClothingItem()
   
 
-  function handleRemoveItemFromWishList(_id: string) {
-     handleAddItem(_id, 'wishlist')
+  async function handleRemoveItemFromWishList(_id: string) {
+    await handleAddItem(_id, 'wishlist')
   }
   
   const EmptyWishList = {

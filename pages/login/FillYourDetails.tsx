@@ -6,12 +6,14 @@ import { useRegisterMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import ErrorWindow from '@/components/ErrorWindow'
 import { useAppSelector } from 'lib/hooks/hooks'
-import { selectUserById, useUpdateUserMutation } from 'lib/userSlice'
+import {  useUpdateUserMutation } from 'lib/userSlice'
 
 
 import awsconfig from '../../src/aws-exports'
 import { Amplify, Auth } from 'aws-amplify'
 import LoginLayout from '@/components/LoginLayout'
+import { RootState} from '@/lib/store'
+import { selectUser } from '@/lib/userSlice'
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
 // <button onClick={signOut}>Sign out</button>
@@ -26,7 +28,8 @@ export default function login() {
   const [register, { isLoading , error}] = useRegisterMutation()
   const focusRef = useRef<HTMLInputElement>(null)
 
-  const currentUser = useAppSelector((state) => selectUserById(state, 'userId'))
+  const userEmail = useAppSelector(state => state.auth.email)
+  const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const user = currentUser 
 
   useEffect(() => {

@@ -18,7 +18,13 @@ const awsmobile = {
         ],
         "redirectSignIn": "http://localhost:3000/",
         "redirectSignOut": "http://localhost:3000/",
-        "responseType": "code"
+        "responseType": "code",
+        "auth0": {
+            "clientID": "your-google-client-id",
+            "responseType": "code",
+            "scope": ["profile", "email"],
+            "domain": "your-auth0-domain"
+          }
     },
     "federationTarget": "COGNITO_USER_POOLS",
     "aws_cognito_username_attributes": [
@@ -38,8 +44,7 @@ const awsmobile = {
     },
     "aws_cognito_verification_mechanisms": [
         "EMAIL"
-    ],
-
+    ]
 };
 
 

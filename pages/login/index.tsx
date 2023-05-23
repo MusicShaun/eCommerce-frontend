@@ -9,13 +9,15 @@ import Head from 'next/head'
 
 
 import awsconfig from '../../src/aws-exports'
-import { Amplify, Auth } from 'aws-amplify'
+import { Amplify, Auth, Hub } from 'aws-amplify'
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
+
 import LoginLayout from '@/components/LoginLayout'
 import { setAuth, setEmailOnLogin } from '@/lib/authSlice'
 import { useAppDispatch } from '@/lib/hooks/hooks'
 
-// <button onClick={signOut}>Sign out</button>
-// add signOut, user to props
+
+
 
 
 export default function login() {

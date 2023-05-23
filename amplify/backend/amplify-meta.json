@@ -14,35 +14,30 @@
   },
   "auth": {
     "amplifytutorialstepcf139b7e": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
       "customAuth": false,
+      "dependsOn": [],
       "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "EMAIL"
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
         ],
         "verificationMechanisms": [
           "EMAIL"
         ]
       },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifytutorialstep-dev-150158-deployment/amplify-cfn-templates/auth/amplifytutorialstepcf139b7e-cloudformation-template.json",
-        "logicalId": "authamplifytutorialstepcf139b7e"
-      },
-      "lastPushTimeStamp": "2023-05-20T07:09:12.544Z",
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
       "output": {
         "UserPoolId": "ap-southeast-2_MbWEgM2TT",
         "AppClientIDWeb": "2ig1cq7biklt0quoakv66r1h8o",
@@ -54,7 +49,11 @@
         "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
         "UserPoolName": "amplifytutorialstepcf139b7e_userpool_cf139b7e"
       },
-      "lastPushDirHash": "HxcdoYsLOds+8yuAweAePFoCwuA="
+      "lastPushTimeStamp": "2023-05-23T06:49:26.130Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifytutorialstep-dev-150158-deployment/amplify-cfn-templates/auth/amplifytutorialstepcf139b7e-cloudformation-template.json",
+        "logicalId": "authamplifytutorialstepcf139b7e"
+      }
     }
   }
 }

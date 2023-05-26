@@ -3,12 +3,12 @@
 
 const awsmobile = {
     "aws_project_region": "ap-southeast-2",
-    "aws_cognito_identity_pool_id": "ap-southeast-2:71eabbaf-ab21-4785-9ad9-f18fd66ebe8e",
+    "aws_cognito_identity_pool_id": "ap-southeast-2:3569d504-1877-4b03-9f33-ae705ffc06ff",
     "aws_cognito_region": "ap-southeast-2",
-    "aws_user_pools_id": "ap-southeast-2_MbWEgM2TT",
-    "aws_user_pools_web_client_id": "2ig1cq7biklt0quoakv66r1h8o",
+    "aws_user_pools_id": "ap-southeast-2_AbTnBtzYG",
+    "aws_user_pools_web_client_id": "4me57gvo43kblki9meuivkqqla",
     "oauth": {
-        "domain": "amplifytutorialstepcf139b7e-cf139b7e-dev.auth.ap-southeast-2.amazoncognito.com",
+        "domain": "barebonesdomain-dev.auth.ap-southeast-2.amazoncognito.com",
         "scope": [
             "phone",
             "email",
@@ -18,19 +18,15 @@ const awsmobile = {
         ],
         "redirectSignIn": "http://localhost:3000/",
         "redirectSignOut": "http://localhost:3000/",
-        "responseType": "code",
-        "auth0": {
-            "clientID": "your-google-client-id",
-            "responseType": "code",
-            "scope": ["profile", "email"],
-            "domain": "your-auth0-domain"
-          }
+        "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",
     "aws_cognito_username_attributes": [
         "EMAIL"
     ],
-    "aws_cognito_social_providers": [],
+    "aws_cognito_social_providers": [
+        "GOOGLE"
+    ],
     "aws_cognito_signup_attributes": [
         "EMAIL"
     ],

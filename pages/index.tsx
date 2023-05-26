@@ -4,14 +4,17 @@ import styled, { CSSProperties } from 'styled-components'
 import Banner from '@/components/Banner'
 import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheType} from 'lib/clothesSlice'
 import ClothesGallery from '@/components/ClothesGallery'
-import { useAppSelector } from 'lib/hooks/hooks'
+import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { extendedUserSlice,  selectUser, useGetUserQuery } from 'lib/userSlice'
 import { useEffect, useState } from 'react'
-import { setEmailOnLogin } from '@/lib/authSlice'
+import { loggedIn, setAuth, setEmailOnLogin, signOut } from '@/lib/authSlice'
 import { getAuthEmail } from '@/lib/selectors'
 import { RootState } from '@/lib/store'
 
+import awsConfig from '../src/aws-exports'
+import { Amplify, Auth, Hub } from 'aws-amplify'
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,7 +26,9 @@ export default function Home() {
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)
   const userData = useAppSelector((state: RootState) => selectUser(state, userEmail))
+  const dispatch = useAppDispatch()
 
+  
   const {
     isLoading,
     isSuccess,
@@ -42,6 +47,9 @@ export default function Home() {
   
  
 
+
+  const [users, setUser] = useState(null);
+  const [customState, setCustomState] = useState(null);
   // Wrapped in a useEffect to avoid re rendering when getUser fires
   useEffect(() => {
     if (isLoading) {
@@ -52,6 +60,37 @@ export default function Home() {
     }
 
   }, [isSuccess, isError, selectAll, isLoading])
+
+  // COGNITO AUTH
+  useEffect(() => {
+    const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
+      switch (event) {
+        case "signIn":
+          console.log('CIRCLE BACK HERE. WHAT IS THE DATA THAT PASSES HERE ON SIGN ::::: ')
+          console.log(data)
+          break;
+        case "signOut":
+          dispatch(signOut)
+          break;
+        case "customOAuthState":
+          setCustomState(data); //! read about why this exist 
+      }
+    });
+
+    Auth.currentAuthenticatedUser() // EMAIL AND JWT IS USED FOR THE SERVER SIDE AUTH 
+      .then(currentUser => (
+        dispatch(setAuth(
+          currentUser.signInUserSession.accessToken.jwtToken
+        )),
+        dispatch(setEmailOnLogin(currentUser.attributes.email) ), 
+        console.log(currentUser),
+        dispatch(loggedIn(true))
+        ),
+      )
+      .catch(() => console.log("Not signed in"));
+
+    return unsubscribe;
+  }, [])
 
 
 

@@ -5,11 +5,11 @@ import router from 'next/router'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import { useLogoutMutation } from 'lib/userSlice'
 import { GoogleLogin, googleLogout} from '@react-oauth/google';
-import { setAuth , loggedIn} from '@/lib/authSlice'
+import { signOut} from '@/lib/authSlice'
+import { Auth } from 'aws-amplify'
 
 export default function NavUserDropdown() {
 
-  // const { data: loggedIn } = useIsLoggedInQuery()
   const loggedInState = useAppSelector(state => state.auth.loggedIn)
   const [logout, { isSuccess }] = useLogoutMutation()
   const dispatch = useAppDispatch()
@@ -17,9 +17,8 @@ export default function NavUserDropdown() {
   async function handleLogout() {
     localStorage.removeItem('key')
     try {
-      dispatch(setAuth(null))
-      dispatch(loggedIn(false))
-      // googleLogout(); 
+      dispatch(signOut())
+      Auth.signOut()
       const res = await logout() 
     }
     catch (err) {

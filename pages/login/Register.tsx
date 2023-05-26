@@ -1,8 +1,6 @@
 
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
-import router from 'next/router'
-import { useRegisterMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import ErrorWindow from '@/components/ErrorWindow'
 import VerifyEmail from './VerifyEmail'
@@ -13,16 +11,14 @@ import LoginLayout from '@/components/LoginLayout'
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks'
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
-// <button onClick={signOut}>Sign out</button>
-// add signOut, user to props
+
 
 import { selectUsersEmail, setEmailOnLogin } from '@/lib/authSlice'
 
 export default function login() {
-
+  const [isLoading, setIsLoading ] = useState(false)
   const [errorWindow, setErrorWindow] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-  const [register, { isLoading , error}] = useRegisterMutation()
   const passwordRef = useRef<HTMLInputElement>(null)
   const focusRef = useRef<HTMLInputElement>(null)
   const [showVerify, setShowVerify] = useState(false)
@@ -36,6 +32,8 @@ export default function login() {
 
   async function handleSubmit(e:any ) {
     e.preventDefault()
+    setIsLoading(true)
+
     const data = new FormData(e.target)
     if (data.get('password') !== data.get('confirm_password')) {
       passwordRef.current!.value = ''
@@ -57,11 +55,19 @@ export default function login() {
       console.log(cognitoUser)
       
     } catch (err: any) {
+      console.log('im in the error block')
       setErrorWindow(true)
       if (err.status == 429) setErrorMessage('Too many requests, please try again later')
       else if ('data' in err && err.data.message) setErrorMessage(err.data.message)
-      else setErrorMessage(err.error)
+      else if (err.error) setErrorMessage(err.error)
+      else (setErrorMessage(JSON.stringify(err) ))
       console.log(err)
+      setIsLoading(false)
+    }
+    // set error handling for user exists 
+    // invalid password 
+    finally {
+      setIsLoading(false)
     }
   }
 
@@ -95,7 +101,7 @@ export default function login() {
         />
       </SpinnerContainer>
 
-      {errorWindow && error 
+      {errorWindow 
         ? <ErrorWindow
           header='Uh Oh!'
           message={errorMessage}

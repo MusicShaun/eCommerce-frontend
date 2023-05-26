@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useAppDispatch } from '@/lib/hooks/hooks'
 import router from 'next/router';
-import { setAuth, loggedIn } from '@/lib/authSlice';
-
+import { setAuth, loggedIn, setEmailOnLogin } from '@/lib/authSlice';
+import Image from 'next/image';
+import Google from '../images/Google.png'
 
 import awsConfig from '../src/aws-exports'
 import { Amplify, Auth, Hub } from 'aws-amplify'
@@ -16,16 +17,7 @@ Hub.listen('auth', (data) => {
     }
 })
 
-const isLocalhost = true
-//   Boolean(
-//   window.location.hostname === 'localhost' ||
-//     // [::1] is the IPv6 localhost address.
-//     window.location.hostname === '[::1]' ||
-//     // 127.0.0.1/8 is considered localhost for IPv4.
-//     window.location.hostname.match(
-//       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-//     )
-// );
+const isLocalhost = process.env.NODE_ENV === 'development';
 
 // Assuming you have two redirect URIs, and the first is for localhost and second is for production
 const [
@@ -48,53 +40,37 @@ const updatedAwsConfig = {
 }
 
 Amplify.configure(updatedAwsConfig);
-console.log(updatedAwsConfig)
 
 export default function AuthOOptions() {
-  const [user, setUser] = React.useState(null);
-  const [customState, setCustomState] = React.useState(null);
-  console.log(updatedAwsConfig)
 
-  console.log('user')
-  console.log(user)
-  console.log('customstate')
-  console.log(customState)
+  function federatedSignIn() {
 
-  useEffect(() => {
-    const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
-      switch (event) {
-        case "signIn":
-          setUser(data);
-          break;
-        case "signOut":
-          setUser(null);
-          break;
-        case "customOAuthState":
-          setCustomState(data);
-      }
-    });
+    try {
+      const signedInUser = Auth.federatedSignIn({
+        provider: CognitoHostedUIIdentityProvider.Google
+      })
+      console.log(signedInUser)
 
-    Auth.currentAuthenticatedUser()
-      .then(currentUser => (setUser(currentUser), console.log(currentUser)))
-      .catch(() => console.log("Not signed in"));
+    } 
+    catch (error) {
+      console.log(error)
+    }
 
-    return unsubscribe;
-  }, [])
 
-  
+  }
 
   return (
     <Container>
       <h2 style={{ marginBottom: '20px' }}>OR SIGN IN WITH...</h2>
-      <button onClick={() => Auth.federatedSignIn()}>Open Hosted UI</button>
 
       <SocialLinks>
-        <button onClick={() => Auth.federatedSignIn({
-          provider: CognitoHostedUIIdentityProvider.Google,
-          
-          })
-        }
-        >Open Google</button>
+    
+        
+      
+        <SocialLink onClick={federatedSignIn}>
+          <Image src={Google} alt='google' width={32} height={32} />
+          GOOGLE
+        </SocialLink>
 
       </SocialLinks>
     </Container>
@@ -120,14 +96,18 @@ const SocialLinks = styled.div`
 
 `
 const SocialLink = styled.a`
-  width: 30%;
+
   height: 100%;
-  border-radius: 5px;
-  border: 1px dashed lightgrey;
+  border-radius: 3px;
+  border: 2px solid ${({ theme }) => theme.lightGrey};
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 1.6rem;
+  white-space: nowrap;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  color: ${({theme}) => theme.darkGrey};
 
   &:hover {
     cursor: pointer;
@@ -139,12 +119,3 @@ const Text = styled.span`
   
 `
 
-
-        {/* <SocialLink  onClick={handleclick}>
-          <Image src={Facebook} alt='facebook' width={30} height={30}  />
-          <Text>Facebook</Text>
-        </SocialLink>
-        <SocialLink onClick={handleclick}>
-          <Image src={Apple} alt='apple'  width={30} height={30} />
-          <Text>Apple</Text>
-        </SocialLink> */}

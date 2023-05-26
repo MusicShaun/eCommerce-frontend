@@ -1,21 +1,77 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useAppDispatch } from '@/lib/hooks/hooks'
 import router from 'next/router';
-import { setAuth ,loggedIn} from '@/lib/authSlice';
+import { setAuth, loggedIn, setEmailOnLogin } from '@/lib/authSlice';
+import Image from 'next/image';
+import Google from '../images/Google.png'
+
+import awsConfig from '../src/aws-exports'
+import { Amplify, Auth, Hub } from 'aws-amplify'
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
+
+
+Hub.listen('auth', (data) => { 
+    if (data.payload.event === 'signIn_failure') {
+        // Do something here
+    }
+})
+
+const isLocalhost = process.env.NODE_ENV === 'development';
+
+// Assuming you have two redirect URIs, and the first is for localhost and second is for production
+const [
+  localRedirectSignIn,
+  productionRedirectSignIn,
+] = awsConfig.oauth.redirectSignIn.split(',');
+
+const [
+  localRedirectSignOut,
+  productionRedirectSignOut,
+] = awsConfig.oauth.redirectSignOut.split(',');
+
+const updatedAwsConfig = {
+  ...awsConfig,
+  oauth: {
+    ...awsConfig.oauth,
+    redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
+    redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
+  }
+}
+
+Amplify.configure(updatedAwsConfig);
 
 export default function AuthOOptions() {
 
-  const dispatch = useAppDispatch()
+  function federatedSignIn() {
+
+    try {
+      const signedInUser = Auth.federatedSignIn({
+        provider: CognitoHostedUIIdentityProvider.Google
+      })
+      console.log(signedInUser)
+
+    } 
+    catch (error) {
+      console.log(error)
+    }
 
 
-  
+  }
 
   return (
     <Container>
-      <h2 style={{marginBottom: '20px'}}>OR SIGN IN WITH...</h2>
+      <h2 style={{ marginBottom: '20px' }}>OR SIGN IN WITH...</h2>
+
       <SocialLinks>
-   
+    
+        
+      
+        <SocialLink onClick={federatedSignIn}>
+          <Image src={Google} alt='google' width={32} height={32} />
+          GOOGLE
+        </SocialLink>
+
       </SocialLinks>
     </Container>
   )
@@ -40,14 +96,18 @@ const SocialLinks = styled.div`
 
 `
 const SocialLink = styled.a`
-  width: 30%;
+
   height: 100%;
-  border-radius: 5px;
-  border: 1px dashed lightgrey;
+  border-radius: 3px;
+  border: 2px solid ${({ theme }) => theme.lightGrey};
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 1.6rem;
+  white-space: nowrap;
+  padding: 1rem 2rem;
+  font-weight: 700;
+  color: ${({theme}) => theme.darkGrey};
 
   &:hover {
     cursor: pointer;
@@ -59,12 +119,3 @@ const Text = styled.span`
   
 `
 
-
-        {/* <SocialLink  onClick={handleclick}>
-          <Image src={Facebook} alt='facebook' width={30} height={30}  />
-          <Text>Facebook</Text>
-        </SocialLink>
-        <SocialLink onClick={handleclick}>
-          <Image src={Apple} alt='apple'  width={30} height={30} />
-          <Text>Apple</Text>
-        </SocialLink> */}

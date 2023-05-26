@@ -42,7 +42,7 @@ const VerifyEmail = ({password, hideVerificationWindow}: IProps) => {
       hideVerificationWindow()
 
       console.log('SUCCESS:: REROUTING TO DETAILS ');
-      router.push('/loin/FillYourDetails')
+      router.push('/login/FillYourDetails')
       
     } catch (error: any) { 
       console.log('Error verifying email:', error);

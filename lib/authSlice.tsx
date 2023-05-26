@@ -36,6 +36,11 @@ const userSlice = createSlice({
     },
     setEmailOnLogin: (state, action) => {
       state.email = action.payload
+    },
+    signOut: (state) => {
+      state.key = null
+      state.loggedIn = false
+      state.email = 'empty'
     }
   },
   
@@ -43,6 +48,6 @@ const userSlice = createSlice({
 
 export const selectUsersEmail = (state: RootState) => state.auth.email
 
-export const { setAuth, loggedIn, setEmailOnLogin } = userSlice.actions
+export const { setAuth, loggedIn, setEmailOnLogin, signOut } = userSlice.actions
 
 export default userSlice.reducer 

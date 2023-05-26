@@ -1,5 +1,6 @@
 {
   "projectPath": "/Users/shaunpickett/Documents/MERN-ecommerce/frontend",
-  "defaultEditor": "Visual Studio Code",
-  "envName": "dev"
+  "envName": "dev",
+  "defaultEditor": "vscode",
+  "noUpdateBackend": true
 }

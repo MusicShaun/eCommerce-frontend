@@ -1,27 +1,28 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import AuthOOptions from '../../components/AuthOOptions'
 import router from 'next/router'
-import {  useLoginMutation } from 'lib/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import Link from 'next/link'
 import Head from 'next/head'
 
 
 import awsconfig from '../../src/aws-exports'
-import { Amplify, Auth } from 'aws-amplify'
+import { Amplify, Auth, Hub } from 'aws-amplify'
+import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
+
 import LoginLayout from '@/components/LoginLayout'
 import { setAuth, setEmailOnLogin } from '@/lib/authSlice'
 import { useAppDispatch } from '@/lib/hooks/hooks'
 
-// <button onClick={signOut}>Sign out</button>
-// add signOut, user to props
+
+
 
 
 export default function login() {
 
   const focusRef = useRef<HTMLInputElement>(null)
-  const [login, { isLoading, isSuccess }] = useLoginMutation()
+  const [isLoading, setIsLoading ] = useState(false)
   const dispatch = useAppDispatch()
   
   useEffect(() => {
@@ -33,6 +34,7 @@ export default function login() {
   // Submit login form 
   async function handleSubmit(e: any) {
     e.preventDefault()
+    setIsLoading(true)
     const formData = new FormData(e.target)
 
     try { // LOGIN 
@@ -54,8 +56,9 @@ export default function login() {
     } catch (err) {
       console.log(err)
       alert('Invalid email or password')
+      setIsLoading(false)
     } finally {
-
+      setIsLoading(false)
     }
   }
 

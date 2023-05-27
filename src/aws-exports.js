@@ -6,7 +6,7 @@ const awsmobile = {
     "aws_cognito_identity_pool_id": "ap-southeast-2:3569d504-1877-4b03-9f33-ae705ffc06ff",
     "aws_cognito_region": "ap-southeast-2",
     "aws_user_pools_id": "ap-southeast-2_AbTnBtzYG",
-    "aws_user_pools_web_client_id": "744fnqe2p74da4skdpt5jn2l5u",
+    "aws_user_pools_web_client_id": "4me57gvo43kblki9meuivkqqla",
     "oauth": {
         "domain": "barebonesdomain-dev.auth.ap-southeast-2.amazoncognito.com",
         "scope": [
@@ -17,7 +17,7 @@ const awsmobile = {
             "aws.cognito.signin.user.admin"
         ],
         "redirectSignIn": "http://localhost:3000/,https://www.shaunysshop.com/",
-        "redirectSignOut": "http://localhost:3000/,https://www.shaunysshop.com/login",
+        "redirectSignOut": "http://localhost:3000/login,https://www.shaunysshop.com/login",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS",

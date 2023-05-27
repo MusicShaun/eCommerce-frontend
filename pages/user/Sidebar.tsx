@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import Link from "next/link"
 import router from "next/router"
-import { apiSlice } from "lib/apiSlice"
+import { apiSlice } from "@/lib/slices/apiSlice"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import { selectUser, useLogoutMutation } from "lib/userSlice"
+import { selectUser, useLogoutMutation } from "@/lib/slices/userSlice"
 import Image from "next/image"
 import details from '@/public/account_details.png'
 import welcome from '@/public/account_welcome.png'

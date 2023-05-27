@@ -1,5 +1,5 @@
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit";
-import { apiSlice } from "lib/apiSlice";
+import { apiSlice } from "@/lib/slices/apiSlice";
 
 
 export type ClotheType = {

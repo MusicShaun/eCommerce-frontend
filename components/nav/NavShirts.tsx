@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import NavMenuList from '@/components/nav/NavMenu_List'
 import NavMenuLargeImageTiles from '@/components/nav/NavMenu_LargeImageTiles'
-import { selectShirts } from 'lib/clothesSlice'
+import { selectShirts } from '@/lib/slices/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 
 interface IProps {

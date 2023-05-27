@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useAppDispatch } from '@/lib/hooks/hooks'
 import router from 'next/router';
-import { setAuth, loggedIn, setEmailOnLogin } from '@/lib/authSlice';
+import { setAuth, loggedIn, setEmailOnLogin } from '@/lib/slices/authSlice';
 import Image from 'next/image';
 import Google from '../images/Google.png'
 

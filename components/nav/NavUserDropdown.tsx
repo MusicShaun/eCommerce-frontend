@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import {   apiSlice, useIsLoggedInQuery } from 'lib/apiSlice'
+import {   apiSlice, useIsLoggedInQuery } from '@/lib/slices/apiSlice'
 import router from 'next/router'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
-import { useLogoutMutation } from 'lib/userSlice'
+import { useLogoutMutation } from '@/lib/slices/userSlice'
 import { GoogleLogin, googleLogout} from '@react-oauth/google';
-import { signOut} from '@/lib/authSlice'
+import { signOut} from '@/lib/slices/authSlice'
 import { Auth } from 'aws-amplify'
 
 export default function NavUserDropdown() {

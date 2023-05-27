@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Image from 'next/image'
-import { ClotheType } from 'lib/clothesSlice'
+import { ClotheType } from '@/lib/slices/clothesSlice'
 
 interface IProps {
   info: ClotheType[]

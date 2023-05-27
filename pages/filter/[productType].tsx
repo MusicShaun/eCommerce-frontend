@@ -1,13 +1,13 @@
-import { ClotheType, extendedClothesSlice } from 'lib/clothesSlice'
+import { ClotheType, extendedClothesSlice } from '@/lib/slices/clothesSlice'
 import styled from 'styled-components'
-import ClothesGallery from '@/components/ClothesGallery'
-import ProductFilterSideBar from '@/components/ProductFilterSideBar'
+import ClothesGallery from '@/components/clothes/ClothesGallery'
+import ProductFilterSideBar from '@/components/sidebars/ProductFilterSideBar'
 import { useState } from 'react'
 import Link from 'next/link'
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { store } from 'lib/store'
 import Head from 'next/head'
-import BackButton from '@/components/BackButton'
+import BackButton from '@/components/buttons/BackButton'
 
 store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
 

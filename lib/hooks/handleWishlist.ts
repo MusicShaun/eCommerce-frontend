@@ -1,5 +1,5 @@
-import { ClotheType } from "lib/clothesSlice";
-import utilities from "../services/utilities";
+import { ClotheType } from "@/lib/slices/clothesSlice";
+import utilities from "../services/arrayServices";
 
 
 export function handleWishlist(_id: string, currentUser: any, allClothes: ClotheType[]) {

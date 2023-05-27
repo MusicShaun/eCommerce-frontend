@@ -1,4 +1,4 @@
-import { ClotheType } from "lib/clothesSlice";
+import { ClotheType } from "@/lib/slices/clothesSlice";
 
 
 

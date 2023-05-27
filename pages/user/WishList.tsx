@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import Empty from '../../components/EmptyTab'
-import MyAccountLayout from '../../components/AccountLayout'
+import MyAccountLayout from '../../components/layouts/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
-import ClothesCard from '@/components/ClothesCard'
+import ClothesCard from '@/components/clothes/ClothesCard'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
 import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
 import Head from 'next/head'
 import { RootState, } from '@/lib/store'
-import { extendedUserSlice,  selectUser, useGetUserQuery } from 'lib/userSlice'
+import { extendedUserSlice,  selectUser, useGetUserQuery } from '@/lib/slices/userSlice'
 
 export default function WishList() {
 

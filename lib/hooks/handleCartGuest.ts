@@ -1,6 +1,6 @@
-import { LocalUser } from "lib/authSlice";
-import { ClotheType } from "lib/clothesSlice";
-import services from "../services/utilities";
+import { LocalUser } from "@/lib/slices/authSlice";
+import { ClotheType } from "@/lib/slices/clothesSlice";
+import services from "../services/arrayServices";
 
 export function handleCartGuest(_id: string, user: Partial<LocalUser>, size: string, allClothes: ClotheType[]) {
 

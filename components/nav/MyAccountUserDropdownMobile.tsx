@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Link from "next/link"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import { useLogoutMutation, selectUser } from "lib/userSlice"
+import { useLogoutMutation, selectUser } from "@/lib/slices/userSlice"
 import Image from "next/image"
 import details from '@/public/account_details.png'
 import welcome from '@/public/account_welcome.png'
@@ -9,7 +9,7 @@ import orders from '@/public/account_orders.png'
 import history from '@/public/account_history.png'
 import wishlist from '@/public/account_wishlist.png'
 import router from "next/router"
-import { apiSlice } from "lib/apiSlice"
+import { apiSlice } from "@/lib/slices/apiSlice"
 import logoutIMG from '@/public/account_logout.png'
 import { RootState } from "@/lib/store"
 

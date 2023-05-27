@@ -1,5 +1,5 @@
-import { ClotheType } from "lib/clothesSlice";
-import { LocalUser } from "../authSlice";
+import { ClotheType } from "@/lib/slices/clothesSlice";
+import { LocalUser } from "../slices/authSlice";
 
 
 

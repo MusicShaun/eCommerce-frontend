@@ -2,20 +2,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import ErrorWindow from '@/components/ErrorWindow'
+import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
 import VerifyEmail from './VerifyEmail'
 import awsconfig from '../../src/aws-exports'
 import { Amplify, Auth } from 'aws-amplify'
 import AuthOOptions from '@/components/AuthOOptions'
-import LoginLayout from '@/components/LoginLayout'
-import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks'
+import LoginLayout from '@/components/layouts/LoginLayout'
+import { useAppDispatch } from '@/lib/hooks/hooks'
+import { handleRegisterError } from '@/lib/utils/formUtils'
+import {setEmailOnLogin } from '@/lib/slices/authSlice'
+
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
 
 
-import { selectUsersEmail, setEmailOnLogin } from '@/lib/authSlice'
-
 export default function login() {
+
   const [isLoading, setIsLoading ] = useState(false)
   const [errorWindow, setErrorWindow] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -26,6 +28,7 @@ export default function login() {
   const dispatch = useAppDispatch()
 
 
+
   useEffect(() => {
     if (focusRef.current) focusRef.current.focus() 
   }, []) 
@@ -33,51 +36,35 @@ export default function login() {
   async function handleSubmit(e:any ) {
     e.preventDefault()
     setIsLoading(true)
-
     const data = new FormData(e.target)
+
+    //CHECK PASSWORDS
     if (data.get('password') !== data.get('confirm_password')) {
       passwordRef.current!.value = ''
       passwordRef.current?.focus()
       alert('Passwords do not match')
       return
     }
-    try {
-      dispatch(setEmailOnLogin(data.get('email') as string))
-      setPasskey(data.get('password') as string)
+    setPasskey(data.get('password') as string)
 
-      const cognitoUser = await Auth.signUp({
+    try {
+      await Auth.signUp({
         username: data.get('email') as string,
         password: data.get('password') as string
       })
-
+      dispatch(setEmailOnLogin(data.get('email') as string))
       setShowVerify(true)
 
-      console.log(cognitoUser)
-      
     } catch (err: any) {
-      console.log('im in the error block')
       setErrorWindow(true)
-      if (err.status == 429) setErrorMessage('Too many requests, please try again later')
-      else if ('data' in err && err.data.message) setErrorMessage(err.data.message)
-      else if (err.error) setErrorMessage(err.error)
-      else (setErrorMessage(JSON.stringify(err) ))
-      console.log(err)
+      handleRegisterError({err, setErrorMessage})
       setIsLoading(false)
     }
-    // set error handling for user exists 
-    // invalid password 
     finally {
       setIsLoading(false)
     }
   }
 
-  function handleInterestCheck(e:any) {
-    if (e.target.women.checked) {
-      return 'women'
-    } else if (e.target.men.checked) {
-      return 'men'
-    } else return ''
-  }
   function closeVerificationWindow() {
     setShowVerify(false)
   }

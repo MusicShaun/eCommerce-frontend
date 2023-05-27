@@ -1,13 +1,10 @@
-import { RootState } from './store'
+import { RootState } from '../store'
 import { apiSlice } from './apiSlice'
 import { LocalUser } from './authSlice'
-import { getAuthEmail } from './selectors';
+import { getAuthEmail } from '../selectors';
 export interface Signup {
   email: string
-  gender: string
-  given_name: string
-  surname: string 
-  dob: string
+  cognitoId: string
 }
 interface Status {
   status: string

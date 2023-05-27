@@ -4,11 +4,11 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import passwordIMG from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { useForgotPasswordMutation } from 'lib/userSlice'
-import ErrorWindow from '@/components/ErrorWindow'
+import { useRegisterMutation } from '@/lib/slices/userSlice'
+import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
 import router from 'next/router';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/hooks';
-import { selectUsersEmail, setAuth } from '@/lib/authSlice';
+import { selectUsersEmail, setAuth, setCognitoId } from '@/lib/slices/authSlice';
 
 interface IProps {
   password: string 
@@ -20,13 +20,13 @@ const VerifyEmail = ({password, hideVerificationWindow}: IProps) => {
   const usersEmail = useAppSelector(selectUsersEmail)
   const dispatch = useAppDispatch()
   const [errorMessage, setErrorMessage] = useState('')
+  const [registerUser, { data, isLoading: registerLoading, isError, error: registerError }] = useRegisterMutation()
+  const [errorWindow, setErrorWindow] = useState(false)
 
 
-  // Get input
-  // Confirm cognito signup
-  // Sign user in
-  // Get jwt 
-  // Route to Home 
+
+  // COGNITO EMAIL CODE VERIFICATION
+  // USES EMAIL AND COGNITO ID AS BACKEND VERIFICATION
   const handleVerification = async (e: any) => {
     e.preventDefault()
     const formData = new FormData(e.target)
@@ -37,29 +37,28 @@ const VerifyEmail = ({password, hideVerificationWindow}: IProps) => {
 
       const signedInUser = await Auth.signIn(usersEmail, password);
       const accessToken = signedInUser.signInUserSession.accessToken.jwtToken;
-      console.log(accessToken)
-      dispatch(setAuth(accessToken))
-      hideVerificationWindow()
 
+      dispatch(setAuth(accessToken))
+      dispatch(setCognitoId(signedInUser.attributes.sub))
+
+      // NOW USER IS LOGGED IN, WE CAN CREATE A USER ON MONGO
+      registerUser({
+        email: usersEmail,
+        cognitoId: signedInUser.attributes.sub,
+      })
+
+      hideVerificationWindow()
       console.log('SUCCESS:: REROUTING TO DETAILS ');
       router.push('/login/FillYourDetails')
       
     } catch (error: any) { 
+      setErrorWindow(true)
       console.log('Error verifying email:', error);
-
       setErrorMessage(error)
-      //!  COME BACK HERE AND DO SOME ERROR HANDLING 
     }
   };
 
 
-  //! THESE STATES WILL NEED TO BE CHECK IF THEYRE STILL USEFUL 
-  const [errorWindow, setErrorWindow] = useState(false)
-  const [successWindow, setSuccessWindow] = useState(false)
-  const [forgotPassword, {isLoading, error} ] = useForgotPasswordMutation()
-
-
-  
 
   
   return (
@@ -70,20 +69,14 @@ const VerifyEmail = ({password, hideVerificationWindow}: IProps) => {
           fill
         sizes='100vw, 100vh'
       />
-      {errorWindow && error 
+      {errorWindow && isError 
         ? <ErrorWindow
           header='Uh Oh!'
           message={errorMessage}
           closeWindow={setErrorWindow} />
         : false
       }
-      {successWindow 
-        ? <ErrorWindow
-          header='This wont take long!'
-          message='Instructions have been sent to your email!'
-          closeWindow={setSuccessWindow} />
-        : false
-      }
+
 
       <Box>
 
@@ -97,7 +90,7 @@ const VerifyEmail = ({password, hideVerificationWindow}: IProps) => {
             <PacmanLoader
               color={'#2d2d2d'}
               size={50}
-              loading={isLoading}
+              loading={registerLoading}
               cssOverride={{zIndex: 9000}}
               speedMultiplier={1.5}
             />

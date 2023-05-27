@@ -1,8 +1,8 @@
 import React, { SetStateAction, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import ProductFilterSideBarSelect from './ProductFilterSideBarSelect'
-import { ClotheType } from 'lib/clothesSlice'
-import PriceSlider from './PriceSlider'
+import { ClotheType } from '@/lib/slices/clothesSlice'
+import PriceSlider from '../PriceSlider'
 
 interface IProps {
   info: ClotheType[]

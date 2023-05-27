@@ -1,4 +1,4 @@
-import { ClotheType } from 'lib/clothesSlice'
+import { ClotheType } from '@/lib/slices/clothesSlice'
 import React, { FormEvent, SetStateAction, useRef, useState } from 'react'
 import styled from 'styled-components'
 

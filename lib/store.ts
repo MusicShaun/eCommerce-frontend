@@ -1,8 +1,8 @@
 import { Action, ThunkAction, combineReducers, configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./apiSlice";
+import { apiSlice } from "./slices/apiSlice";
 import logger from 'redux-logger'
-import auth from "./authSlice";
-import searchBarReducer from "./searchBarSlice";
+import auth from "./slices/authSlice";
+import searchBarReducer from "./slices/searchBarSlice";
 
 const reducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,

@@ -3,7 +3,7 @@ import NavMenuThreeImageTiles from '@/components/nav/NavMenu_ThreeImagesTiles'
 import NavMenuListWithIcons from '@/components/nav/NavMenu_ListWithIcons'
 import NavMenuList from '@/components/nav/NavMenu_List'
 import { useAppSelector } from 'lib/hooks/hooks'
-import { selectShoes } from 'lib/clothesSlice'
+import { selectShoes } from '@/lib/slices/clothesSlice'
 
 interface IProps {
   handleEnterNavTab: (name: string, value: boolean ) => void

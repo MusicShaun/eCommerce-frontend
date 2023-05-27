@@ -2,11 +2,11 @@ import styled, { useTheme } from "styled-components";
 import Image from "next/image";
 import React from 'react'
 import Magnifying from '@/public/magnifying.webp'
-import { selectAllClothes } from "lib/clothesSlice";
+import { selectAllClothes } from "@/lib/slices/clothesSlice";
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
-import { updateSearchBar } from "lib/searchBarSlice";
+import { updateSearchBar } from "@/lib/slices/searchBarSlice";
 import router from "next/router";
-import ModalErrorWindow from "../ModalErrorWindow";
+import ModalErrorWindow from "../modalsAndErrors/ModalErrorWindow";
 
 export default function SearchBar() {
   

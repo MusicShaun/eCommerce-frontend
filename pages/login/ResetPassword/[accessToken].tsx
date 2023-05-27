@@ -13,10 +13,10 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import password from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { useResetPasswordMutation } from 'lib/userSlice'
+import { useResetPasswordMutation } from '@/lib/slices/userSlice'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import ErrorWindow from '@/components/ErrorWindow'
+import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
 
 
 

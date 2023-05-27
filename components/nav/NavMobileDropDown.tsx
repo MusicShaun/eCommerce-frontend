@@ -1,4 +1,4 @@
-import { ClotheType, selectShirts, selectShoes, selectShorts } from "lib/clothesSlice"
+import { ClotheType, selectShirts, selectShoes, selectShorts } from "@/lib/slices/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
 import styled from "styled-components"
 import Image from "next/image"

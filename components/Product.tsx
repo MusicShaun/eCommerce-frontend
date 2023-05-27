@@ -1,4 +1,4 @@
-import { ClotheType } from 'lib/clothesSlice'
+import { ClotheType } from '@/lib/slices/clothesSlice'
 import Image from 'next/image'
 import React from 'react'
 import styled from 'styled-components'

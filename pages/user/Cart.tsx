@@ -1,14 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import Empty from '../../components/EmptyTab'
-import MyAccountLayout from '../../components/AccountLayout'
+import MyAccountLayout from '../../components/layouts/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
-import ClothesCardCart from '@/components/ClothesCardCart'
+import ClothesCardCart from '@/components/clothes/ClothesCardCart'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import Head from 'next/head'
 import { RootState } from '@/lib/store'
-import { selectUser } from 'lib/userSlice'
+import { selectUser } from '@/lib/slices/userSlice'
 
 
 

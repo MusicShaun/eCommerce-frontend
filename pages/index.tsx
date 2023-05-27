@@ -1,20 +1,17 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
-import styled, { CSSProperties } from 'styled-components'
-import Banner from '@/components/Banner'
-import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheType} from 'lib/clothesSlice'
-import ClothesGallery from '@/components/ClothesGallery'
+import styled from 'styled-components'
+import Banner from '@/components/banners/Banner'
+import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheType} from '@/lib/slices/clothesSlice'
+import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { extendedUserSlice,  selectUser, useGetUserQuery } from 'lib/userSlice'
+import { selectUser, useGetUserQuery, useRegisterMutation } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
-import { loggedIn, setAuth, setEmailOnLogin, signOut } from '@/lib/authSlice'
-import { getAuthEmail } from '@/lib/selectors'
+import { loggedIn, setAuth, setEmailOnLogin, signOut } from '@/lib/slices/authSlice'
 import { RootState } from '@/lib/store'
 
-import awsConfig from '../src/aws-exports'
-import { Amplify, Auth, Hub } from 'aws-amplify'
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
+import { Auth, Hub } from 'aws-amplify'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -27,8 +24,9 @@ export default function Home() {
   const userEmail = useAppSelector(state => state.auth.email)
   const userData = useAppSelector((state: RootState) => selectUser(state, userEmail))
   const dispatch = useAppDispatch()
+  const [tokenSent, setTokenSent] = useState(false)
 
-  
+
   const {
     isLoading,
     isSuccess,
@@ -43,13 +41,15 @@ export default function Home() {
     isError: userIsError,
     error: userError
   } = useGetUserQuery(userEmail)
-  console.log(user)
   
- 
+  const [registerUser, {
+    data,
+    isLoading: registerLoading,
+    error: registerError }
+  ] = useRegisterMutation()
 
 
-  const [users, setUser] = useState(null);
-  const [customState, setCustomState] = useState(null);
+
   // Wrapped in a useEffect to avoid re rendering when getUser fires
   useEffect(() => {
     if (isLoading) {
@@ -61,34 +61,45 @@ export default function Home() {
 
   }, [isSuccess, isError, selectAll, isLoading])
 
+  const handleUserRegistration = (idToken: string, accessToken: string) => {
+    registerUser({
+      email: idToken,
+      cognitoId: accessToken
+    });
+  };
+  
+
   // COGNITO AUTH
   useEffect(() => {
     const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
       switch (event) {
         case "signIn":
-          console.log('CIRCLE BACK HERE. WHAT IS THE DATA THAT PASSES HERE ON SIGN ::::: ')
-          console.log(data)
+          // SET HEADER TOKEN
+          dispatch(setAuth(data.signInUserSession.accessToken.jwtToken))
+          // ONE ATTEMPT AT REGISTERING THE USER
+          if (!tokenSent) { 
+            let { signInUserSession } = data
+            let { accessToken, idToken } = signInUserSession
+            handleUserRegistration(idToken.payload.email, accessToken.payload.sub)
+          }
+          console.log('USER REGISTERED :: :: ::')
+          setTokenSent(true)
           break;
         case "signOut":
           dispatch(signOut)
           break;
         case "customOAuthState":
-          setCustomState(data); //! read about why this exist 
+          //! read about why this exist 
       }
     });
 
     Auth.currentAuthenticatedUser() // EMAIL AND JWT IS USED FOR THE SERVER SIDE AUTH 
       .then(currentUser => (
-        dispatch(setAuth(
-          currentUser.signInUserSession.accessToken.jwtToken
-        )),
-        dispatch(setEmailOnLogin(currentUser.attributes.email) ), 
-        console.log(currentUser),
+        dispatch(setEmailOnLogin(currentUser.attributes.email)),
         dispatch(loggedIn(true))
         ),
       )
       .catch(() => console.log("Not signed in"));
-
     return unsubscribe;
   }, [])
 

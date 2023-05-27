@@ -1,8 +1,8 @@
 import React from 'react';
-import ClothesGallery from '../components/ClothesGallery';
+import ClothesGallery from '../components/clothes/ClothesGallery';
 import { useAppSelector } from 'lib/hooks/hooks';
 import styled from 'styled-components';
-import { selectSearchBar } from 'lib/searchBarSlice';
+import { selectSearchBar } from '@/lib/slices/searchBarSlice';
 
 export default function ProductSearch() {
 

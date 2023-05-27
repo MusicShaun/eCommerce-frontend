@@ -1,15 +1,15 @@
 import styled, { keyframes} from "styled-components"
 import Image from "next/image"
-import { ClotheType  } from "lib/clothesSlice"
+import { ClotheType  } from "@/lib/slices/clothesSlice"
 import { useAppSelector } from "lib/hooks/hooks"
 import { useEffect, useRef, useState } from "react"
 import useAddClothingItem from "lib/hooks/useAddClothingItem"
 import PacmanLoader from "react-spinners/PacmanLoader"
 import heartOutline from '@/public/heart-outline.svg'
 import heartFilled from '@/public/heart-filled.svg'
-import ModalError from "./ModalErrorWindow"
+import ModalError from "../modalsAndErrors/ModalErrorWindow"
 import { RootState } from "@/lib/store"
-import { selectUser } from "lib/userSlice"
+import { selectUser } from "@/lib/slices/userSlice"
 
 const slideIn = keyframes` 
    0% {

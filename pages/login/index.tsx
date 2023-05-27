@@ -11,8 +11,8 @@ import awsconfig from '../../src/aws-exports'
 import { Amplify, Auth, Hub } from 'aws-amplify'
 import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
 
-import LoginLayout from '@/components/LoginLayout'
-import { setAuth, setEmailOnLogin } from '@/lib/authSlice'
+import LoginLayout from '@/components/layouts/LoginLayout'
+import { setAuth, setEmailOnLogin } from '@/lib/slices/authSlice'
 import { useAppDispatch } from '@/lib/hooks/hooks'
 
 

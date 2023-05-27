@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { ClotheType } from "./clothesSlice"
-import { RootState } from "./store"
+import { RootState } from "../store"
 
 interface IState {
   search: ClotheType[] | []

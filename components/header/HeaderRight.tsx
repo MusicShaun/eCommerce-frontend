@@ -7,7 +7,7 @@ import NavUserDropdown from "../nav/NavUserDropdown"
 import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "lib/hooks/hooks"
 import Link from "next/link"
-import { selectUser } from "lib/userSlice"
+import { selectUser } from "@/lib/slices/userSlice"
 import { RootState } from "@/lib/store"
 
 export default function HeaderRight() {

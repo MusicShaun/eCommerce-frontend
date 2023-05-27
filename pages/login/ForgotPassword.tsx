@@ -2,8 +2,8 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import password from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { useForgotPasswordMutation } from 'lib/userSlice'
-import ErrorWindow from '@/components/ErrorWindow'
+import { useForgotPasswordMutation } from '@/lib/slices/userSlice'
+import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
 import { useState } from 'react'
 
 export default function ForgotPassword() {

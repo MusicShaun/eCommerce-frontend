@@ -1,4 +1,4 @@
-import { ClotheType, Clothes } from 'lib/clothesSlice'
+import { ClotheType, Clothes } from '@/lib/slices/clothesSlice'
 import Link from 'next/link'
 import styled from 'styled-components'
 

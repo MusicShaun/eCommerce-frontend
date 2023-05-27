@@ -1,4 +1,4 @@
-import { LocalUser } from 'lib/authSlice'
+import { LocalUser } from '@/lib/slices/authSlice'
 
 
 export const useCheckJWTexpiry = () => {

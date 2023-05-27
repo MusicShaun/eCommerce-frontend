@@ -1,4 +1,4 @@
-import MyAccountLayout from '../../components/AccountLayout'
+import MyAccountLayout from '../../components/layouts/AccountLayout'
 import React, { useEffect } from 'react'
 import UserLanding from './UserLanding'
 import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'

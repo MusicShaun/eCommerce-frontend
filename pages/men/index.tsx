@@ -1,8 +1,8 @@
-import Banner from '@/components/Banner'
+import Banner from '@/components/banners/Banner'
 import styled from 'styled-components'
 import React from 'react'
-import { ClotheType, selectAllClothes, useGetAllClothesQuery } from 'lib/clothesSlice'
-import ClothesGallery from '@/components/ClothesGallery'
+import { ClotheType, selectAllClothes, useGetAllClothesQuery } from '@/lib/slices/clothesSlice'
+import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import Head from 'next/head'
 

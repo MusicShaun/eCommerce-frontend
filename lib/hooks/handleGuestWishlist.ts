@@ -1,5 +1,5 @@
-import { LocalUser } from "lib/authSlice";
-import { ClotheType } from "lib/clothesSlice";
+import { LocalUser } from "@/lib/slices/authSlice";
+import { ClotheType } from "@/lib/slices/clothesSlice";
 
 
 export function handleGuestWishlist(_id: string, user: Partial<LocalUser>, allClothes: ClotheType[]) {

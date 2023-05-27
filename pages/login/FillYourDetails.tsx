@@ -2,22 +2,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import router from 'next/router'
-import { useRegisterMutation } from 'lib/userSlice'
+import { useRegisterMutation } from '@/lib/slices/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import ErrorWindow from '@/components/ErrorWindow'
-import { useAppSelector } from 'lib/hooks/hooks'
-import {  useUpdateUserMutation } from 'lib/userSlice'
+import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
+import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
+import {  useUpdateUserMutation } from '@/lib/slices/userSlice'
 
 
 import awsconfig from '../../src/aws-exports'
-import { Amplify, Auth } from 'aws-amplify'
-import LoginLayout from '@/components/LoginLayout'
+import { Amplify, Auth, Hub } from 'aws-amplify'
+import LoginLayout from '@/components/layouts/LoginLayout'
 import { RootState} from '@/lib/store'
-import { selectUser } from '@/lib/userSlice'
+import { selectUser } from '@/lib/slices/userSlice'
+import { loggedIn, setAuth } from '@/lib/slices/authSlice'
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
-// <button onClick={signOut}>Sign out</button>
-// add signOut, user to props
+
 
 
 
@@ -29,29 +29,53 @@ export default function login() {
   const focusRef = useRef<HTMLInputElement>(null)
 
   const userEmail = useAppSelector(state => state.auth.email)
+  const cognitoId = useAppSelector(state => state.auth.cognitoId)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const user = currentUser 
+  const dispatch = useAppDispatch()
+  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation()
 
   useEffect(() => {
     if (focusRef.current) focusRef.current.focus() 
   }, []) 
+
+  useEffect(() => {
+    const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
+      switch (event) {
+        case "signIn":
+          console.log(data)
+          break;
+      }
+    });
+    Auth.currentAuthenticatedUser() // EMAIL AND JWT IS USED FOR THE SERVER SIDE AUTH 
+    .then(currentUser => (
+      dispatch(setAuth(
+        currentUser.signInUserSession.accessToken.jwtToken
+      )),
+      dispatch(loggedIn(true))
+      ),
+    )
+    .catch(() => console.log("Not signed in"));
+
+  return unsubscribe;
+}, [])
+
 
   async function handleSubmit(e:any ) {
     e.preventDefault()
     const data = new FormData(e.target)
 
     try {
-      const res = await register({//! FOR THIS TO WORK, HAVE TO HAVE THE GETUSER API CALLED AND RETURNED WITH EMAIL 
-        email: user?.email || '',
+      const res = await updateUser({
+        email: userEmail,
+        cognitoId: cognitoId,
         given_name: data.get('first') as string,
         surname: data.get('last') as string,
         dob: data.get('dob') as string,
-        gender: handleInterestCheck(e)
+        gender: handleInterestCheck(e),
       }).unwrap()
-
-      console.log(res)
-
-      // router.push('/')
+      
+      router.push('/')
       
     } catch (err: any) {
       setErrorWindow(true)

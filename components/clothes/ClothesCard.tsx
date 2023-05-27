@@ -1,10 +1,10 @@
 import styled, {keyframes} from "styled-components"
 import Image from 'next/image'
-import { ClotheType } from 'lib/clothesSlice'
+import { ClotheType } from '@/lib/slices/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import {  selectUser } from 'lib/userSlice'
+import {  selectUser } from '@/lib/slices/userSlice'
 import heartOutline from '@/public/heart-outline.svg'
 import heartFilled from '@/public/heart-filled.svg'
 import { RootState } from "@/lib/store"

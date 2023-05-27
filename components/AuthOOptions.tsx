@@ -20,28 +20,25 @@ Hub.listen('auth', (data) => {
 const isLocalhost = process.env.NODE_ENV === 'development';
 
 // Assuming you have two redirect URIs, and the first is for localhost and second is for production
-const [
-  localRedirectSignIn,
-  productionRedirectSignIn,
-] = awsConfig.oauth.redirectSignIn.split(',');
+const [ productionRedirectSignIn ] = [awsConfig.oauth.redirectSignIn];
 
-const [
-  localRedirectSignOut,
-  productionRedirectSignOut,
-] = awsConfig.oauth.redirectSignOut.split(',');
+const [productionRedirectSignOut ] = [awsConfig.oauth.redirectSignOut]
 
 const updatedAwsConfig = {
   ...awsConfig,
   oauth: {
     ...awsConfig.oauth,
-    redirectSignIn: isLocalhost ? localRedirectSignIn : productionRedirectSignIn,
-    redirectSignOut: isLocalhost ? localRedirectSignOut : productionRedirectSignOut,
+    redirectSignIn: productionRedirectSignIn,
+    redirectSignOut: productionRedirectSignOut,
   }
 }
 
 Amplify.configure(updatedAwsConfig);
 
 export default function AuthOOptions() {
+
+
+
 
   function federatedSignIn() {
 

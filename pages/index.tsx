@@ -12,6 +12,8 @@ import { loggedIn, setAuth, setEmailOnLogin, signOut } from '@/lib/slices/authSl
 import { RootState } from '@/lib/store'
 
 import { Auth, Hub } from 'aws-amplify'
+import { apiSlice } from '@/lib/slices/apiSlice'
+import router from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -122,7 +124,19 @@ export default function Home() {
     subheader3: ''
   } as const
 
-  
+  async function handleLogout() {
+    localStorage.removeItem('key')
+    try {
+      dispatch(signOut())
+      await Auth.signOut()
+    }
+    catch (err) {
+      console.log(err)
+    } finally {
+      dispatch(apiSlice.util.resetApiState())
+      router.push('/login')
+    }
+  }
 
   return (
     <>
@@ -134,6 +148,9 @@ export default function Home() {
       </Head>
 
       <Wrapper>
+      <button onClick={() => handleLogout()}>
+              Log out
+            </button>
         <Banner info={firstBanner} />
         <PacmanLoader
           color={'#2d2d2d'}

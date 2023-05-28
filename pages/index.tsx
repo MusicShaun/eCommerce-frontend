@@ -71,21 +71,12 @@ export default function Home() {
   };
   
 
-  // COGNITO AUTH
+  // COGNITO AUTH & SOCIAL SIGN IN 
   useEffect(() => {
     const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
       switch (event) {
         case "signIn":
-          // SET HEADER TOKEN
-          dispatch(setAuth(data.signInUserSession.accessToken.jwtToken))
-          // ONE ATTEMPT AT REGISTERING THE USER
-          if (!tokenSent) { 
-            let { signInUserSession } = data
-            let { accessToken, idToken } = signInUserSession
-            handleUserRegistration(idToken.payload.email, accessToken.payload.sub)
-          }
           console.log('USER REGISTERED :: :: ::')
-          setTokenSent(true)
           break;
         case "signOut":
           dispatch(signOut)
@@ -96,12 +87,28 @@ export default function Home() {
     });
 
     Auth.currentAuthenticatedUser() // EMAIL AND JWT IS USED FOR THE SERVER SIDE AUTH 
-      .then(currentUser => (
-        dispatch(setEmailOnLogin(currentUser.attributes.email)),
+      .then(currentUser => {
+        const { signInUserSession } = currentUser;
+        const { accessToken, idToken } = signInUserSession;
+        const { email } = currentUser.attributes;
+
+        // SET HEADER TOKEN
+        if (accessToken.jwtToken) dispatch(setAuth(accessToken.jwtToken))
+        else { dispatch(setAuth(accessToken)) }
+        console.log(accessToken)
+        console.log(accessToken.jwtToken)
+
+        // SEND BACKEND PAYLOAD
+        handleUserRegistration(idToken.payload.email, accessToken.payload.sub)
+        dispatch(setEmailOnLogin(email)),
         dispatch(loggedIn(true))
-        ),
+        },
       )
-      .catch(() => console.log("Not signed in"));
+      .catch((error) => {
+        const errorMessage = `Error: ${error.message}`
+        console.log(errorMessage)
+        console.log("Not signed in")
+      });
     return unsubscribe;
   }, [])
 

@@ -52,8 +52,6 @@ export default function AuthOOptions() {
     catch (error) {
       console.log(error)
     }
-
-
   }
 
   return (

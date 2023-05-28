@@ -54,6 +54,7 @@ const userSlice = createSlice({
 })
 
 export const selectUsersEmail = (state: RootState) => state.auth.email
+export const selectHeaderToken = (state: RootState) => state.auth.key
 
 export const { setAuth, loggedIn, setEmailOnLogin, signOut , setCognitoId} = userSlice.actions
 

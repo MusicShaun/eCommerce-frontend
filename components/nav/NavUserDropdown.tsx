@@ -1,25 +1,21 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import {   apiSlice, useIsLoggedInQuery } from '@/lib/slices/apiSlice'
+import {   apiSlice } from '@/lib/slices/apiSlice'
 import router from 'next/router'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
-import { useLogoutMutation } from '@/lib/slices/userSlice'
-import { GoogleLogin, googleLogout} from '@react-oauth/google';
 import { signOut} from '@/lib/slices/authSlice'
 import { Auth } from 'aws-amplify'
 
 export default function NavUserDropdown() {
 
   const loggedInState = useAppSelector(state => state.auth.loggedIn)
-  const [logout, { isSuccess }] = useLogoutMutation()
   const dispatch = useAppDispatch()
 
   async function handleLogout() {
     localStorage.removeItem('key')
     try {
       dispatch(signOut())
-      Auth.signOut()
-      const res = await logout() 
+      await Auth.signOut()
     }
     catch (err) {
       console.log(err)

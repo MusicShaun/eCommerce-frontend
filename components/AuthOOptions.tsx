@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { useAppDispatch } from '@/lib/hooks/hooks'
-import router from 'next/router';
-import { setAuth, loggedIn, setEmailOnLogin } from '@/lib/slices/authSlice';
 import Image from 'next/image';
 import Google from '../images/Google.png'
 
@@ -17,9 +14,6 @@ Hub.listen('auth', (data) => {
     }
 })
 
-const isLocalhost = process.env.NODE_ENV === 'development';
-
-// Assuming you have two redirect URIs, and the first is for localhost and second is for production
 const [ productionRedirectSignIn ] = [awsConfig.oauth.redirectSignIn];
 
 const [productionRedirectSignOut ] = [awsConfig.oauth.redirectSignOut]
@@ -46,7 +40,6 @@ export default function AuthOOptions() {
       const signedInUser = Auth.federatedSignIn({
         provider: CognitoHostedUIIdentityProvider.Google
       })
-      console.log(signedInUser)
 
     } 
     catch (error) {

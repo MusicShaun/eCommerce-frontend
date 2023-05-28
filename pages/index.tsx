@@ -26,8 +26,7 @@ export default function Home() {
   const userEmail = useAppSelector(state => state.auth.email)
   const userData = useAppSelector((state: RootState) => selectUser(state, userEmail))
   const dispatch = useAppDispatch()
-  const [tokenSent, setTokenSent] = useState(false)
-
+  const hasToken = useAppSelector(state => state.auth.key !== null)
 
   const {
     isLoading,
@@ -42,7 +41,9 @@ export default function Home() {
     isSuccess: userIsSuccess,
     isError: userIsError,
     error: userError
-  } = useGetUserQuery(userEmail)
+  } = useGetUserQuery(userEmail, {
+    skip: !hasToken
+  })
   
   const [registerUser, {
     data,
@@ -64,10 +65,11 @@ export default function Home() {
   }, [isSuccess, isError, selectAll, isLoading])
 
   const handleUserRegistration = (idToken: string, accessToken: string) => {
-    registerUser({
+    if (hasToken) registerUser({
       email: idToken,
       cognitoId: accessToken
-    });
+    })
+    else console.log('No token ')
   };
   
 
@@ -76,13 +78,12 @@ export default function Home() {
     const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
       switch (event) {
         case "signIn":
-          console.log('USER REGISTERED :: :: ::')
+          console.log('SIGN IN :: :: ::')
           break;
         case "signOut":
           dispatch(signOut)
           break;
         case "customOAuthState":
-          //! read about why this exist 
       }
     });
 
@@ -92,15 +93,13 @@ export default function Home() {
         const { accessToken, idToken } = signInUserSession;
         const { email } = currentUser.attributes;
 
-        // SET HEADER TOKEN //! REMEMBER TO TRIM THE FAT HERE 
+        // SET HEADER TOKEN 
         if (accessToken.jwtToken) dispatch(setAuth(accessToken.jwtToken))
         else { dispatch(setAuth(accessToken)) }
-        console.log(accessToken)
-        console.log(accessToken.jwtToken)
 
         // SEND BACKEND PAYLOAD
         handleUserRegistration(idToken.payload.email, accessToken.payload.sub)
-        dispatch(setEmailOnLogin(email)),
+        dispatch(setEmailOnLogin(email))
         dispatch(loggedIn(true))
         },
       )
@@ -113,6 +112,19 @@ export default function Home() {
   }, [])
 
 
+  async function handleLogout() {
+    localStorage.removeItem('key')
+    try {
+      dispatch(signOut())
+      await Auth.signOut()
+    }
+    catch (err) {
+      console.log(err)
+    } finally {
+      dispatch(apiSlice.util.resetApiState())
+      router.push('/login')
+    }
+  }
 
   const firstBanner = {
     banner: '#95f7e5',
@@ -131,19 +143,6 @@ export default function Home() {
     subheader3: ''
   } as const
 
-  async function handleLogout() {
-    localStorage.removeItem('key')
-    try {
-      dispatch(signOut())
-      await Auth.signOut()
-    }
-    catch (err) {
-      console.log(err)
-    } finally {
-      dispatch(apiSlice.util.resetApiState())
-      router.push('/login')
-    }
-  }
 
   return (
     <>

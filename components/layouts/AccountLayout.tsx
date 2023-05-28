@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
-import Sidebar from '../../pages/user/Sidebar'
+import Sidebar from '../sidebars/Sidebar'
 import SidebarMobile from '../nav/MyAccountUserDropdownMobile'
 import Hamburger from 'hamburger-react'
 import BackButton from '../buttons/BackButtonMyAccount'

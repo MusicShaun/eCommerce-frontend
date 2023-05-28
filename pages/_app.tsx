@@ -2,13 +2,12 @@ import Header from '@/components/header/Header'
 import { theme } from '@/config/ThemeConfig'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import { store } from 'lib/store'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { useAppDispatch } from '@/lib/hooks/hooks'
-import { setAuth, setEmailOnLogin, signOut } from '@/lib/slices/authSlice'
+
 
 import awsconfig from '../src/aws-exports'
 import { Amplify, Auth, Hub } from 'aws-amplify'

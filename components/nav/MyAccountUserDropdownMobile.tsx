@@ -1,17 +1,16 @@
 import styled from "styled-components"
 import Link from "next/link"
-import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import { useLogoutMutation, selectUser } from "@/lib/slices/userSlice"
+import {  useAppSelector } from "lib/hooks/hooks"
+import { selectUser } from "@/lib/slices/userSlice"
 import Image from "next/image"
 import details from '@/public/account_details.png'
 import welcome from '@/public/account_welcome.png'
 import orders from '@/public/account_orders.png'
 import history from '@/public/account_history.png'
 import wishlist from '@/public/account_wishlist.png'
-import router from "next/router"
-import { apiSlice } from "@/lib/slices/apiSlice"
 import logoutIMG from '@/public/account_logout.png'
 import { RootState } from "@/lib/store"
+import { logout } from "@/lib/services/handleLogout"
 
 interface IProps {
   open: boolean
@@ -20,8 +19,6 @@ export default function Sidebar({open}: IProps) {
   
   const userEmail = useAppSelector(state => state.auth.email)
   const user =  useAppSelector((state: RootState) => selectUser(state, userEmail))
-    const [logout, { isSuccess }] = useLogoutMutation()
-  const dispatch = useAppDispatch()
   
   function userIsNotNull(check: string | null | undefined): string {
     if (typeof check === 'string') {
@@ -32,16 +29,7 @@ export default function Sidebar({open}: IProps) {
 
 
   async function handleLogout() {
-    localStorage.removeItem('key')
-    try {
-      const res = await logout() 
-    }
-    catch (err) {
-      console.log(err)
-    } finally {
-      dispatch(apiSlice.util.resetApiState())
-      router.push('/login/LoginWrapper', '/login', { shallow: true })
-    }
+    await logout() 
   }
 
   return (

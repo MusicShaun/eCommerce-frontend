@@ -6,14 +6,10 @@ import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheT
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { selectUser, useGetUserQuery, useRegisterMutation } from '@/lib/slices/userSlice'
+import { useGetUserQuery, useRegisterMutation } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
-import { isAuthenticated, setAuth, setEmailOnLogin, signOut } from '@/lib/slices/authSlice'
-import { RootState } from '@/lib/store'
-
+import {   selectIsAuthenticated, isAuthenticated, setAuth, setEmailOnLogin, signOut } from '@/lib/slices/authSlice'
 import { Auth, Hub } from 'aws-amplify'
-import { apiSlice } from '@/lib/slices/apiSlice'
-import router from 'next/router'
 import { logout } from '@/lib/services/handleLogout'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -25,10 +21,9 @@ export default function Home() {
   const selectAll = useAppSelector(selectAllClothes)
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)
-  const userData = useAppSelector((state: RootState) => selectUser(state, userEmail))
   const dispatch = useAppDispatch()
   const hasToken = useAppSelector(state => state.auth.token !== null)
-
+  const isAuthorised = useAppSelector(selectIsAuthenticated)
 
   const {
     isLoading,
@@ -67,7 +62,7 @@ export default function Home() {
   }, [isSuccess, isError, selectAll, isLoading])
 
   const handleUserRegistration = (idToken: string, accessToken: string) => {
-    if (hasToken) registerUser({
+    if (hasToken && !isAuthorised) registerUser({
       email: idToken,
       cognitoId: accessToken
     })

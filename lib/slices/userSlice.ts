@@ -39,7 +39,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
         body:  {email: email }
       }),
       transformResponse: (user: LocalUser) => {
-        localStorage.setItem('key', JSON.stringify({ ...user }))
+        if (typeof localStorage !== 'undefined' ) localStorage.setItem('key', JSON.stringify({ ...user }))
         console.log('GET USER EXECUTED :: ')
         return user
         // return usersAdapter.setAll(initialState, [user])
@@ -112,22 +112,6 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['Auth']
     }),
-
-
-    forgotPassword: builder.mutation<any, any>({//! fix the any any types 
-      query: (body) => ({
-        url: '/users/forgotPassword',
-        method: 'POST',
-        body, 
-      }),
-    }),
-    resetPassword: builder.mutation<any, any>({
-      query: (body) => ({
-        url: `/users/resetPassword/${body.accessToken}`,
-        method: 'PATCH',
-        body,
-      }),
-    }),
     
   }),
   overrideExisting: true,
@@ -140,8 +124,6 @@ export const {
   useAddWishListItemMutation,
   useAddCartItemMutation,
   useGuestMutation,
-  useForgotPasswordMutation,
-  useResetPasswordMutation,
   useUpdateUserMutation
 } = extendedUserSlice
 

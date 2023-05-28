@@ -26,7 +26,7 @@ const initialState: AuthState = {
   cognitoId: ''
 }
 
-let persistedStorage: {} 
+let persistedStorage: Partial<AuthState> 
 if (typeof localStorage !== 'undefined') persistedStorage = JSON.parse(localStorage.getItem('authState') || '{}');
 
 const userSlice = createSlice({
@@ -35,14 +35,14 @@ const userSlice = createSlice({
   reducers: {
     setAuth: (state, action) => {
       state.token = action.payload
-      localStorage.setItem('authState', JSON.stringify({...persistedStorage, token: action.payload}))
+      if (persistedStorage) localStorage.setItem('authState', JSON.stringify({...persistedStorage, token: action.payload}))
     },
     isAuthenticated: (state, action) => {
       state.isAuthenticated = action.payload
     },
     setEmailOnLogin: (state, action) => {
       state.email = action.payload
-      localStorage.setItem('authState', JSON.stringify({...persistedStorage, email: action.payload}))
+      if (persistedStorage) localStorage.setItem('authState', JSON.stringify({...persistedStorage, email: action.payload}))
     },
     setCognitoId: (state, action) => {
       state.cognitoId = action.payload

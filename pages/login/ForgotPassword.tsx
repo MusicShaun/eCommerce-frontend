@@ -2,7 +2,6 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import password from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { useForgotPasswordMutation } from '@/lib/slices/userSlice'
 import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
 import { useState } from 'react'
 
@@ -10,25 +9,8 @@ export default function ForgotPassword() {
 
   const [errorWindow, setErrorWindow] = useState(false)
   const [successWindow, setSuccessWindow] = useState(false)
-  const [forgotPassword, {isLoading, error} ] = useForgotPasswordMutation()
   const [errorMessage, setErrorMessage] = useState('')
 
-  // Submit login form // Set localStorage // push user to state 
-  async function handleSubmit(e: any) {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const email = formData.get('email')
-    try {
-      setSuccessWindow(true)
-      const res = await forgotPassword({ email: email }).unwrap()
-      console.log(res)
-    } catch (err: any) {
-      setErrorMessage(err.data.message)
-      console.log(err)
-      setErrorWindow(true)
-    }
-    
-  }
   
 
   
@@ -39,7 +21,7 @@ export default function ForgotPassword() {
           fill
         sizes='100vw, 100vh'
       />
-      {errorWindow && error 
+      {errorWindow 
         ? <ErrorWindow
           header='Uh Oh!'
           message={errorMessage}
@@ -62,31 +44,8 @@ export default function ForgotPassword() {
         <Header><h3>Please enter your email address  and <br/> instructions will be sent to you. </h3></Header>
         <FormLogin>
           
-        <SpinnerContainer >
-            <PacmanLoader
-              color={'#2d2d2d'}
-              size={50}
-              loading={isLoading}
-              cssOverride={{zIndex: 9000}}
-              speedMultiplier={1.5}
-            />
-        </SpinnerContainer>
-        
-        <Form onSubmit={(e) => handleSubmit(e)}>
-          <FieldSet>
-            <FieldSetBox>
-              <Field>
-                <label htmlFor='email'></label>
-                <input name='email'  type='email' id='email' autoComplete='email username' placeholder='john@example.com' />
-              </Field>
-            </FieldSetBox>
-          </FieldSet>
 
-          <FieldSetBox>
-            <SubmitBtn>ENTER</SubmitBtn>
-          </FieldSetBox>
-            
-        </Form>
+
       </FormLogin>
   
       </Box>

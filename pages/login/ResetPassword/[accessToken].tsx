@@ -13,7 +13,6 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import password from '@/public/password.png'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { useResetPasswordMutation } from '@/lib/slices/userSlice'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
@@ -23,7 +22,6 @@ import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
 
 export default function ResetPassword() {
 
-  const [resetPassword, {isLoading, error }] = useResetPasswordMutation()
   const [errorWindow, setErrorWindow] = useState(false)
   const [successWindow, setSuccessWindow] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -31,35 +29,6 @@ export default function ResetPassword() {
   const router = useRouter()
   const { accessToken } = router.query
 
-  async function handleSubmit(e: any) {
-    e.preventDefault()
-
-
-
-    const formData = new FormData(e.target)
-    const password = formData.get('password')
-    const passwordConfirm = formData.get('passwordConfirm')
-    
-    try {
-      setSuccessWindow(true)
-      await resetPassword({
-        password: password,
-        passwordConfirm: passwordConfirm,
-        accessToken: accessToken
-      }).unwrap()
-      router.push('/login')
-
-    } catch (err: any) {
-      setErrorMessage(err.data.message)
-      setErrorWindow(true)
-      console.log(err)
-      if (err.data.message.includes('invalid')) {
-        alert('Your reset token has expired. Please request a new one.')
-        router.push('/login/ForgotPassword', '/forgotpassword')
-      }
-      //! need to include more error handling from the backend. Every message is the same 
-    }
-  }
 
   
   
@@ -70,7 +39,7 @@ export default function ResetPassword() {
           fill
         sizes='100vw, 100vh'
       />
-      {errorWindow && error 
+      {errorWindow  
         ? <ErrorWindow
           header='Uh Oh!'
           message={errorMessage}
@@ -88,40 +57,11 @@ export default function ResetPassword() {
 
         <BorderBreak />
         <Reset>RESET PASSWORD</Reset>
-        <Image src={password} alt='' width={75} />
         <Header><h3>Please enter a new password </h3></Header>
-        <FormLogin>
-          
-        <SpinnerContainer >
-            <PacmanLoader
-              color={'#2d2d2d'}
-              size={50}
-              loading={isLoading}
-              cssOverride={{zIndex: 9000}}
-              speedMultiplier={1.5}
-            />
-        </SpinnerContainer>
-        
-        <Form onSubmit={(e) => handleSubmit(e)}>
-          <FieldSet>
-            <FieldSetBox>
-              <Field>
-                <label htmlFor='password'>Password</label>
-                <input name='password'  type='password' id='password' autoComplete='password'  />
-              </Field>
-              <Field>
-                <label htmlFor='passwordConfirm'>Confirm password</label>
-                <input name='passwordConfirm'  type='password' id='passwordConfirm' autoComplete='passwordConfirm'  />
-              </Field>
-            </FieldSetBox>
-          </FieldSet>
+      
 
-          <FieldSetBox>
-            <SubmitBtn>ENTER</SubmitBtn>
-          </FieldSetBox>
-            
-        </Form>
-      </FormLogin>
+        
+
   
       </Box>
       </Wrapper>

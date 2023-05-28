@@ -92,7 +92,7 @@ export default function Home() {
         const { accessToken, idToken } = signInUserSession;
         const { email } = currentUser.attributes;
 
-        // SET HEADER TOKEN
+        // SET HEADER TOKEN //! REMEMBER TO TRIM THE FAT HERE 
         if (accessToken.jwtToken) dispatch(setAuth(accessToken.jwtToken))
         else { dispatch(setAuth(accessToken)) }
         console.log(accessToken)

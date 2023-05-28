@@ -30,7 +30,7 @@ export const apiSlice = createApi({
     baseUrl: BASE_URL,
     prepareHeaders: (headers, { getState }) => {
       // Get the JWT token from your Redux store state or any suitable storage mechanism
-      const token = (getState() as RootState).auth.key;
+      const token = (getState() as RootState).auth.token;
       if (token) {
         // Include the token in the Authorization header
         headers.set('Authorization', `Bearer ${token}`);

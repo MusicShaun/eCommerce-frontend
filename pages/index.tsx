@@ -6,10 +6,9 @@ import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheT
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
-import { useGetUserQuery, useRegisterMutation } from '@/lib/slices/userSlice'
+import { useGetUserQuery } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
-import {   selectIsAuthenticated, isAuthenticated, setAuth, setEmailOnLogin, signOut } from '@/lib/slices/authSlice'
-import { Auth, Hub } from 'aws-amplify'
+import {   selectIsAuthenticated} from '@/lib/slices/authSlice'
 import { logout } from '@/lib/services/handleLogout'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -21,9 +20,7 @@ export default function Home() {
   const selectAll = useAppSelector(selectAllClothes)
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)
-  const dispatch = useAppDispatch()
   const hasToken = useAppSelector(state => state.auth.token !== null)
-  const isAuthorised = useAppSelector(selectIsAuthenticated)
 
   const {
     isLoading,
@@ -41,14 +38,6 @@ export default function Home() {
   } = useGetUserQuery(userEmail, {
     skip: !hasToken
   })
-  
-  const [registerUser, {
-    data,
-    isLoading: registerLoading,
-    error: registerError }
-  ] = useRegisterMutation()
-
-
 
   // Wrapped in a useEffect to avoid re rendering when getUser fires
   useEffect(() => {
@@ -58,55 +47,8 @@ export default function Home() {
     } else if (isError) {
       console.log(JSON.stringify(error))
     }
-
   }, [isSuccess, isError, selectAll, isLoading])
 
-  const handleUserRegistration = (idToken: string, accessToken: string) => {
-    if (hasToken && !isAuthorised) registerUser({
-      email: idToken,
-      cognitoId: accessToken
-    })
-    else console.log('No token ')
-  };
-  
-
-  // COGNITO AUTH & SOCIAL SIGN IN 
-  useEffect(() => {
-    const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
-      switch (event) {
-        case "signIn":
-          console.log('SIGN IN :: :: ::')
-          break;
-        case "signOut":
-          dispatch(signOut)
-          break;
-        case "customOAuthState":
-      }
-    });
-
-    Auth.currentAuthenticatedUser() // EMAIL AND JWT IS USED FOR THE SERVER SIDE AUTH 
-      .then(currentUser => {
-        const { signInUserSession } = currentUser;
-        const { accessToken, idToken } = signInUserSession;
-        const { email } = currentUser.attributes;
-
-        // SET HEADER TOKEN 
-        if (accessToken.jwtToken) dispatch(setAuth(accessToken.jwtToken))
-        else { dispatch(setAuth(accessToken)) }
-
-        // SEND BACKEND PAYLOAD
-        handleUserRegistration(idToken.payload.email, accessToken.payload.sub)
-        dispatch(setEmailOnLogin(email))
-        dispatch(isAuthenticated(true))
-        },
-      )
-      .catch((error) => {
-        const errorMessage = `Error: ${error.message}`
-        console.log(errorMessage)
-        console.log("Not signed in")
-      });
-    return unsubscribe;
-  }, [])
 
   async function handleLogout() {
     await logout()

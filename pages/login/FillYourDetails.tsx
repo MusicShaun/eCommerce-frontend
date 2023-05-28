@@ -2,21 +2,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import router from 'next/router'
-import { useRegisterMutation } from '@/lib/slices/userSlice'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import ErrorWindow from '@/components/modalsAndErrors/ErrorWindow'
-import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
+import { useAppSelector } from 'lib/hooks/hooks'
 import {  useUpdateUserMutation } from '@/lib/slices/userSlice'
-
-
-import awsconfig from '../../src/aws-exports'
-import { Amplify, Auth, Hub } from 'aws-amplify'
 import LoginLayout from '@/components/layouts/LoginLayout'
-import { RootState} from '@/lib/store'
-import { selectUser } from '@/lib/slices/userSlice'
-import { loggedIn, setAuth } from '@/lib/slices/authSlice'
-Amplify.configure({awsconfig})
-Auth.configure(awsconfig)
+import { selectUsersEmail } from '@/lib/slices/authSlice'
 
 
 
@@ -25,40 +16,14 @@ export default function login() {
 
   const [errorWindow, setErrorWindow] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-  const [register, { isLoading , error}] = useRegisterMutation()
   const focusRef = useRef<HTMLInputElement>(null)
-
-  const userEmail = useAppSelector(state => state.auth.email)
+  const userEmail = useAppSelector(selectUsersEmail)
   const cognitoId = useAppSelector(state => state.auth.cognitoId)
-  const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
-  const user = currentUser 
-  const dispatch = useAppDispatch()
-  const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation()
+  const [updateUser, { isLoading, error }] = useUpdateUserMutation()
 
   useEffect(() => {
     if (focusRef.current) focusRef.current.focus() 
   }, []) 
-
-  useEffect(() => {
-    const unsubscribe = Hub.listen("auth", ({ payload: { event, data } }) => {
-      switch (event) {
-        case "signIn":
-          console.log(data)
-          break;
-      }
-    });
-    Auth.currentAuthenticatedUser() // EMAIL AND JWT IS USED FOR THE SERVER SIDE AUTH 
-    .then(currentUser => (
-      dispatch(setAuth(
-        currentUser.signInUserSession.accessToken.jwtToken
-      )),
-      dispatch(loggedIn(true))
-      ),
-    )
-    .catch(() => console.log("Not signed in"));
-
-  return unsubscribe;
-}, [])
 
 
   async function handleSubmit(e:any ) {

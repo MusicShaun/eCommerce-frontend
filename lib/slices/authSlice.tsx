@@ -26,7 +26,8 @@ const initialState: AuthState = {
   cognitoId: ''
 }
 
-const persistedStorage = JSON.parse(localStorage.getItem('authState') || '{}');
+let persistedStorage: {} 
+if (typeof localStorage !== 'undefined') persistedStorage = JSON.parse(localStorage.getItem('authState') || '{}');
 
 const userSlice = createSlice({
   name: 'auth',

@@ -35,12 +35,14 @@ function App({ Component, pageProps }: AppProps) {
   // CHECK IF AUTHENTICATED
   // IF NOT, CHECK LOCAL STORAGE FOR AUTH STATE
   useEffect(() => {
-    const authState = localStorage.getItem('authState')
-
-    if (authState && !isAuthorised) {
-      const { email, token } = JSON.parse(authState)
-      dispatch(setEmailOnLogin(email))
-      dispatch(setAuth(token))
+    if (typeof localStorage !== 'undefined') {
+      const authState = localStorage.getItem('authState')
+    
+      if (authState && !isAuthorised) {
+        const { email, token } = JSON.parse(authState)
+        dispatch(setEmailOnLogin(email))
+        dispatch(setAuth(token))
+      }
     }
   },[])
   

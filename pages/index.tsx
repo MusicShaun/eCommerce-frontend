@@ -4,11 +4,10 @@ import styled from 'styled-components'
 import Banner from '@/components/banners/Banner'
 import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheType} from '@/lib/slices/clothesSlice'
 import ClothesGallery from '@/components/clothes/ClothesGallery'
-import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
+import { useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useGetUserQuery } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
-import {   selectIsAuthenticated} from '@/lib/slices/authSlice'
 import { logout } from '@/lib/services/handleLogout'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -29,13 +28,7 @@ export default function Home() {
     error
   } = useGetAllClothesQuery()
 
-  const {
-    data: user,
-    isLoading: userIsLoading,
-    isSuccess: userIsSuccess,
-    isError: userIsError,
-    error: userError
-  } = useGetUserQuery(userEmail, {
+  const { } = useGetUserQuery(userEmail, {
     skip: !hasToken
   })
 

@@ -3,7 +3,7 @@ import Link from "next/link"
 import router from "next/router"
 import { apiSlice } from "@/lib/slices/apiSlice"
 import { useAppDispatch, useAppSelector } from "lib/hooks/hooks"
-import { selectUser, useLogoutMutation } from "@/lib/slices/userSlice"
+import { selectUser } from "@/lib/slices/userSlice"
 import Image from "next/image"
 import details from '@/public/account_details.png'
 import welcome from '@/public/account_welcome.png'
@@ -12,6 +12,7 @@ import history from '@/public/account_history.png'
 import logoutIMG from '@/public/account_logout.png'
 import wishlist from '@/public/account_wishlist.png'
 import { RootState } from "@/lib/store"
+import { logout } from "@/lib/services/handleLogout"
 
 
 export default function Sidebar() {
@@ -20,20 +21,10 @@ export default function Sidebar() {
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const user = currentUser
-  const [logout, { isSuccess }] = useLogoutMutation()
 
 
   async function handleLogout() {
-    localStorage.removeItem('key')
-    try {
-      const res = await logout() 
-    }
-    catch (err) {
-      console.log(err)
-    } finally {
-      dispatch(apiSlice.util.resetApiState())
-      router.push('/login/LoginWrapper', '/login', { shallow: true })
-    }
+    await logout()
   }
 
   function userIsNotNull(check: string | null | undefined): string {

@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { ClotheType } from "./clothesSlice";
 import { RootState } from "../store";
-import { useAppDispatch } from "../hooks/hooks";
 
 export interface LocalUser {
   given_name?: string

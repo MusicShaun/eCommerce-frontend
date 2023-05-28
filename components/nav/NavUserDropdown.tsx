@@ -1,36 +1,24 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import {   apiSlice } from '@/lib/slices/apiSlice'
-import router from 'next/router'
-import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
-import { signOut} from '@/lib/slices/authSlice'
-import { Auth } from 'aws-amplify'
+import {  useAppSelector } from 'lib/hooks/hooks'
+import { selectIsAuthenticated} from '@/lib/slices/authSlice'
+import { logout } from '@/lib/services/handleLogout'
 
 export default function NavUserDropdown() {
 
-  const loggedInState = useAppSelector(state => state.auth.loggedIn)
-  const dispatch = useAppDispatch()
+  const isAuthenticated = useAppSelector(selectIsAuthenticated)
 
   async function handleLogout() {
-    localStorage.removeItem('key')
-    try {
-      dispatch(signOut())
-      await Auth.signOut()
-    }
-    catch (err) {
-      console.log(err)
-    } finally {
-      dispatch(apiSlice.util.resetApiState())
-      router.push('/login')
-    }
+    await logout()
   }
+  
 
 
 
   return (
     <Container >
       <HeadContainer>
-        {!loggedInState ? 
+        {!isAuthenticated ? 
           <div>
             <Link href='/login' as='/login'>
               <HeadButtons style={{ borderRight: ' 1px solid black' }}>

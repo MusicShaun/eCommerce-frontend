@@ -8,12 +8,13 @@ import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { selectUser, useGetUserQuery, useRegisterMutation } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
-import { loggedIn, setAuth, setEmailOnLogin, signOut } from '@/lib/slices/authSlice'
+import { isAuthenticated, setAuth, setEmailOnLogin, signOut } from '@/lib/slices/authSlice'
 import { RootState } from '@/lib/store'
 
 import { Auth, Hub } from 'aws-amplify'
 import { apiSlice } from '@/lib/slices/apiSlice'
 import router from 'next/router'
+import { logout } from '@/lib/services/handleLogout'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -26,7 +27,8 @@ export default function Home() {
   const userEmail = useAppSelector(state => state.auth.email)
   const userData = useAppSelector((state: RootState) => selectUser(state, userEmail))
   const dispatch = useAppDispatch()
-  const hasToken = useAppSelector(state => state.auth.key !== null)
+  const hasToken = useAppSelector(state => state.auth.token !== null)
+
 
   const {
     isLoading,
@@ -100,7 +102,7 @@ export default function Home() {
         // SEND BACKEND PAYLOAD
         handleUserRegistration(idToken.payload.email, accessToken.payload.sub)
         dispatch(setEmailOnLogin(email))
-        dispatch(loggedIn(true))
+        dispatch(isAuthenticated(true))
         },
       )
       .catch((error) => {
@@ -111,20 +113,10 @@ export default function Home() {
     return unsubscribe;
   }, [])
 
-
   async function handleLogout() {
-    localStorage.removeItem('key')
-    try {
-      dispatch(signOut())
-      await Auth.signOut()
-    }
-    catch (err) {
-      console.log(err)
-    } finally {
-      dispatch(apiSlice.util.resetApiState())
-      router.push('/login')
-    }
+    await logout()
   }
+
 
   const firstBanner = {
     banner: '#95f7e5',

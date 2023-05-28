@@ -15,47 +15,52 @@ export interface LocalUser {
   
 }
 export type AuthState = {
-  key: string | null
-  loggedIn: boolean
-  email: string
+  token: string | null
+  isAuthenticated: boolean
+  email: string 
   cognitoId: string
 }
 const initialState: AuthState = {
-  key: null,
-  loggedIn: false,
-  email: 'empty',
-  cognitoId: 'empty'
+  token: null,
+  isAuthenticated: false,
+  email: '',
+  cognitoId: ''
 }
 
+const persistedStorage = JSON.parse(localStorage.getItem('authState') || '{}');
 
 const userSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     setAuth: (state, action) => {
-      state.key = action.payload
+      state.token = action.payload
+      localStorage.setItem('authState', JSON.stringify({...persistedStorage, token: action.payload}))
     },
-    loggedIn: (state, action) => {
-      state.loggedIn = action.payload
+    isAuthenticated: (state, action) => {
+      state.isAuthenticated = action.payload
     },
     setEmailOnLogin: (state, action) => {
       state.email = action.payload
+      localStorage.setItem('authState', JSON.stringify({...persistedStorage, email: action.payload}))
     },
     setCognitoId: (state, action) => {
       state.cognitoId = action.payload
     },
     signOut: (state) => {
-      state.key = null
-      state.loggedIn = false
-      state.email = 'empty'
+      state.token = null
+      state.isAuthenticated = false
+      state.email = ''
+      state.cognitoId = ''
     }
   },
   
 })
 
 export const selectUsersEmail = (state: RootState) => state.auth.email
-export const selectHeaderToken = (state: RootState) => state.auth.key
+export const selectHeaderToken = (state: RootState) => state.auth.token
+export const selectIsAuthenticated = (state: RootState) => state.auth.isAuthenticated
 
-export const { setAuth, loggedIn, setEmailOnLogin, signOut , setCognitoId} = userSlice.actions
+export const { setAuth, isAuthenticated, setEmailOnLogin, signOut , setCognitoId} = userSlice.actions
 
 export default userSlice.reducer 

@@ -40,7 +40,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       }),
       transformResponse: (user: LocalUser) => {
         localStorage.setItem('key', JSON.stringify({ ...user }))
-        console.log('GET USER EXECUTED :: GET USER EXECUTED ')
+        console.log('GET USER EXECUTED :: ')
         return user
         // return usersAdapter.setAll(initialState, [user])
       },
@@ -48,14 +48,6 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
     }),
 
 
-
-    logout: builder.mutation<Status, void>({
-      query: () => ({
-        url: '/users/logout',
-        method: 'POST',
-      }),
-      invalidatesTags: ['Auth'],
-    }),
   
     register: builder.mutation<Status, Signup>({
       query: (body) => ({
@@ -144,7 +136,6 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
 export const {
   useLoginMutation,
   useGetUserQuery,
-  useLogoutMutation,
   useRegisterMutation,
   useAddWishListItemMutation,
   useAddCartItemMutation,
@@ -157,13 +148,6 @@ export const {
 
 
 
-
-// return the query result object from  getUser 
-// const selectSelf = (state: RootState) => state
-// export const selectUser = createDraftSafeSelector(
-//   selectSelf,
-//   (state) => state.apiSlice.queries.getUser
-// )
 
 export const selectUser = (state: RootState, email: string) =>
   extendedUserSlice.endpoints.getUser.select(email)(state)?.data ?? {}

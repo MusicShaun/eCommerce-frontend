@@ -44,7 +44,6 @@ export default function login() {
           formData.get('password') as string
       );
       const accessToken = signedInUser.signInUserSession.accessToken.jwtToken;
-      console.log(accessToken)
 
       dispatch(setEmailOnLogin(formData.get('email') as string))
       dispatch(setAuth(accessToken))

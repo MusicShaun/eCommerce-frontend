@@ -10,12 +10,11 @@ import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
 
 Hub.listen('auth', (data) => { 
     if (data.payload.event === 'signIn_failure') {
-        // Do something here
+        console.log('SIGN IN HAS FAILED')
     }
 })
 
 const [ productionRedirectSignIn ] = [awsConfig.oauth.redirectSignIn];
-
 const [productionRedirectSignOut ] = [awsConfig.oauth.redirectSignOut]
 
 const updatedAwsConfig = {
@@ -26,21 +25,18 @@ const updatedAwsConfig = {
     redirectSignOut: productionRedirectSignOut,
   }
 }
-
 Amplify.configure(updatedAwsConfig);
+
+
+
 
 export default function AuthOOptions() {
 
-
-
-
   function federatedSignIn() {
-
     try {
       const signedInUser = Auth.federatedSignIn({
         provider: CognitoHostedUIIdentityProvider.Google
       })
-
     } 
     catch (error) {
       console.log(error)
@@ -52,14 +48,10 @@ export default function AuthOOptions() {
       <h2 style={{ marginBottom: '20px' }}>OR SIGN IN WITH...</h2>
 
       <SocialLinks>
-    
-        
-      
         <SocialLink onClick={federatedSignIn}>
           <Image src={Google} alt='google' width={32} height={32} />
           GOOGLE
         </SocialLink>
-
       </SocialLinks>
     </Container>
   )

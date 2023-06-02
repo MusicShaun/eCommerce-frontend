@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Link from "next/link"
-import {  useAppSelector } from "lib/hooks/hooks"
+import {  useAppDispatch, useAppSelector } from "lib/hooks/hooks"
 import { selectUser } from "@/lib/slices/userSlice"
 import Image from "next/image"
 import details from '@/public/account_details.png'
@@ -15,13 +15,14 @@ import { logout } from "@/lib/services/handleLogout"
 
 export default function Sidebar() {
   
+  const dispatch = useAppDispatch()
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const user = currentUser
 
 
   async function handleLogout() {
-    await logout()
+    await logout({dispatch})
   }
 
   function userIsNotNull(check: string | null | undefined): string {

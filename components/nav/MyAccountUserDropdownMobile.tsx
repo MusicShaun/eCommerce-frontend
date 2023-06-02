@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import Link from "next/link"
-import {  useAppSelector } from "lib/hooks/hooks"
+import {  useAppDispatch, useAppSelector } from "lib/hooks/hooks"
 import { selectUser } from "@/lib/slices/userSlice"
 import Image from "next/image"
 import details from '@/public/account_details.png'
@@ -17,6 +17,7 @@ interface IProps {
 }
 export default function Sidebar({open}: IProps) {
   
+  const dispatch = useAppDispatch()
   const userEmail = useAppSelector(state => state.auth.email)
   const user =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   
@@ -29,7 +30,7 @@ export default function Sidebar({open}: IProps) {
 
 
   async function handleLogout() {
-    await logout() 
+    await logout({dispatch}) 
   }
 
   return (

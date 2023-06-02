@@ -23,7 +23,7 @@ const recreateWishlistArray = ({ obj, user }: R): ClotheType[] => {
 type F = {
   arr: ClotheType[];
   _id: string;
-  direction: string;
+  direction: '+' | '-';
 }
 const filterProductFromWishlist = ({ arr, _id, direction }: F): ClotheType[] => {
   return arr.filter((item) =>
@@ -75,7 +75,7 @@ type S = {
   user: ClotheType[];
   _id: string;
 }
-const filterProductFromArray = ({ user, _id }: S) => { //! find the return type 
+const filterProductFromArray = ({ user, _id }: S):ClotheType[] => {
   let arr = [...user]
   const index = arr.findIndex((item) => item._id === _id)
   arr.splice(index, 1)

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Banner from '@/components/banners/Banner'
 import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheType} from '@/lib/slices/clothesSlice'
 import ClothesGallery from '@/components/clothes/ClothesGallery'
-import { useAppSelector } from 'lib/hooks/hooks'
+import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useGetUserQuery } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
@@ -16,6 +16,7 @@ extendedClothesSlice.endpoints.getAllClothes.initiate()
 
 export default function Home() {
 
+  const dispatch = useAppDispatch()
   const selectAll = useAppSelector(selectAllClothes)
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)
@@ -44,7 +45,7 @@ export default function Home() {
 
 
   async function handleLogout() {
-    await logout()
+    await logout({dispatch})
   }
 
 

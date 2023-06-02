@@ -1,15 +1,16 @@
 import Link from 'next/link'
 import styled from 'styled-components'
-import {  useAppSelector } from 'lib/hooks/hooks'
+import {  useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import { selectIsAuthenticated} from '@/lib/slices/authSlice'
 import { logout } from '@/lib/services/handleLogout'
 
 export default function NavUserDropdown() {
 
+  const dispatch = useAppDispatch()
   const isAuthenticated = useAppSelector(selectIsAuthenticated)
 
   async function handleLogout() {
-    await logout()
+    await logout({dispatch})
   }
   
 

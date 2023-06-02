@@ -21,7 +21,7 @@ export default function Home() {
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)
   const hasToken = useAppSelector(state => state.auth.token !== null)
-
+  
   const {
     isLoading,
     isSuccess,

@@ -9,7 +9,7 @@ import PacmanLoader from 'react-spinners/PacmanLoader'
 import Head from 'next/head'
 import { RootState } from '@/lib/store'
 import { selectUser } from '@/lib/slices/userSlice'
-
+import { EmptyWishList, cartProductListResult, countProductTypeInstances, cssLoaderSpecs, findTotalPrice } from '@/lib/services/cartServices'
 
 
 export default function Cart() {
@@ -18,31 +18,16 @@ export default function Cart() {
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const cart = currentUser?.cart || []
-  const {handleAddItem, isCartLoading} = useAddClothingItem()
-
+  const {handleAddItem, isWishLoading} = useAddClothingItem()
   
   function deleteClothingItem(_id: string) {
     handleAddItem(_id, 'cart', '', '-')
   }
   
-  //! ABSTRACT THESE FUNCTIONS OUT 
-
-
-  const countObjectInstances = (cart: any) => {
-    return cart.reduce((acc: any, obj: any) => {
-      const key = JSON.stringify(obj)
-      acc[key] = (acc[key] || 0) + 1
-      return acc
-    }, {})
-  }
-
-
-  const result = Object.keys(
-    countObjectInstances(cart))
-      .map((key) => {
-      const obj = JSON.parse(key)
-      return { ...obj, count: countObjectInstances(cart)[key] }
-  })
+  // Get the number of instances of each product type in the cart
+  const countProductInstances = countProductTypeInstances(cart)
+  // Convert the object to an array of product objects 
+  const result = cartProductListResult(countProductInstances)
 
 
   function handleAddClotheItemToCart(_id: string, size: string) {
@@ -53,28 +38,9 @@ export default function Cart() {
     alert('Sorry, this is a demo site. No real checkout is available.')
   }
 
-  function findTotalPrice() {
-    let total = 0
-    cart.forEach((item: any) => {
-      total += Number(item.price.replaceAll('$', ''))
-    })
-    return total
-  }
-  
-  const EmptyWishList = {
-    title: `You currently have no Cart items.`,
-    body: `Best get shopping`,
-    button: `Start Shopping`
-  }
 
-  const cssLoaderSpecs = {
-    display: 'flex',
-    zIndex: 9000,
-    width: '400px',
-    left: '50%',
-    transform: 'translate(-30%, -50%)',
-    top: '50%',
-  }
+  
+
 
   let content 
   if (cart.length > 0) {
@@ -91,18 +57,18 @@ export default function Cart() {
             />
           })}
           
-          <SpinnerContainer style={{display: isCartLoading ? 'flex' : 'none'}}>
+          <SpinnerContainer style={{display: isWishLoading ? 'flex' : 'none'}}>
             <PacmanLoader
               color={'#2d2d2d'}
               size={50}
-              loading={isCartLoading}
+              loading={isWishLoading}
               cssOverride={cssLoaderSpecs}
               speedMultiplier={1.5}
               />
           </SpinnerContainer>
 
         </div>
-        <Total>Total:  ${findTotalPrice()} </Total>
+        <Total>Total:  ${findTotalPrice(cart)} </Total>
         <Checkout onClick={handleCheckout}>CHECKOUT</Checkout>  
       </WishContainer>
       

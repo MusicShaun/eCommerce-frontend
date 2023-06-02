@@ -17,7 +17,6 @@ export default function useAddClothingItem() {
 
   
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
-  const [addCartListItem, {isLoading: isCartLoading, isSuccess: isCartSuccess, isError: isCartError, error: cartError }] = useAddCartItemMutation()
   const [guest] = useGuestMutation()
 
   const {} = useGetUserQuery(userEmail) //* THIS IS HERE TO REFRESH STALE DATA
@@ -48,12 +47,10 @@ export default function useAddClothingItem() {
     try {
       if (USER_LOGGED_IN_CART) {
         const s = handleCart(_id, size!, currentUser, allClothes, direction!)
-        console.log(s)
         await addWistListItem({ ...s }).unwrap()
 
       } else if (USER_LOGGED_IN_WISHLIST) {
         const s = handleWishlist(_id, currentUser, allClothes)
-        console.log(s)
         await addWistListItem({ ...s }).unwrap()
 
       } else if (USER_NOT_LOGGED_IN_CART) {
@@ -75,8 +72,8 @@ export default function useAddClothingItem() {
   }
   
   return {
-    handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isWishSuccess,
-    error: cartError || wishError,
-    isError: isCartError || isWishError,
+    handleAddItem, isWishLoading, isWishSuccess,
+    error: wishError,
+    isError:  isWishError,
   }
 }

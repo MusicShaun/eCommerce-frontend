@@ -38,7 +38,7 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
 
   const [ cartBtnText , setCartBtnText ] = useState('ADD TO BAG')
 
-  const { handleAddItem, isCartLoading, isWishLoading, isCartSuccess, isError, error } = useAddClothingItem()
+  const { handleAddItem, isWishLoading, isWishSuccess, isError, error } = useAddClothingItem()
   
   // error handling
   useEffect(() => {
@@ -140,17 +140,17 @@ export default function Sidebar({ productItem }: { productItem: ClotheType }) {
 
         <ShoppingControls>
 
-          <SpinnerContainer style={{display: isCartLoading || isWishLoading ? 'flex' : 'none'}}>
+          <SpinnerContainer style={{display: isWishLoading ? 'flex' : 'none'}}>
             <PacmanLoader
               color={'#2d2d2d'}
               size={50}
-              loading={isCartLoading || isWishLoading}
+              loading={isWishLoading }
               cssOverride={cssLoaderSpecs}
               speedMultiplier={1.5}
               />
           </SpinnerContainer>
 
-          <CartItemAdded isCartSuccess={isCartSuccess}>
+          <CartItemAdded isWishSuccess={isWishSuccess}>
             <div>
               Item added to cart
             </div>
@@ -285,7 +285,7 @@ const SpinnerContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.446);
 `
 
-const CartItemAdded = styled.div<{isCartSuccess: boolean}>`
+const CartItemAdded = styled.div<{isWishSuccess: boolean}>`
   position: fixed;
   border: 1px solid ${({theme}) => theme.success};
   background-color: white;
@@ -295,7 +295,7 @@ const CartItemAdded = styled.div<{isCartSuccess: boolean}>`
   right: -40vw;
   z-index: 12490;
   animation: 3s ease-in-out 1;
-  animation-name: ${({isCartSuccess}) => isCartSuccess ? slideIn : 'none'};
+  animation-name: ${({isWishSuccess}) => isWishSuccess ? slideIn : 'none'};
   overflow: hidden;
 `
 

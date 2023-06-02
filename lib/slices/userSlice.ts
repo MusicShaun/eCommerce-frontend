@@ -29,8 +29,6 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
         
       }),
     }),
-
-
     
     getUser: builder.query<any, string>({
       query: (email) => ({
@@ -40,13 +38,11 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
       }),
       transformResponse: (user: LocalUser) => {
         if (typeof localStorage !== 'undefined' ) localStorage.setItem('key', JSON.stringify({ ...user }))
-        console.log('GET USER EXECUTED :: ')
         return user
         // return usersAdapter.setAll(initialState, [user])
       },
       providesTags: ['Auth'],
     }),
-
 
   
     register: builder.mutation<Status, Signup>({
@@ -86,23 +82,6 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
     }),
 
 
-    addCartItem: builder.mutation<Status, LocalUser>({
-      query: (body) => ({
-        url: `/users/`,
-        method: 'PUT',
-        body: { email: getAuthEmail(), ...body }
-      }),
-      onQueryStarted(arg, { dispatch, queryFulfilled }) {
-        const putResult = dispatch(
-          extendedUserSlice.util.updateQueryData('getUser', getAuthEmail(), (draft) => {
-            Object.assign(draft, arg)
-          })
-        )
-        queryFulfilled.catch(putResult.undo)
-      },
-      invalidatesTags: ['Auth']
-    }),
-
 
     updateUser: builder.mutation<Status, LocalUser>({
       query: (body) => ({
@@ -122,7 +101,6 @@ export const {
   useGetUserQuery,
   useRegisterMutation,
   useAddWishListItemMutation,
-  useAddCartItemMutation,
   useGuestMutation,
   useUpdateUserMutation
 } = extendedUserSlice

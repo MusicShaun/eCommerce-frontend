@@ -14,15 +14,19 @@ import { selectUser } from '@/lib/slices/userSlice'
 
 export default function Cart() {
 
+
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
-    const cart = currentUser?.cart || []
+  const cart = currentUser?.cart || []
   const {handleAddItem, isCartLoading} = useAddClothingItem()
 
+  
   function deleteClothingItem(_id: string) {
     handleAddItem(_id, 'cart', '', '-')
   }
   
+  //! ABSTRACT THESE FUNCTIONS OUT 
+
 
   const countObjectInstances = (cart: any) => {
     return cart.reduce((acc: any, obj: any) => {
@@ -31,9 +35,13 @@ export default function Cart() {
       return acc
     }, {})
   }
-  const result = Object.keys(countObjectInstances(cart)).map((key) => {
-    const obj = JSON.parse(key)
-    return { ...obj, count: countObjectInstances(cart)[key] }
+
+
+  const result = Object.keys(
+    countObjectInstances(cart))
+      .map((key) => {
+      const obj = JSON.parse(key)
+      return { ...obj, count: countObjectInstances(cart)[key] }
   })
 
 

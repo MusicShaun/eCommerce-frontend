@@ -1,9 +1,9 @@
 import { ClotheType } from "@/lib/slices/clothesSlice";
-import utilities from "../services/arrayServices";
+import services from "../services/arrayServices";
 
 export function handleCart( _id: string, size: string, currentUser: any, allClothes: ClotheType[], direction: string) {
 
-  let tempObj = utilities.filterProductFromCart({
+  let tempObj = services.filterProductFromCart({
     arr: allClothes,
     _id,
     size
@@ -12,12 +12,12 @@ export function handleCart( _id: string, size: string, currentUser: any, allClot
   let tempValue =
     direction === '+' // ADDING TO CART OR REMOVING FROM CART
       ?
-      utilities.recreateCartArray({
+      services.recreateCartArray({
         obj: tempObj,
         user: currentUser,
       })
       :
-      utilities.filterProductFromArray({
+      services.filterProductFromArray({
         user: currentUser.cart,
         _id
       })

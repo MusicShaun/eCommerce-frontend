@@ -56,11 +56,14 @@ type G = {
   size: string;
 }
 const filterProductFromCart = ({ arr, _id, size }: G): ClotheType => {
-  const [newItem] = arr.filter((item) => item._id === _id)
-  const newItemClone = Object.assign({}, newItem)
+  const [newItem] = arr.filter((item) => {
+    return item._id === _id
+  })
+  const newItemClone = { ...newItem }
 
   if (newItemClone && newItemClone !== undefined) {
-    newItemClone.sizes = [size]; 
+    
+    newItemClone.sizes = [size].flat()
     delete newItemClone.item 
     delete newItemClone.__v
     return newItemClone;

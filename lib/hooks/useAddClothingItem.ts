@@ -47,7 +47,6 @@ export default function useAddClothingItem() {
     //* S IS SENT TO THE BACKEND AS A CLOTHETYPE OBJECT
     try {
       if (USER_LOGGED_IN_CART) {
-        console.log('add cart attempted')
         const s = handleCart(_id, size!, currentUser, allClothes, direction!)
         console.log(s)
         await addWistListItem({ ...s }).unwrap()

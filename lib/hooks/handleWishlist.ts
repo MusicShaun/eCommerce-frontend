@@ -42,18 +42,3 @@ export function handleWishlist(_id: string, currentUser: any, allClothes: Clothe
 }
 
 // HAVENT TESTED CODE ABOVE YET 
-
-  // const createWishlistArray = 
-  //   (obj: ClotheType): ClotheType[] => {
-  //     let t
-  //     t = [...(currentUser!.wishlist || [])]
-  //     t.push(obj)
-  //     return t.flat()
-  //   }
-
- 
-  // const filterArray = (arr: ClotheType[], _id: string, direction: string): ClotheType[] => {
-  //     return arr.filter((item) =>
-  //       direction === "+" ? item._id === _id : item._id !== _id
-  //     )
-  //   }

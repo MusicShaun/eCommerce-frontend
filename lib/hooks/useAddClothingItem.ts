@@ -1,4 +1,4 @@
-import {  selectUser, useAddCartItemMutation, useAddWishListItemMutation, useGetUserQuery, useGuestMutation } from "@/lib/slices/userSlice"
+import {  selectUser, useAddWishListItemMutation, useGetUserQuery, useGuestMutation } from "@/lib/slices/userSlice"
 import { useRef } from "react"
 import { handleCart } from "./handleCart"
 import { useAppSelector } from "./hooks"

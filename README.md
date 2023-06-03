@@ -64,8 +64,3 @@
 <p>If you feel like offering constructive criticism please be my guest</p> 
   
 
-  <h3>used the AWS builderID for this one </h3>
-  <h3> it uses email and password as opposed to access key and secret key 
-  <br/ > 
-  Clicked code catalyst in the dev tools side bar. No idea what it does 
-  <br />Otherwiser the builder ID process did nothing and amplify is not found in the terminal</h3>

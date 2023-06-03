@@ -14,7 +14,7 @@ export default function ClothesGallery({ info }: IProps) {
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
-  const { handleAddItem, isError, error } = useAddClothingItem()
+  const { handleAddItem, isError, error, isWishLoading } = useAddClothingItem()
 
   // error handling
   useEffect(() => {
@@ -28,6 +28,7 @@ export default function ClothesGallery({ info }: IProps) {
   }, [isError, error])
 
   async function handleAddClotheItemToWishList(_id: string) {
+    if (isWishLoading) return
     await handleAddItem(_id, 'wishlist')
   }
 

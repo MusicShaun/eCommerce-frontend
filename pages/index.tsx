@@ -78,7 +78,7 @@ export default function Home() {
 
       <Wrapper>
       <button onClick={() => handleLogout()}>
-              Log out
+              Log out for testing
             </button>
         <Banner info={firstBanner} />
         <PacmanLoader

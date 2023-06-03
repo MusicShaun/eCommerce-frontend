@@ -1,13 +1,14 @@
-import styled, {keyframes} from "styled-components"
+import styled, {css, keyframes} from "styled-components"
 import Image from 'next/image'
 import { ClotheType } from '@/lib/slices/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import {  selectUser } from '@/lib/slices/userSlice'
 import heartOutline from '@/public/heart-outline.svg'
 import heartFilled from '@/public/heart-filled.svg'
 import { RootState } from "@/lib/store"
+import React from "react"
 
 interface IProps {
   info: ClotheType
@@ -24,13 +25,13 @@ export const getStaticProps = async () => {
   }
 }
 
-export default function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
+function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
 
   const [hearted, setHearted] = useState(false)
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const wishlist = currentUser?.wishlist
-  const [heartAnimation, setHeartAnimation] = useState(false)
+  const [triggerAnimation, setTriggerAnimation] = useState(false)
   
 
   useEffect(() => {
@@ -45,12 +46,13 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
   let url = info.heading ? info.heading.replace(/\s/g, '-') : '' 
 
   function handleHeartAnimation() {
-    setHeartAnimation(true)
-    const timer = setTimeout(() => {
-      setHeartAnimation(false)
+    setTriggerAnimation(true)
+    const timer = setTimeout(() => { //!   turn back on 
+      setTriggerAnimation(false)
     }, 2000)
     return () => clearTimeout(timer)
   }
+
 
   return (
     <Tile>
@@ -80,7 +82,21 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
             sizes="(width: 100%, height: 100%)"
           />
         <Image
-            style={{display: heartAnimation ? 'flex' : 'none'}}
+            style={{display: triggerAnimation ? 'flex' : 'none'}}
+            src={ heartFilled}
+            alt=''
+            fill
+            sizes="(width: 100%, height: 100%)"
+        />
+        <Image
+            style={{display: triggerAnimation ? 'flex' : 'none'}}
+            src={ heartFilled}
+            alt=''
+            fill
+            sizes="(width: 100%, height: 100%)"
+        />
+        <Image
+            style={{display: triggerAnimation ? 'flex' : 'none'}}
             src={ heartFilled}
             alt=''
             fill
@@ -90,6 +106,8 @@ export default function Product_Tile({ info, handleAddClotheItemToWishList }: IP
     </Tile>
     )
 }
+const memoizedProductTile = React.memo(Product_Tile)
+export default memoizedProductTile
 
 
 const Tile = styled.div`
@@ -146,15 +164,62 @@ const wiggle =
     }
   `
 const heartAnimation = keyframes`
-  from {
-    transform: scale(1) ;
+  0% {
     opacity: 1;
-  } to {
-    transform: scale(15);
+    left: -15px;
+    transform: translate(-0px, -0px) scale(0.4);
+  } 25% {
+    transform: translate(-2px, -5px) scale(0.4);
+  } 50% {
+    opacity: 1;
+    transform: translate(-8px, -8px) scale(0.4);
+  } 75% {
+    transform: translate(-15px, -10px) scale(0.4);
+  } 100% {
+    left: -15px;
+    transform: translate(-20px, -20px) scale(0.4);
     opacity: 0;
     display: none;
   }
 `
+const heartAnimation2 = keyframes`
+  0% {
+    opacity: 1;
+    left: 15px;
+    transform: translate(0px, 0px) scale(0.2);
+  } 25% {
+    transform: translate(2px, 5px) scale(0.2);
+  } 50% {
+    opacity: 1;
+    transform: translate(8px, 8px) scale(0.2);
+  } 75% {
+    transform: translate(15px, 10px) scale(0.2);
+  } 100% {
+    left: 15px;
+    transform: translate(20px, 15px) scale(0.2);
+    opacity: 0;
+    display: none;
+  }
+  `
+  const heartAnimation3 = keyframes`
+  0% {
+    opacity: 1;
+    top: 15px;
+    transform: translate(0px, 0px) scale(0.28);
+  } 20% {
+    transform: translate(3px, 8px) scale(0.28);
+  } 40% {
+    opacity: 1;
+    transform: translate(-2px, 10px) scale(0.28);
+  } 80% {
+    transform: translate(-8px, 12px) scale(0.28);
+  } 100% {
+    top: 15px;
+    transform: translate(-10px, 16px) scale(0.28);
+    opacity: 0;
+    display: none;
+  }
+  `
 const AddToWishList = styled.div`
   position: absolute;
   top: 68%;
@@ -162,7 +227,7 @@ const AddToWishList = styled.div`
 
   width: 50px;
   height: 50px;
-  background-color: ${({ theme }) => theme.lightGrey};
+  background-color: rgba(207, 207, 207, 0.577);
   border-radius: 50%;
   
   cursor: pointer;
@@ -179,7 +244,15 @@ const AddToWishList = styled.div`
     transition: transform 0.2s ease-in-out;
   } 
   & > img + img {
-    animation: ${heartAnimation} 0.6s ease-in-out 1;
+    animation: ${heartAnimation} 1s ease-in-out 1;
+    animation-fill-mode: forwards;
+  } 
+  & > img + img + img {
+    animation: ${heartAnimation2} 2s ease-in-out 1;
+    animation-fill-mode: forwards;
+  } 
+  & > img + img + img + img {
+    animation: ${heartAnimation3} 2.2s ease-in-out 1;
     animation-fill-mode: forwards;
   } 
 `

@@ -9,9 +9,9 @@ export default function HeaderBlackBar() {
   return (
     <BlackBar>
       <Container>
-        <Link href='/women/Women' as='/women'><Tag>WOMEN</Tag></Link>
+        <Link href='/women' as='/women'><Tag>WOMEN</Tag></Link>
         <h4>NEW HERE? Get 20% off 100,000 styles! <br /> With code : NEWFRIEND</h4>
-        <Link href='/men/Men' as='/men'><Tag>MEN</Tag></Link>
+        <Link href='/men' as='/men'><Tag>MEN</Tag></Link>
       </Container>
 
     </BlackBar>

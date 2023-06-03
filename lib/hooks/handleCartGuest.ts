@@ -1,31 +1,25 @@
-import { LocalUser } from "@/lib/slices/authSlice";
 import { ClotheType } from "@/lib/slices/clothesSlice";
-import services from "../services/arrayServices";
 
-export function handleCartGuest(_id: string, user: Partial<LocalUser>, size: string, allClothes: ClotheType[]) {
+export function handleCartGuest(_id: string, size: string, allClothes: ClotheType[]) {
 
     
   const filterArray = (arr: ClotheType[], _id: string, direction: string, size: string) => {
     const [newItem]: any = arr.filter((item) =>
       direction === "+" ? item._id === _id : item._id !== _id
     )
-    const newItemCopy = Object.assign({}, newItem)
-    if (newItemCopy && newItemCopy !== undefined) {
-      newItemCopy.sizes = size;
-      delete newItemCopy.item
-      delete newItemCopy.__v
-      return newItemCopy;
+
+    if (newItem && newItem !== undefined) {
+      newItem.sizes = size;
+      delete newItem.item
+      delete newItem.__v
+      return newItem;
     }
   }
 
-  let tempValue: any[] = []
-    
   const getclothingItemToPush = filterArray(allClothes, _id, "+", size)
-  tempValue = services.recreateCartArray({obj: getclothingItemToPush, user})
   
   return {
-      // ...tempValue,
-        cart: tempValue.flat(),
+        cart: [getclothingItemToPush]
   }
 
 }

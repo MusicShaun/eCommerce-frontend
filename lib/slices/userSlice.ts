@@ -55,13 +55,13 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
     }),
 
 
-    guest: builder.mutation<Status, AddItem>({
+    guest: builder.mutation<Partial<LocalUser>, AddItem>({
       query: (body) => ({
         url: '/users/guest',
         method: 'POST',
         body,
       }),
-      // invalidatesTags: ['Auth'],
+      invalidatesTags: ['Auth'],
     }),
     
     addWishListItem: builder.mutation<Status, LocalUser>({

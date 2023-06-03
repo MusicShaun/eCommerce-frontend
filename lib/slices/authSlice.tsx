@@ -11,7 +11,7 @@ export interface LocalUser {
   email?: string
   dob?: string 
   cognitoId: string
-  
+  accessToken?: string
 }
 export type AuthState = {
   token: string | null

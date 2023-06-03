@@ -1,8 +1,8 @@
 import {  selectUser, useAddWishListItemMutation, useGetUserQuery, useGuestMutation } from "@/lib/slices/userSlice"
 import { useRef } from "react"
 import { handleCart } from "./handleCart"
-import { useAppSelector } from "./hooks"
-import { LocalUser } from "@/lib/slices/authSlice"
+import { useAppDispatch, useAppSelector } from "./hooks"
+import { LocalUser, setAuth, setEmailOnLogin } from "@/lib/slices/authSlice"
 import { selectAllClothes } from "@/lib/slices/clothesSlice"
 import { handleWishlist } from "./handleWishlist"
 import { handleCartGuest } from "./handleCartGuest"
@@ -14,7 +14,7 @@ export default function useAddClothingItem() {
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const allClothes = useAppSelector(selectAllClothes)
-
+  const dispatch = useAppDispatch()
   
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
   const [guest] = useGuestMutation()
@@ -27,19 +27,11 @@ export default function useAddClothingItem() {
       return alert('Please choose a size')
     }
 
-    const tempUser: Partial<LocalUser> = {
-      given_name: '',
-      surname: '',
-      gender: '',
-      wishlist: [],
-      cart: [],
-    }
 
-
-    const USER_LOGGED_IN_CART = currentUser && type === 'cart'
-    const USER_LOGGED_IN_WISHLIST = currentUser && type === 'wishlist'
-    const USER_NOT_LOGGED_IN_CART = !currentUser && type === 'cart'
-    const USER_NOT_LOGGED_IN_WISHLIST = !currentUser && type === 'wishlist'
+    const USER_LOGGED_IN_CART = Object.keys(currentUser).length > 0  && type === 'cart'
+    const USER_LOGGED_IN_WISHLIST = Object.keys(currentUser).length > 0 && type === 'wishlist'
+    const USER_NOT_LOGGED_IN_CART = type === 'cart'
+    const USER_NOT_LOGGED_IN_WISHLIST =  type === 'wishlist'
 
     //* CHECKS IF CART OR WISHLIST, CHECKS IF LOGGED IN
     //* THE HANDLE CREATES THE OBJECT S
@@ -54,12 +46,18 @@ export default function useAddClothingItem() {
         await addWistListItem({ ...s }).unwrap()
 
       } else if (USER_NOT_LOGGED_IN_CART) {
-        const s = handleCartGuest(_id, tempUser, size!, allClothes)
-        await guest({ ...s }).unwrap()
+        const s = handleCartGuest(_id, size!, allClothes)
+        const guestUser = await guest({ ...s }).unwrap()
+
+        dispatch(setEmailOnLogin(guestUser.email))
+        dispatch(setAuth(guestUser.accessToken))
 
       } else if (USER_NOT_LOGGED_IN_WISHLIST) {
-        const s = handleGuestWishlist(_id, tempUser, allClothes)
-        await guest({ ...s }).unwrap()
+        const s = handleGuestWishlist(_id, allClothes)
+        const guestUser = await guest({ ...s }).unwrap()
+
+        dispatch(setEmailOnLogin(guestUser.email))
+        dispatch(setAuth(guestUser.accessToken))
       }
     
 

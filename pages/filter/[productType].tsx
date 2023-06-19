@@ -79,7 +79,12 @@ export default function ProductGrouped( {data}: IProps) {
 
   return (<>
      <Head>
-      <title>Product Search</title>
+      <title>Filter through the latest clothes | Easily search for the clothes you love </title>
+      <meta property="og:title" content="Filter through the latest clothes | Easily search for the clothes you love " />
+	      <meta property="og:image" content="" />
+        <meta property="og:description" content="Filter through the latest clothes | Easily search for the clothes you love " />
+        <meta name="description" content="Filter through the latest clothes | Easily search for the clothes you love " />
+        <link rel="canonical" href="https://shaunysshop.com/filter" />
       </Head>
     <Wrapper>
       <BackButton /> 

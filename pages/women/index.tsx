@@ -49,7 +49,12 @@ export default function Women() {
 
   return (<>
     <Head>
-      <title>Womens Clothes</title>
+      <title>Women's Clothes & Fashion | Shop Women's Clothing </title>
+      <meta property="og:title" content="Women's Clothes & Fashion | Shop Women's Clothing " />
+	      <meta property="og:image" content="" />
+        <meta property="og:description" content=" Discover the latest women's clothing and accessories online with Shauny's Shop. Select from women's dresses, shirts, shoes and more. Shop for the latest trends at Shauny's Shop" />
+        <meta name="description" content=" Discover the latest women's clothing and accessories online with Shauny's Shop. Select from women's dresses, shirts, shoes and more. Shop for the latest trends at Shauny's Shop" />
+        <link rel="canonical" href="https://shaunysshop.com/women" />
     </Head>
     <Wrapper>
 

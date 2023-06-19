@@ -10,8 +10,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 import awsconfig from '../src/aws-exports'
-import { Amplify, Auth, Hub } from 'aws-amplify'
+import { Amplify, Auth } from 'aws-amplify'
 import AuthListener from '@/lib/services/AuthListener'
+import Head from 'next/head'
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
 
@@ -23,7 +24,13 @@ function App({ Component, pageProps }: AppProps) {
   const [isTheme, setIsTheme] = useState(false)
 
   
-  return (
+  return (<>
+    <Head>
+      <meta property="og:type" content="website" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
+
     <Provider store={store}> 
 
       <GoogleOAuthProvider clientId="60533903973-bjhrej7b8ei1p9jj75nupo2gdb0v7ttj.apps.googleusercontent.com">
@@ -36,7 +43,7 @@ function App({ Component, pageProps }: AppProps) {
         </ThemeProvider>
       </GoogleOAuthProvider> 
     </Provider>
-    )
+  </>)
 }
 export default (App)
 

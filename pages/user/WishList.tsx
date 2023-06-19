@@ -53,7 +53,7 @@ export default function WishList() {
 
   return (<>
     <Head>
-      <title>Wish list</title>
+      <title> Wishlist | Shauny's Shop </title>
     </Head>
 
 

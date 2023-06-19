@@ -31,7 +31,12 @@ export default function Men() {
 
   return (<>
     <Head>
-      <title>Mens Clothes</title>
+      <title>Men's Clothes & Fashion | Shop Men's Clothing </title>
+      <meta property="og:title" content="Men's Clothes & Fashion | Shop Men's Clothing " />
+	      <meta property="og:image" content="Discover the latest men's clothing and accessories online with Shauny's Shop. Select from men's t-shirts, shorts, shoes and more. Shop for the latest trends at Shauny's Shop" />
+        <meta property="og:description" content="Discover the latest men's clothing and accessories online with Shauny's Shop. Select from men's t-shirts, shorts, shoes and more. Shop for the latest trends at Shauny's Shop" />
+        <meta name="description" content="" />
+        <link rel="canonical" href="https://shaunysshop.com/men " />
     </Head>
 
     <Wrapper>

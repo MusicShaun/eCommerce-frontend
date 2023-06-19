@@ -5,6 +5,7 @@ import SidebarMobile from '../nav/MyAccountUserDropdownMobile'
 import Hamburger from 'hamburger-react'
 import BackButton from '../buttons/BackButtonMyAccount'
 import { useRouter } from 'next/router'
+import { Head } from 'next/document'
 
 export default function MyAccountLayout({children}: { children: React.ReactNode}) {
 
@@ -28,6 +29,11 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
   }
 
   return (
+    <>
+    <Head>
+      <title>My Account | Shauny's Shop </title>
+    </Head>
+      
     <Wrapper>
       <Header>
         <h3>ASOS</h3>
@@ -51,7 +57,7 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
 
       </Container>
     </Wrapper>
-  )
+  </>)
 }
 
 

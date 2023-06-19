@@ -82,8 +82,9 @@ export default function Cart() {
 
   return (<>
     <Head>
-      <title>Cart</title>
-      </Head>
+      <title>Shopping Cart | Shauny's Shop </title>
+    </Head>
+      
     <MyAccountLayout>
       {content}      
     </MyAccountLayout>

@@ -66,6 +66,12 @@ export default function ClothesSinglePage( {product}: IProps) {
   return <>
     <Head>
       <title>{plainProductObject?.brand}</title>
+      <meta property="og:title" content="" />
+	      <meta property="og:image" content="" />
+        <meta property="og:description" content="" />
+        <meta name="description" content="" />
+        <meta name="description" content="" />
+        <link rel="canonical" href="" />
     </Head>
     <Wrapper>
        

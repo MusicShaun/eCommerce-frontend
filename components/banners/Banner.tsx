@@ -15,7 +15,10 @@ export default function Banner({ info }: IProps) {
   return (
     <BannerContainer>
       {info.banner ?
-        <ColorBanner style={{backgroundColor: info.banner}} />
+        <>
+        <ColorBanner style={{ background: info.banner }} />
+          {info.banner2 ? <ColorBanner style={{ background: info.banner2 }} /> : false}
+        </>
         :
         <Image
           src={banner}

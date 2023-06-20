@@ -1,5 +1,5 @@
 
-const colors = {
+export const colors = {
   BLACK: '#000',
   WHITE: '#ffffff',
   DULL_WHITE: '#eeeeee',
@@ -8,7 +8,31 @@ const colors = {
   LIGHT_GREY: '#cdcdcd',
   RED: '#d01345',
   BLUE: '#1e90ff',
-  GREEN: '#1aff0f'
+  GREEN: '#1aff0f',
+  AQUA: 'hsl(177, 100%, 66%)',
+  COMPLIMENTARY_RED: 'hsl(357, 100%, 66%)',
+  PEACH: 'hsl(20, 76%, 71%)',
+  DARK_BLUE: 'hsl(208, 100%, 20%)',
+  MID_BLUE: 'hsl(208, 100%, 40%)',
+  LIGHT_BLUe: 'hsl(208, 100%, 60%)',
+
+
+  BANNER_1: `linear-gradient(to bottom,
+      hsl(20, 77%, 71%) 0%,
+      hsl(20, 77%, 71%) 25%,
+      hsl(356.64, 42.9%, 67.86%) 25%,
+      hsl(356.64, 42.9%, 67.86%) 50%,
+      hsl(258.97, 33.4%, 62.36%) 50%,
+      hsl(258.97, 33.4%, 62.36%) 75%,
+      hsl(208, 100%, 60%) 75%,
+      hsl(208, 100%, 60%) 100%
+    )`,
+  BANNER_2: `linear-gradient(340deg, 
+    rgba(255,255,255,0.8) 0%,
+    rgba(255,255,255,0) 81%,
+    hsla(208, 100%, 70%, 15%) 83%,
+    rgba(241,241,241,0.1) 100%)`,
+  
 }
 const sizes = {
   mobileS: '415px',
@@ -19,15 +43,16 @@ const sizes = {
   desktop: '2560px',
 };
 
+
 export const light = {
   text: colors.BLACK,
   textInvert: colors.WHITE,
   error: colors.RED,
   success: colors.GREEN,
 
-  headerTop: colors.DARK_GREY,
-  headerMiddle: colors.MEDIUM_GREY,
-  headerBottom: colors.BLACK,
+  headerTop: colors.DARK_BLUE,
+  headerMiddle: colors.MID_BLUE,
+  headerBottom: colors.PEACH,
 
   white: colors.WHITE,
   black: colors.BLACK,

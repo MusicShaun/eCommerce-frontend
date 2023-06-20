@@ -10,6 +10,7 @@ import { useGetUserQuery } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
 import { logout } from '@/lib/services/handleLogout'
 import { HomePageHead } from '@/lib/head'
+import { colors } from '@/config/ThemeConfig'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -51,7 +52,7 @@ export default function Home() {
 
 
   const firstBanner = {
-    banner: '#95f7e5',
+    banner: colors.DARK_GREY,
     header: 'UP TO 30% OFF ',
     header2: ' SELECTED STOCK',
     subheader: 'Surprise discount unlocked',
@@ -59,7 +60,8 @@ export default function Home() {
     subheader3: 'SURPRISE'
   } as const
   const secondBanner = {
-    banner: '#FF385C',
+    banner: colors.BANNER_1, 
+    banner2: colors.BANNER_2, 
     header: 'UP TO 50% OFF ',
     header2: ' SUMMER STUFF',
     subheader: 'ITS HOT OUT THERE',
@@ -76,7 +78,9 @@ export default function Home() {
       <button onClick={() => handleLogout()}>
               Log out for testing
             </button>
-        <Banner info={firstBanner} />
+        {/* <Banner info={firstBanner} /> */}
+        <Banner info={secondBanner} />
+        
         <PacmanLoader
           color={'#2d2d2d'}
           size={50}
@@ -88,7 +92,6 @@ export default function Home() {
         {isSuccess &&
           <ClothesGallery info={randomClothes!} />
         }
-        <Banner info={secondBanner} />
       </Wrapper>
 
     </>

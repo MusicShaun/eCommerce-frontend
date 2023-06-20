@@ -23,7 +23,7 @@ display: none;
   height: 155px;
   background-color: ${({ theme }) => theme.lightBlue};
 
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
 `

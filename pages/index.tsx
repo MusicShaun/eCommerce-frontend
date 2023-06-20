@@ -9,6 +9,7 @@ import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useGetUserQuery } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
 import { logout } from '@/lib/services/handleLogout'
+import { HomePageHead } from '@/lib/head'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -69,14 +70,7 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Trendy Fashion & Outfits</title>
-        <meta property="og:title" content="Trendy Fashion & Outfits" />
-	      <meta property="og:image" content="" />
-        <meta property="og:description" content=" Discover clothes online with ASOS. Explore the latest fashion trends, shoes, dresses, accessories, beauty and more." />
-        <meta name="description" content=" Discover clothes online with ASOS. Explore the latest fashion trends, shoes, dresses, accessories, beauty and more." />
-        <link rel="canonical" href="https://shaunysshop.com/" />
-      </Head>
+      <HomePageHead />
 
       <Wrapper>
       <button onClick={() => handleLogout()}>

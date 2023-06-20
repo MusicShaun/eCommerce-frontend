@@ -64,14 +64,7 @@ export default function login() {
 
   return (<>
     <LoginLayout>
-    <Head>
-        <title> Login to Shauny's Shop  </title>
-        <meta property="og:title" content=" Login to Shauny's Shop  " />
-	      <meta property="og:image" content="" />
-        <meta property="og:description" content=" Login for a better shopping experience" />
-        <meta name="description" content=" Login for a better shopping experience" />
-        <link rel="canonical" href=" https://shaunysshop.com/login" />
-    </Head>
+
     <FormLogin>
       <SpinnerContainer style={{display: isLoading ? 'flex' : 'none'}}>
           <PacmanLoader

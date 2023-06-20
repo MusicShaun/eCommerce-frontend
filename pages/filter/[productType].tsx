@@ -8,6 +8,7 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import { store } from 'lib/store'
 import Head from 'next/head'
 import BackButton from '@/components/buttons/BackButton'
+import { FilterPageHead } from '@/lib/head'
 
 store.dispatch(extendedClothesSlice.endpoints.getAllClothes.initiate())
 
@@ -78,14 +79,7 @@ export default function ProductGrouped( {data}: IProps) {
   } 
 
   return (<>
-     <Head>
-      <title>Filter through the latest clothes | Easily search for the clothes you love </title>
-      <meta property="og:title" content="Filter through the latest clothes | Easily search for the clothes you love " />
-	      <meta property="og:image" content="" />
-        <meta property="og:description" content="Filter through the latest clothes | Easily search for the clothes you love " />
-        <meta name="description" content="Filter through the latest clothes | Easily search for the clothes you love " />
-        <link rel="canonical" href="https://shaunysshop.com/filter" />
-      </Head>
+    <FilterPageHead />
     <Wrapper>
       <BackButton /> 
       <Container>

@@ -5,7 +5,7 @@ import { ClotheType, selectAllClothes, useGetAllClothesQuery } from '@/lib/slice
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import Head from 'next/head'
-
+import { MensPageHead } from 'lib/head'
 
 export default function Men() {
 
@@ -30,14 +30,7 @@ export default function Men() {
   } as const
 
   return (<>
-    <Head>
-      <title>Men's Clothes & Fashion | Shop Men's Clothing </title>
-      <meta property="og:title" content="Men's Clothes & Fashion | Shop Men's Clothing " />
-	      <meta property="og:image" content="Discover the latest men's clothing and accessories online with Shauny's Shop. Select from men's t-shirts, shorts, shoes and more. Shop for the latest trends at Shauny's Shop" />
-        <meta property="og:description" content="Discover the latest men's clothing and accessories online with Shauny's Shop. Select from men's t-shirts, shorts, shoes and more. Shop for the latest trends at Shauny's Shop" />
-        <meta name="description" content="" />
-        <link rel="canonical" href="https://shaunysshop.com/men " />
-    </Head>
+    <MensPageHead /> 
 
     <Wrapper>
       <Banner info={info} />

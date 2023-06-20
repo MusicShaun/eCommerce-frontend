@@ -30,10 +30,7 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
 
   return (
     <>
-    <Head>
-      <title>My Account | Shauny's Shop </title>
-    </Head>
-      
+
     <Wrapper>
       <Header>
         <h3>ASOS</h3>

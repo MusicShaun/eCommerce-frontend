@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import SignInOptions from "@/components/SignInOptions"
 import { useState } from 'react'
+import { SignInPageHead } from "@/lib/head"
 
 
 
@@ -9,19 +10,18 @@ export default function LoginWrapper({children}: {children: React.ReactNode}) {
 
   const [loggingIn, setLoggingIn] = useState(true)
 
-  return (
+  return (<>
+  <SignInPageHead />
+
     <Wrapper>
       <Header><h1>ASOS</h1></Header>
       <Box>
         <SignInOptions setLoggingIn={setLoggingIn} />
-          {/* {loggingIn ?
-            <Login />
-            : <Register />
-          } */}
+
           {children}
       </Box>
     </Wrapper>
-  )
+  </>)
 }
 
 

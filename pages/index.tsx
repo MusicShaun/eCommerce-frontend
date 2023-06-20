@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { logout } from '@/lib/services/handleLogout'
 import { HomePageHead } from '@/lib/head'
 import { colors } from '@/config/ThemeConfig'
+import Footer from '@/components/footer/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -52,7 +53,8 @@ export default function Home() {
 
 
   const firstBanner = {
-    banner: 'rgba(0,0,0,0)',
+    banner: colors.BANNER_1, 
+    banner2: colors.BANNER_2, 
     header: 'UP TO 30% OFF ',
     header2: ' SELECTED STOCK',
     subheader: 'Surprise discount unlocked',
@@ -73,13 +75,8 @@ export default function Home() {
   return (
     <>
       <HomePageHead />
-
       <Wrapper>
-        <Banner info={firstBanner} />
         <Banner info={secondBanner} />
-
-
-        
         <PacmanLoader
           color={'#2d2d2d'}
           size={50}
@@ -91,8 +88,9 @@ export default function Home() {
         {isSuccess &&
           <ClothesGallery info={randomClothes!} />
         }
+        <Banner info={firstBanner} />
       </Wrapper>
-
+      <Footer /> 
     </>
   )
 }
@@ -100,7 +98,10 @@ export default function Home() {
 const Wrapper = styled.main`
   position: absolute;
   left: 0;
-  top: 155px;
+  top: 110px;
   width: 100%;
   height: auto;
+
+  @media ${({ theme }) => theme.mobileL} {
+    top: 155px;}
 `

@@ -5,6 +5,7 @@ import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { WomensPageHead } from '@/lib/head'
 import { colors } from '@/config/ThemeConfig'
+import Footer from '@/components/footer/Footer'
 
 
 export default function Women() {
@@ -59,12 +60,16 @@ export default function Women() {
       
       <Banner info={firstBanner} />
     </Wrapper>
+    <Footer />
     </>)
 }
 const Wrapper = styled.main`
   position: absolute;
   left: 0;
-  top: 155px;
+  top: 110px;
   width: 100%;
   height: auto;
+
+  @media ${({ theme }) => theme.mobileL} {
+    top: 155px;}
 `

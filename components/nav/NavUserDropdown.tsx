@@ -92,7 +92,8 @@ const HeadButtons = styled.button`
   padding: 0 10px;
   height: 100%;
   min-width: 60px;
-  
+  font-weight: 700;
+
   &:hover {
     cursor: pointer;
     color: blue;
@@ -122,21 +123,11 @@ const BodyContainer = styled.div`
   }
   & div, button {
     padding-left: 20px;
-    border-bottom: 1px solid ${({ theme }) => theme.lightBlue};
+    border-bottom: 0.5px solid ${({ theme }) => theme.lightBlue};
 
     &:active {
       box-shadow: inset 3px 3px 2px ${({theme}) => theme.headerMiddle};
       background-color: ${({ theme }) => theme.white}
     }
   }
-`
-const Logout = styled.button`
-  border: none;
-  font-size: 16px;
-  background: none;
-  &:hover {
-    cursor: pointer;
-  }
-
-
 `

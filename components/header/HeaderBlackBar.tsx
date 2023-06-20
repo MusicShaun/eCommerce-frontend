@@ -22,12 +22,15 @@ export default function HeaderBlackBar() {
 const BlackBar = styled.div`
   position: relative;
   width: 100%;
-  display: flex;
+  display: none;
   justify-content: center;
   height: 45px;
   background-color: ${({ theme }) => theme.headerBottom};
   z-index: -1;
 
+  @media ${({ theme }) => theme.mobileL} {
+    display: flex;
+  }
 `
 const Container = styled.div`
   width: 900px;

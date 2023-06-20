@@ -20,8 +20,7 @@ export default function Header() {
 
       </TopHeader>
 
-      <BottomHeader
-      >
+      <BottomHeader>
         <HeaderBottom />
       </BottomHeader>
 
@@ -35,11 +34,15 @@ const HeaderWrapper = styled.header`
   top: 0;
   left: 0;
   width: 100%; 
-  height: 155px;
+  height: 110px;
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 100;
+
+  @media ${({ theme }) => theme.mobileL} {
+    height: 155px;
+  }
 `
 const TopHeader = styled.div`
   position: relative;
@@ -60,6 +63,8 @@ const BottomHeader = styled.div`
   justify-content: center;
   background-color: ${({ theme }) => theme.headerMiddle };
   z-index: 1000;
+
+
 `
 const Container = styled.div`
   position: relative;

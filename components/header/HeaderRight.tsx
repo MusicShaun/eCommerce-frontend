@@ -49,7 +49,10 @@ export default function HeaderRight() {
 
 
   return (<>
-    <LittleArrow style={{ left: `${trianglePosition.x}px`, opacity: showDropdown ? '1' : '0' }} />
+    <LittleArrow
+      style={{ left: `${trianglePosition.x}px`, opacity: showDropdown ? '1' : '0' }}
+      onMouseEnter={() => setShowDropdown(true)}
+    />
     
     <ButtonContainer>
       <Button
@@ -70,10 +73,6 @@ export default function HeaderRight() {
           <NavUserDropdown /> 
         </DropdownContainer>
       </Button>
-
-
-
-      
       
       <Button>
         <Link href='/user/WishList' as='wishlist'>
@@ -121,7 +120,6 @@ const LittleArrow = styled.div`
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
   border-bottom: 12px solid ${({ theme }) => theme.white};
-   z-index: 10000; 
   top: 48px;
   transition: opacity 0.5s ease-out 0.6s;
 `

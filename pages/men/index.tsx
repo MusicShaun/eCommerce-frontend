@@ -4,8 +4,9 @@ import React from 'react'
 import { ClotheType, selectAllClothes, useGetAllClothesQuery } from '@/lib/slices/clothesSlice'
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
-import Head from 'next/head'
 import { MensPageHead } from 'lib/head'
+import { colors } from '@/config/ThemeConfig'
+
 
 export default function Men() {
 
@@ -21,21 +22,31 @@ export default function Men() {
     randomClothes = [...selectAll].sort(() => Math.random() - 0.5)
   }
 
-  const info = {
-    header: 'UP TO 30% OFF ',
+  const firstBanner = {
+    banner: colors.LIGHT_BLUE,
     header2: ' SELECTED STOCK',
     subheader: 'Surprise discount unlocked',
     subheader2: 'With code: ',
     subheader3: 'SURPRISE'
   } as const
+  const secondBanner = {
+    banner: colors.BANNER_4, 
+    banner2: colors.BANNER_3, 
+    header: 'UP TO 50% OFF ',
+    header2: ' SUMMER STUFF',
+    subheader: 'ITS HOT OUT THERE',
+    subheader2: '',
+    subheader3: ''
+  } as const
+
 
   return (<>
     <MensPageHead /> 
 
     <Wrapper>
-      <Banner info={info} />
+      <Banner info={firstBanner} />
       {isSuccess && <ClothesGallery info={randomClothes!} />}
-      <Banner info={info} />
+      <Banner info={secondBanner} />
     </Wrapper>
     </>)
 }

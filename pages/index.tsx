@@ -52,7 +52,7 @@ export default function Home() {
 
 
   const firstBanner = {
-    banner: colors.DARK_GREY,
+    banner: 'rgba(0,0,0,0)',
     header: 'UP TO 30% OFF ',
     header2: ' SELECTED STOCK',
     subheader: 'Surprise discount unlocked',
@@ -75,11 +75,10 @@ export default function Home() {
       <HomePageHead />
 
       <Wrapper>
-      <button onClick={() => handleLogout()}>
-              Log out for testing
-            </button>
-        {/* <Banner info={firstBanner} /> */}
+        <Banner info={firstBanner} />
         <Banner info={secondBanner} />
+
+
         
         <PacmanLoader
           color={'#2d2d2d'}

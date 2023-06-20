@@ -3,17 +3,14 @@ import styled from 'styled-components'
 import { ClotheType,  selectAllClothes,  useGetAllClothesQuery } from '@/lib/slices/clothesSlice'
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
-import Head from 'next/head'
 import { WomensPageHead } from '@/lib/head'
-
-
+import { colors } from '@/config/ThemeConfig'
 
 
 export default function Women() {
 
   const selectAll = useAppSelector(selectAllClothes)
   let randomClothes: ClotheType[] = []
-
 
   const {
     isLoading,
@@ -32,15 +29,17 @@ export default function Women() {
 
 
   const firstBanner = {
-    banner: '#ff82bc',
+    banner: colors.PINK,
     header: 'UP TO 30% OFF ',
     header2: ' OUTLET ICONS',
     subheader: 'Surprise discount unlocked',
     subheader2: 'With code: ',
     subheader3: 'SURPRISE'
   } as const
+
   const secondBanner = {
-    banner: '#95f7e5',
+    banner: colors.BANNER_1, 
+    banner2: colors.BANNER_3, 
     header: 'UP TO 50% OFF ',
     header2: ' SUMMER STUFF',
     subheader: 'ITS HOT OUT THERE',
@@ -52,12 +51,13 @@ export default function Women() {
     <WomensPageHead />
 
     <Wrapper>
-      <Banner info={firstBanner} />
-
+      
+    <Banner info={secondBanner} />
+    
       {isSuccess && <ClothesGallery info={randomClothes} />}
 
-      <Banner info={secondBanner} />
-
+      
+      <Banner info={firstBanner} />
     </Wrapper>
     </>)
 }

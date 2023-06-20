@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import {  useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
 import { selectIsAuthenticated} from '@/lib/slices/authSlice'
 import { logout } from '@/lib/services/handleLogout'
+import { colors } from '@/config/ThemeConfig'
+
 
 export default function NavUserDropdown() {
 
@@ -74,14 +76,14 @@ const Container = styled.div`
 const HeadContainer = styled.div`
   width: 100%;
   height: 50px;
-  background-color: ${({ theme }) => theme.lightGrey};
+  background-color: ${({ theme }) => theme.lightBlue};
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0px;
 
   & > div{
-    height: 60%;
+    height: 100%;
   }
 `
 const HeadButtons = styled.button`
@@ -89,6 +91,7 @@ const HeadButtons = styled.button`
   border: none;
   padding: 0 10px;
   height: 100%;
+  min-width: 60px;
   
   &:hover {
     cursor: pointer;
@@ -111,6 +114,7 @@ const BodyContainer = styled.div`
     flex: 1;
     text-decoration: none;
     color: inherit;
+    height: 100%;
 
     &:hover {
       color: ${({ theme }) => theme.blue};
@@ -118,6 +122,7 @@ const BodyContainer = styled.div`
   }
   & div, button {
     padding-left: 20px;
+    border-bottom: 1px solid ${({ theme }) => theme.lightBlue};
 
     &:active {
       box-shadow: inset 3px 3px 2px ${({theme}) => theme.headerMiddle};

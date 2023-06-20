@@ -10,7 +10,7 @@ export default function HeaderBlackBar() {
     <BlackBar>
       <Container>
         <Link href='/women' as='/women'><Tag>WOMEN</Tag></Link>
-        <h4>NEW HERE? Get 20% off 100,000 styles! <br /> With code : NEWFRIEND</h4>
+        {/* <h4>NEW HERE? Get 20% off 100,000 styles! <br /> With code : NEWFRIEND</h4> */}
         <Link href='/men' as='/men'><Tag>MEN</Tag></Link>
       </Container>
 
@@ -62,7 +62,7 @@ const Container = styled.div`
 `
 const Tag = styled.button`
   color: white;
-  background-color: black;
+  background-color: ${({ theme }) => theme.headerBottom};
   height: 100%;
   border: none;
 

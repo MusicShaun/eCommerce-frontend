@@ -28,7 +28,7 @@ export default function LoginWrapper({children}: {children: React.ReactNode}) {
 
 const Wrapper = styled.div`
   position: absolute;
-  top: 110px;
+  top: 60px;
   left: 0;
   width: 100%;
   min-height: 100%;
@@ -39,7 +39,7 @@ const Wrapper = styled.div`
   z-index: 1001;
 
   @media ${({ theme }) => theme.mobileL} {
-    top: 155px;}
+    top: 105px;}
 `
 const Header = styled.div`
   padding: 64px 0 25px;

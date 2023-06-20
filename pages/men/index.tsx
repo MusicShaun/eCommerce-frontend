@@ -46,7 +46,9 @@ export default function Men() {
 
     <Wrapper>
       <Banner info={secondBanner} />
+
       {isSuccess && <ClothesGallery info={randomClothes!} />}
+
       <Banner info={firstBanner} />
     </Wrapper>
     <Footer /> 
@@ -55,7 +57,7 @@ export default function Men() {
 const Wrapper = styled.main`
   position: absolute;
   left: 0;
-  top: 1510px;
+  top: 110px;
   width: 100%;
   height: auto;
 

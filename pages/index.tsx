@@ -103,5 +103,6 @@ const Wrapper = styled.main`
   height: auto;
 
   @media ${({ theme }) => theme.mobileL} {
-    top: 155px;}
+    top: 60px;
+    }
 `

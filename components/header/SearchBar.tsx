@@ -26,7 +26,6 @@ export default function SearchBar() {
        cloth.toString().toLowerCase().includes(searchInput.toLowerCase())
       )
     )
-
   
     if (filteredClothes.length === 0) return setIsModalOpen(true), dispatch(updateSearchBar(clothes))
     
@@ -38,7 +37,7 @@ export default function SearchBar() {
   return (<>
     <ModalErrorWindow isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} errorMessage={'Your search has no results'} />
 
-        <Form onSubmit={(e) => handleSearch(e)}>
+      <Form onSubmit={(e) => handleSearch(e)}>
 
       <label> </label>
       <Input type='text' placeholder='Search for clothing items' ref={inputRef} />

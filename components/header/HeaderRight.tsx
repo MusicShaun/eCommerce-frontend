@@ -113,6 +113,9 @@ const ButtonContainer = styled.div`
   @media ${({ theme }) => theme.tablet} {
     width: 50%
   }
+  @media ${({ theme }) => theme.mobileL} {
+    width: auto;
+  }
 
 `
 const LittleArrow = styled.div`
@@ -143,6 +146,10 @@ const Button = styled.div`
   &:hover {
     cursor: pointer;
   }
+
+  @media ${({ theme }) => theme.mobileL} {
+    width: 45px;
+  }
 `
 const DropdownContainer = styled.div`
   position: absolute;
@@ -168,5 +175,10 @@ const HeartNumber = styled.div`
   height: 100%;
   font-size: ${({ theme }) => theme.fontML};
   color: ${({ theme }) => theme.white};
+
+
+  @media ${({ theme }) => theme.mobileL} {
+    display: none;
+  }
 
 `

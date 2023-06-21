@@ -10,14 +10,12 @@ export default function Header() {
 
   return (
     <HeaderWrapper>
-      <TopHeader
-      >
+      <TopHeader>
         <Container>
           <HeaderLeft />
           <SearchBar />
           <HeaderRight />
         </Container>
-
       </TopHeader>
 
       <BottomHeader>
@@ -41,7 +39,7 @@ const HeaderWrapper = styled.header`
   z-index: 100;
 
   @media ${({ theme }) => theme.mobileL} {
-    height: 155px;
+    display: none;
   }
 `
 const TopHeader = styled.div`

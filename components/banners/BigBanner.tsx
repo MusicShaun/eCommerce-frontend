@@ -47,6 +47,10 @@ const BannerContainer = styled.div`
     z-index: -1;
   }
 
+  @media ${({ theme }) => theme.mobileL} {
+    height: 400px;
+  }
+
 `
 const ColorBanner = styled.div`
 position: absolute;

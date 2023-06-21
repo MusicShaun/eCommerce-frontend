@@ -75,6 +75,9 @@ const Button = styled.button`
   @media ${({ theme }) => theme.tablet} {
     min-width: 90px;
   }
+  &:first-child {
+    background-color: ${({ theme }) => theme.headerBottom};
+  }
   &:nth-child(2), :nth-child(3) {
     @media ${({ theme }) => theme.mobileS} {
       display: none;

@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import styled from 'styled-components'
 import Banner from '@/components/banners/Banner'
@@ -12,6 +11,7 @@ import { logout } from '@/lib/services/handleLogout'
 import { HomePageHead } from '@/lib/head'
 import { colors } from '@/config/ThemeConfig'
 import Footer from '@/components/footer/Footer'
+import BigBanner from '@/components/banners/BigBanner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -51,7 +51,7 @@ export default function Home() {
     await logout({dispatch})
   }
 
-
+  
   const firstBanner = {
     banner: colors.BANNER_1, 
     banner2: colors.BANNER_2, 
@@ -76,7 +76,7 @@ export default function Home() {
     <>
       <HomePageHead />
       <Wrapper>
-        <Banner info={secondBanner} />
+        <BigBanner info={secondBanner} />
         <PacmanLoader
           color={'#2d2d2d'}
           size={50}

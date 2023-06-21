@@ -25,14 +25,15 @@ export default function Men() {
 
   const firstBanner = {
     banner: colors.LIGHT_BLUE,
+    header: 'UP TO 30% OFF',
     header2: ' SELECTED STOCK',
     subheader: 'Surprise discount unlocked',
     subheader2: 'With code: ',
     subheader3: 'SURPRISE'
   } as const
   const secondBanner = {
-    banner: colors.BANNER_4, 
-    banner2: colors.BANNER_3, 
+    banner: colors.PEACH,
+    banner2: colors.BANNER_5, 
     header: 'UP TO 50% OFF ',
     header2: ' SUMMER STUFF',
     subheader: 'ITS HOT OUT THERE',
@@ -40,7 +41,7 @@ export default function Men() {
     subheader3: ''
   } as const
 
-
+// #
   return (<>
     <MensPageHead /> 
 

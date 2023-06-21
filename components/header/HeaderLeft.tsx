@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import Link from "next/link"
+import Image from "next/image"
+import logo from "@/public/logo_mini.webp"
 
 export default function HeaderLeft() {
 
@@ -7,7 +9,9 @@ export default function HeaderLeft() {
   return (
     <ButtonContainer>
       <Button>
-      <Link href='/' as='/'><span style={{fontSize: '30px', transform: 'scaleY(1.5)'}}>baba</span></Link>  
+        <Link href='/' as='/'>
+          <Image src={logo} width={60} height={60} alt=""/>
+        </Link>  
       </Button>
       <Button>
         <Link href='/women/' as='/women'><span >WOMEN</span></Link>  

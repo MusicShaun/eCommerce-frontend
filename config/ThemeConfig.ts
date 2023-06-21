@@ -14,7 +14,7 @@ export const colors = {
   DARK_BLUE: 'hsl(208, 100%, 20%)',
   MID_BLUE: 'hsl(208, 100%, 40%)',
   LIGHT_BLUE: 'hsl(208, 100%, 70%)',
-  PINK: 'hsl(359, 43%, 70%)',
+  PINK: 'hsl(359, 60%, 76%)',
 
   BANNER_1: `linear-gradient(to bottom,
       hsl(20, 77%, 71%) 0%,
@@ -48,6 +48,11 @@ export const colors = {
     hsl(208, 100%, 60%) 75%,
     hsl(208, 100%, 60%) 100%
   )`,
+  BANNER_5: `linear-gradient(0deg, 
+    rgba(255,255,255,0.6) 0%,
+    rgba(255,255,255,0) 81%,
+    hsla(208, 100%, 70%, 15%) 83%,
+    rgba(241,241,241,0.1) 100%)`,
   
 }
 const sizes = {

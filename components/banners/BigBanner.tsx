@@ -27,10 +27,7 @@ export default function Banner({ info }: IProps) {
         />}
       
     <TextBox>
-      {info.header2 ? 
       <h3>{info.header}<br />{info.header2}</h3>
-        : <h3>{info.header}</h3>
-        }
         <h4>{info.subheader}</h4>
         <h4>{info.subheader2}<span>{info.subheader3}</span></h4>
     </TextBox>
@@ -41,7 +38,7 @@ export default function Banner({ info }: IProps) {
 const BannerContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 240px;
+  height: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,28 +60,31 @@ const TextBox = styled.a`
   justify-content: center;
   align-items: center;
   padding: 50px;
-  text-align: center;
   color: white;
+  text-align: center;
+  width: 100%;
+
   @media ${({ theme }) => theme.mobileL} {
     padding: 10px;
   }
+
   &:hover {
     cursor: pointer;
   }
 
   & span {
-    border: 2px solid black;
+    border: 2px solid white;
   }
+
   & h3 {
-    font-size: 2.4rem;
-    vertical-align: middle;
+    font-size: 3rem;
     @media ${({ theme }) => theme.mobileL} {
-      font-size: 2.1rem;
+      font-size: 2.4rem;
       width: 100%;
     } 
   }
   & h4 {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
   & h3, h4 {
     text-shadow: -1px -1px 1px rgba(0,0,0,0.2), -10px -10px 10px rgba(0,0,0,0.05);

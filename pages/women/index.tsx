@@ -31,6 +31,7 @@ export default function Women() {
 
   const firstBanner = {
     banner: colors.PINK,
+    // banner2: colors.BANNER_, 
     header: 'UP TO 30% OFF ',
     header2: ' OUTLET ICONS',
     subheader: 'Surprise discount unlocked',
@@ -53,12 +54,12 @@ export default function Women() {
 
     <Wrapper>
       
-    <Banner info={secondBanner} />
+      <Banner info={firstBanner} />
     
       {isSuccess && <ClothesGallery info={randomClothes} />}
 
+      <Banner info={secondBanner} />
       
-      <Banner info={firstBanner} />
     </Wrapper>
     <Footer />
     </>)

@@ -67,9 +67,7 @@ const Container = styled.div`
   transform: translateY(-400px);
   transition: transform 0.8s cubic-bezier(0, 0.17, 0.55, 0.82); //out
 
-  @media ${({ theme }) => theme.mobileS} {
-    width: 100%;
-  }
+
 `
 
 

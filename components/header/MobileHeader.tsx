@@ -7,6 +7,9 @@ import logo from "@/public/Mobile_logo.webp";
 import Hamburger from 'hamburger-react'
 import { useState } from "react";
 import MobileNavigation from "../nav/navDropdowns/mobileNav/MobileNavigation";
+import MagnifyingGlass from "../icons/MagnifyingGlass";
+import PersonIcon from "../icons/PersonIcon";
+import HeartIcon from "../icons/HeartIcon";
 
 
 function MobileHeader() {
@@ -38,13 +41,9 @@ function MobileHeader() {
       
       <RightContainer>
         <SearchButton>
-          <Image
-            src={Magnifying}
-            width='28'
-            height='28'
-            alt=''
-            />
+          <MagnifyingGlass /> 
         </SearchButton>
+
         <HeaderRight />
       </RightContainer>
     </Wrapper>
@@ -61,7 +60,6 @@ const Wrapper = styled.header`
   width: 100%;
   height: 60px;
   z-index: 100;
-  display: flex;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.headerTop};
 
@@ -111,13 +109,17 @@ const Button = styled.button`
 `
 const SearchButton = styled.button`
   position: relative;
-  height: 60px;
+  height: 100%;
   width: 50px;
   border: none;
   background-color: transparent;
-  
-  & img {
-    filter: invert(1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & div {
+    width: 24px;
+
   }
 
 `

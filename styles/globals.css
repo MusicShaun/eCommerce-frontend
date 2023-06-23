@@ -19,7 +19,11 @@ body {
   width: 100%;
 
 
-
+}
+html {
+  scroll-behavior: smooth;
+}
+#__next {
 }
 
   @media screen and (max-width: 768px) {

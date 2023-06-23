@@ -9,6 +9,9 @@ import { useAppSelector } from "lib/hooks/hooks"
 import Link from "next/link"
 import { selectUser } from "@/lib/slices/userSlice"
 import { RootState } from "@/lib/store"
+import PersonIcon from "../icons/PersonIcon"
+import HeartIcon from "../icons/HeartIcon"
+import CartIcon from "../icons/CartIcon"
 
 export default function HeaderRight() {
 
@@ -73,6 +76,23 @@ export default function HeaderRight() {
           <NavUserDropdown /> 
         </DropdownContainer>
       </Button>
+
+      
+      <ButtonMobile>
+        <Link href='/user/Account' as='account'>
+          <PersonIcon />
+        </Link>
+      </ButtonMobile>
+      <ButtonMobile>
+        <Link href='/user/WishList' as='wishlist'>
+          <HeartIcon />
+          </Link>
+      </ButtonMobile>
+      <ButtonMobile>
+        <Link href='/user/Cart' as='cart'>
+          <CartIcon />
+          </Link>
+      </ButtonMobile>
       
       <Button>
         <Link href='/user/WishList' as='wishlist'>
@@ -148,9 +168,25 @@ const Button = styled.div`
   }
 
   @media ${({ theme }) => theme.mobileL} {
-    width: 45px;
+    display: none;
   }
 `
+const ButtonMobile = styled.div`
+  display: none;
+  @media ${({ theme }) => theme.mobileL} {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 50px;
+    justify-content: center;
+    align-items: center;
+    
+    & div {
+      width: 24px;
+    }
+  }
+  `
+
 const DropdownContainer = styled.div`
   position: absolute;
   top: 60px;
@@ -160,8 +196,8 @@ const DropdownContainer = styled.div`
   z-index: 000;
   overflow: hidden;
 
-  @media ${({ theme }) => theme.mobileS} {
-    width: 200px;
+  @media ${({ theme }) => theme.mobileL} {
+    display: none;
   }
 `
 const HeartNumber = styled.div`

@@ -69,7 +69,7 @@ const Wrapper = styled.main`
   z-index: 99;
 
   @media ${({ theme }) => theme.mobileL} {
-    justify-content: flex-start;
+    display: none;
   }
 `
 const Container = styled.div`

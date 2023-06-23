@@ -43,11 +43,11 @@ export default function ClothesGallery({ info }: IProps) {
     content =
       <Box >
         {
-          info.map((item: any, index: number) =>
-            <ClothesCard
-              info={item} key={index} 
-              handleAddClotheItemToWishList={handleAddClotheItemToWishList}
-            />)
+        info.map((item: any, index: number) =>
+          <ClothesCard
+            info={item} key={index} 
+            handleAddClotheItemToWishList={handleAddClotheItemToWishList}
+          />)
         }
       </Box>
   } else if (!info) {
@@ -100,6 +100,12 @@ const Box = styled.div`
   @media ${({ theme }) => theme.laptop} {
     grid-template-columns: repeat(auto-fit, minmax(min(290px, 350px), 1fr));
     grid-template-rows: minmax(min(290px, 80vw), 1fr);
+  }
+  @media ${({ theme }) => theme.mobileL} {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: minmax(min(290px, 80vw), 1fr);
+    grid-auto-flow: dense;
+    gap: 10px;
   }
 
 `

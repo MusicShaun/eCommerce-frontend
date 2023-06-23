@@ -5,15 +5,17 @@ import MyAccountLayout from '../../components/layouts/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
 import ClothesCardCart from '@/components/clothes/ClothesCardCart'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
-import PacmanLoader from 'react-spinners/PacmanLoader'
 import Head from 'next/head'
 import { RootState } from '@/lib/store'
 import { selectUser } from '@/lib/slices/userSlice'
-import { EmptyWishList, cartProductListResult, countProductTypeInstances, cssLoaderSpecs, findTotalPrice } from '@/lib/services/cartServices'
+import { EmptyWishList, cartProductListResult, countProductTypeInstances, findTotalPrice } from '@/lib/services/cartServices'
+import CartWishLayout from '@/components/layouts/CartWishLayout'
+import LoadingSpinner from '@/components/LoadingSpinner'
+import ClothesGallery from '@/components/clothes/ClothesGallery'
+import { ClotheType } from '@/lib/slices/clothesSlice'
 
 
 export default function Cart() {
-
 
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
@@ -29,7 +31,6 @@ export default function Cart() {
   // Convert the object to an array of product objects 
   const result = cartProductListResult(countProductInstances)
 
-
   function handleAddClotheItemToCart(_id: string, size: string) {
     handleAddItem(_id, 'cart', size , '+')
   }
@@ -39,46 +40,34 @@ export default function Cart() {
   }
 
 
-  
 
-
-  let content 
+  let DESKTOP_CONTENT 
   if (cart.length > 0) {
-    content = 
+    DESKTOP_CONTENT = 
       <WishContainer>
-
         <div style={{position: 'relative'}}>
-          {result.map((item: any, index: number) => {
-            return <ClothesCardCart
+          {result.map((item: any, index: number) => { return (
+            <ClothesCardCart
               info={item}
               key={index}
               deleteClothingItem={deleteClothingItem} 
               handleAddClotheItemToCart={handleAddClotheItemToCart}
-            />
+            />)
           })}
-          
-          <SpinnerContainer style={{display: isWishLoading ? 'flex' : 'none'}}>
-            <PacmanLoader
-              color={'#2d2d2d'}
-              size={50}
-              loading={isWishLoading}
-              cssOverride={cssLoaderSpecs}
-              speedMultiplier={1.5}
-              />
-          </SpinnerContainer>
-
+          <LoadingSpinner isWishLoading={isWishLoading} />
         </div>
         <Total>Total:  ${findTotalPrice(cart)} </Total>
         <Checkout onClick={handleCheckout}>CHECKOUT</Checkout>  
       </WishContainer>
       
-  } else {
-    content =
+  }  else {
+    DESKTOP_CONTENT =
       <Container>
-        <First><h2>SHOPPING CART</h2></First>
         <Empty info={EmptyWishList} />
       </Container>
   }
+
+
 
   return (<>
     <Head>
@@ -86,9 +75,16 @@ export default function Cart() {
     </Head>
       
     <MyAccountLayout>
-      {content}      
+      {DESKTOP_CONTENT}      
     </MyAccountLayout>
-    </>)
+
+    {/* DESKTOP ^ OR MOBILE */}
+
+    <CartWishLayout title='Cart'>
+      <ClothesGallery info={result as ClotheType[]} />     
+    </CartWishLayout>
+
+  </>)
 }
 
 const Container = styled.div`
@@ -97,15 +93,6 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   padding-bottom: 20px;
-`
-const First = styled.div`
-  width: 100%;
-  height: 142px;
-  background-color:white;
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  margin-bottom: 20px;
 `
 const WishContainer = styled.div`
   max-width: 1300px;
@@ -129,6 +116,8 @@ const WishContainer = styled.div`
     gap: 20px;
   }
 `
+
+              
 const Total = styled.span`
   width: 100%;
   height: 40px;
@@ -149,13 +138,3 @@ const Checkout = styled.button`
   margin-top: 20px;
 `
 
-const SpinnerContainer = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9000;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.446);
-`

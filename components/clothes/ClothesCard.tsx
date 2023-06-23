@@ -125,6 +125,10 @@ const Tile = styled.div`
   cursor: pointer;
   text-decoration: none;
   color: black; 
+
+  @media ${({ theme }) => theme.mobileL} {
+    min-width: 0;
+  }
 `
 const PicturePlacement = styled.div`
   position: relative;
@@ -136,6 +140,10 @@ const Header = styled.div`
   & h3 {
     margin: 0px;
     padding: 0;    
+
+  @media ${({ theme }) => theme.mobileL} {
+    font-size: 1rem;
+    font-weight: 500;
   }
 `
 

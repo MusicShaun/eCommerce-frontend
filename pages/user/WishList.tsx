@@ -1,22 +1,21 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Empty from '../../components/EmptyTab'
 import MyAccountLayout from '../../components/layouts/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
 import ClothesCard from '@/components/clothes/ClothesCard'
 import useAddClothingItem from 'lib/hooks/useAddClothingItem'
-import { useCheckJWTexpiry } from 'lib/hooks/checkJWTexpiry'
 import Head from 'next/head'
 import { RootState, } from '@/lib/store'
-import { extendedUserSlice,  selectUser, useGetUserQuery } from '@/lib/slices/userSlice'
+import { selectUser } from '@/lib/slices/userSlice'
+import CartWishLayout from '@/components/layouts/CartWishLayout'
+import ClothesGallery from '@/components/clothes/ClothesGallery'
 
 export default function WishList() {
 
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
-  console.log(currentUser)
   const wishlist = currentUser?.wishlist || []
-  console.log(wishlist)
   const { handleAddItem } = useAddClothingItem()
   
 
@@ -58,9 +57,14 @@ export default function WishList() {
 
 
     <MyAccountLayout>
-      
       {content}
     </MyAccountLayout>
+
+      {/* DESKTOP ^ OR MOBILE */}
+
+    <CartWishLayout title='Wish list'>
+      <ClothesGallery info={wishlist } />     
+    </CartWishLayout>
     </>)
 }
 

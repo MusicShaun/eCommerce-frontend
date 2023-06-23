@@ -36,6 +36,7 @@ const Second = styled.div`
   justify-content: center;
   flex-direction: column;
   padding: 20px;
+  text-align: center;
 `
 const Button = styled.button`
 position: relative; 
@@ -43,7 +44,7 @@ position: relative;
   width: 248px;
   color: white;
   background-color: black;
-
+  text-align: center;
   & a {
     text-decoration: none;
     color: inherit;

@@ -1,11 +1,11 @@
-import Nav4Panel from "@/components/nav/Nav4Panel"
-import NavShirts from "@/components/nav/NavShirts"
-import NavSneakers from "@/components/nav/NavShoes"
-import NavShorts from "@/components/nav/NavShorts"
+import Nav4Panel from "@/components/nav/navMenu/Nav4Panel"
+import NavShirts from "@/components/nav/navTabs/NavShirts"
+import NavSneakers from "@/components/nav/navTabs/NavShoes"
+import NavShorts from "@/components/nav/navTabs/NavShorts"
 import Link from "next/link"
 import { useReducer, useState } from "react"
 import styled from "styled-components"
-import NavMobileDropDown from "../nav/NavMobileDropDown"
+import NavMobileDropDown from "../nav/navDropdowns/NavMobileDropDown"
 import { PayloadAction } from "@reduxjs/toolkit"
 
 export default function HeaderBottom() {

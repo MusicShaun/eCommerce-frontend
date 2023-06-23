@@ -3,7 +3,7 @@ import Image from "next/image"
 import User from '@/public/user.webp'
 import Heart from '@/public/heart.webp'
 import Bag from '@/public/bag.webp'
-import NavUserDropdown from "../nav/NavUserDropdown"
+import NavUserDropdown from "../nav/navDropdowns/NavUserDropdown"
 import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "lib/hooks/hooks"
 import Link from "next/link"

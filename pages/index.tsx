@@ -12,6 +12,7 @@ import { HomePageHead } from '@/lib/head'
 import { colors } from '@/config/ThemeConfig'
 import Footer from '@/components/footer/Footer'
 import BigBanner from '@/components/banners/BigBanner'
+import MobileBanner from '@/components/banners/MobileBanner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -51,7 +52,13 @@ export default function Home() {
     await logout({dispatch})
   }
 
-  
+  const mobileBanner = {
+    banner: colors.DARKEST_BLUE,
+    header: 'NEW HERE?',
+    subheader: 'Get 20% off everything!*',
+    subheader2: 'With code: ',
+    subheader3: 'NEWFRIEND'
+  }
   const firstBanner = {
     banner: colors.BANNER_1, 
     banner2: colors.BANNER_2, 
@@ -66,7 +73,7 @@ export default function Home() {
     banner2: colors.BANNER_2, 
     header: 'UP TO 50% OFF ',
     header2: ' SUMMER STUFF',
-    subheader: 'ITS HOT OUT THERE',
+    subheader: 'It\'s hot out there',
     subheader2: '',
     subheader3: ''
   } as const
@@ -76,6 +83,8 @@ export default function Home() {
     <>
       <HomePageHead />
       <Wrapper>
+        <MobileBanner info={mobileBanner} />
+
         <BigBanner info={secondBanner} />
         <PacmanLoader
           color={'#2d2d2d'}
@@ -104,5 +113,5 @@ const Wrapper = styled.main`
 
   @media ${({ theme }) => theme.mobileL} {
     top: 60px;
-    }
+  }
 `

@@ -1,31 +1,31 @@
 import styled from 'styled-components'
-import NavMenuList from '@/components/nav/NavMenu_List'
-import NavMenuLargeImageTiles from '@/components/nav/NavMenu_LargeImageTiles'
-import { selectShirts } from '@/lib/slices/clothesSlice'
+import NavMenuList from '@/components/nav/navMenu/NavMenu_List'
+import NavMenuLargeImageTiles from '@/components/nav/navMenu/NavMenu_LargeImageTiles'
+import {  selectShorts } from '@/lib/slices/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
 
 interface IProps {
   handleEnterNavTab: (name: string, value: boolean ) => void
 }
 
-export default function Nav4Panel({ handleEnterNavTab }: IProps) {
+export default function NavShorts({ handleEnterNavTab }: IProps) {
 
-  const shirtsOnly = useAppSelector(selectShirts)
+  const shortsOnly = useAppSelector(selectShorts)
 
 
   return (
     <BoxContainer
-      onMouseEnter={() => handleEnterNavTab('Shirts', true)}
-      onMouseLeave={() => handleEnterNavTab('Shirts', false)}
+    onMouseEnter={() => handleEnterNavTab('Shorts', true)}
+    onMouseLeave={() => handleEnterNavTab('Shorts', false)}
     >
     <Box>
       <Title>Product</Title>
-        <NavMenuList info={shirtsOnly} />
+      <NavMenuList info={shortsOnly} />
     </Box>
       
     <Box style={{width: '75%'}}>
     <Title>Brand</Title>
-        <NavMenuLargeImageTiles info={shirtsOnly} />
+        <NavMenuLargeImageTiles info={shortsOnly} />
     </Box>
       
   </BoxContainer>)
@@ -40,8 +40,10 @@ const BoxContainer = styled.div`
   display: flex;
   height: 340px;
   width: 100%;
-  background-color: ${({ theme }) => theme.backgroundSecondary};
-  
+  background-color: ${({theme}) => theme.backgroundSecondary};
+  cursor: pointer;
+
+
   @media ${({ theme }) => theme.mobileL} {
     display: none;
   }
@@ -53,7 +55,6 @@ const Box = styled.div`
   flex-grow: 1;
   height: 100%;
   width: 25%;
-  cursor: pointer;
   padding: 0px 20px;
 
   border-right: 1px solid lightgrey;
@@ -61,6 +62,7 @@ const Box = styled.div`
   &:last-child {
     border-right: none;
   }
+
 `
 const Title = styled.h3`
   text-decoration: underline;

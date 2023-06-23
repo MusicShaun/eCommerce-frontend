@@ -6,6 +6,7 @@ import { useAppSelector } from 'lib/hooks/hooks'
 import { WomensPageHead } from '@/lib/head'
 import { colors } from '@/config/ThemeConfig'
 import Footer from '@/components/footer/Footer'
+import MobileBanner from '@/components/banners/MobileBanner'
 
 
 export default function Women() {
@@ -27,6 +28,7 @@ export default function Women() {
   } else if (isError) {
     console.log(JSON.stringify(error))
   }
+
 
 
   const firstBanner = {
@@ -53,7 +55,7 @@ export default function Women() {
     <WomensPageHead />
 
     <Wrapper>
-      
+
       <Banner info={firstBanner} />
     
       {isSuccess && <ClothesGallery info={randomClothes} />}

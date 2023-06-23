@@ -6,6 +6,7 @@ import Link from "next/link";
 import logo from "@/public/Mobile_logo.webp";
 import Hamburger from 'hamburger-react'
 import { useState } from "react";
+import MobileNavigation from "../nav/navDropdowns/mobileNav/MobileNavigation";
 
 
 function MobileHeader() {
@@ -17,8 +18,12 @@ function MobileHeader() {
   return (
     <Wrapper>
 
+      <DimTheBackground style={{ backgroundColor: !isOpen ? 'transparent' : 'rgba(0,0,0,0.5)' }}  />
+
+      <MobileNavigation setOpen={setOpen} isOpen={isOpen} />
+
       <LeftContainer>
-        <HamburgerContainer >
+        <HamburgerContainer onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} >
           <Hamburger toggled={isOpen} toggle={setOpen} size={28} rounded label="Show menu" />
         </HamburgerContainer>
 
@@ -52,9 +57,10 @@ export default MobileHeader
 
 const Wrapper = styled.header`
   display: none;
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 60px;
+  z-index: 100;
   display: flex;
   justify-content: space-between;
   background-color: ${({ theme }) => theme.headerTop};
@@ -114,4 +120,12 @@ const SearchButton = styled.button`
     filter: invert(1);
   }
 
+`
+
+const DimTheBackground = styled.div`
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  transition: background-color 0.5s ease-in-out;
 `

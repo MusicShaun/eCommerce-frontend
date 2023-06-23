@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import NavMenuThreeImageTiles from '@/components/nav/NavMenu_ThreeImagesTiles'
-import NavMenuListWithIcons from '@/components/nav/NavMenu_ListWithIcons'
-import NavMenuList from '@/components/nav/NavMenu_List'
+import NavMenuThreeImageTiles from '@/components/nav/navMenu/NavMenu_ThreeImagesTiles'
+import NavMenuListWithIcons from '@/components/nav/navMenu/NavMenu_ListWithIcons'
+import NavMenuList from '@/components/nav/navMenu/NavMenu_List'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { selectShoes } from '@/lib/slices/clothesSlice'
 

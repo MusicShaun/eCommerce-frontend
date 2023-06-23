@@ -7,10 +7,7 @@ import banner from '@/public/home-banner.webp'
 interface IProps {
   [key: string]: any
 }
-
-export default function Banner({ info }: IProps) {
-  
-
+function MobileBanner({ info }: IProps) {
 
   return (
     <BannerContainer>
@@ -27,18 +24,23 @@ export default function Banner({ info }: IProps) {
         />}
       
     <TextBox>
+      {info.header2 ? 
       <h3>{info.header}<br />{info.header2}</h3>
+        : <h3>{info.header}</h3>
+        }
         <h4>{info.subheader}</h4>
         <h4>{info.subheader2}<span>{info.subheader3}</span></h4>
     </TextBox>
   </BannerContainer>
   )
 }
+export default MobileBanner
 
 const BannerContainer = styled.div`
+  display: none;
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,10 +49,10 @@ const BannerContainer = styled.div`
     z-index: -1;
   }
 
-  @media ${({ theme }) => theme.mobileL} {
-    height: 310px;
-    margin: 1.5rem 0;
+    @media ${({ theme }) => theme.mobileL} {
+    display: flex;
   }
+
 
 `
 const ColorBanner = styled.div`
@@ -65,32 +67,31 @@ const TextBox = styled.a`
   justify-content: center;
   align-items: center;
   padding: 50px;
-  color: white;
   text-align: center;
-  width: 100%;
-
+  color: white;
   @media ${({ theme }) => theme.mobileL} {
     padding: 10px;
-    color: black;
   }
-
   &:hover {
     cursor: pointer;
   }
 
   & span {
-    border: 2px solid white;
+    font-weight: 700;
   }
-
   & h3 {
-    font-size: 3rem;
-    @media ${({ theme }) => theme.mobileL} {
-      font-size: 2.4rem;
-      width: 100%;
-    } 
+    background-color: white;
+    color: ${({ theme }) => theme.darkestBlue};
+    font-size: 1.6rem;
+    vertical-align: middle;
+    padding: 0.5rem;
+    margin-bottom: 5px;
+
   }
   & h4 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.2;
   }
   & h3, h4 {
     text-shadow: -1px -1px 1px rgba(0,0,0,0.2), -10px -10px 10px rgba(0,0,0,0.05);

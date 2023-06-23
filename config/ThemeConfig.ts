@@ -12,6 +12,7 @@ export const colors = {
   COMPLIMENTARY_RED: 'hsl(357, 100%, 66%)',
   PEACH: 'hsl(20, 76%, 71%)',
   DARK_BLUE: 'hsl(208, 100%, 20%)',
+  DARKEST_BLUE: 'hsl(208, 100%, 14%)',
   MID_BLUE: 'hsl(208, 100%, 40%)',
   LIGHT_BLUE: 'hsl(208, 100%, 70%)',
   PINK: 'hsl(359, 60%, 76%)',
@@ -83,6 +84,7 @@ export const light = {
   darkGrey: colors.DARK_GREY,
 
   lightBlue: colors.LIGHT_BLUE,
+  darkestBlue: colors.DARKEST_BLUE,
 
   background: colors.WHITE,
   backgroundSecondary: colors.DULL_WHITE,

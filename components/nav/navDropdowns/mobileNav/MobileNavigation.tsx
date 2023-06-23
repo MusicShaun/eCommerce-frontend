@@ -115,7 +115,7 @@ const Wrapper = styled.nav`
   position: absolute;
   width: 100vw;
   height: 100vh;
-  z-index: 100;
+  z-index: 104;
   left: -100vw;
   transition: transform 0.3s ease-in-out;
 `

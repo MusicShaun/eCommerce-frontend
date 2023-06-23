@@ -1,15 +1,11 @@
-import styled, { useTheme } from "styled-components";
-import Image from "next/image";
-import Magnifying from "@/public/magnifying.webp";
+import styled from "styled-components";
 import HeaderRight from "./HeaderRight";
 import Link from "next/link";
-import logo from "@/public/Mobile_logo.webp";
 import Hamburger from 'hamburger-react'
 import { useState } from "react";
 import MobileNavigation from "../nav/navDropdowns/mobileNav/MobileNavigation";
 import MagnifyingGlass from "../icons/MagnifyingGlass";
-import PersonIcon from "../icons/PersonIcon";
-import HeartIcon from "../icons/HeartIcon";
+
 
 
 function MobileHeader() {
@@ -31,11 +27,9 @@ function MobileHeader() {
         </HamburgerContainer>
 
         <ButtonContainer>
-          <Button>
-            <Link href='/' as='/'>
-              <Image src={logo} width={60} height={60} alt=""/>
-            </Link>  
-          </Button>
+          <Link href='/'>
+            Shauny's
+          </Link>
         </ButtonContainer>
       </LeftContainer>
       
@@ -59,6 +53,8 @@ const Wrapper = styled.header`
   @media ${({ theme }) => theme.mobileL} {
     display: flex;
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 60px;
     z-index: 100;
@@ -88,24 +84,26 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
   height: 60px;
-  border-right: 1px solid ${({ theme }) => theme.headerMiddle};
-`
-const Button = styled.button`
-  height: 60px;
-  border: none;
-  background-color: ${({ theme }) => theme.headerBottom};
+  background-color: none;
+  margin-left: 0.5rem;
+
   & a  {
+    display: flex;
+    justify-content:center;
+    align-items: center;
     text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: white;
+    letter-spacing: -1px;
     }
-  &:hover {
+  &:hover , :active {
     background-color: ${({ theme }) => theme.backgroundSecondary};  
     color: ${({ theme }) => theme.headerTop};
   }
-  &:hover span {
-      color: ${({ theme }) => theme.headerTop};
-    }
 
 `
+
 const SearchButton = styled.button`
   position: relative;
   height: 100%;

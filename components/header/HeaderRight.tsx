@@ -177,7 +177,7 @@ const ButtonMobile = styled.div`
     display: flex;
     position: relative;
     height: 100%;
-    width: 50px;
+    width: 45px;
     justify-content: center;
     align-items: center;
     

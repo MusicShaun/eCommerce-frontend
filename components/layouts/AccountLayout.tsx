@@ -5,7 +5,7 @@ import SidebarMobile from '../nav/navDropdowns/MyAccountUserDropdownMobile'
 import Hamburger from 'hamburger-react'
 import BackButton from '../buttons/BackButtonMyAccount'
 import { useRouter } from 'next/router'
-import { Head } from 'next/document'
+
 
 export default function MyAccountLayout({children}: { children: React.ReactNode}) {
 
@@ -30,13 +30,11 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
 
   return (
     <>
-
     <Wrapper>
+      
       <Header>
         <h3>ASOS</h3>
-          <BackButton/>
-
-        
+        <BackButton/>
         <h3>My Account</h3>
       </Header>
    
@@ -68,7 +66,7 @@ const Wrapper = styled.main`
   justify-content: center;
   align-items: center; 
   background-color: ${({theme}) => theme.backgroundSecondary };
-  z-index: 100;
+  z-index: 99;
 
   @media ${({ theme }) => theme.mobileL} {
     justify-content: flex-start;

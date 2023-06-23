@@ -30,6 +30,7 @@ function App({ Component, pageProps }: AppProps) {
       <meta property="og:type" content="website" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <link rel="icon" href="/favicon.ico" />
+      <meta name="theme-color" content="#003666" />
     </Head>
 
     <Provider store={store}> 

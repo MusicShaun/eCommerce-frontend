@@ -56,16 +56,15 @@ export default MobileHeader
 
 const Wrapper = styled.header`
   display: none;
-  position: absolute;
-  width: 100%;
-  height: 60px;
-  z-index: 100;
-  justify-content: space-between;
-  background-color: ${({ theme }) => theme.headerTop};
-
-
   @media ${({ theme }) => theme.mobileL} {
     display: flex;
+    position: absolute;
+    width: 100%;
+    height: 60px;
+    z-index: 100;
+    justify-content: space-between;
+    background-color: ${({ theme }) => theme.headerTop};
+    color: ${({ theme }) => theme.headerTop};
   }
 `
 const LeftContainer = styled.div`

@@ -145,6 +145,7 @@ const Header = styled.div`
     font-size: 1rem;
     font-weight: 500;
   }
+}
 `
 
 const BottomP = styled.div`

@@ -17,7 +17,7 @@ function MobileHeader() {
   return (
     <Wrapper>
 
-      <DimTheBackground style={{ backgroundColor: !isOpen ? 'transparent' : 'rgba(0,0,0,0.5)' }}  />
+      <DimTheBackground style={{ backgroundColor: !isOpen ? 'transparent' : 'rgba(0,0,0,0.5)', transform: isOpen ? 'translateX(-100%)' : '0' }}  />
 
       <MobileNavigation setOpen={setOpen} isOpen={isOpen} />
 
@@ -61,6 +61,7 @@ const Wrapper = styled.header`
     justify-content: space-between;
     background-color: ${({ theme }) => theme.headerTop};
     color: ${({ theme }) => theme.headerTop};
+    overflow: hidden;
   }
 `
 const LeftContainer = styled.div`

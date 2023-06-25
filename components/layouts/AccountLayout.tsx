@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../sidebars/Sidebar'
-import SidebarMobile from '../nav/navDropdowns/MyAccountUserDropdownMobile'
 import Hamburger from 'hamburger-react'
 import BackButton from '../buttons/BackButtonMyAccount'
 import { useRouter } from 'next/router'
+import SidebarMobile from '../sidebars/SidebarMobile'
 
 
 export default function MyAccountLayout({children}: { children: React.ReactNode}) {
@@ -45,8 +45,8 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
 
       <Container>
       
-        <SidebarMobile open={isOpen}  /> 
-        <Sidebar />
+        <SidebarMobile isOpen={isOpen}  /> 
+        <Sidebar isOpen={isOpen} />
         
         {children}
 
@@ -69,7 +69,6 @@ const Wrapper = styled.main`
   z-index: 99;
 
   @media ${({ theme }) => theme.mobileL} {
-    display: none;
   }
 `
 const Container = styled.div`

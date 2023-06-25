@@ -63,7 +63,10 @@ export default function WishList() {
       {/* DESKTOP ^ OR MOBILE */}
 
     <CartWishLayout title='Wish list'>
-      <ClothesGallery info={wishlist } />     
+      {wishlist.length > 0 ?
+        <ClothesGallery info={wishlist} /> 
+        : <Empty info={EmptyWishList} />
+      }
     </CartWishLayout>
     </>)
 }

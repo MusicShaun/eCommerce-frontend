@@ -14,7 +14,7 @@ export default function LoginWrapper({children}: {children: React.ReactNode}) {
   <SignInPageHead />
 
     <Wrapper>
-      <Header><h1>ASOS</h1></Header>
+      <Header><h1>Shauny's Shop</h1></Header>
       <Box>
         <SignInOptions setLoggingIn={setLoggingIn} />
 

@@ -13,6 +13,7 @@ import CartWishLayout from '@/components/layouts/CartWishLayout'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { ClotheType } from '@/lib/slices/clothesSlice'
+import EmptyTab from '../../components/EmptyTab'
 
 
 export default function Cart() {
@@ -81,7 +82,10 @@ export default function Cart() {
     {/* DESKTOP ^ OR MOBILE */}
 
     <CartWishLayout title='Cart'>
-      <ClothesGallery info={result as ClotheType[]} />     
+      {result.length > 0 ?
+        <ClothesGallery info={result as ClotheType[]} />
+        : <Empty info={EmptyWishList} />} 
+
     </CartWishLayout>
 
   </>)

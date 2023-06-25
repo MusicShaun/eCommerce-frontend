@@ -79,7 +79,7 @@ export default function HeaderRight() {
 
       
       <ButtonMobile>
-        <Link href='/user/Account' as='account'>
+        <Link href='/user/MyAccount' as='account'>
           <PersonIcon />
         </Link>
       </ButtonMobile>
@@ -183,6 +183,10 @@ const ButtonMobile = styled.div`
     
     & div {
       width: 24px;
+    }
+    &:active {
+      border: 2px solid ${({ theme }) => theme.headerBottom};
+      border-radius: 5px;
     }
   }
   `

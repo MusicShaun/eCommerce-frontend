@@ -137,6 +137,7 @@ const PicturePlacement = styled.div`
 `
 const Header = styled.div`
   padding: 10px;
+
   & h3 {
     margin: 0px;
     padding: 0;    
@@ -144,8 +145,11 @@ const Header = styled.div`
   @media ${({ theme }) => theme.mobileL} {
     font-size: 1rem;
     font-weight: 500;
+    }
   }
-}
+  @media ${({ theme }) => theme.mobileL} {
+    padding: 0px;
+  }
 `
 
 const BottomP = styled.div`
@@ -153,7 +157,10 @@ const BottomP = styled.div`
   padding: 0px 10px;
   & span {
     color: red;
-    font-weight: bold;
+    font-weight: 600;
+  }
+  @media ${({ theme }) => theme.mobileL} {
+    padding: 0px;
   }
 `
 const wiggle = 

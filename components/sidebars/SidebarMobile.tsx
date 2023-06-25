@@ -30,7 +30,10 @@ export default function Sidebar({isOpen}: IProps) {
     return ''
   }
 
-
+  const showMenu = isOpen ?
+    { left: '0'} :
+    { left: '110%' }
+    
 
   // map over each array element in the stack2Data array then return a div with the image and link
   const accountBtns = stack2Data.map((item, index) => (
@@ -49,7 +52,7 @@ export default function Sidebar({isOpen}: IProps) {
   
 
   return (
-    <Container > 
+    <Container style={{...showMenu}}> 
       <Stack
         style={{
         height: '168px', padding: '40px 0'
@@ -85,23 +88,24 @@ export default function Sidebar({isOpen}: IProps) {
 }
 
 const Container = styled.div`
-  position: relative !important;
-  width: 100%;
-  height: fit-content;
-  max-width: 280px; 
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  margin-right: 10px;
-  transition: left 0.3s ease-in-out;
+  display: none;
 
-  @media ${({ theme }) => theme.tablet} {
-    max-width: 240px; 
-  }
   @media ${({ theme }) => theme.mobileL} {
-    display: none;
-  }
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin-right: 10px;
+    transition: left 0.3s ease-in-out;
+    max-width: 100%;
+    margin: 0;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    z-index: 10;
 
+  }
 `
 const Stack = styled.div`
   display: flex;
@@ -143,7 +147,11 @@ const Tab = styled.li`
   padding-left: 20px;
   border-bottom: 1px solid ${({theme}) => theme.backgroundSecondary};
 
-
+  @media ${({ theme }) => theme.mobileL} {
+    & a {
+          width: 100%;
+        }
+      }
 
   & div {
     margin-left: 20px;

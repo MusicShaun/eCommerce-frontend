@@ -3,12 +3,12 @@ import Link from "next/link"
 import {  useAppDispatch, useAppSelector } from "lib/hooks/hooks"
 import { selectUser } from "@/lib/slices/userSlice"
 import Image from "next/image"
-import details from '@/public/account_details.png'
-import welcome from '@/public/account_welcome.png'
-import orders from '@/public/account_orders.png'
-import history from '@/public/account_history.png'
-import wishlist from '@/public/account_wishlist.png'
-import logoutIMG from '@/public/account_logout.png'
+import details from '@/public/account_details.webp'
+import welcome from '@/public/account_welcome.webp'
+import orders from '@/public/account_orders.webp'
+import history from '@/public/account_history.webp'
+import wishlist from '@/public/account_wishlist.webp'
+import logoutIMG from '@/public/account_logout.webp'
 import { RootState } from "@/lib/store"
 import { logout } from "@/lib/services/handleLogout"
 

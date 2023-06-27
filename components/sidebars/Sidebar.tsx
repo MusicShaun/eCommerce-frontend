@@ -3,7 +3,7 @@ import Link from "next/link"
 import {  useAppDispatch, useAppSelector } from "lib/hooks/hooks"
 import { selectUser } from "@/lib/slices/userSlice"
 import Image from "next/image"
-import logoutIMG from '@/public/account_logout.png'
+import logoutIMG from '@/public/account_logout.webp'
 import { RootState } from "@/lib/store"
 import { logout } from "@/lib/services/handleLogout"
 import { stack2Data } from "./sidebarArray"

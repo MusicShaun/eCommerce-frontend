@@ -112,17 +112,18 @@ export default MobileNavigation
 
 
 const Wrapper = styled.nav`
-  position: absolute;
+  position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   z-index: 104;
   left: -100vw;
   transition: transform 0.3s ease-in-out;
+  overflow-y: scroll;
 `
 const Container = styled.div`
   position: relative;
   width: calc(100% - 60px);
-  height: 100%;
+  height: fit-content;
   background-color: white;
 `
 const CloseButton = styled.div`

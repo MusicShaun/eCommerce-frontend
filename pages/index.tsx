@@ -3,11 +3,10 @@ import styled from 'styled-components'
 import Banner from '@/components/banners/Banner'
 import { extendedClothesSlice, useGetAllClothesQuery , selectAllClothes, ClotheType} from '@/lib/slices/clothesSlice'
 import ClothesGallery from '@/components/clothes/ClothesGallery'
-import { useAppDispatch, useAppSelector } from 'lib/hooks/hooks'
+import { useAppSelector } from 'lib/hooks/hooks'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import { useGetUserQuery } from '@/lib/slices/userSlice'
 import { useEffect, useState } from 'react'
-import { logout } from '@/lib/services/handleLogout'
 import { HomePageHead } from '@/lib/head'
 import { colors } from '@/config/ThemeConfig'
 import Footer from '@/components/footer/Footer'
@@ -20,7 +19,6 @@ extendedClothesSlice.endpoints.getAllClothes.initiate()
 
 export default function Home() {
 
-  const dispatch = useAppDispatch()
   const selectAll = useAppSelector(selectAllClothes)
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)
@@ -34,8 +32,9 @@ export default function Home() {
   } = useGetAllClothesQuery()
 
   const { } = useGetUserQuery(userEmail, {
-    skip: !hasToken
+    skip: hasToken === false,
   })
+
 
   // Wrapped in a useEffect to avoid re rendering when getUser fires
   useEffect(() => {
@@ -47,10 +46,6 @@ export default function Home() {
     }
   }, [isSuccess, isError, selectAll, isLoading])
 
-
-  async function handleLogout() {
-    await logout({dispatch})
-  }
 
   const mobileBanner = {
     banner: colors.DARKEST_BLUE,

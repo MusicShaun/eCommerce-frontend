@@ -17,7 +17,13 @@ function MobileHeader() {
   return (
     <Wrapper>
 
-      <DimTheBackground style={{ backgroundColor: !isOpen ? 'transparent' : 'rgba(0,0,0,0.5)', transform: isOpen ? 'translateX(-100%)' : '0' }}  />
+      {isOpen ?
+        <DimTheBackground style={{
+          backgroundColor: !isOpen
+            ? 'transparent' : 'rgba(0,0,0,0.5)', transform: !isOpen ? 'translateX(-100%)' : '0'
+        }}
+        />
+        : null}
 
       <MobileNavigation setOpen={setOpen} isOpen={isOpen} />
 
@@ -126,5 +132,5 @@ const DimTheBackground = styled.div`
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  transition: background-color 0.5s ease-in-out;
+  transition: background-color 0.5s ease-in-out ;
 `

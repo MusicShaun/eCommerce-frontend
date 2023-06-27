@@ -61,7 +61,6 @@ const Wrapper = styled.header`
     justify-content: space-between;
     background-color: ${({ theme }) => theme.headerTop};
     color: ${({ theme }) => theme.headerTop};
-    overflow: hidden;
   }
 `
 const LeftContainer = styled.div`

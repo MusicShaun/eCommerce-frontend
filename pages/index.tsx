@@ -23,7 +23,7 @@ export default function Home() {
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)
   const hasToken = useAppSelector(state => state.auth.token !== null)
-  let getUserQueryResult 
+  let getUserQueryResult
 
   const {
     isLoading,
@@ -32,9 +32,12 @@ export default function Home() {
     error
   } = useGetAllClothesQuery()
 
-  if (hasToken != false || userEmail !== '') getUserQueryResult = useGetUserQuery(userEmail, {})
+  if (hasToken) { //check for token
+    if (userEmail !== '') { //check for email 
+      getUserQueryResult = useGetUserQuery(userEmail, {})
+    }
+  }
   
-
 
   // Wrapped in a useEffect to avoid re rendering when getUser fires
   useEffect(() => {

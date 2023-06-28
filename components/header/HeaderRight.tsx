@@ -26,7 +26,7 @@ export default function HeaderRight() {
   const [windowSize, setWindowSize] = useState({ X: 0 })
 
   let myAccountBtnLink = {destination: '/login', as: '/login'}
-  const checkTokenExistence = useLocalStorage('authState', '/login')
+  const checkTokenExistence =   typeof localStorage !== 'undefined' ?  localStorage.getItem('authState') : null
   if (checkTokenExistence && Object.keys(checkTokenExistence).length > 0) myAccountBtnLink = {destination: '/user/MyAccount', as: '/account'}
 
 

@@ -49,7 +49,7 @@ const BannerContainer = styled.div`
 
   @media ${({ theme }) => theme.mobileL} {
     height: 310px;
-    margin: 1.5rem 0;
+    margin: 1.5rem 0rem 0rem;
   }
 
 `

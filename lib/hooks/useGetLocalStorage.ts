@@ -14,6 +14,7 @@ const useLocalStorage = (key: string, initialValue: LocalUser | {} ) => {
     return 
   },[])
 
+  console.log(value)
   return value;
 };
 

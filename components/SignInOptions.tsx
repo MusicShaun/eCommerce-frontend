@@ -12,7 +12,7 @@ export default function SignInOptions({ setLoggingIn }: IProps) {
   const [ underlinerTab, setUnderlinerTab ] = useState(false)
 
   useEffect(() => {
-    if (window.location.href.includes('Register')) {
+    if (window.location.href.includes('Register') || window.location.href.includes('register')) {
       setUnderlinerTab(true)
     }
     else {

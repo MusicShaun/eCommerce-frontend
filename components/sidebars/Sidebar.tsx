@@ -95,6 +95,7 @@ const Container = styled.div`
   margin-right: 10px;
   transition: left 0.3s ease-in-out;
 
+
   @media ${({ theme }) => theme.tablet} {
     max-width: 240px; 
   }
@@ -105,7 +106,9 @@ const Container = styled.div`
 `
 const Stack = styled.div`
   display: flex;
-  border-bottom: 2px solid ${({theme}) => theme.backgroundSecondary};
+  border-bottom: 2px solid ${({ theme }) => theme.backgroundSecondary};
+  color: ${({ theme }) => theme.text};
+
 `
 const Badge = styled.div`
   display: flex;
@@ -116,7 +119,7 @@ const Badge = styled.div`
   }
 `
 const Circle = styled.div`
-  background-color: black;
+  background-color: ${({ theme }) => theme.text};
   border-radius: 50%;
   width: 88px;
   height: 88px;

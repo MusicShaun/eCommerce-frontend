@@ -37,16 +37,28 @@ const Second = styled.div`
   flex-direction: column;
   padding: 20px;
   text-align: center;
+  color: ${({ theme }) => theme.text};
+
+  & h3 {
+    font-size: 1rem;
+  }
+  & p {
+    margin-top: 5px;
+  }
 `
 const Button = styled.button`
 position: relative; 
   height: 48px;
   width: 248px;
   color: white;
-  background-color: black;
+  margin-top: 10px;
+  background-color: ${({ theme }) => theme.headerTop};
+  border: 1px solid ${({ theme }) => theme.headerMiddle};
+  border-radius: 3px;
   text-align: center;
   & a {
     text-decoration: none;
     color: inherit;
+    font-size: 1rem;
   }
 `

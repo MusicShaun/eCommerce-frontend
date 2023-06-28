@@ -64,6 +64,7 @@ export default function Cart() {
   }  else {
     DESKTOP_CONTENT =
       <Container>
+        <First><h2>CART</h2></First>
         <Empty info={EmptyWishList} />
       </Container>
   }
@@ -97,6 +98,19 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   padding-bottom: 20px;
+
+  @media ${({ theme }) => theme.mobileL} {
+    display: none;
+  }
+`
+const First = styled.div`
+  width: 100%;
+  height: 142px;
+  background-color:white;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 20px;
 `
 const WishContainer = styled.div`
   max-width: 1300px;

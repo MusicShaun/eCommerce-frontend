@@ -1,4 +1,4 @@
-import {  selectUser, useAddWishListItemMutation, useGetUserQuery, useGuestMutation } from "@/lib/slices/userSlice"
+import {  selectUser, useAddWishListItemMutation, useGuestMutation } from "@/lib/slices/userSlice"
 import { useRef } from "react"
 import { handleCart } from "./handleCart"
 import { useAppDispatch, useAppSelector } from "./hooks"
@@ -18,8 +18,6 @@ export default function useAddClothingItem() {
   
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
   const [guest] = useGuestMutation()
-
-  const {} = useGetUserQuery(userEmail) //* THIS IS HERE TO REFRESH STALE DATA
 
   async function handleAddItem(_id: string, type: string, size?: string, direction?: string) {
 

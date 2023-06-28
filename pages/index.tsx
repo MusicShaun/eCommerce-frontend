@@ -23,7 +23,8 @@ export default function Home() {
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)
   const hasToken = useAppSelector(state => state.auth.token !== null)
-  
+  let getUserQueryResult 
+
   const {
     isLoading,
     isSuccess,
@@ -31,9 +32,8 @@ export default function Home() {
     error
   } = useGetAllClothesQuery()
 
-  const { } = useGetUserQuery(userEmail, {
-    skip: hasToken === false,
-  })
+  if (hasToken != false || userEmail !== '') getUserQueryResult = useGetUserQuery(userEmail, {})
+  
 
 
   // Wrapped in a useEffect to avoid re rendering when getUser fires

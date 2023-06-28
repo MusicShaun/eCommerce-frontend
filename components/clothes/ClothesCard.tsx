@@ -124,7 +124,6 @@ const Tile = styled.div`
   flex: 1;
   cursor: pointer;
   text-decoration: none;
-  color: black; 
 
   @media ${({ theme }) => theme.mobileL} {
     min-width: 0;

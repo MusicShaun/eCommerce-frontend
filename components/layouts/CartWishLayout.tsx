@@ -31,6 +31,9 @@ const Wrapper = styled.div`
     left: 0;
     width: 100%;
     height: auto;
+    z-index: 99;
+    color: ${({ theme }) => theme.text};
+
   }
 `
 const TitleBanner = styled.h1`

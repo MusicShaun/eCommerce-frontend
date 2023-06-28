@@ -72,6 +72,8 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
+  color: ${({ theme }) => theme.text};
+
 `
 const Container = styled.div`
   position: relative;

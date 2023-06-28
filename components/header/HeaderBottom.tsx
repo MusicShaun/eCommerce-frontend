@@ -134,6 +134,8 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   z-index: 2;
+  color: ${({ theme }) => theme.text};
+
 `
 const DarkenBackground = styled.div`
   position: fixed;

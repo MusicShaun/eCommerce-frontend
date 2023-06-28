@@ -24,14 +24,14 @@ export default function WishList() {
   }
   
   const EmptyWishList = {
-    title: `You currently have no Wishlist items.`,
-    body: `Best get shopping`,
-    button: `Start Shopping`
+    title: `You have no items.`,
+    body: `Best get shopping!`,
+    button: `Start `
   }
-  let content 
+  let DESKTOP_CONTENT 
 
   if (wishlist.length > 0) {
-    content = 
+    DESKTOP_CONTENT = 
       <WishContainer>
         <div>
           {wishlist.map((item: any, index: number) => {
@@ -43,7 +43,7 @@ export default function WishList() {
       </WishContainer>
       
   } else {
-    content =
+    DESKTOP_CONTENT =
       <Container>
         <First><h2>WISH LIST</h2></First>
         <Empty info={EmptyWishList} />
@@ -57,7 +57,7 @@ export default function WishList() {
 
 
     <MyAccountLayout>
-      {content}
+      {DESKTOP_CONTENT}
     </MyAccountLayout>
 
       {/* DESKTOP ^ OR MOBILE */}
@@ -77,6 +77,10 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   padding-bottom: 20px;
+
+  @media ${({ theme }) => theme.mobileL} {
+    display: none;
+  }
 `
 const First = styled.div`
   width: 100%;

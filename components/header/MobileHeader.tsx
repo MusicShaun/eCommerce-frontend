@@ -104,7 +104,8 @@ const ButtonContainer = styled.div`
     letter-spacing: -1px;
     }
   &:hover , :active {
-    background-color: ${({ theme }) => theme.backgroundSecondary};  
+    border: 2px solid ${({ theme }) => theme.headerBottom};  
+    border-radius: 5px;
     color: ${({ theme }) => theme.headerTop};
   }
 

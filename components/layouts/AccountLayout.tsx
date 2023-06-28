@@ -67,6 +67,8 @@ const Wrapper = styled.main`
   align-items: center; 
   background-color: ${({theme}) => theme.backgroundSecondary };
   z-index: 99;
+  color: ${({ theme }) => theme.text};
+
 
   @media ${({ theme }) => theme.mobileL} {
   }

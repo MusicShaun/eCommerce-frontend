@@ -67,7 +67,7 @@ const sizes = {
 
 
 export const light = {
-  text: colors.BLACK,
+  text: colors.DARK_GREY,
   textInvert: colors.WHITE,
   error: colors.RED,
   success: colors.GREEN,

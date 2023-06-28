@@ -5,4 +5,3 @@ export const getAuthEmail = () => {
   const state = store.getState();
   return state.auth.email;
 }
-console.log(getAuthEmail())

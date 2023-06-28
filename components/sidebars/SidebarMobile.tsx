@@ -120,7 +120,7 @@ const Badge = styled.div`
   }
 `
 const Circle = styled.div`
-  background-color: black;
+  background-color: ${({theme}) => theme.text};
   border-radius: 50%;
   width: 88px;
   height: 88px;

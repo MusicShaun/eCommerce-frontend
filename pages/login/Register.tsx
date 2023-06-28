@@ -217,7 +217,7 @@ const SubmitBtn = styled.button`
   justify-content: center;
   width: 330px;
   height: 45px;
-  background-color: black;
+  background-color: ${({ theme }) => theme.headerTop};
   color: white;
   font-weight: 700;
   cursor: pointer; 

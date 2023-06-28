@@ -12,8 +12,6 @@ function MobileHeader() {
 
   const [isOpen, setOpen] = useState<boolean>(false)
 
-
-  
   return (
     <Wrapper>
 

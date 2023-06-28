@@ -110,6 +110,11 @@ const FormLogin = styled.div`
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
   }
+
+  @media ${({ theme }) => theme.mobileL} {
+    padding-top: 30px;
+    padding-bottom: 10px;
+  }
 `
 const Form = styled.form`
   width: 100%;
@@ -165,7 +170,7 @@ const SubmitBtn = styled.button`
   justify-content: center;
   width: 330px;
   height: 45px;
-  background-color: black;
+  background-color: ${({ theme }) => theme.headerTop};
   color: white;
   font-weight: 700;
 

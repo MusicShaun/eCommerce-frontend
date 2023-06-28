@@ -13,7 +13,6 @@ import CartWishLayout from '@/components/layouts/CartWishLayout'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { ClotheType } from '@/lib/slices/clothesSlice'
-import EmptyTab from '../../components/EmptyTab'
 
 
 export default function Cart() {

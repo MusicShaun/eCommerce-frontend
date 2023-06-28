@@ -53,9 +53,9 @@ export const findTotalPrice = (cart: ClotheType[]): CartTotal => {
 
 
 export const EmptyWishList = {
-  title: `You currently have no Cart items.`,
-  body: `Best get shopping`,
-  button: `Start Shopping`
+  title: `Your bag is empty.`,
+  body: `Sign in to see your bag and get shopping`,
+  button: `SIGN IN`
 }
 
 export const cssLoaderSpecs = {

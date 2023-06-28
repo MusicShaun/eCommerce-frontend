@@ -2,8 +2,8 @@ import styled from "styled-components"
 import SignInOptions from "@/components/SignInOptions"
 import { useState } from 'react'
 import { SignInPageHead } from "@/lib/head"
-
-
+import Image from 'next/image';
+import logo from '../../public/logo3.png'
 
 export default function LoginWrapper({children}: {children: React.ReactNode}) {
 
@@ -14,7 +14,11 @@ export default function LoginWrapper({children}: {children: React.ReactNode}) {
   <SignInPageHead />
 
     <Wrapper>
-      <Header><h1>Shauny's Shop</h1></Header>
+      <Header>
+        <Image src={logo} alt="Shaunys shop logo"
+        
+        />
+      </Header>
       <Box>
         <SignInOptions setLoggingIn={setLoggingIn} />
 
@@ -35,27 +39,41 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: lightgrey;
-  z-index: 1001;
+  background-color: ${({ theme }) => theme.lightGrey};
+  z-index: 99;
+  color: ${({ theme }) => theme.text};
 
   @media ${({ theme }) => theme.mobileL} {
-    top: 105px;}
+    }
 `
 const Header = styled.div`
   padding: 64px 0 25px;
   width: 650px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
+  color: black;
 
   & h1 {
     margin: 0;
     font-size: 25px;
     font-weight: 700;
   }
+  & img {
+    width: 400px;
+    object-fit: contain;
+  }
 
   @media ${({ theme }) => theme.mobileL} {
     width: 100%;
+    padding: 40px 0px;
+    height: 100px;
+    overflow: hidden;
+
+    & img {
+    width: 300px;
+    }
   }
 `
 const Box = styled.main`
@@ -63,9 +81,15 @@ const Box = styled.main`
   width: 650px;
   margin-bottom: 40px;
   background-color: white;
+  color: ${({ theme }) => theme.text};
+
 
   @media ${({ theme }) => theme.mobileL} {
     width: 100%;
+
+
   }
+
+
 `
 

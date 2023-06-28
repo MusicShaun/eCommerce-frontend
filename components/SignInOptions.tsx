@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import styled from 'styled-components'
-
+import { colors } from '@/config/ThemeConfig'
 
 interface IProps {
   setLoggingIn: Dispatch<SetStateAction<boolean>>
@@ -9,14 +9,24 @@ interface IProps {
 
 export default function SignInOptions({ setLoggingIn }: IProps) {
 
+  const [ underlinerTab, setUnderlinerTab ] = useState(false)
 
+  useEffect(() => {
+    if (window.location.href.includes('Register')) {
+      setUnderlinerTab(true)
+    }
+    else {
+      setUnderlinerTab(false)
+    }
+    
+  }, [])
 
   return (
   <SignIn>
-    <SignInButtons>
+    <SignInButtons style={{borderBottom: underlinerTab ? 'none' :`3px solid ${colors.DARK_BLUE}`}}>
     <Link  href='/login'><div  onClick={() => setLoggingIn(true)} style={{borderRight: `2px solid lightgrey`}}>LOGIN</div></Link>
     </SignInButtons>
-    <SignInButtons>
+    <SignInButtons style={{borderBottom: !underlinerTab ? 'none' :`3px solid ${colors.DARK_BLUE}`}}>
      <Link  href='/login/Register'><div onClick={() => setLoggingIn(false)} >SIGN UP</div></Link>
     </SignInButtons>
   </SignIn >
@@ -27,6 +37,7 @@ const SignIn = styled.div`
   height: 64px;
   display: flex;
   min-height: 111px;
+  color: ${({ theme }) => theme.text};
 `
 
 const SignInButtons = styled.div`
@@ -41,7 +52,11 @@ const SignInButtons = styled.div`
     text-align: center;
     width: 100%;
     font-weight: 700;
-    color: black;
     text-decoration: none;
+  }
+
+  & a {
+    text-decoration: none;
+    color: inherit;
   }
 `

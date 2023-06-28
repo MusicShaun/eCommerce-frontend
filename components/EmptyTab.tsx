@@ -19,7 +19,7 @@ export default function Empty({ info } : IProps) {
         <p>{info.body}</p>
         <Button>
           <h3>
-          <a href='/'>{info.button}</a></h3></Button>
+          <a href='/login'>{info.button}</a></h3></Button>
       </Second>
 
 

@@ -12,6 +12,7 @@ import { RootState } from "@/lib/store"
 import PersonIcon from "../icons/PersonIcon"
 import HeartIcon from "../icons/HeartIcon"
 import CartIcon from "../icons/CartIcon"
+import useLocalStorage from "@/lib/hooks/useGetLocalStorage"
 
 export default function HeaderRight() {
 
@@ -24,6 +25,9 @@ export default function HeaderRight() {
   const [trianglePosition, setTrianglePosition] = useState({ x: 0 })
   const [windowSize, setWindowSize] = useState({ X: 0 })
 
+  let myAccountBtnLink = {destination: '/login', as: '/login'}
+  const checkTokenExistence = useLocalStorage('authState', '/login')
+  if (Object.keys(checkTokenExistence).length > 0) myAccountBtnLink = {destination: '/user/MyAccount', as: '/account'}
 
 
   // Get position of ref and apply its x coordinates to the triangle
@@ -49,6 +53,7 @@ export default function HeaderRight() {
       window.removeEventListener("resize", handleResize)
     }
   }, [windowSize]);
+
 
 
   return (<>
@@ -79,7 +84,7 @@ export default function HeaderRight() {
 
       
       <ButtonMobile>
-        <Link href='/user/MyAccount' as='account'>
+        <Link href={myAccountBtnLink.destination} as={myAccountBtnLink.as}>
           <PersonIcon />
         </Link>
       </ButtonMobile>

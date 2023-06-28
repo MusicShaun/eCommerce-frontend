@@ -24,9 +24,9 @@ export default function WishList() {
   }
   
   const EmptyWishList = {
-    title: `You have no items.`,
-    body: `Best get shopping!`,
-    button: `Start `
+    title: `You have no wish items.`,
+    body: `Sign in to see your saved items`,
+    button:`SIGN IN `
   }
   let DESKTOP_CONTENT 
 

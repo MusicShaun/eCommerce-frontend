@@ -32,11 +32,11 @@ export default function Home() {
     error
   } = useGetAllClothesQuery()
 
-  if (hasToken) { //check for token
-    if (userEmail !== '') { //check for email 
-      getUserQueryResult = useGetUserQuery(userEmail, {})
-    }
-  }
+  // if (hasToken) { //check for token
+  //   if (userEmail !== '') { //check for email 
+  //     getUserQueryResult = useGetUserQuery(userEmail, {})
+  //   }
+  // }
   
 
   // Wrapped in a useEffect to avoid re rendering when getUser fires

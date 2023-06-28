@@ -76,11 +76,12 @@ const TextBox = styled.a`
   }
 
   & span {
-    font-weight: 700;
+    font-weight: 7s00;
   }
   & h3 {
     background-color: white;
-    color: ${({ theme }) => theme.darkestBlue};
+    font-style: italic;
+    color: ${({ theme }) => theme.headerMiddle};
     font-size: 1.6rem;
     vertical-align: middle;
     padding: 0.5rem;
@@ -88,9 +89,9 @@ const TextBox = styled.a`
 
   }
   & h4 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 400;
-    line-height: 1.2;
+    line-height: 1.5;
   }
   & h3, h4 {
     text-shadow: -1px -1px 1px rgba(0,0,0,0.2), -10px -10px 10px rgba(0,0,0,0.05);

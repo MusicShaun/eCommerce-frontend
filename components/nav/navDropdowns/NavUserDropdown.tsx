@@ -24,13 +24,13 @@ export default function NavUserDropdown() {
         {!isAuthenticated ? 
           <div>
             <Link href='/login' as='/login'>
-              <HeadButtons style={{ borderRight: ' 1px solid black' }}>
-                Sign in
+              <HeadButtons style={{ borderRight: ' 1px solid lightblue' }}>
+                SIGN IN
               </HeadButtons>
             </Link>
             <Link href='/login/LoginWrapper' as='/register'>
               <HeadButtons>
-                Join
+                JOIN
               </HeadButtons>
             </Link>
           </div>
@@ -91,10 +91,11 @@ const HeadButtons = styled.button`
   height: 100%;
   min-width: 60px;
   font-weight: 700;
+  color: white;
 
   &:hover {
     cursor: pointer;
-    color: blue;
+    color: ${({ theme }) => theme.headerMiddle};
   }
 `
 const XContainer = styled.div`
@@ -116,7 +117,7 @@ const BodyContainer = styled.div`
     height: 100%;
 
     &:hover {
-      color: ${({ theme }) => theme.blue};
+      color: ${({ theme }) => theme.headerMiddle};
     }
   }
   & div, button {

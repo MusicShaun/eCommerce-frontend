@@ -76,7 +76,7 @@ const TextBox = styled.a`
   }
 
   & span {
-    font-weight: 7s00;
+    font-weight: 700;
   }
   & h3 {
     background-color: white;

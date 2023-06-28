@@ -251,7 +251,7 @@ const AddToWishList = styled.div`
     transform: translateY(2px);
     object-fit: contain;
     transition: transform 0.2s ease-in-out;
-    z-index: 100;
+    z-index: 99;
   }
   &:hover img:first-child  {
     transform: scale(1.2) translateY(2px);

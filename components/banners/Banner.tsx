@@ -73,7 +73,7 @@ const TextBox = styled.a`
   }
 
   & span {
-    border: 2px solid black;
+    border: 2px solid ${({ theme }) => theme.headerTop};
   }
   & h3 {
     font-size: 2.4rem;

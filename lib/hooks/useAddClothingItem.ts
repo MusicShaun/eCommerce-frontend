@@ -1,4 +1,4 @@
-import {  selectUser, useAddWishListItemMutation, useGuestMutation } from "@/lib/slices/userSlice"
+import {  selectUser, useAddWishListItemMutation, useGetUserQuery, useGuestMutation } from "@/lib/slices/userSlice"
 import { useRef } from "react"
 import { handleCart } from "./handleCart"
 import { useAppDispatch, useAppSelector } from "./hooks"
@@ -25,6 +25,8 @@ export default function useAddClothingItem() {
       return alert('Please choose a size')
     }
 
+    // add getUser 
+    const { } = useGetUserQuery(userEmail)
 
     const USER_LOGGED_IN_CART = Object.keys(currentUser).length > 0  && type === 'cart'
     const USER_LOGGED_IN_WISHLIST = Object.keys(currentUser).length > 0 && type === 'wishlist'

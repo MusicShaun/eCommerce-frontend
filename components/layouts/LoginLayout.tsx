@@ -1,22 +1,30 @@
 import styled from "styled-components"
 import SignInOptions from "@/components/SignInOptions"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SignInPageHead } from "@/lib/head"
 import Image from 'next/image';
 import logo from '../../public/logo3.png'
+import LoadingSpinner from "../LoadingSpinner";
 
 export default function LoginWrapper({children}: {children: React.ReactNode}) {
-
-
   const [loggingIn, setLoggingIn] = useState(true)
+  const [loading, setLoading] = useState(true)
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false)
+    }, 0)
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (loading) return (<LoadingSpinner isWishLoading={loading} /> )
+  
   return (<>
   <SignInPageHead />
 
     <Wrapper>
       <Header>
         <Image src={logo} alt="Shaunys shop logo"
-        
         />
       </Header>
       <Box>

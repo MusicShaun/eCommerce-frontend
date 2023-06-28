@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useLayoutEffect, useState } from 'react'
 import styled from 'styled-components'
 import { colors } from '@/config/ThemeConfig'
 
@@ -11,7 +11,7 @@ export default function SignInOptions({ setLoggingIn }: IProps) {
 
   const [ underlinerTab, setUnderlinerTab ] = useState(false)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (window.location.href.includes('Register') || window.location.href.includes('register')) {
       setUnderlinerTab(true)
     }

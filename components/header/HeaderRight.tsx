@@ -27,7 +27,7 @@ export default function HeaderRight() {
 
   let myAccountBtnLink = {destination: '/login', as: '/login'}
   const checkTokenExistence = useLocalStorage('authState', '/login')
-  if (Object.keys(checkTokenExistence).length > 0) myAccountBtnLink = {destination: '/user/MyAccount', as: '/account'}
+  if (checkTokenExistence && Object.keys(checkTokenExistence).length > 0) myAccountBtnLink = {destination: '/user/MyAccount', as: '/account'}
 
 
   // Get position of ref and apply its x coordinates to the triangle

@@ -41,6 +41,9 @@ const BoxContainer = styled.div`
   height: 340px;
   width: 100%;
   background-color: ${({ theme }) => theme.backgroundSecondary};
+
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
   
   @media ${({ theme }) => theme.mobileL} {
     display: none;

@@ -47,9 +47,9 @@ const Wrapper = styled.div`
     }
 `
 const Header = styled.div`
-  padding: 64px 0 25px;
+  padding: 85px 0 25px;
   width: 650px;
-  height: 150px;
+  height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;

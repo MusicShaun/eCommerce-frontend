@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import Link from "next/link"
 import Image from "next/image"
-import logo from "@/public/logo_mini.webp"
+import logo from "@/public/logo3.png"
 
 export default function HeaderLeft() {
 
@@ -10,7 +10,8 @@ export default function HeaderLeft() {
     <ButtonContainer>
       <Button>
         <Link href='/' as='/'>
-          <Image src={logo} width={60} height={60} alt=""/>
+          {/* <Image src={logo} width={60} height={60} alt=""/> */}
+          <span>S's</span>
         </Link>  
       </Button>
       <Button>
@@ -60,6 +61,9 @@ const Button = styled.button`
 
   & a  {
     text-decoration: none;
+    &:link , :visited {
+      color: white;;
+    }
     }
   & span {
     letter-spacing: 2px
@@ -75,9 +79,7 @@ const Button = styled.button`
   @media ${({ theme }) => theme.tablet} {
     min-width: 90px;
   }
-  &:first-child {
-    background-color: ${({ theme }) => theme.headerBottom};
-  }
+
   &:nth-child(2), :nth-child(3) {
     @media ${({ theme }) => theme.mobileS} {
       display: none;

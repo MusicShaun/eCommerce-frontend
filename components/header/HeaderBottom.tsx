@@ -72,43 +72,44 @@ const [navState, dispatch] = useReducer(
       {mobileDarkenBackground  && <DarkenBackground />}
       
       <Box>
-        
-      <Tab
-        onMouseEnter={() => handleEnterNavTab('Shirts', true)}
-        onMouseLeave={() => handleEnterNavTab('Shirts', false)}
-      >
-        <Link href='/filter/[productType]' as='/filter/shirts'><span >Shirts </span></Link> 
-      </Tab>
-        
-      <Tab
-        onMouseEnter={() => handleEnterNavTab('Shoes', true)}
-        onMouseLeave={() => handleEnterNavTab('Shoes', false)}
-      > 
-        <Link href="/filter/[productType]" as="/filter/shoes"><span>Shoes </span>    </Link>
-      </Tab>
 
-      <Tab
-        onMouseEnter={() => handleEnterNavTab('Shorts', true)}
-        onMouseLeave={() => handleEnterNavTab('Shorts', false)}
-      >
-        <Link href='/filter/[productType]' as='/filter/shorts'><span>Shorts </span></Link>
-      </Tab>
-
-      <Tab
-              onMouseEnter={() => setEmptyHover(true)}
-              onMouseLeave={() => setEmptyHover(false)}>
-        <span>Empty</span>    
-      </Tab>
-      <Tab
-              onMouseEnter={() => setEmptyHover(true)}
-              onMouseLeave={() => setEmptyHover(false)}>
-        <span>Empty</span>    
-      </Tab>
-      <Tab
-              onMouseEnter={() => setEmptyHover(true)}
-              onMouseLeave={() => setEmptyHover(false)}>
-        <span>Empty</span>    
+        <FeatureTab>
+          <TabBackground />
+          <span>SALES </span>
+        </FeatureTab>
+        
+        <Tab
+          onMouseEnter={() => handleEnterNavTab('Shirts', true)}
+          onMouseLeave={() => handleEnterNavTab('Shirts', false)}
+        >
+          <Link href='/filter/[productType]' as='/filter/shirts'><span >Shirts </span></Link> 
         </Tab>
+          
+        <Tab
+          onMouseEnter={() => handleEnterNavTab('Shoes', true)}
+          onMouseLeave={() => handleEnterNavTab('Shoes', false)}
+        > 
+          <Link href="/filter/[productType]" as="/filter/shoes"><span>Shoes </span>    </Link>
+        </Tab>
+
+        <Tab
+          onMouseEnter={() => handleEnterNavTab('Shorts', true)}
+          onMouseLeave={() => handleEnterNavTab('Shorts', false)}
+        >
+          <Link href='/filter/[productType]' as='/filter/shorts'><span>Shorts </span></Link>
+        </Tab>
+
+        <Tab
+                onMouseEnter={() => setEmptyHover(true)}
+                onMouseLeave={() => setEmptyHover(false)}>
+          <span>Empty</span>    
+        </Tab>
+        
+        <FeatureTab>
+          <TabBackground />
+          <span>empty </span>
+        </FeatureTab>
+
 
         {navState.navShirts && <NavShirts handleEnterNavTab={handleEnterNavTab} />}
         {navState.navShorts && <NavShorts  handleEnterNavTab={handleEnterNavTab}/>}
@@ -159,6 +160,43 @@ const  Box = styled.div`
     width: 100%;
   }
 
+`
+const FeatureTab = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border: none;
+  color: white;
+
+  & > a {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.backgroundSecondary};
+    color: ${({ theme }) => theme.text};
+  }
+
+  & span {
+    font-size: ${({theme}) => theme.fontM}
+  }
+  `
+const TabBackground = styled.div`
+  position: absolute;
+  width: 80%;
+  height: 100%;
+  background: ${({ theme }) => theme.headerBottom};
+  z-index: -1;
+  transform: skew(-20deg);
 `
 const Tab = styled.div`
   display: flex;

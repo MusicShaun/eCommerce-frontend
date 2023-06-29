@@ -66,7 +66,6 @@ export default function Home() {
   } as const
   const secondBanner = {
     banner: colors.SMOOTH_BANNER, 
-    banner2: colors.BANNER_2, 
     header: 'UP TO 50% OFF ',
     header2: ' SUMMER STUFF',
     subheader: 'It\'s hot out there',

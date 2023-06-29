@@ -26,64 +26,78 @@ function MobileNavigation({ setOpen, isOpen }: IProps) {
     {
       heading: "NEW ARRIVALS",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shorts2_f6a1zc.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: ''
     },
     {
       heading: "CLOTHING",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shorts2_f6a1zc.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: '/'
     },
     {
       heading: "SHOES",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shorts2_f6a1zc.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: '/filter/shoes'
     },
     {
       heading: "SHIRTS",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shorts2_f6a1zc.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: '/filter/shirts'
+
     },
     {
       heading: "SHORTS",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shorts2_f6a1zc.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: '/filter/shorts'
+
     },
     {
       heading: "BRANDS",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shorts2_f6a1zc.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: ''
     }
   ];
   const womenArray = [
     {
       heading: "NEW ARRIVALS",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shoe3_cf0fcr.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: ''
     },
     {
       heading: "CLOTHING",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shoe3_cf0fcr.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: '/'
     },
     {
       heading: "SHOES",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shoe3_cf0fcr.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: '/filter/shoes'
     },
     {
       heading: "SHIRTS",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shoe3_cf0fcr.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: '/filter/shirts'
     },
     {
       heading: "SHORTS",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shoe3_cf0fcr.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: '/filter/shorts'
     },
     {
       heading: "BRANDS",
       picture: "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shoe3_cf0fcr.webp",
-      alt: "placeholder image"
+      alt: "placeholder image",
+      link: ''
     }
   ];
 
@@ -97,7 +111,7 @@ function MobileNavigation({ setOpen, isOpen }: IProps) {
 
         <GoHomeTab isWomen={isWomen} />
 
-        <TabContainer tabArray={isWomen ? womenArray : menArray} />
+        <TabContainer tabArray={isWomen ? womenArray : menArray} setOpen={setOpen} />
 
       </Container>
 

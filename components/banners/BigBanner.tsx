@@ -93,6 +93,5 @@ const TextBox = styled.a`
     font-size: 1.5rem;
   }
   & h3, h4 {
-    text-shadow: -1px -1px 1px rgba(0,0,0,0.2), -10px -10px 10px rgba(0,0,0,0.05);
   }
 `

@@ -63,14 +63,16 @@ function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
           style={{ objectFit: "contain"}}/> 
         </PicturePlacement>
 
-        <Header>
-          <h3>{info.heading}</h3>
-        </Header>
+        <TextBox>
+          <Header>
+            <h3>{info.brand} {info.heading}</h3>
+          </Header>
 
-        <BottomP>
-          {info.price} 
-          <span> {info.price} </span>
-        </BottomP>
+          <BottomP>
+            {info.price} 
+            {/* <span> {info.price} </span> */}
+          </BottomP>
+        </TextBox>
       </Link>
       
       <AddToWishList onClick={() => {handleAddClotheItemToWishList(info._id), setHearted(prev => !prev)}}>
@@ -134,26 +136,35 @@ const PicturePlacement = styled.div`
   width: 100%;
   height: 80%;
 `
+const TextBox = styled.div` //! hello this here needs to be reviewed 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`
+
 const Header = styled.div`
   padding: 10px;
 
   & h3 {
     margin: 0px;
-    padding: 0;    
+    padding: 0;   
+    font-weight : 400;
+    font-size: 1rem;
 
   @media ${({ theme }) => theme.mobileL} {
     font-size: 1rem;
     font-weight: 500;
-    }
-  }
-  @media ${({ theme }) => theme.mobileL} {
     padding: 0px;
+    }
   }
 `
 
 const BottomP = styled.div`
   margin: 0; 
   padding: 0px 10px;
+  font-weight: 700;
+  color: ${({ theme }) => theme.text};
+
   & span {
     color: red;
     font-weight: 600;

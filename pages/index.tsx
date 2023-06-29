@@ -65,7 +65,7 @@ export default function Home() {
     subheader3: 'SURPRISE'
   } as const
   const secondBanner = {
-    banner: colors.BANNER_1, 
+    banner: colors.SMOOTH_BANNER, 
     banner2: colors.BANNER_2, 
     header: 'UP TO 50% OFF ',
     header2: ' SUMMER STUFF',

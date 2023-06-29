@@ -55,6 +55,14 @@ export const colors = {
     hsla(208, 100%, 70%, 15%) 83%,
     rgba(241,241,241,0.1) 100%)`,
   
+  SMOOTH_BANNER: `linear-gradient(to bottom,
+    hsl(20, 77%, 71%) 0%,
+    hsl(356.64, 42.9%, 67.86%) 25%,
+    hsl(258.97, 33.4%, 62.36%) 50%,
+    hsl(208, 100%, 60%) 75%,
+    hsl(208, 100%, 60%) 100%
+  )
+  `
 }
 const sizes = {
   mobileS: '415px',

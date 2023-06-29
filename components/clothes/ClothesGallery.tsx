@@ -97,7 +97,7 @@ const Box = styled.div`
 
   padding: 20px;
   margin: auto 0px;
-  gap: 20px;
+  gap: 6px;
 
   @media ${({ theme }) => theme.laptop} {
     grid-template-columns: repeat(auto-fit, minmax(min(290px, 350px), 1fr));

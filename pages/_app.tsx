@@ -14,6 +14,7 @@ import { Amplify, Auth } from 'aws-amplify'
 import AuthListener from '@/lib/services/AuthListener'
 import Head from 'next/head'
 import MobileHeader from '@/components/header/MobileHeader'
+import Footer from '@/components/footer/Footer'
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
 
@@ -34,15 +35,13 @@ function App({ Component, pageProps }: AppProps) {
     </Head>
 
     <Provider store={store}> 
-
       <GoogleOAuthProvider clientId="60533903973-bjhrej7b8ei1p9jj75nupo2gdb0v7ttj.apps.googleusercontent.com">
-        
         <ThemeProvider theme={!isTheme ? theme.light : theme.dark}>
           <Header />
           <MobileHeader />
-              <Component {...pageProps} />
+          <Component {...pageProps} />
           <AuthListener />
-          
+          <Footer /> 
         </ThemeProvider>
       </GoogleOAuthProvider> 
     </Provider>

@@ -38,7 +38,7 @@ export default function Banner({ info }: IProps) {
 const BannerContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 500px;
+  height: 420px;
   display: flex;
   justify-content: center;
   align-items: center;

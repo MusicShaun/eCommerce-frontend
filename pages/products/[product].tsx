@@ -88,9 +88,9 @@ export default function ClothesSinglePage( {product}: IProps) {
 
 
 const Wrapper = styled.div`
-  position: absolute;
-  left: 0;
-  top: 110px;
+  position: relative;
+  margin-top: 110px;
+  margin-bottom: 75px;
   width: 100%;
   height: calc(90% - 155px);
   display: flex;

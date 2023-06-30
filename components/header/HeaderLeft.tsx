@@ -1,23 +1,50 @@
 import styled from "styled-components"
 import Link from "next/link"
-import Image from "next/image"
-import logo from "@/public/logo3.png"
+import { useEffect, useState } from "react"
+import { colors } from '@/config/ThemeConfig'
+import { useRouter } from "next/router"
 
 export default function HeaderLeft() {
 
+  const [whichPage, setWhichPage] = useState('index')
+  const router = useRouter()
+  
+  useEffect(() => {
+    let url = '' 
+    if (typeof window !== 'undefined') {
+      url = window.location.href
+    }
+    const handleRouteChange = (url: string) => {
+      if (url.includes('women')) {
+        setWhichPage('women')
+      } else if (url.includes('/men')) {
+        setWhichPage('men')
+      } else {
+        setWhichPage('index')
+      }
+    }
+    
+      router.events.on("routeChangeComplete", handleRouteChange);
+      handleRouteChange(router.asPath);
+  
+      return () => {
+        router.events.off("routeChangeComplete", handleRouteChange);
+      };
+    }, [router]);
+
+  console.log(whichPage)
 
   return (
     <ButtonContainer>
       <Button>
         <Link href='/' as='/'>
-          {/* <Image src={logo} width={60} height={60} alt=""/> */}
           <span>S's</span>
         </Link>  
       </Button>
-      <Button>
+      <Button style={whichPage === 'women' ?  {backgroundColor: colors.LIGHT_BLUE} : {}}>
         <Link href='/women/' as='/women'><span >WOMEN</span></Link>  
       </Button>
-      <Button >
+      <Button  style={whichPage === 'men' ?  {backgroundColor: colors.LIGHT_BLUE} : {}}>
         <Link href='/men/' as='/men' ><span >MEN</span></Link>
       </Button>
     </ButtonContainer>
@@ -26,8 +53,6 @@ export default function HeaderLeft() {
 const ButtonContainer = styled.div`
   display: flex;
   flex-wrap: nowrap;
-  width: 27%;
-  min-width: 300px;
   margin-right: 3%;
   height: 100%;
   border-right: 1px solid ${({ theme }) => theme.headerMiddle};
@@ -43,19 +68,13 @@ const ButtonContainer = styled.div`
   }
 
   @media ${({ theme }) => theme.tablet} {
-    min-width: 280px;
-  }
-  @media ${({ theme }) => theme.tablet} {
     border-right: none;
   }
-  @media ${({ theme }) => theme.mobileS} {
-    min-width: 100px;
-  }
+
 `
 const Button = styled.button`
   height: 100%;
-  width: 33.3%;
-  min-width: 102px;
+  width: 90px;
   border: none;
   background: none;
 

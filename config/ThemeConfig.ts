@@ -98,10 +98,10 @@ export const light = {
   backgroundSecondary: colors.DULL_WHITE,
 
   fontXL: '32px',
-  fontL: '24px',
-  fontML: '18px',
-  fontM: '14px',
-  fontMS: '12px',
+  fontL: '20px',
+  fontML: '15px',
+  fontM: '12px',
+  fontMS: '10px',
   fontS: '8px',
   fontXS: '6px',
 

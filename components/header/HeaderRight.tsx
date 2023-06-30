@@ -25,6 +25,8 @@ export default function HeaderRight() {
   const [trianglePosition, setTrianglePosition] = useState({ x: 0 })
   const [windowSize, setWindowSize] = useState({ X: 0 })
 
+  const ICON_SIZE = 22
+
   let myAccountBtnLink = {destination: '/login', as: '/login'}
   const checkTokenExistence =   typeof localStorage !== 'undefined' ?  localStorage.getItem('authState') : null
   if (checkTokenExistence && Object.keys(checkTokenExistence).length > 0) myAccountBtnLink = {destination: '/user/MyAccount', as: '/account'}
@@ -69,8 +71,8 @@ export default function HeaderRight() {
       >
         <Image
           src={User}
-          width='30'
-          height='30'
+          width={ICON_SIZE}
+          height={ICON_SIZE}
           style={{ filter: 'invert(1)' }}
           alt=''
           ref={triangleRef}
@@ -101,8 +103,8 @@ export default function HeaderRight() {
         <Link href='/user/WishList' as='wishlist'>
           <Image
             src={Heart}
-            width='30'
-            height='30'
+            width={ICON_SIZE}
+            height={ICON_SIZE}
             style={{ filter: 'invert(1)' }}
             alt=''
           /> 
@@ -114,8 +116,8 @@ export default function HeaderRight() {
         <Link href='/user/Cart' as='cart'>
           <Image
             src={Bag}
-            width='30'
-            height='30'
+            width={ICON_SIZE}
+            height={ICON_SIZE}
             style={{ filter: 'invert(1)' }}
             alt=''
           />
@@ -128,11 +130,10 @@ export default function HeaderRight() {
   )
 }
 const ButtonContainer = styled.div`
-  width: 12%;
-  min-width: 125px;
+  min-width: 120px;
   height: 100%;
   display: flex;
-  flex-grow: 1;
+  flex-grow: 0.5;
 
   @media ${({ theme }) => theme.tablet} {
     width: auto;
@@ -153,7 +154,7 @@ const LittleArrow = styled.div`
 const Button = styled.div`
   position: relative;
   height: 100%;
-  width: 60px;
+  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -217,7 +218,7 @@ const HeartNumber = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-  font-size: ${({ theme }) => theme.fontML};
+  font-size: ${({ theme }) => theme.fontM};
   color: ${({ theme }) => theme.white};
 
 

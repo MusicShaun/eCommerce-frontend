@@ -74,9 +74,10 @@ const Form = styled.form`
 `
 const Input = styled.input`
   width: 100%;
-  height: 60%;
+  height: 75%;
   border-radius: 30px;
   border: none;
   padding-left: 16px;
+  font-size: ${({ theme }) => theme.fontML};
 `
 

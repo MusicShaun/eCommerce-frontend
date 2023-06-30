@@ -120,10 +120,9 @@ export default function ProductGrouped( {data}: IProps) {
 
 
 const Wrapper = styled.div`
-  position: absolute;
-  left: 0;
-  top: 155px;
-  margin-top: 30px;
+  position: relative;
+  margin-top: 185px;
+  margin-bottom: 60px;
   width: 100%;
   height: calc(90% - 155px);
   display: flex;

@@ -58,8 +58,8 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
 
 const Wrapper = styled.main`
   position: relative; 
-  min-height: calc(100vh - 60px);
   margin-top: 110px;
+  padding-bottom: 75px;
   width: 100%;
   display: flex;
   flex-direction: column;

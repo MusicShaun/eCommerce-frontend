@@ -20,9 +20,6 @@ export default function NavUserDropdown() {
 
   return (
     <Container >
-      <HeadContainer>
-      </HeadContainer>
-
       <BodyContainer>
         <div>
           <h3>Account</h3>
@@ -45,10 +42,7 @@ export default function NavUserDropdown() {
             <h3 onClick={() => handleLogout()}>Log out</h3>
           </div>
         }
-
-
       </BodyContainer>
-
     </Container>
   )
 }
@@ -63,12 +57,6 @@ const Container = styled.div`
   transform: translateY(-400px);
   transition: transform 0.8s cubic-bezier(0, 0.17, 0.55, 0.82); //out
   border-radius: 10px;
-`
-
-const HeadContainer = styled.div`
-  width: 100%;
-  height: 50px;
-  background-color: ${({ theme }) => theme.lightGrey};
 `
 
 const BodyContainer = styled.div`

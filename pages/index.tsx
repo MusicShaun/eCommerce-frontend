@@ -94,15 +94,15 @@ export default function Home() {
         }
         <Banner info={firstBanner} />
       </Wrapper>
-      <Footer /> 
     </>
   )
 }
 
 const Wrapper = styled.main`
-  position: absolute;
-  left: 0;
-  top: 110px;
+  position: relative;
+  /* left: 0; */
+  /* top: 110px; */
+  margin-top: 110px;
   width: 100%;
   height: auto;
 

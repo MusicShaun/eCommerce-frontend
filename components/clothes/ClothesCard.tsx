@@ -144,15 +144,16 @@ const TextBox = styled.div` //! hello this here needs to be reviewed
 
 const Header = styled.div`
   padding: 10px;
+  color: ${({ theme }) => theme.darkGrey};
 
   & h3 {
     margin: 0px;
     padding: 0;   
     font-weight : 400;
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.fontML};
 
   @media ${({ theme }) => theme.mobileL} {
-    font-size: 1rem;
+    font-size: ${({ theme }) => theme.fontML};
     font-weight: 500;
     padding: 0px;
     }
@@ -162,8 +163,9 @@ const Header = styled.div`
 const BottomP = styled.div`
   margin: 0; 
   padding: 0px 10px;
-  font-weight: 700;
-  color: ${({ theme }) => theme.text};
+  font-weight: 600;
+  color: ${({ theme }) => theme.mediumGrey};
+  font-size: ${({ theme }) => theme.fontML};
 
   & span {
     color: red;

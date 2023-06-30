@@ -21,36 +21,32 @@ export default function NavUserDropdown() {
   return (
     <Container >
       <HeadContainer>
-        {!isAuthenticated ? 
-          <div>
-            <Link href='/login' as='/login'>
-              <HeadButtons style={{ borderRight: ' 1px solid lightblue' }}>
-                SIGN IN
-              </HeadButtons>
-            </Link>
-            <Link href='/login/LoginWrapper' as='/register'>
-              <HeadButtons>
-                JOIN
-              </HeadButtons>
-            </Link>
-          </div>
-          : 
-          <div>
-            <HeadButtons onClick={() => handleLogout()}>
-              Log out
-            </HeadButtons>
-        </div>
-        }
-
-        <XContainer>X</XContainer>
       </HeadContainer>
 
       <BodyContainer>
-        <Link href='/user/MyAccount' ><div>My Account</div></Link>
-        <Link href='/user/PersonalDetails' ><div>Personal Details</div></Link>
-        <Link href='/user/MyOrders' ><div>My Orders</div></Link>
-        <Link href='/user/PurchaseHistory' ><div>Purchase History</div></Link>
-   
+        <div>
+          <h3>Account</h3>
+          <Link href='/user/MyAccount' ><div>My Account</div></Link>
+          <Link href='/user/PersonalDetails' ><div>Personal Details</div></Link>
+        </div>
+        <div>
+          <h3>Shopping</h3>
+          <Link href='/user/MyOrders' ><div>My Orders</div></Link>
+          <Link href='/user/PurchaseHistory' ><div>Purchase History</div></Link>
+        </div>
+
+        {!isAuthenticated ? 
+          <div>
+            <Link href='/login' as='/login'>SIGN IN</Link>
+            <Link href='/login/LoginWrapper' as='/register'>JOIN</Link>
+          </div>
+          : 
+          <div>
+            <h3 onClick={() => handleLogout()}>Log out</h3>
+          </div>
+        }
+
+
       </BodyContainer>
 
     </Container>
@@ -61,45 +57,18 @@ export default function NavUserDropdown() {
 const Container = styled.div`
   position: absolute;
   width: 100%;
-  height: 260px;
+  height: fit-content;
   background-color: ${({ theme }) => theme.background};
   z-index: 1;
   transform: translateY(-400px);
   transition: transform 0.8s cubic-bezier(0, 0.17, 0.55, 0.82); //out
-
-
+  border-radius: 10px;
 `
-
 
 const HeadContainer = styled.div`
   width: 100%;
   height: 50px;
-  background-color: ${({ theme }) => theme.lightBlue};
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0px;
-
-  & > div{
-    height: 100%;
-  }
-`
-const HeadButtons = styled.button`
-  background-color: transparent;
-  border: none;
-  padding: 0 10px;
-  height: 100%;
-  min-width: 60px;
-  font-weight: 700;
-  color: white;
-
-  &:hover {
-    cursor: pointer;
-    color: ${({ theme }) => theme.headerMiddle};
-  }
-`
-const XContainer = styled.div`
-  padding: 10px;
+  background-color: ${({ theme }) => theme.lightGrey};
 `
 
 const BodyContainer = styled.div`
@@ -107,26 +76,46 @@ const BodyContainer = styled.div`
   flex-direction: column;
   height: calc(100% - 50px);
   background-color: ${({ theme }) => theme.white};
+  border-radius: 10px;
   
-  & a, div, button {
+  & > div {
+    padding: 0.5rem;
+    border-bottom: 1px solid ${({ theme }) => theme.lightGrey};
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  &  div h3 {
+    font-weight: 500;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    color: black;
+
+    &:last-child {
+      color: ${({ theme }) => theme.mediumGrey};
+      font-size: 0.85rem;
+      &:hover {
+      color: ${({ theme }) => theme.headerMiddle};
+      text-decoration: underline;
+    }
+    }
+  }
+  & a , span{
     display: flex;
     align-items: center;
-    flex: 1;
     text-decoration: none;
-    color: inherit;
-    height: 100%;
+    color: ${({ theme }) => theme.mediumGrey};
+    height: 32px;
+    font-size: 0.85rem;
 
     &:hover {
       color: ${({ theme }) => theme.headerMiddle};
+      text-decoration: underline;
     }
-  }
-  & div, button {
-    padding-left: 20px;
-    border-bottom: 0.5px solid ${({ theme }) => theme.lightBlue};
-
     &:active {
       box-shadow: inset 3px 3px 2px ${({theme}) => theme.headerMiddle};
       background-color: ${({ theme }) => theme.white}
     }
   }
+  
 `

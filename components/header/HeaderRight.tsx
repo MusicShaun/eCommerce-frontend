@@ -16,7 +16,7 @@ import useLocalStorage from "@/lib/hooks/useGetLocalStorage"
 
 export default function HeaderRight() {
 
-  const [showDropdown, setShowDropdown] = useState(false)
+  const [showDropdown, setShowDropdown] = useState(true)
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const wishlist = currentUser?.wishlist || []
@@ -67,7 +67,6 @@ export default function HeaderRight() {
         onMouseEnter={() => setShowDropdown(true)}
         onMouseLeave={() => setShowDropdown(false)}
       >
-       
         <Image
           src={User}
           width='30'
@@ -76,7 +75,6 @@ export default function HeaderRight() {
           alt=''
           ref={triangleRef}
         />
-        
         <DropdownContainer>
           <NavUserDropdown /> 
         </DropdownContainer>
@@ -134,9 +132,10 @@ const ButtonContainer = styled.div`
   min-width: 125px;
   height: 100%;
   display: flex;
+  flex-grow: 1;
 
   @media ${({ theme }) => theme.tablet} {
-    width: 50%
+    width: auto;
   }
   @media ${({ theme }) => theme.mobileL} {
     width: auto;

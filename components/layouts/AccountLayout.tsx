@@ -59,11 +59,10 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
 const Wrapper = styled.main`
   position: relative; 
   min-height: calc(100vh - 60px);
-  margin-top: 60px;
+  margin-top: 110px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center; 
   background-color: ${({theme}) => theme.backgroundSecondary };
   z-index: 99;
@@ -78,7 +77,6 @@ const Container = styled.div`
   height: auto;
   display: flex;
   justify-content: space-around;
-  
 
   & * {
     box-sizing: border-box;
@@ -93,13 +91,11 @@ const Container = styled.div`
       margin-right: 50px;
       }
     }
-
   @media ${({ theme }) => theme.mobileL} {
     align-items: center;
     & > div:first-child {
     margin-left: 0px;
     }
-
     flex-direction: column;
   }
 
@@ -125,6 +121,9 @@ position: relative;
 
   & h3:first-child {
     width: 300px;
+  }
+  & div {
+
   }
 
   @media ${({theme}) => theme.tablet} {

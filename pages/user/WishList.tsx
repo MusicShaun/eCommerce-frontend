@@ -108,8 +108,8 @@ const WishContainer = styled.div`
     grid-template-rows: auto;
     justify-content: center;
 
-    padding: 20px;
+    padding: 10px;
     margin: auto 0px;
-    gap: 20px;
+    gap: 6px;
   }
 `

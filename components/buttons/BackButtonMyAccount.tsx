@@ -18,7 +18,8 @@ position: absolute;
   display: flex;
   width: fit-content;
   margin-left: 0px;
-  top: -20px;
+  top: 50%;
+  right: 5%;
   `
 
 const Btn = styled.button`

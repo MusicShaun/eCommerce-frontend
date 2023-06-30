@@ -24,9 +24,8 @@ function TabContainer({ tabArray, setOpen }: IProps) {
   return (
     <Container>
       {tabArray.map((tab, index) => ( 
-        <Link href={tab.link} title={tab.link} onClick={() => setOpen(false)}>
+        <Link href={tab.link} title={tab.link} onClick={() => setOpen(false)} key={index}>
           <Tabs
-            key={index}
             heading={tab.heading}
             picture={tab.picture}
             alt={tab.alt}

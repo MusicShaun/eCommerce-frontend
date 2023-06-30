@@ -18,15 +18,16 @@ export default function useAddClothingItem() {
   
   const [addWistListItem, {isLoading: isWishLoading, isSuccess: isWishSuccess, isError: isWishError, error: wishError }] = useAddWishListItemMutation()
   const [guest] = useGuestMutation()
-
+  
+    // add getUser 
+    const { } = useGetUserQuery(userEmail)
   async function handleAddItem(_id: string, type: string, size?: string, direction?: string) {
 
     if (type === 'cart' && selectOptionsRef.current?.value === 'Choose size') {
       return alert('Please choose a size')
     }
 
-    // add getUser 
-    const { } = useGetUserQuery(userEmail)
+
 
     const USER_LOGGED_IN_CART = Object.keys(currentUser).length > 0  && type === 'cart'
     const USER_LOGGED_IN_WISHLIST = Object.keys(currentUser).length > 0 && type === 'wishlist'
@@ -65,7 +66,6 @@ export default function useAddClothingItem() {
         console.log(err)
     }
     finally {
-      
     }
   }
   

@@ -1,8 +1,5 @@
 import styled from "styled-components"
 import Image from "next/image"
-import User from '@/public/user.webp'
-import Heart from '@/public/heart.webp'
-import Bag from '@/public/bag.webp'
 import NavUserDropdown from "../nav/navDropdowns/NavUserDropdown"
 import { useEffect, useRef, useState } from "react"
 import { useAppSelector } from "lib/hooks/hooks"
@@ -12,11 +9,15 @@ import { RootState } from "@/lib/store"
 import PersonIcon from "../icons/PersonIcon"
 import HeartIcon from "../icons/HeartIcon"
 import CartIcon from "../icons/CartIcon"
+import HeartSVG from '@/public/heart-svg.svg'
+import CartSVG from '@/public/bag-svg.svg'
+import UserSVG from '@/public/user-svg.svg'
+
 import useLocalStorage from "@/lib/hooks/useGetLocalStorage"
 
 export default function HeaderRight() {
 
-  const [showDropdown, setShowDropdown] = useState(true)
+  const [showDropdown, setShowDropdown] = useState(false)
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const wishlist = currentUser?.wishlist || []
@@ -25,7 +26,7 @@ export default function HeaderRight() {
   const [trianglePosition, setTrianglePosition] = useState({ x: 0 })
   const [windowSize, setWindowSize] = useState({ X: 0 })
 
-  const ICON_SIZE = 22
+  const ICON_SIZE = 27
 
   let myAccountBtnLink = {destination: '/login', as: '/login'}
   const checkTokenExistence =   typeof localStorage !== 'undefined' ?  localStorage.getItem('authState') : null
@@ -40,9 +41,9 @@ export default function HeaderRight() {
     const observer = new ResizeObserver(() => {
       if (triangleRef.current) {
         const { x, y } = triangleRef.current!.getBoundingClientRect();
-        x < 1158
+        x < 1120
           ? setTrianglePosition({ x })
-          : setTrianglePosition({ x: 1158 })
+          : setTrianglePosition({ x: 1120 })
       }
     });
     const handleResize = () => setWindowSize({ X: window.innerWidth });
@@ -70,10 +71,9 @@ export default function HeaderRight() {
         onMouseLeave={() => setShowDropdown(false)}
       >
         <Image
-          src={User}
+          src={UserSVG}
           width={ICON_SIZE}
           height={ICON_SIZE}
-          style={{ filter: 'invert(1)' }}
           alt=''
           ref={triangleRef}
         />
@@ -85,28 +85,42 @@ export default function HeaderRight() {
       
       <ButtonMobile>
         <Link href={myAccountBtnLink.destination} as={myAccountBtnLink.as}>
-          <PersonIcon />
+          <Image
+            src={UserSVG}
+            width={ICON_SIZE}
+            height={ICON_SIZE}
+            alt='user account icon'
+          /> 
         </Link>
       </ButtonMobile>
       <ButtonMobile>
         <Link href='/user/WishList' as='wishlist'>
-          <HeartIcon />
+          <Image
+            src={HeartSVG}
+            width={ICON_SIZE}
+            height={ICON_SIZE}
+            alt='wishlist icon'
+          /> 
           </Link>
       </ButtonMobile>
       <ButtonMobile>
         <Link href='/user/Cart' as='cart'>
-          <CartIcon />
+          <Image
+            src={CartSVG}
+            width={ICON_SIZE}
+            height={ICON_SIZE}
+            alt='shopping cart icon'
+          />
           </Link>
       </ButtonMobile>
       
       <Button>
         <Link href='/user/WishList' as='wishlist'>
           <Image
-            src={Heart}
+            src={HeartSVG}
             width={ICON_SIZE}
             height={ICON_SIZE}
-            style={{ filter: 'invert(1)' }}
-            alt=''
+            alt='wishlist icon'
           /> 
             <HeartNumber>{wishlist.length}</HeartNumber>
         </Link>
@@ -115,11 +129,10 @@ export default function HeaderRight() {
       <Button>
         <Link href='/user/Cart' as='cart'>
           <Image
-            src={Bag}
+            src={CartSVG}
             width={ICON_SIZE}
             height={ICON_SIZE}
-            style={{ filter: 'invert(1)' }}
-            alt=''
+            alt='shopping cart icon'
           />
             <HeartNumber>{cart.length}</HeartNumber>
           </Link>

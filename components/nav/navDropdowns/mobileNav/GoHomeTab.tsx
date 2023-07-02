@@ -16,14 +16,14 @@ function GoHomeTab({ isWomen}: IProps) {
     : "https://res.cloudinary.com/dyneqi48f/image/upload/v1677291103/shoe3_cf0fcr.webp"
   
   const alt = isWomen
-    ? 'woman'
-    : 'man'
+    ? 'women'
+    : 'men'
 
   
   
   
   return (
-    <Container onClick={() => router.push('/')}>
+    <Container onClick={() => router.push(`/${alt}`)}>
       <Box>HOME</Box>
       <ImageBox>
         <Image src={picture} alt={alt}

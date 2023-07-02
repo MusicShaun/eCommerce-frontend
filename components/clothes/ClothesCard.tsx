@@ -151,13 +151,15 @@ const Header = styled.div`
     padding: 0;   
     font-weight : 400;
     font-size: ${({ theme }) => theme.fontML};
+  }
 
   @media ${({ theme }) => theme.mobileL} {
     font-size: ${({ theme }) => theme.fontML};
     font-weight: 500;
     padding: 0px;
+    padding-right: 1rem;
     }
-  }
+  
 `
 
 const BottomP = styled.div`

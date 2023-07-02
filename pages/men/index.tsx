@@ -61,5 +61,7 @@ const Wrapper = styled.main`
   height: auto;
 
   @media ${({ theme }) => theme.mobileL} {
-    top: 60px;}
+    margin-top: 60px;
+  }
+  
 `

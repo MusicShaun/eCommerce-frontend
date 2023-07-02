@@ -54,7 +54,7 @@ export default function Men() {
     </Wrapper>
     </>)
 }
-const Wrapper = styled.main`
+const Wrapper = styled.section`
   position: relative;
   margin-top: 110px;
   width: 100%;

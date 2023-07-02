@@ -90,10 +90,7 @@ const Box = styled.div`
   height: auto;
   
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 290px));
-  grid-template-rows: auto;
-  justify-content: center;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 
   padding: 20px;
   margin: auto 0px;

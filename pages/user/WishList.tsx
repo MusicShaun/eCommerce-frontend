@@ -28,8 +28,8 @@ export default function WishList() {
     body: `Sign in to see your saved items`,
     button:`SIGN IN `
   }
-  let DESKTOP_CONTENT 
 
+  let DESKTOP_CONTENT 
   if (wishlist.length > 0) {
     DESKTOP_CONTENT = 
       <WishContainer>
@@ -50,6 +50,16 @@ export default function WishList() {
       </Container>
   }
 
+  let MOBILE_CONTENT 
+  if (wishlist.length > 0) {
+    MOBILE_CONTENT =
+      <CartWishLayout title='Wish list'>
+        <ClothesGallery info={wishlist} />
+      </CartWishLayout>
+  } else {
+    MOBILE_CONTENT = <Empty info={EmptyWishList} />
+  }
+
   return (<>
     <Head>
       <title> Wishlist | Shauny's Shop </title>
@@ -58,16 +68,13 @@ export default function WishList() {
 
     <MyAccountLayout>
       {DESKTOP_CONTENT}
+
+            {/* DESKTOP ^ OR MOBILE */}
+
+      {MOBILE_CONTENT}
     </MyAccountLayout>
 
-      {/* DESKTOP ^ OR MOBILE */}
 
-    <CartWishLayout title='Wish list'>
-      {wishlist.length > 0 ?
-        <ClothesGallery info={wishlist} /> 
-        : <Empty info={EmptyWishList} />
-      }
-    </CartWishLayout>
     </>)
 }
 
@@ -104,12 +111,13 @@ const WishContainer = styled.div`
     height: auto;
     
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 270px));
-    grid-template-rows: auto;
-    justify-content: center;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 
     padding: 10px;
     margin: auto 0px;
     gap: 6px;
+  }
+  @media ${({ theme }) => theme.mobileL} {
+    display: none;
   }
 `

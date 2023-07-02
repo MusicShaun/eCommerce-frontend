@@ -76,31 +76,22 @@ export default function Cart() {
     </Head>
       
     <MyAccountLayout>
+    <TitleBanner>Cart</TitleBanner>
+
       {DESKTOP_CONTENT}      
     </MyAccountLayout>
-
-    {/* DESKTOP ^ OR MOBILE */}
-
-    <CartWishLayout title='Cart'>
-      {result.length > 0 ?
-        <ClothesGallery info={result as ClotheType[]} />
-        : <Empty info={EmptyWishList} />} 
-
-    </CartWishLayout>
 
   </>)
 }
 
 const Container = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   width: 100%;
   height: auto;
   padding-bottom: 20px;
 
-  @media ${({ theme }) => theme.mobileL} {
-    display: none;
-  }
 `
 const First = styled.div`
   width: 100%;
@@ -117,7 +108,7 @@ const WishContainer = styled.div`
   height: auto;
   display: flex;
   flex-direction :column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   & > div {
@@ -132,6 +123,7 @@ const WishContainer = styled.div`
     margin: 0 ;
     gap: 20px;
   }
+
 `
 
               
@@ -154,4 +146,16 @@ const Checkout = styled.button`
   cursor: pointer;
   margin-top: 20px;
 `
-
+const TitleBanner = styled.h1`
+display: none; 
+  @media ${({ theme }) => theme.mobileL} {
+    height: 75px; 
+    width: 100%;
+    background-color: ${({ theme }) => theme.backgroundSecondary };
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+`

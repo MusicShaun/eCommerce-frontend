@@ -98,7 +98,7 @@ export default function Home() {
   )
 }
 
-const Wrapper = styled.main`
+const Wrapper = styled.section`
   position: relative;
   /* left: 0; */
   /* top: 110px; */

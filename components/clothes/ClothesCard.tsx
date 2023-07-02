@@ -119,11 +119,9 @@ const Tile = styled.div`
   
   width: 100%;
   height: 100%;
-  max-width: 380px;
-  min-width: 250px;
+  min-width: 200px;
   margin: 12px 0;
   aspect-ratio: 2/3;
-  flex: 1;
   cursor: pointer;
   text-decoration: none;
 
@@ -136,7 +134,7 @@ const PicturePlacement = styled.div`
   width: 100%;
   height: 80%;
 `
-const TextBox = styled.div` //! hello this here needs to be reviewed 
+const TextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;

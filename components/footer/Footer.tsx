@@ -66,6 +66,7 @@ const Container = styled.div`
   width: 100%;
   height: auto; 
   display: flex;
+  justify-content: space-between;
   padding: 2rem;
 
   &:nth-child(2) {
@@ -76,7 +77,7 @@ const Container = styled.div`
 `
 const List = styled.ul`
   position: relative;
-  width: 25%;
+  width: fit-content;
   height: 100%;
   list-style: none;
   display: flex;

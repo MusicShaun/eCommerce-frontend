@@ -26,9 +26,7 @@ const Wrapper = styled.div`
   @media ${({ theme }) => theme.mobileL} {
     display: flex;
     flex-direction: column;
-    position: absolute;
-    top: 60px;
-    left: 0;
+    position: relative;
     width: 100%;
     height: auto;
     z-index: 99;

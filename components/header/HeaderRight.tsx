@@ -163,6 +163,10 @@ const LittleArrow = styled.div`
   border-bottom: 12px solid ${({ theme }) => theme.white};
   top: 48px;
   transition: opacity 0.5s ease-out 0.6s;
+
+  @media ${({ theme }) => theme.mobileL} {
+    display: none;
+  }
 `
 const Button = styled.div`
   position: relative;

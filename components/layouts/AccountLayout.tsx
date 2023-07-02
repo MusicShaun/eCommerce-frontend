@@ -70,6 +70,7 @@ const Wrapper = styled.main`
 
 
   @media ${({ theme }) => theme.mobileL} {
+    margin-top: 60px;
   }
 `
 const Container = styled.div`

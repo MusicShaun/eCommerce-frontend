@@ -32,7 +32,6 @@ export default function HeaderLeft() {
       };
     }, [router]);
 
-  console.log(whichPage)
 
   return (
     <ButtonContainer>

@@ -107,9 +107,9 @@ function MobileNavigation({ setOpen, isOpen }: IProps) {
     <Wrapper style={{...styling}}>
       <Container>
 
-        <WomenOrMen setIsWomen={setIsWomen} isWomen={isWomen} /> 
+        <WomenOrMen setIsWomen={setIsWomen} isWomen={isWomen}  /> 
 
-        <GoHomeTab isWomen={isWomen} />
+        <GoHomeTab isWomen={isWomen} setOpen={setOpen} />
 
         <TabContainer tabArray={isWomen ? womenArray : menArray} setOpen={setOpen} />
 

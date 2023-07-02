@@ -2,13 +2,14 @@
 
 import Image from 'next/image'
 import router from 'next/router'
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import styled from 'styled-components'
 
 interface IProps {
   isWomen: Boolean
+  setOpen: Dispatch<SetStateAction<boolean>> 
 }
-function GoHomeTab({ isWomen}: IProps) {
+function GoHomeTab({ isWomen, setOpen}: IProps) {
   
 
   const picture = isWomen 
@@ -23,7 +24,7 @@ function GoHomeTab({ isWomen}: IProps) {
   
   
   return (
-    <Container onClick={() => router.push(`/${alt}`)}>
+    <Container onClick={() => {setOpen(false), router.push(`/${alt}`)}}>
       <Box>HOME</Box>
       <ImageBox>
         <Image src={picture} alt={alt}

@@ -262,6 +262,7 @@ const AddToWishList = styled.div`
     object-fit: contain;
     transition: transform 0.2s ease-in-out;
     z-index: 99;
+    position: absolute;
 
   }
   &:hover img:first-child  {

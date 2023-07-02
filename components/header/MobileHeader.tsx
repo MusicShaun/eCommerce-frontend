@@ -5,14 +5,22 @@ import Hamburger from 'hamburger-react'
 import { useState } from "react";
 import MobileNavigation from "../nav/navDropdowns/mobileNav/MobileNavigation";
 import MagnifyingGlass from "../icons/MagnifyingGlass";
+import SearchBarMobile from "./SearchBarMobile";
 
 
 
 function MobileHeader() {
 
   const [isOpen, setOpen] = useState<boolean>(false)
+  const [ showSearch, setShowSearch ] = useState<boolean>(false)
 
-  return (
+  function handleSearchButton() {
+    setShowSearch(true)
+  }
+
+
+  return (<>
+    {showSearch ? <SearchBarMobile setShowSearch={setShowSearch}  /> : false} 
     <Wrapper>
 
       {isOpen ?
@@ -38,13 +46,14 @@ function MobileHeader() {
       </LeftContainer>
       
       <RightContainer>
-        <SearchButton>
+        <SearchButton onClick={handleSearchButton}>
           <MagnifyingGlass /> 
         </SearchButton>
 
         <HeaderRight />
       </RightContainer>
     </Wrapper>
+    </>
       )
 }
 

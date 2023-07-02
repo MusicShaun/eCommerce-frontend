@@ -9,10 +9,8 @@ import Head from 'next/head'
 import { RootState } from '@/lib/store'
 import { selectUser } from '@/lib/slices/userSlice'
 import { EmptyWishList, cartProductListResult, countProductTypeInstances, findTotalPrice } from '@/lib/services/cartServices'
-import CartWishLayout from '@/components/layouts/CartWishLayout'
 import LoadingSpinner from '@/components/LoadingSpinner'
-import ClothesGallery from '@/components/clothes/ClothesGallery'
-import { ClotheType } from '@/lib/slices/clothesSlice'
+
 
 
 export default function Cart() {
@@ -91,8 +89,8 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   padding-bottom: 20px;
-
 `
+
 const First = styled.div`
   width: 100%;
   height: 142px;
@@ -104,7 +102,7 @@ const First = styled.div`
 `
 const WishContainer = styled.div`
   max-width: 1300px;
-  width: 100%;
+  width: calc(100% - 2.5rem);
   height: auto;
   display: flex;
   flex-direction :column;
@@ -123,7 +121,6 @@ const WishContainer = styled.div`
     margin: 0 ;
     gap: 20px;
   }
-
 `
 
               
@@ -137,6 +134,7 @@ const Total = styled.span`
   padding: 0;
   border-top: 1px solid ${({ theme }) => theme.lightGrey};
   border-bottom: 1px solid ${({ theme }) => theme.lightGrey};
+  padding-right: 30px;
 `
 
 const Checkout = styled.button`
@@ -146,10 +144,11 @@ const Checkout = styled.button`
   cursor: pointer;
   margin-top: 20px;
 `
+
 const TitleBanner = styled.h1`
-display: none; 
+  display: none; 
   @media ${({ theme }) => theme.mobileL} {
-    height: 75px; 
+    height: 90px; 
     width: 100%;
     background-color: ${({ theme }) => theme.backgroundSecondary };
     display: flex;

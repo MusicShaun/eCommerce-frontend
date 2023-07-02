@@ -73,6 +73,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
+  margin-bottom: 2rem;
 
 `
 const Container = styled.div`

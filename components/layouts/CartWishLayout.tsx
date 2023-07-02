@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   }
 `
 const TitleBanner = styled.h1`
-  height: 75px; 
+  height: 90px; 
   width: 100%;
   background-color: ${({ theme }) => theme.backgroundSecondary };
   display: flex;

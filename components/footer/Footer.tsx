@@ -42,7 +42,7 @@ function Footer() {
         </List>
       </Container>
       <Container> 
-
+        <p>© 2021 Shauny's Shop. All Rights Reserved.</p>
       </Container>
     </Wrapper>
   )
@@ -69,10 +69,23 @@ const Container = styled.div`
   justify-content: space-between;
   padding: 2rem;
 
+  &:first-child {
+    @media ${({ theme }) => theme.mobileL } {
+      display: none;
+    }
+  }
+
   &:nth-child(2) {
+    font-size: 0.8rem;
+    color: ${({ theme }) => theme.mediumGrey};
     background-color: ${({ theme }) => theme.lightGrey};
     height: 60px;
     max-width: 100%;
+
+    & p {
+      text-align: center;
+      margin: auto;
+    }
   }
 `
 const List = styled.ul`

@@ -58,14 +58,13 @@ export default function Product_Tile({info, deleteClothingItem, handleAddClotheI
 
 const Tile = styled.div`
   position: relative;
-  width: 100%;
   height: 100px;
   margin: 12px ;
   cursor: pointer;
   text-decoration: none;
   color: black; 
 
-  border-bottom: 0.5px solid ${({theme}) => theme.black};
+  border-bottom: 0.5px solid ${({ theme }) => theme.black};
   & > a {
     display: flex;
     flex-direction: row;
@@ -114,7 +113,12 @@ const PicturePlacement = styled.div`
   width: 100px;
   height: 100%;
 
-
+  & img {
+    @media ${({ theme }) => theme.mobileL} {
+      width: 80px;
+      height: 80px;
+    }
+  }
 `
 const Header = styled.div`
   padding: 10px;
@@ -124,6 +128,14 @@ const Header = styled.div`
     margin: 0px;
     padding: 0;    
   }
+
+  @media ${({ theme }) => theme.mobileL} {
+    padding-left: 0px;
+
+    & p {
+      font-size: ${({ theme }) => theme.fontM};
+    }
+  }
 `
 const Size = styled.div`
   display: flex;
@@ -132,6 +144,7 @@ const Size = styled.div`
   align-items: flex-end;
   font-size: ${({ theme }) => theme.fontML};
   padding-bottom: 10px;
+
 `
 const Count = styled.div`
   position: absolute;

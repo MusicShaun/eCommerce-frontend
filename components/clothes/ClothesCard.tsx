@@ -1,10 +1,10 @@
-import styled, {css, keyframes} from "styled-components"
+import styled, { keyframes } from "styled-components"
 import Image from 'next/image'
 import { ClotheType } from '@/lib/slices/clothesSlice'
 import { useAppSelector } from 'lib/hooks/hooks'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import {  selectUser } from '@/lib/slices/userSlice'
+import { selectUser } from '@/lib/slices/userSlice'
 import heartOutline from '@/public/heart-outline.svg'
 import heartFilled from '@/public/heart-filled.svg'
 import { RootState } from "@/lib/store"
@@ -32,7 +32,7 @@ function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
   const wishlist = currentUser?.wishlist
   const [triggerAnimation, setTriggerAnimation] = useState(false)
-  
+  const HEART_SIZE = 35
 
   useEffect(() => {
     let listed = wishlist?.find((l: any) => l._id === info._id)
@@ -47,7 +47,7 @@ function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
 
   function handleHeartAnimation() {
     setTriggerAnimation(true)
-    const timer = setTimeout(() => { //!   turn back on 
+    const timer = setTimeout(() => { 
       setTriggerAnimation(false)
     }, 2000)
     return () => clearTimeout(timer)
@@ -70,7 +70,6 @@ function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
 
           <BottomP>
             {info.price} 
-            {/* <span> {info.price} </span> */}
           </BottomP>
         </TextBox>
       </Link>
@@ -80,29 +79,25 @@ function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
           onClick={handleHeartAnimation}
             src={!hearted ? heartOutline : heartFilled}
             alt=''
-            fill
-            sizes="(width: 100%, height: 100%)"
-          />
+          width={HEART_SIZE}
+        />
         <Image
-            style={{display: triggerAnimation ? 'flex' : 'none'}}
-            src={ heartFilled}
-            alt=''
-            fill
-            sizes="(width: 100%, height: 100%)"
+          style={{ display: triggerAnimation ? 'flex' : 'none' }}
+          src={heartFilled}
+          alt=''
+          width={HEART_SIZE} 
         />
         <Image
             style={{display: triggerAnimation ? 'flex' : 'none'}}
             src={ heartFilled}
             alt=''
-            fill
-            sizes="(width: 100%, height: 100%)"
+            width={HEART_SIZE} 
         />
         <Image
             style={{display: triggerAnimation ? 'flex' : 'none'}}
             src={ heartFilled}
             alt=''
-            fill
-            sizes="(width: 100%, height: 100%)"
+            width={HEART_SIZE} 
           />
         </AddToWishList>
     </Tile>
@@ -252,10 +247,12 @@ const AddToWishList = styled.div`
   position: absolute;
   top: 68%;
   right: 2%;
+  @media ${({ theme }) => theme.mobileL} { top: 62%}
 
-  width: 50px;
-  height: 50px;
-  background-color: rgba(207, 207, 207, 0.577);
+  width: 40px;
+  height: 40px;
+  padding: 2.5px;
+  background-color: #fff;
   border-radius: 50%;
   
   cursor: pointer;
@@ -265,6 +262,7 @@ const AddToWishList = styled.div`
     object-fit: contain;
     transition: transform 0.2s ease-in-out;
     z-index: 99;
+
   }
   &:hover img:first-child  {
     transform: scale(1.2) translateY(2px);
@@ -284,6 +282,3 @@ const AddToWishList = styled.div`
     animation-fill-mode: forwards;
   } 
 `
-
-
-

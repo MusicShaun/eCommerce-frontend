@@ -140,7 +140,7 @@ const HamburgerContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  margin: 40px 30px;
+  margin: 20px 30px;
   z-index: 1001;
   display: none;
 

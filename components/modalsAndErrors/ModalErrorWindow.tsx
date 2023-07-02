@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import Modal from 'react-modal'
 
 interface Props {
@@ -9,9 +10,18 @@ Modal.setAppElement('#__next')
 
 const ErrorModal = ({ isOpen, onRequestClose, errorMessage }: Props) => {
 
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isOpen && closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    }
+  }, [isOpen]);
+  
   const modalStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      zIndex: 9999900,
     },
     content: {
       top: '50%',
@@ -28,6 +38,7 @@ const ErrorModal = ({ isOpen, onRequestClose, errorMessage }: Props) => {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      
     },
   };
 
@@ -36,6 +47,11 @@ const ErrorModal = ({ isOpen, onRequestClose, errorMessage }: Props) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       style={modalStyles}
+      onAfterOpen={() => {
+        if (closeButtonRef.current) {
+          closeButtonRef.current.focus();
+        }
+      }}
     >
       <div style={{display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center'}}>
         <h3 style={{ marginBottom: '10px' }}>
@@ -44,7 +60,9 @@ const ErrorModal = ({ isOpen, onRequestClose, errorMessage }: Props) => {
         <p style={{ textAlign: 'center' }}>
           {errorMessage}
         </p>
-        <button onClick={onRequestClose} style={{ marginTop: '20px', padding: '5px 20px', cursor: 'pointer' }}>
+        <button onClick={onRequestClose} style={{ marginTop: '20px', padding: '5px 20px', cursor: 'pointer' }}
+          ref={closeButtonRef}
+        >
           OK
         </button>
       </div>

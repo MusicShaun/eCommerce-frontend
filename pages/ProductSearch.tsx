@@ -21,17 +21,23 @@ export default function ProductSearch() {
 
 
 const Wrapper = styled.div`
-  position: absolute;
-  top: 155px;
+  position: relative;
+  top: 110px;
   width: 100%;
   height: calc(100% - 155px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  margin-bottom: 40px;
+
+  @media ${({ theme }) => theme.mobileL }{
+    padding-bottom: 50px;
+  }
   `
 const Title = styled.h1`
   margin-top: 50px;
   font-size: 2.2rem;
   width: 100%;
   text-align: center;
+  padding-bottom: 40px;;
   `

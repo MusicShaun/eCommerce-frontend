@@ -37,7 +37,7 @@ export const extendedUserSlice = apiSlice.injectEndpoints({
         body:  {email: email }
       }),
       transformResponse: (user: LocalUser) => {
-        if (typeof localStorage !== 'undefined' ) localStorage.setItem('key', JSON.stringify({ ...user }))
+        if (typeof localStorage !== 'undefined') localStorage.setItem('key', JSON.stringify({ ...user }))
         return user
         // return usersAdapter.setAll(initialState, [user])
       },

@@ -30,20 +30,23 @@ function Product_Tile({ info, handleAddClotheItemToWishList }: IProps) {
   const [hearted, setHearted] = useState(false)
   const userEmail = useAppSelector(state => state.auth.email)
   const currentUser =  useAppSelector((state: RootState) => selectUser(state, userEmail))
-  const wishlist = currentUser?.wishlist
+  const wishlist: ClotheType[] = currentUser?.wishlist
   const [triggerAnimation, setTriggerAnimation] = useState(false)
   const HEART_SIZE = 35
 
-  useEffect(() => {
+
+  useEffect(() => { // sets red hearts on wishlisted items 
     let listed = wishlist?.find((l: any) => l._id === info._id)
-    if (listed && !hearted) {
-      setHearted(true)
-    } else if (!listed && hearted) {
-      setHearted(false)
-    }
+      if (listed && !hearted) {
+        setHearted(true)
+      } else if (!listed && hearted) {
+        setHearted(false)
+      }
+    
   }, [wishlist])
   
   let url = info.heading ? info.heading.replace(/\s/g, '-') : '' 
+
 
   function handleHeartAnimation() {
     setTriggerAnimation(true)
@@ -115,6 +118,7 @@ const Tile = styled.div`
   width: 100%;
   height: 100%;
   min-width: 200px;
+  max-width: 300px;
   margin: 12px 0;
   aspect-ratio: 2/3;
   cursor: pointer;

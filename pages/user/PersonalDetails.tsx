@@ -52,7 +52,7 @@ export default function PersonalDetails() {
 
       //!  SETUP A CONFIRMATION MODAL HERE AND THEN HAVE THE ACCOUNT DETAILS STATE UPDATE ON CONFIRMATION
       resetAllInputFields()
-      refetch()
+      // refetch()
     } catch (err) {
       console.log(err)
     }

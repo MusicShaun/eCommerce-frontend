@@ -37,9 +37,9 @@ export default function ClothesGallery({ info }: IProps) {
     router.push('/login')
   }
 
-
   let content
-  if (info) {
+  // check if infos not an array of null 
+  if (info && info.length > 0 && info[0] != null) {
     content =
       <Box >
         {

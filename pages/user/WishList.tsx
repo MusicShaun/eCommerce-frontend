@@ -29,8 +29,9 @@ export default function WishList() {
     button:`SIGN IN `
   }
 
+
   let DESKTOP_CONTENT 
-  if (wishlist.length > 0) {
+  if (wishlist != false && wishlist != undefined && wishlist.length > 0 && wishlist[0].hasOwnProperty('_id') ) {
     DESKTOP_CONTENT = 
       <WishContainer>
         <div>

@@ -20,7 +20,7 @@ export default function useAddClothingItem() {
   const [guest] = useGuestMutation()
   
     // add getUser 
-    const { } = useGetUserQuery(userEmail)
+    const { } = useGetUserQuery(userEmail) //! COME BACK TO THIS POINT  AND OPEN 
   async function handleAddItem(_id: string, type: string, size?: string, direction?: string) {
 
     if (type === 'cart' && selectOptionsRef.current?.value === 'Choose size') {

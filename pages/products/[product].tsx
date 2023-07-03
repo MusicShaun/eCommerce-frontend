@@ -61,7 +61,7 @@ export default function ClothesSinglePage( {product}: IProps) {
       <Product productItem={plainProductObject} />
       <ProductSideBar productItem={plainProductObject} />
     </Container>
-  ) : null;
+  ) : false;
 
   return <>
     <Head>

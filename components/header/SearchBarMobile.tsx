@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "lib/hooks/hooks";
 import { updateSearchBar } from "@/lib/slices/searchBarSlice";
 import router from "next/router";
 import { colors } from "@/config/ThemeConfig";
+import Link from "next/link";
 
 export default function SearchBarMobile({setShowSearch}: {setShowSearch: React.Dispatch<React.SetStateAction<boolean>>}) {
   
@@ -44,6 +45,7 @@ export default function SearchBarMobile({setShowSearch}: {setShowSearch: React.D
     }
   }
 
+
   function handleInputChange(e: any) {
     if (e.target.value.length > 0) setUserTyping(true)
     else { return setSearchComponent(<></>), setUserTyping(false)}
@@ -61,7 +63,11 @@ export default function SearchBarMobile({setShowSearch}: {setShowSearch: React.D
         setSearchComponent(
           <UL>
             {filteredClothes.map((cloth, index) => {
-              return <li key={index}>{cloth.name}</li>
+              return <Link href={`/products/${cloth.heading.replace(/\s/g, '-')}`} onClick={() => (handleCloseSearch(), setShowSearch(false))}>
+                <li key={index}>
+                  {cloth.name}
+                </li>
+              </Link>
             })
             }
           </UL>
@@ -214,8 +220,10 @@ const UL = styled.ul`
   margin: 1rem;
   color: ${({ theme }) => theme.text};
 
-  & li {
+  &  li:active , li:visited, a {
     list-style: none;
     padding: 0.3rem 0;
+    color: ${({ theme }) => theme.text};
+    text-decoration: none;
   }
 `

@@ -37,9 +37,6 @@ export default function Product({productItem}: ProductProps) {
     
     @media ${({ theme }) => theme.mobileL} {
       width: 100%;
-      min-height: 100%;
-      height: 100%;
-      margin-top: 460px;
     }
 
     & img {

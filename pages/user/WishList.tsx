@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Empty from '../../components/EmptyTab'
+import EmptyMobile from '../../components/EmptyTabMobile'
 import MyAccountLayout from '../../components/layouts/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
 import ClothesCard from '@/components/clothes/ClothesCard'
@@ -47,7 +48,7 @@ export default function WishList() {
     DESKTOP_CONTENT =
       <Container>
         <First><h2>WISH LIST</h2></First>
-        <Empty info={EmptyWishList} />
+        <Empty info={EmptyWishList}  />
       </Container>
   }
 
@@ -58,7 +59,7 @@ export default function WishList() {
         <ClothesGallery info={wishlist} />
       </CartWishLayout>
   } else {
-    MOBILE_CONTENT = <Empty info={EmptyWishList} />
+    MOBILE_CONTENT = <EmptyMobile info={EmptyWishList} />
   }
 
   return (<>
@@ -68,6 +69,8 @@ export default function WishList() {
 
 
     <MyAccountLayout>
+    <TitleBanner>Wishlist</TitleBanner>
+
       {DESKTOP_CONTENT}
 
             {/* DESKTOP ^ OR MOBILE */}
@@ -120,5 +123,19 @@ const WishContainer = styled.div`
   }
   @media ${({ theme }) => theme.mobileL} {
     display: none;
+  }
+`
+
+const TitleBanner = styled.h1`
+  display: none; 
+  @media ${({ theme }) => theme.mobileL} {
+    height: 90px; 
+    width: 100%;
+    background-color: ${({ theme }) => theme.backgroundSecondary };
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: 600;
   }
 `

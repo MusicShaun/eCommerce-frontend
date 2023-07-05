@@ -56,11 +56,11 @@ export default function MyAccountLayout({children}: { children: React.ReactNode}
 }
 
 
-const Wrapper = styled.main`
+const Wrapper = styled.section`
   position: relative; 
-  margin-top: 110px;
   padding-bottom: 75px;
   width: 100%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center; 

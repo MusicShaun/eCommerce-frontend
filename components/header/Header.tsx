@@ -28,9 +28,7 @@ export default function Header() {
 }
 
 const HeaderWrapper = styled.header`
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%; 
   height: 110px;
   display: flex;

@@ -58,9 +58,13 @@ function App({ Component, pageProps }: AppProps) {
 }
 export default (App)
 
-//! POSITIONING NEEDS SORTING OUT. THIS SHOULD BE THE STARTING POINT 
 const Main = styled.main`
-  min-height: calc(100vh - 110px);
+  position: absolute;
+  min-height: 100vh;
+  width: 100%;
+  left: 0;
+  top: 0;
   margin: 0;
   padding: 0;
-  `
+  overflow-x: hidden;
+`

@@ -86,9 +86,6 @@ export default function Home() {
 
 const Wrapper = styled.section`
   position: relative;
-  /* left: 0; */
-  /* top: 110px; */
-  margin-top: 110px;
   width: 100%;
   height: auto;
 

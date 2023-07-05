@@ -41,7 +41,6 @@ export default function Women() {
 }
 const Wrapper = styled.section`
   position: relative;
-  margin-top: 110px;
   width: 100%;
   height: auto;
 

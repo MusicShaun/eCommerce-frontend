@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import Empty from '../../components/EmptyTab'
+import EmptyMobile from '../../components/EmptyTabMobile'
 import MyAccountLayout from '../../components/layouts/AccountLayout'
 import { useAppSelector } from 'lib/hooks/hooks'
 import ClothesCardCart from '@/components/clothes/ClothesCardCart'
@@ -63,6 +64,7 @@ export default function Cart() {
       <Container>
         <First><h2>CART</h2></First>
         <Empty info={EmptyWishList} />
+        <EmptyMobile info={EmptyWishList} />
       </Container>
   }
 

@@ -29,27 +29,27 @@ export default function Empty({ info} : IProps) {
 
 
 const Second = styled.div`
-
-  width: 100%;
-  height: 300px;
-  background-color:white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 20px;
-  text-align: center;
-  color: ${({ theme }) => theme.text};
-
-  & h3 {
-    font-size: 1rem;
-  }
-  & p {
-    margin-top: 5px;
-  }
+  display: none;
   @media ${({ theme }) => theme.mobileL} {
-    display: none;
-  }
+    width: 100%;
+    height: 300px;
+    background-color:white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+    color: ${({ theme }) => theme.text};
+
+    & h3 {
+      font-size: 1rem;
+    }
+    & p {
+      margin-top: 5px;
+    }
+
+}
 `
 const Button = styled.button`
 position: relative; 

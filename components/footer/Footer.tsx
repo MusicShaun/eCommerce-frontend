@@ -52,13 +52,15 @@ export default Footer
 
 const Wrapper = styled.footer`
   position: relative;
+  bottom: 0;
+  left: 0;
   width: 100%;
   height: fit-content;
   background-color: ${({ theme }) => theme.backgroundSecondary};
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 `
 const Container = styled.div`
   position: relative;

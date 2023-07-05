@@ -5,9 +5,7 @@ import { ClotheType, selectAllClothes, useGetAllClothesQuery } from '@/lib/slice
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { MensPageHead } from 'lib/head'
-import { colors } from '@/config/ThemeConfig'
-import Footer from '@/components/footer/Footer'
-
+import { mensFirstBanner, mensSecondBanner } from '@/components/banners/bannerObjects'
 
 export default function Men() {
 
@@ -23,35 +21,16 @@ export default function Men() {
     randomClothes = [...selectAll].sort(() => Math.random() - 0.5)
   }
 
-  const firstBanner = {
-    banner: colors.LIGHT_BLUE,
-    header: 'UP TO 30% OFF',
-    header2: ' SELECTED STOCK',
-    subheader: 'Surprise discount unlocked',
-    subheader2: 'With code: ',
-    subheader3: 'SURPRISE'
-  } as const
-  const secondBanner = {
-    banner: colors.PEACH,
-    banner2: colors.BANNER_5, 
-    header: 'UP TO 50% OFF ',
-    header2: ' SUMMER STUFF',
-    subheader: 'ITS HOT OUT THERE',
-    subheader2: '',
-    subheader3: ''
-  } as const
 
-// #
   return (<>
     <MensPageHead /> 
 
     <Wrapper>
-      <Banner info={secondBanner} />
-
+      <Banner info={mensSecondBanner} />
       {isSuccess && <ClothesGallery info={randomClothes!} />}
-
-      <Banner info={firstBanner} />
+      <Banner info={mensFirstBanner} />
     </Wrapper>
+    
     </>)
 }
 const Wrapper = styled.section`

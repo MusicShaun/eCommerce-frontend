@@ -32,7 +32,6 @@ export default function HeaderRight() {
   const checkTokenExistence =   typeof localStorage !== 'undefined' ?  localStorage.getItem('authState') : null
   if (checkTokenExistence && Object.keys(checkTokenExistence).length > 0) myAccountBtnLink = { destination: '/user/MyAccount', as: '/user/MyAccount' }
   else myAccountBtnLink = {destination: '/login', as: '/login'}
-  //! THIS THROWS AN ERROR!!!!
 
   // Get position of ref and apply its x coordinates to the triangle
   // Then add event listener to window to detect resize and reposition triangle

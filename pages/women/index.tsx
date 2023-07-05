@@ -4,10 +4,7 @@ import { ClotheType,  selectAllClothes,  useGetAllClothesQuery } from '@/lib/sli
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppSelector } from 'lib/hooks/hooks'
 import { WomensPageHead } from '@/lib/head'
-import { colors } from '@/config/ThemeConfig'
-import Footer from '@/components/footer/Footer'
-import MobileBanner from '@/components/banners/MobileBanner'
-
+import { womensFirstBanner, womensSecondBanner } from '@/components/banners/bannerObjects'
 
 export default function Women() {
 
@@ -31,38 +28,15 @@ export default function Women() {
 
 
 
-  const firstBanner = {
-    banner: colors.PINK,
-    // banner2: colors.BANNER_, 
-    header: 'UP TO 30% OFF ',
-    header2: ' OUTLET ICONS',
-    subheader: 'Surprise discount unlocked',
-    subheader2: 'With code: ',
-    subheader3: 'SURPRISE'
-  } as const
-
-  const secondBanner = {
-    banner: colors.BANNER_1, 
-    banner2: colors.BANNER_3, 
-    header: 'UP TO 50% OFF ',
-    header2: ' SUMMER STUFF',
-    subheader: 'ITS HOT OUT THERE',
-    subheader2: '',
-    subheader3: ''
-  } as const
-
   return (<>
     <WomensPageHead />
 
     <Wrapper>
-
-      <Banner info={firstBanner} />
-    
+      <Banner info={womensFirstBanner} />
       {isSuccess && <ClothesGallery info={randomClothes} />}
-
-      <Banner info={secondBanner} />
-      
+      <Banner info={womensSecondBanner} />
     </Wrapper>
+    
     </>)
 }
 const Wrapper = styled.section`

@@ -2,8 +2,8 @@ import Header from '@/components/header/Header'
 import { theme } from '@/config/ThemeConfig'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { useState } from 'react'
-import { ThemeProvider } from 'styled-components'
+import { useEffect, useState } from 'react'
+import styled, { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import { store } from 'lib/store'
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -16,6 +16,7 @@ import AuthListener from '@/lib/services/AuthListener'
 import Head from 'next/head'
 import MobileHeader from '@/components/header/MobileHeader'
 import Footer from '@/components/footer/Footer'
+
 Amplify.configure({awsconfig})
 Auth.configure(awsconfig)
 
@@ -31,7 +32,6 @@ function App({ Component, pageProps }: AppProps) {
 
   const [isTheme, setIsTheme] = useState(false)
 
-  
   return (<>
     <Head>
       <meta property="og:type" content="website" />
@@ -44,13 +44,13 @@ function App({ Component, pageProps }: AppProps) {
     <Provider store={store}> 
       <GoogleOAuthProvider clientId="60533903973-bjhrej7b8ei1p9jj75nupo2gdb0v7ttj.apps.googleusercontent.com">
         <ThemeProvider theme={!isTheme ? theme.light : theme.dark}>
-          <main className={roboto_condensed.className}>
+          <Main className={roboto_condensed.className}>
             <Header />
             <MobileHeader />
             <Component {...pageProps} />
             <AuthListener />
             <Footer /> 
-          </main>
+          </Main>
         </ThemeProvider>
       </GoogleOAuthProvider> 
     </Provider>
@@ -58,3 +58,9 @@ function App({ Component, pageProps }: AppProps) {
 }
 export default (App)
 
+//! POSITIONING NEEDS SORTING OUT. THIS SHOULD BE THE STARTING POINT 
+const Main = styled.main`
+  min-height: calc(100vh - 110px);
+  margin: 0;
+  padding: 0;
+  `

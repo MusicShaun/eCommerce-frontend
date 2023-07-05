@@ -54,7 +54,6 @@ const userSlice = createSlice({
       state.cognitoId = ''
     }
   },
-  
 })
 
 export const selectUsersEmail = (state: RootState) => state.auth.email

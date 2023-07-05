@@ -3,11 +3,13 @@ import { apiSlice } from "./slices/apiSlice";
 import logger from 'redux-logger'
 import auth from "./slices/authSlice";
 import searchBarReducer from "./slices/searchBarSlice";
+import firstWarningReducer from "./slices/firstWarningPopupSlice";
 
 const reducer = combineReducers({
   [apiSlice.reducerPath]: apiSlice.reducer,
   auth,
   searchBar: searchBarReducer,
+  firstWarning: firstWarningReducer,
 })
 
 export const store = configureStore({

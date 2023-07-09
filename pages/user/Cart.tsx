@@ -11,6 +11,7 @@ import { RootState } from '@/lib/store'
 import { selectUser } from '@/lib/slices/userSlice'
 import { EmptyWishList, cartProductListResult, countProductTypeInstances, findTotalPrice } from '@/lib/services/cartServices'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import router from 'next/router'
 
 
 
@@ -35,7 +36,7 @@ export default function Cart() {
   }
 
   function handleCheckout() {
-    alert('Sorry, this is a demo site. No real checkout is available.')
+    router.push('/checkout/UserDetails')
   }
 
 

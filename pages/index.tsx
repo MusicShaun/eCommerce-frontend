@@ -18,7 +18,7 @@ const inter = Inter({ subsets: ['latin'] })
 extendedClothesSlice.endpoints.getAllClothes.initiate()
 
 export default function Home() {
-
+  
   const selectAll = useAppSelector(selectAllClothes)
   const [randomClothes, setRandomClothes] = useState<ClotheType[]>([])
   const userEmail = useAppSelector(state => state.auth.email)

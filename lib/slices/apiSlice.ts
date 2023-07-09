@@ -15,7 +15,7 @@ interface Status {
   status: string
 }
 
-const development = process.env.NODE_ENV === 'development'
+const development = process.env.NEXT_PUBLIC_NODE_ENV === 'development'
 const BASE_URL = development
   ? 'http://localhost:8080/api/asos/'
   : 'https://shauns-ecommerce.herokuapp.com/api/asos/'

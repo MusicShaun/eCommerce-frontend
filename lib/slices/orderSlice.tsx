@@ -1,5 +1,4 @@
 
-
 import { RootState } from "../store"
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 
@@ -55,11 +54,13 @@ const initialState: OrderPayload = {
     totalPrice: 0
   
 }
-const development = process.env.NODE_ENV === 'development'
+const development = process.env.NEXT_PUBLIC_NODE_ENV === 'development'
+
 
 const ORDER_URL = development
   ? 'http://localhost:5000/api/v1/stripeOrders/'
-  : `${process.env.SERVER}` 
+  : `${process.env.NEXT_PUBLIC_SERVER}` 
+
 
 // create async thunk middleware 
 export const sendOrder = createAsyncThunk(
@@ -84,9 +85,7 @@ export const sendOrder = createAsyncThunk(
 const orderSlice = createSlice({
   name: 'order',
   initialState,
-  reducers: {
-
-  },
+  reducers: {},
   extraReducers: {
     [sendOrder.fulfilled.type]: (state, action: PayloadAction<OrderPayload>) => {
       state.shippingAddress = action.payload.shippingAddress
@@ -94,11 +93,7 @@ const orderSlice = createSlice({
       state.totalPrice = action.payload.totalPrice
       state.userDetails = action.payload.userDetails
     },
-
-
-
   },
-
 })
 
 

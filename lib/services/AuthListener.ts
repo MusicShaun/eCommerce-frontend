@@ -64,7 +64,7 @@ function AuthListener() {
       )
       .catch((error) => {
         const errorMessage = `Error: ${error.message}`
-        if (process.env.NODE_ENV === 'development') (console.log(errorMessage), console.log("Not signed in"))
+        if (process.env.NEXT_PUBLIC_NODE_ENV === 'development') (console.log(errorMessage), console.log("Not signed in"))
 
       });
     return unsubscribe;

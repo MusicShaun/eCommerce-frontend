@@ -59,7 +59,7 @@ const development = process.env.NEXT_PUBLIC_NODE_ENV === 'development'
 
 const ORDER_URL = development
   ? 'http://localhost:5000/api/v1/stripeOrders/'
-  : `${process.env.NEXT_PUBLIC_SERVER}` 
+  : `${process.env.NEXT_PUBLIC_SERVER}api/v1/stripeOrders/` 
 
 
 // create async thunk middleware 

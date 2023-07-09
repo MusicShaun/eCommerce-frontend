@@ -59,7 +59,7 @@ const development = process.env.NODE_ENV === 'development'
 
 const ORDER_URL = development
   ? 'http://localhost:5000/api/v1/stripeOrders/'
-  : 'https://shauns-ecommerce.herokuapp.com/api/asos/'
+  : `${process.env.SERVER}` 
 
 // create async thunk middleware 
 export const sendOrder = createAsyncThunk(

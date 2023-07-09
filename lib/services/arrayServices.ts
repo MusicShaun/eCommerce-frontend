@@ -86,10 +86,55 @@ const filterProductFromArray = ({ user, _id }: S):ClotheType[] => {
 }
 
 
+
+//*  PAYMENT PAGE // PAYMENT PAGE // PAYMENT PAGE 
+
+const convertStringToNumber = (string: string) => {
+  const parsedValue = parseInt(string.replace(/\$/g, ''), 10);
+  return isNaN(parsedValue) ? 0 : parsedValue;
+}; 
+
+
+export function addFirstElementToArray(item: any, masterArray: any) {
+  item.count = 1
+  item.price = convertStringToNumber(item.price)
+  masterArray.push(item)
+}
+
+export function pushItemIfNotInArray(item: any, masterArray: any) {
+  let foundItem = false 
+  masterArray.forEach((sub: any) => {
+    if (sub.name === item.name) {
+      foundItem = true
+    }
+  })
+  if (!foundItem) {
+    masterArray.push(item)
+  }
+}
+
+export function addItemToCount(item: any, masterArray: any) {
+  masterArray.forEach((sub: any) => {
+    if (sub.name === item.name) {
+      sub.count += 1
+      sub.price += convertStringToNumber(item.price)
+    }
+  })
+}
+
+
+
+
+
+
+
 export default {
   recreateWishlistArray,
   filterProductFromWishlist,
   recreateCartArray,
   filterProductFromCart,
-  filterProductFromArray
+  filterProductFromArray,
+  addFirstElementToArray,
+  pushItemIfNotInArray,
+  addItemToCount
 } 

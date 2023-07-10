@@ -68,9 +68,8 @@ const Wrapper = styled.section`
   z-index: 99;
   color: ${({ theme }) => theme.text};
 
-
-  @media ${({ theme }) => theme.mobileL} {
-    margin-top: 60px;
+  @media ${({ theme }) => theme.mobileL } {
+    min-height: calc(100vh - 125px);
   }
 `
 const Container = styled.div`

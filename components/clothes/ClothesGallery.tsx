@@ -73,7 +73,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   color: ${({ theme }) => theme.text};
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 
 `
 const Container = styled.div`
@@ -92,7 +92,7 @@ const Box = styled.div`
   
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-
+  justify-items: center;
   padding: 20px;
   margin: auto 0px;
   gap: 6px;

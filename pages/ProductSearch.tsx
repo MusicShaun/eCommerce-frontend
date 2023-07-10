@@ -22,7 +22,6 @@ export default function ProductSearch() {
 
 const Wrapper = styled.div`
   position: relative;
-  top: 110px;
   width: 100%;
   height: calc(100% - 155px);
   display: flex;

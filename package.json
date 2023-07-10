@@ -13,6 +13,8 @@
     "@next/font": "13.1.6",
     "@react-oauth/google": "^0.11.0",
     "@reduxjs/toolkit": "^1.9.2",
+    "@stripe/react-stripe-js": "^2.1.1",
+    "@stripe/stripe-js": "^1.54.1",
     "@tanstack/react-query-devtools": "^4.24.9",
     "@types/js-cookie": "^3.0.3",
     "@types/react": "18.0.28",

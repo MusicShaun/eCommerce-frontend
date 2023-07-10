@@ -9,6 +9,7 @@ import router from "next/router";
 import { colors } from "@/config/ThemeConfig";
 import Link from "next/link";
 
+
 export default function SearchBarMobile({setShowSearch}: {setShowSearch: React.Dispatch<React.SetStateAction<boolean>>}) {
   
   const dispatch = useAppDispatch()
@@ -96,6 +97,7 @@ export default function SearchBarMobile({setShowSearch}: {setShowSearch: React.D
   return (<>
 
     <Wrapper>
+      <CloseButton onClick={() => setShowSearch(false)}>X</CloseButton>
       <Form onSubmit={(e) => handleSearch(e)}>
 
         <label>SEARCH: </label>
@@ -141,6 +143,17 @@ const Wrapper = styled.div`
     right: 0px;
     bottom: 0px;
   }
+`
+const CloseButton = styled.button`
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  font-size: ${({ theme }) => theme.fontL};
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 1rem;
+  background-color: ${({ theme }) => theme.backgroundSecondary};
 `
 
 const Form = styled.form`

@@ -65,7 +65,7 @@ const Wrapper = styled.header`
   display: none;
   @media ${({ theme }) => theme.mobileL} {
     display: flex;
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     width: 100%;

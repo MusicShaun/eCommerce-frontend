@@ -128,6 +128,10 @@ const Box = styled.div`
   background-color: ${({ theme }) => theme.background};
   border-radius: 10px;;
   padding: 2rem;
+
+  @media ${({ theme }) => theme.mobileL} {
+    width: 100%;
+  }
 `
 const Title = styled.h2`
   position: relative;

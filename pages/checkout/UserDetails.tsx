@@ -118,7 +118,6 @@ function UserDetails() {
 
 const Container = styled.div`
   position: relative;
-  border: 2px solid red;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -127,14 +126,7 @@ const Container = styled.div`
   background-color: white;
   padding-bottom: 20px;
 
-  @media ${({ theme }) => theme.tablet} {
-    display: flex;
-    flex-direction: column;
-    max-width: 620px;
-  }
-  @media ${({ theme }) => theme.mobileL} {
-    align-items: center;
-  }
+
 `
 const Header = styled.div`
   padding-left: 32px;

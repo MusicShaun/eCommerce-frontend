@@ -1,11 +1,10 @@
 
-
-
 import ClothesGallery from '@/components/clothes/ClothesGallery'
 import { useAppSelector } from '@/lib/hooks/hooks'
 import { selectSearchBar } from '@/lib/slices/searchBarSlice'
 import React from 'react'
 import styled from 'styled-components'
+
 
 function ProductSearchMobile() {
 
@@ -15,6 +14,7 @@ function ProductSearchMobile() {
   
   return (
     <Wrapper>
+
       <Title>
         {info.length === 0 ? `Your search had no results` : `${info.length} results`}
       </Title>
@@ -29,7 +29,7 @@ const Wrapper = styled.div`
   display: none;
   @media ${({ theme }) => theme.mobileL }{
     position: relative;
-    top: 50px;
+    top: 0px;
     width: 100%;
     height: fit-content;
     display: flex;

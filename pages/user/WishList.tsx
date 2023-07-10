@@ -69,7 +69,7 @@ export default function WishList() {
 
 
     <MyAccountLayout>
-    <TitleBanner>Wishlist</TitleBanner>
+    {/* <TitleBanner>Wishlist</TitleBanner> */}
 
       {DESKTOP_CONTENT}
 

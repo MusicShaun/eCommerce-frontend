@@ -146,13 +146,19 @@ const Container = styled.div`
 const Header = styled.div`
   padding-left: 32px;
   max-width: 620px;
+  width: 100%;
   margin: 10px 0px;
   padding-bottom: 10px;
-  border-bottom: 10px solid ${({theme }) => theme.backgroundSecondary};
+  border-bottom: 10px solid ${({ theme }) => theme.backgroundSecondary};
+
 
   & p {
     white-space: pre-wrap;
-    font-size: ${({ theme }) => theme.fontMS}
+    font-size: ${({ theme }) => theme.fontMS};
+      text-align: left;
+  }
+  & h2 {
+    width: 100%;
   }
 
   @media ${({ theme }) => theme.tablet} {
@@ -160,6 +166,9 @@ const Header = styled.div`
     max-width: 100%;
     height: 100%;
   }
+  @media ${({ theme }) => theme.mobileL } {
+      & > p { width: 260px;} 
+    }
 `
 
 const FormLogin = styled.div`

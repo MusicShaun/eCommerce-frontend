@@ -44,7 +44,5 @@ const Wrapper = styled.section`
   width: 100%;
   height: auto;
 
-  @media ${({ theme }) => theme.mobileL} {
-    margin-top: 60px;
-  }
+
 `

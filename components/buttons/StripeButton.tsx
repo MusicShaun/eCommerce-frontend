@@ -5,12 +5,16 @@ import React from 'react'
 import styled from 'styled-components'
 
 function StripeButton() {
+
+
+  function handleStripePayment() {
+    console.log('Button Clicked. Stripe functionality will go here ')
+  }
+
   return (
     <Button
-
-      
+      onClick={handleStripePayment}
       style={{
-
         border: 'none',
         borderRadius: '5px',
         color: 'white',

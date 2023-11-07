@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.6.2",
@@ -53,6 +55,7 @@
   },
   "devDependencies": {
     "@types/node": "18.15.5",
-    "@types/react-burger-menu": "^2.8.3"
+    "@types/react-burger-menu": "^2.8.3",
+    "cypress": "^13.4.0"
   }
 }

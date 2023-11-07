@@ -4,12 +4,8 @@ import AuthOOptions from '../../components/AuthOOptions'
 import router from 'next/router'
 import PacmanLoader from 'react-spinners/PacmanLoader'
 import Link from 'next/link'
-import Head from 'next/head'
 
-
-import awsconfig from '../../src/aws-exports'
-import { Amplify, Auth, Hub } from 'aws-amplify'
-import { CognitoHostedUIIdentityProvider } from '@aws-amplify/auth'
+import {  Auth } from 'aws-amplify'
 
 import LoginLayout from '@/components/layouts/LoginLayout'
 import { setAuth, setEmailOnLogin } from '@/lib/slices/authSlice'
